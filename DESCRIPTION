@@ -9,5 +9,6 @@ Description: More about what it does (maybe more than one line)
 License: GPL-3 | file LICENCE
 Imports:
     ANTsR,
-    fslr
+    fslr,
+    oro.nifti
 BugReports: https://github.com/muschellij2/extrantsr/issues
