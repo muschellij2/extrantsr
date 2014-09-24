@@ -6,8 +6,9 @@
 t1_syn(filename, n3correct = FALSE, retimg = TRUE, outfile = NULL,
   template.file = file.path(fsldir(), "data", "standard",
   "MNI152_T1_1mm_brain.nii.gz"), interpolator = "Linear",
-  other.files = NULL, other.outfiles = NULL, native.cereb = TRUE,
-  native.fname = NULL, atlas.file = NULL, typeofTransform = "SyN", ...)
+  other.files = NULL, other.outfiles = NULL, native.cereb = FALSE,
+  native.fname = NULL, atlas.file = NULL, typeofTransform = "SyN",
+  remove.warp = FALSE, ...)
 }
 \arguments{
 \item{filename}{filename of T1 image}
@@ -39,6 +40,8 @@ created to \code{native.fname}}
 
 \item{typeofTransform}{type of transformed used, passed to
 \code{\link{antsRegistration}}}
+
+\item{remove.warp}{(logical) Should warping images be deleted?}
 
 \item{...}{arguments to \code{\link{antsApplyTransforms}}}
 }
