@@ -1,0 +1,9 @@
+Package: extrantsr
+Type: Package
+Title: Extra functions to build on ANTsR package
+Version: 1.0
+Date: 2014-09-24
+Author: John Muschelli
+Maintainer: John Muschelli <muschellij2@gmail.com>
+Description: More about what it does (maybe more than one line)
+License: GPL-3
