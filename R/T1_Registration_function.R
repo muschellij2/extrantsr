@@ -20,6 +20,7 @@
 #' @param atlas.file Filename of atlas used for warping labels
 #' @param typeofTransform type of transformed used, passed to 
 #' \code{\link{antsRegistration}}
+#' @param remove.warp (logical) Should warping images be deleted?
 #' @param ... arguments to \code{\link{antsApplyTransforms}}
 #' @import ANTsR
 #' @import fslr
@@ -35,10 +36,11 @@ t1_syn <- function(filename, # filename of T1 image
 	interpolator="Linear", # interpolation done for \code{\link{antsApplyTransforms}}
 	other.files = NULL,
 	other.outfiles= NULL,
-	native.cereb = TRUE,
+	native.cereb = FALSE,
 	native.fname = NULL,
 	atlas.file = NULL,
 	typeofTransform = "SyN",
+	remove.warp = FALSE,
 	... # arguments to \code{\link{antsApplyTransforms}} 
 	){
 
@@ -96,10 +98,11 @@ t1_syn <- function(filename, # filename of T1 image
 
 
 	outprefix = tempfile()
-	antsRegOut.nonlin <- antsRegistration(fixed = template, 
-	                                      moving = t1N3, 
-	                                      typeofTransform = typeofTransform,  
-	                                      outprefix = outprefix)
+	antsRegOut.nonlin <- antsRegistration(
+		fixed = template, 
+		moving = t1N3, 
+		typeofTransform = typeofTransform,  
+		outprefix = outprefix)
 
 
 	t1.to.template <- antsApplyTransforms(fixed=template, 
@@ -160,16 +163,10 @@ t1_syn <- function(filename, # filename of T1 image
 	}
 
   if (remove.warp){
-    files = 
-    remover = paste0(outprefix, "1InverseWarp.nii.gz" )
-  	if (file.exists(remover)){
-      file.remove(remover )
-  	}
-    
-  	remover = paste0(outprefix, "1Warp.nii.gz" )
-  	if (file.exists(remover)){
-  	  file.remove(remover )
-  	}
+    files = unlist(antsRegOut.nonlin[
+    	c("fwdtransforms", "invtransforms")])
+    files = grep("Warp", files, value=TRUE)
+    file.remove(files)
   }
 	if (retimg){
 		img = readNIfTI(outfile, reorient= FALSE)
