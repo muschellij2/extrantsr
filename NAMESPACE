@@ -2,6 +2,7 @@
 
 export(ants.extract)
 export(ants.overlay)
+export(bias_correct)
 export(invwarp)
 export(t1_syn)
 export(tempants)
