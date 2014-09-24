@@ -7,7 +7,7 @@
 #' @param slices slice to be displayed
 #' @param col.x grayscale coloring for img
 #' @param col.y color for overlay
-#' @param ... arguments to be passed to \code{\link[graphics]{image} 
+#' @param ... arguments to be passed to \code{\link[graphics]{image} }
 #' @export
 #' @return NULL
 ants.overlay <- function(

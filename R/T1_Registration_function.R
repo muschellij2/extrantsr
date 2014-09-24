@@ -14,6 +14,8 @@
 #' @param other.outfiles Output filenames of \code{other.files} to 
 #' be written
 #' @param ... arguments to \code{\link{antsApplyTransforms}}
+#' @import ANTsR
+#' @import fslr
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image
 t1_syn <- function(filename, # filename of T1 image
@@ -29,8 +31,6 @@ t1_syn <- function(filename, # filename of T1 image
 	typeofTransform = "SyN",
 	... # arguments to \code{\link{antsApplyTransforms}} 
 	){
-	require(fslr)
-	require(ANTsR)
 
 	stopifnot(have.fsl())
 

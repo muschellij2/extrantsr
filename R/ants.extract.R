@@ -1,4 +1,3 @@
-
 #' @title Extract values from antsImage from mask
 #'
 #' @description Just helpful wrapper to convert to array and then take

@@ -7,3 +7,7 @@ Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: More about what it does (maybe more than one line)
 License: GPL-3
+Imports:
+    ANTsR,
+    fslr
+BugReports: https://github.com/muschellij2/extrantsr/issues

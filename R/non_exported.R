@@ -95,9 +95,15 @@ sim <-  function(
 
 
 
-makepng = function(
-  addstub, 
-  ...
+#' @title Non-exported function to make png
+#'
+#' @description Make my png
+#' @param addstub extension to add to outfile
+#' @param ... arguments passed to \code{\link{png}}
+#' @return Alpha level depending on device
+makepng <- function(
+  addstub, # extension to add to outfile
+  ... # arguments passed to \code{\link{png}}
 ){
   pngname = paste0(outfile, "_", addstub, ".png")
   print(pngname)
