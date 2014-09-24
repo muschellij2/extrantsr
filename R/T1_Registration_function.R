@@ -42,7 +42,6 @@ t1_syn <- function(filename, # filename of T1 image
 	... # arguments to \code{\link{antsApplyTransforms}} 
 	){
 
-	stopifnot(have.fsl())
 
 	writeFile = FALSE
 	if (retimg){
@@ -160,16 +159,18 @@ t1_syn <- function(filename, # filename of T1 image
 		}
 	}
 
-  remover = paste0(outprefix, "1InverseWarp.nii.gz" )
-	if (file.exists(remover)){
-    file.remove(remover )
-	}
-  
-	remover = paste0(outprefix, "1Warp.nii.gz" )
-	if (file.exists(remover)){
-	  file.remove(remover )
-	}
-  
+  if (remove.warp){
+    files = 
+    remover = paste0(outprefix, "1InverseWarp.nii.gz" )
+  	if (file.exists(remover)){
+      file.remove(remover )
+  	}
+    
+  	remover = paste0(outprefix, "1Warp.nii.gz" )
+  	if (file.exists(remover)){
+  	  file.remove(remover )
+  	}
+  }
 	if (retimg){
 		img = readNIfTI(outfile, reorient= FALSE)
 		return(img)
