@@ -7,6 +7,7 @@
 #' @param retimg return a nifti object from function
 #' @param outfile output filename should have .nii or .nii.gz 
 #' extension
+#' @param template.file Filename of template to warp to
 #' @param interpolator interpolation done for 
 #' \code{\link{antsApplyTransforms}}
 #' @param other.files Filenames of other iamges to be 
@@ -16,7 +17,7 @@
 #' @param native.cereb Logical indicating if native cerebellum should be 
 #' created to \code{native.fname}
 #' @param native.fname filename of native cerebellum file
-#' @param atlas.file Filename of atlas used for warping
+#' @param atlas.file Filename of atlas used for warping labels
 #' @param typeofTransform type of transformed used, passed to 
 #' \code{\link{antsRegistration}}
 #' @param ... arguments to \code{\link{antsApplyTransforms}}
@@ -29,6 +30,8 @@ t1_syn <- function(filename, # filename of T1 image
 	n3correct = FALSE,  # do N3 Bias correction
 	retimg = TRUE, # return a nifti object from function
 	outfile = NULL, # output filename, should have .nii or .nii.gz extension
+  template.file = file.path(fsldir(), "data", "standard", 
+"MNI152_T1_1mm_brain.nii.gz"),
 	interpolator="Linear", # interpolation done for \code{\link{antsApplyTransforms}}
 	other.files = NULL,
 	other.outfiles= NULL,
@@ -88,17 +91,10 @@ t1_syn <- function(filename, # filename of T1 image
 
 
 	## 
-	tdir = file.path(fsldir(), "data", "standard")
-	template.path <- file.path(tdir, 
-	  "MNI152_T1_1mm_brain.nii.gz")
-	template <- antsImageRead(template.path, 3)
+	template <- antsImageRead(template.file, 3)
 	# template.img <- readNIfTI(template.path, reorient = FALSE)
 
-	stopifnot(!is.null(atlas.file))
-	# atlas.file = file.path(fsldir(), "data", "atlases", 
-	#   "Cerebellum", 
-	#   paste0("Cerebellum-MNIfnirt-maxprob-thr", atthr, "-1mm.nii.gz")
-	#   )
+
 
 	outprefix = tempfile()
 	antsRegOut.nonlin <- antsRegistration(fixed = template, 
@@ -121,7 +117,9 @@ t1_syn <- function(filename, # filename of T1 image
 	output = paste0(tempfile(), ".nii.gz")
 
 	if (native.cereb){
-		for (iatlas in seq_along(atlas.file)){
+	  stopifnot(!is.null(atlas.file))
+	  
+	  for (iatlas in seq_along(atlas.file)){
 			output = native.fname[iatlas]
 
 			atlas.img <- readNIfTI(atlas.file[iatlas], 
@@ -162,11 +160,16 @@ t1_syn <- function(filename, # filename of T1 image
 		}
 	}
 
-	file.remove(paste0(outprefix, "1InverseWarp.nii.gz" ),
-		showWarnings = FALSE )
-	file.remove(paste0(outprefix, "1Warp.nii.gz" ),
-		showWarnings = FALSE )
-
+  remover = paste0(outprefix, "1InverseWarp.nii.gz" )
+	if (file.exists(remover)){
+    file.remove(remover )
+	}
+  
+	remover = paste0(outprefix, "1Warp.nii.gz" )
+	if (file.exists(remover)){
+	  file.remove(remover )
+	}
+  
 	if (retimg){
 		img = readNIfTI(outfile, reorient= FALSE)
 		return(img)

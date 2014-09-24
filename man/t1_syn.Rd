@@ -4,9 +4,10 @@
 \title{Registration to T1 Template}
 \usage{
 t1_syn(filename, n3correct = FALSE, retimg = TRUE, outfile = NULL,
-  interpolator = "Linear", other.files = NULL, other.outfiles = NULL,
-  native.cereb = TRUE, native.fname = NULL, atlas.file = NULL,
-  typeofTransform = "SyN", ...)
+  template.file = file.path(fsldir(), "data", "standard",
+  "MNI152_T1_1mm_brain.nii.gz"), interpolator = "Linear",
+  other.files = NULL, other.outfiles = NULL, native.cereb = TRUE,
+  native.fname = NULL, atlas.file = NULL, typeofTransform = "SyN", ...)
 }
 \arguments{
 \item{filename}{filename of T1 image}
@@ -17,6 +18,8 @@ t1_syn(filename, n3correct = FALSE, retimg = TRUE, outfile = NULL,
 
 \item{outfile}{output filename should have .nii or .nii.gz
 extension}
+
+\item{template.file}{Filename of template to warp to}
 
 \item{interpolator}{interpolation done for
 \code{\link{antsApplyTransforms}}}
@@ -32,7 +35,7 @@ created to \code{native.fname}}
 
 \item{native.fname}{filename of native cerebellum file}
 
-\item{atlas.file}{Filename of atlas used for warping}
+\item{atlas.file}{Filename of atlas used for warping labels}
 
 \item{typeofTransform}{type of transformed used, passed to
 \code{\link{antsRegistration}}}
