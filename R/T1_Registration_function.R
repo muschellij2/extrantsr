@@ -13,9 +13,16 @@
 #' transformed with the T1
 #' @param other.outfiles Output filenames of \code{other.files} to 
 #' be written
+#' @param native.cereb Logical indicating if native cerebellum should be 
+#' created to \code{native.fname}
+#' @param native.fname filename of native cerebellum file
+#' @param atlas.file Filename of atlas used for warping
+#' @param typeofTransform type of transformed used, passed to 
+#' \code{\link{antsRegistration}}
 #' @param ... arguments to \code{\link{antsApplyTransforms}}
 #' @import ANTsR
 #' @import fslr
+#' @import oro.nifti
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image
 t1_syn <- function(filename, # filename of T1 image

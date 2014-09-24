@@ -27,6 +27,16 @@ transformed with the T1}
 \item{other.outfiles}{Output filenames of \code{other.files} to
 be written}
 
+\item{native.cereb}{Logical indicating if native cerebellum should be
+created to \code{native.fname}}
+
+\item{native.fname}{filename of native cerebellum file}
+
+\item{atlas.file}{Filename of atlas used for warping}
+
+\item{typeofTransform}{type of transformed used, passed to
+\code{\link{antsRegistration}}}
+
 \item{...}{arguments to \code{\link{antsApplyTransforms}}}
 }
 \value{
