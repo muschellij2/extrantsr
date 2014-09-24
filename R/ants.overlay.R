@@ -18,7 +18,7 @@ ants.overlay <- function(
   col.y= "#FF0000FF", # color for overlay
   ... # arguments to be passed to \code{\link[graphics]{image})
 ){
-  oldpar <- par(no.readonly = TRUE)
+  oldpar <- par()[c("mfrow", "mar", "bg")]
   lslice = length(slices)
   par(mfrow = c(1,lslice),
       mar = rep(0, 4), 

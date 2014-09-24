@@ -6,7 +6,7 @@ Date: 2014-09-24
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: More about what it does (maybe more than one line)
-License: GPL-3 | file LICENCE
+License: GPL-3 | file LICENSE
 Imports:
     ANTsR,
     fslr,
