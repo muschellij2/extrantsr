@@ -21,6 +21,7 @@
 #' @param typeofTransform type of transformed used, passed to 
 #' \code{\link{antsRegistration}}
 #' @param remove.warp (logical) Should warping images be deleted?
+#' @param outprefix Character path of where the warp files should be stored.
 #' @param ... arguments to \code{\link{antsApplyTransforms}}
 #' @import ANTsR
 #' @import fslr
@@ -41,6 +42,7 @@ t1_syn <- function(filename, # filename of T1 image
 	atlas.file = NULL,
 	typeofTransform = "SyN",
 	remove.warp = FALSE,
+  outprefix = tempfile(),
 	... # arguments to \code{\link{antsApplyTransforms}} 
 	){
 
@@ -97,7 +99,6 @@ t1_syn <- function(filename, # filename of T1 image
 
 
 
-	outprefix = tempfile()
 	antsRegOut.nonlin <- antsRegistration(
 		fixed = template, 
 		moving = t1N3, 

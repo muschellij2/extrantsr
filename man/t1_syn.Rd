@@ -8,7 +8,7 @@ t1_syn(filename, n3correct = FALSE, retimg = TRUE, outfile = NULL,
   "MNI152_T1_1mm_brain.nii.gz"), interpolator = "Linear",
   other.files = NULL, other.outfiles = NULL, native.cereb = FALSE,
   native.fname = NULL, atlas.file = NULL, typeofTransform = "SyN",
-  remove.warp = FALSE, ...)
+  remove.warp = FALSE, outprefix = tempfile(), ...)
 }
 \arguments{
 \item{filename}{filename of T1 image}
@@ -42,6 +42,8 @@ created to \code{native.fname}}
 \code{\link{antsRegistration}}}
 
 \item{remove.warp}{(logical) Should warping images be deleted?}
+
+\item{outprefix}{Character path of where the warp files should be stored.}
 
 \item{...}{arguments to \code{\link{antsApplyTransforms}}}
 }
