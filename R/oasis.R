@@ -80,7 +80,8 @@ oasis <- function(filename, # filename of T1 image
   } else {
     outprefix = tempfile()
   }
-  
+  stopifnot(file.exists(filename))
+  stopifnot(file.exists(template.file))
   t1 <- antsImageRead(filename, 3)
   
   #### Run BET
@@ -104,6 +105,8 @@ oasis <- function(filename, # filename of T1 image
   
   #### Get Other Files
   if (have.other) {
+    other.exists = sapply(other.files, file.exists)
+    stopifnot(all(other.exists))
     other.imgs = lapply(other.files, antsImageRead, 
                         dimension = 3)
     N3.oimgs = lapply(other.imgs, antsImageClone)
