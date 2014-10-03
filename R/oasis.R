@@ -6,6 +6,8 @@
 #' @param skull_strip do skull stripping with FSL BET 
 #' @param skull_stripfile Output skull strip filename
 #' @param n3correct do N3 Bias correction
+#' @param normalize Normalize data using \code{\link{whitestripe}}
+#' @param normalize_file \code{\link{whitestripe}} image mask
 #' @param retimg return a nifti object from function
 #' @param outfile output filename should have .nii or .nii.gz 
 #' extension
@@ -23,16 +25,19 @@
 #' Required if \code{remove.warp = FALSE}
 #' @param bet.opts Options passed to \code{\link{fslbet}}
 #' @param betcmd BET command used, passed to \code{\link{fslbet}}
-#' @param ... arguments to \code{\link{antsApplyTransforms}}
+#' @param ... arguments to \code{\link{whitestripe}}
 #' @import ANTsR
 #' @import fslr
 #' @import oro.nifti
+#' @import WhiteStripe
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image
 oasis <- function(filename, # filename of T1 image
                    skull_strip = TRUE, # do Skull stripping with FSL BET
                    skull_stripfile = NULL,
                    n3correct = TRUE,  # do N3 Bias correction
+                   normalize = TRUE, # whitestripe normalization
+                   normalize_file = NULL,
                    retimg = TRUE, # return a nifti object from function
                    outfile = NULL, # output filename, should have .nii or .nii.gz extension
                    template.file = file.path(fsldir(), "data", "standard", 
@@ -175,11 +180,41 @@ oasis <- function(filename, # filename of T1 image
     files = grep("Warp", files, value=TRUE)
     file.remove(files)
   }
-  if (retimg){
-    img = readNIfTI(outfile, reorient= FALSE)
-    return(img)
+  
+###########################################
+# White Stripe Normalization
+###########################################
+  img = readNIfTI(outfile, reorient= FALSE)
+  if (normalize) {
+    ws = whitestripe(img, type = "T1", ...)
+    mask.img = ws$mask.img
+    if (!is.null(normalize_file)){
+      writeNIfTI(ws$mask.img, filename = normalize_file)
+    }
+    ### need to mask - so outside isn't changed
+    mask = niftiarr(img, img != 0)
+    img[ mask == 0 ] = NA
+    img = whitestripe_norm(img, indices = ws$whitestripe.ind, na.rm=TRUE)
+    img[ mask == 0] = 0
+    writeNIfTI(img, filename = outfile)
+    if (have.other) {
+      for (i in seq(lother)){
+        oimg = readNIfTI(other.outfiles[i], reorient= FALSE)
+        oimg[ mask == 0 ] = NA
+        oimg = whitestripe_norm(oimg, 
+                                indices = ws$whitestripe.ind, 
+                                na.rm=TRUE)
+        oimg[ mask == 0] = 0
+        writeNIfTI(oimg, filename = other.outfiles[i])
+      }
+    }
   }
-  return(invisible(NULL))
+  
+  if (retimg){
+    return(img)
+  } else{
+    return(invisible(NULL))
+  }
 }
 
 

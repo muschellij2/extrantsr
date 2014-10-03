@@ -10,5 +10,6 @@ License: GPL-3 | file LICENSE
 Imports:
     ANTsR,
     fslr,
-    oro.nifti
+    oro.nifti,
+    WhiteStripe
 BugReports: https://github.com/muschellij2/extrantsr/issues

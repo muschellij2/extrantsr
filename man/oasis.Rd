@@ -4,12 +4,12 @@
 \title{OASIS Processing Pipeline}
 \usage{
 oasis(filename, skull_strip = TRUE, skull_stripfile = NULL,
-  n3correct = TRUE, retimg = TRUE, outfile = NULL,
-  template.file = file.path(fsldir(), "data", "standard",
-  "MNI152_T1_1mm_brain.nii.gz"), interpolator = "LanczosWindowedSinc",
-  other.files = NULL, other.outfiles = NULL, typeofTransform = "Rigid",
-  remove.warp = TRUE, outprefix = NULL, bet.opts = "-B -f 0.1 -v",
-  betcmd = "bet", ...)
+  n3correct = TRUE, normalize = TRUE, normalize_file = NULL,
+  retimg = TRUE, outfile = NULL, template.file = file.path(fsldir(),
+  "data", "standard", "MNI152_T1_1mm_brain.nii.gz"),
+  interpolator = "LanczosWindowedSinc", other.files = NULL,
+  other.outfiles = NULL, typeofTransform = "Rigid", remove.warp = TRUE,
+  outprefix = NULL, bet.opts = "-B -f 0.1 -v", betcmd = "bet", ...)
 }
 \arguments{
 \item{filename}{filename of T1 image}
@@ -19,6 +19,10 @@ oasis(filename, skull_strip = TRUE, skull_stripfile = NULL,
 \item{skull_stripfile}{Output skull strip filename}
 
 \item{n3correct}{do N3 Bias correction}
+
+\item{normalize}{Normalize data using \code{\link{whitestripe}}}
+
+\item{normalize_file}{\code{\link{whitestripe}} image mask}
 
 \item{retimg}{return a nifti object from function}
 
@@ -48,7 +52,7 @@ Required if \code{remove.warp = FALSE}}
 
 \item{betcmd}{BET command used, passed to \code{\link{fslbet}}}
 
-\item{...}{arguments to \code{\link{antsApplyTransforms}}}
+\item{...}{arguments to \code{\link{whitestripe}}}
 }
 \value{
 NULL or object of class nifti for transformed T1 image
