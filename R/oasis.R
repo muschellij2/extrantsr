@@ -118,9 +118,9 @@ oasis <- function(filename, # filename of T1 image
   if (skull_strip){
     t1N3 = maskImage(t1N3, bet_mask)
     if (have.other) {
-      N3.oimgs = lapply(N3.oimgs, function(x) {
-        maskImage(x, bet_mask)
-      })
+      for (i in seq(lother)){
+        N3.oimgs[[i]] = maskImage(N3.oimgs[[i]], bet_mask)
+      }
     }
   }
   
