@@ -220,7 +220,7 @@ oasis <- function(filename, # filename of T1 image
     img[ mask == 0 ] = NA
     img = whitestripe_norm(img, indices = ws$whitestripe.ind, na.rm=TRUE)
     img[ mask == 0] = 0
-    writeNIfTI(img, filename = outfile)
+    writeNIfTI(img, filename = nii.stub(outfile))
     if (have.other) {
       for (i in seq(lother)){
         oimg = readNIfTI(other.outfiles[i], reorient= FALSE)
@@ -229,7 +229,7 @@ oasis <- function(filename, # filename of T1 image
                                 indices = ws$whitestripe.ind, 
                                 na.rm=TRUE)
         oimg[ mask == 0] = 0
-        writeNIfTI(oimg, filename = other.outfiles[i])
+        writeNIfTI(oimg, filename = nii.stub(other.outfiles[i]))
       }
     }
   }
