@@ -189,6 +189,7 @@ oasis <- function(filename, # filename of T1 image
     ws = whitestripe(img, type = "T1", ...)
     mask.img = ws$mask.img
     if (!is.null(normalize_file)){
+      normalize_file = nii.stub(normalize_file)
       writeNIfTI(ws$mask.img, filename = normalize_file)
     }
     ### need to mask - so outside isn't changed
