@@ -86,8 +86,8 @@ oasis <- function(filename, # filename of T1 image
                outfile = bet_file, 
                opts = bet.opts, 
                betcmd = betcmd, retimg= FALSE)
-    bet_file = paste0(tempfile(), ext)
-    bet_maskfile = paste0(tempfile(), "_mask", ext)
+    bet_maskfile = paste0(bet_file, "_mask", ext)
+    bet_file = paste0(bet_file, ext)
     bet = antsImageRead(bet_file, 3)
     bet_mask = antsImageRead(bet_maskfile, 3)
     if (!is.null(skull_stripfile)){
@@ -118,8 +118,9 @@ oasis <- function(filename, # filename of T1 image
   if (skull_strip){
     t1N3 = maskImage(t1N3, bet_mask)
     if (have.other) {
-      N3.oimgs = lapply(N3.oimgs, maskImage,
-                        img.mask = bet_mask)
+      N3.oimgs = lapply(N3.oimgs, function(x) {
+        maskImage(x, bet_mask)
+      })
     }
   }
   
