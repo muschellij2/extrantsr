@@ -41,7 +41,7 @@ bias_correct = function(
   }
   imgn3 <- antsImageClone(img)
   if ( correction == "N3"){
-    res = N3BiasFieldCorrection(img@dimension, img, imgn3, "4")
+    res = N3BiasFieldCorrection(img@dimension, img, imgn3, "4", ...)
   }
   if (correction == "N4"){
     funclist = list(d=img@dimension, i=img, o=imgn3, shrinkfactor, ...)
