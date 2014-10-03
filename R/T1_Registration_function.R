@@ -3,6 +3,7 @@
 #' @description This function performs registration to a T1 template
 #' using ANTsR and SyN transformation
 #' @param filename filename of T1 image
+#' @param skull_strip do skull stripping with FSL BET 
 #' @param n3correct do N3 Bias correction
 #' @param retimg return a nifti object from function
 #' @param outfile output filename should have .nii or .nii.gz 
@@ -22,6 +23,9 @@
 #' \code{\link{antsRegistration}}
 #' @param remove.warp (logical) Should warping images be deleted?
 #' @param outprefix Character path of where the warp files should be stored.
+#' Required if \code{remove.warp = FALSE}
+#' @param bet.opts Options passed to \code{\link{fslbet}}
+#' @param betcmd BET command used, passed to \code{\link{fslbet}}
 #' @param ... arguments to \code{\link{antsApplyTransforms}}
 #' @import ANTsR
 #' @import fslr
@@ -29,6 +33,7 @@
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image
 t1_syn <- function(filename, # filename of T1 image
+                   skull_strip = FALSE, # do Skull stripping with FSL BET
 	n3correct = FALSE,  # do N3 Bias correction
 	retimg = TRUE, # return a nifti object from function
 	outfile = NULL, # output filename, should have .nii or .nii.gz extension
@@ -42,10 +47,11 @@ t1_syn <- function(filename, # filename of T1 image
 	atlas.file = NULL,
 	typeofTransform = "SyN",
 	remove.warp = FALSE,
-  outprefix = tempfile(),
+  outprefix = NULL,
+  bet.opts = "-B -f 0.1 -v",
+  betcmd = "bet",
 	... # arguments to \code{\link{antsApplyTransforms}} 
 	){
-
 
 	writeFile = FALSE
 	if (retimg){
@@ -72,8 +78,27 @@ t1_syn <- function(filename, # filename of T1 image
 		stopifnot(!is.null(native.fname))
 	}
 
+  if (!remove.warp){
+    stopifnot(!is.null(outprefix))
+  } else {
+    outprefix = tempfile()
+  }
+  
 	t1 <- antsImageRead(filename, 3)
 
+  if (skull_strip){
+    ext = get.imgext()
+    bet_file = tempfile()
+  	x = fslbet(infile = filename, 
+           outfile = bet_file, 
+           opts = bet.opts, 
+           betcmd = betcmd, retimg= FALSE)
+    bet_file = paste0(tempfile(), ext)
+    bet_maskfile = paste0(tempfile(), "_Mask", ext)
+    bet = antsImageRead(bet_file, 3)
+    bet_mask = antsImageRead(bet_maskfile, 3)
+  }
+  
 	t1N3 <- antsImageClone(t1)
 
 	if (have.other) {
@@ -92,11 +117,17 @@ t1_syn <- function(filename, # filename of T1 image
 		}		
 	}
 
-
+	if (skull_strip){
+	  t1N3 = maskImage(t1N3, bet_mask)
+	  if (have.other) {
+  	  N3.oimgs = lapply(N3.oimgs, maskImage,
+                        img.mask = bet_mask)
+    }
+	}
+  
 	## 
 	template <- antsImageRead(template.file, 3)
 	# template.img <- readNIfTI(template.path, reorient = FALSE)
-
 
 
 	antsRegOut.nonlin <- antsRegistration(
@@ -110,7 +141,6 @@ t1_syn <- function(filename, # filename of T1 image
 	  moving=t1N3 ,
 	  transformlist=antsRegOut.nonlin$fwdtransforms,
 	  interpolator=interpolator) 
-
 
 
 	moving = t1N3
