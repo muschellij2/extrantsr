@@ -3,8 +3,9 @@
 \alias{oasis}
 \title{OASIS Processing Pipeline}
 \usage{
-oasis(filename, skull_strip = FALSE, n3correct = FALSE, retimg = TRUE,
-  outfile = NULL, template.file = file.path(fsldir(), "data", "standard",
+oasis(filename, skull_strip = TRUE, skull_stripfile = NULL,
+  n3correct = TRUE, retimg = TRUE, outfile = NULL,
+  template.file = file.path(fsldir(), "data", "standard",
   "MNI152_T1_1mm_brain.nii.gz"), interpolator = "LanczosWindowedSinc",
   other.files = NULL, other.outfiles = NULL, typeofTransform = "Rigid",
   remove.warp = TRUE, outprefix = NULL, bet.opts = "-B -f 0.1 -v",
@@ -14,6 +15,8 @@ oasis(filename, skull_strip = FALSE, n3correct = FALSE, retimg = TRUE,
 \item{filename}{filename of T1 image}
 
 \item{skull_strip}{do skull stripping with FSL BET}
+
+\item{skull_stripfile}{Output skull strip filename}
 
 \item{n3correct}{do N3 Bias correction}
 

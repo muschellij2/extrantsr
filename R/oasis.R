@@ -4,6 +4,7 @@
 #' using ANTsR and SyN transformation
 #' @param filename filename of T1 image
 #' @param skull_strip do skull stripping with FSL BET 
+#' @param skull_stripfile Output skull strip filename
 #' @param n3correct do N3 Bias correction
 #' @param retimg return a nifti object from function
 #' @param outfile output filename should have .nii or .nii.gz 
@@ -29,8 +30,9 @@
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image
 oasis <- function(filename, # filename of T1 image
-                   skull_strip = FALSE, # do Skull stripping with FSL BET
-                   n3correct = FALSE,  # do N3 Bias correction
+                   skull_strip = TRUE, # do Skull stripping with FSL BET
+                   skull_stripfile = NULL,
+                   n3correct = TRUE,  # do N3 Bias correction
                    retimg = TRUE, # return a nifti object from function
                    outfile = NULL, # output filename, should have .nii or .nii.gz extension
                    template.file = file.path(fsldir(), "data", "standard", 
@@ -88,6 +90,9 @@ oasis <- function(filename, # filename of T1 image
     bet_maskfile = paste0(tempfile(), "_Mask", ext)
     bet = antsImageRead(bet_file, 3)
     bet_mask = antsImageRead(bet_maskfile, 3)
+    if (!is.null(skull_stripfile)){
+      file.copy(bet_maskfile, skull_stripfile, overwrite = TRUE)
+    }
   }
   
   t1N3 <- antsImageClone(t1)
