@@ -16,13 +16,13 @@
 #' @export
 bias_correct = function(
   file,
-  correction = c("N3", "N4"),
+  correction = c("N3", "N4", "N4_Field"),
   outfile=NULL, 
   retimg = FALSE,
   reorient = FALSE,
   shrinkfactor = "4",
   ...){
-  correction = match.arg(correction, c("N3", "N4"))
+  correction = match.arg(correction, c("N3", "N4", "N4_Field"))
   func = paste0(correction, "BiasFieldCorrection")
   
   if (retimg){
@@ -44,9 +44,13 @@ bias_correct = function(
     res = N3BiasFieldCorrection(img@dimension, img, imgn3, "4", ...)
   }
   if (correction == "N4"){
-    funclist = list(d=img@dimension, i=img, o=imgn3, shrinkfactor, ...)
+    funclist = list(d=img@dimension, i=img, o=imgn3, s= shrinkfactor, ...)
     res = do.call(func, funclist)
   }
+  if (correction == "N4_Field"){
+    funclist = list(d=img@dimension, i=img, o=imgn3, s= shrinkfactor, ...)
+    res = N4BiasCorrect_WithField(funclist)
+  }  
   
   antsImageWrite( imgn3, filename = outfile)
   

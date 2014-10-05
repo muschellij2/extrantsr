@@ -1,4 +1,3 @@
-
 #' @title Inverse Warp from antsRegistration
 #'
 #' @description A simplified (or full) interface to 
@@ -29,6 +28,27 @@ invwarp <- function(
   myargs = myargs[ myargs != '-']
   
   cmd = paste0("WarpImageMultiTransform ", 
+               paste(myargs, collapse=" "))
+  system(cmd)
+  
+}
+
+
+#' @title N4BiasCorrect with Bias Field
+#'
+#' @description N4BiasCorrect_WithField
+#' @param args Arguments that must be labeld and be passed to 
+#' N4BiasFieldCorrection
+#' @export
+#' @return Result of \code{system} command
+N4BiasCorrect_WithField <- function(
+ args
+){
+
+  myargs <- int_antsProcessArguments(c(args))
+  myargs = myargs[ myargs != '-']
+  
+  cmd = paste0("N4BiasFieldCorrection ", 
                paste(myargs, collapse=" "))
   system(cmd)
   
