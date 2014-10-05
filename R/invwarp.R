@@ -106,7 +106,7 @@ sys_int_antsProcessArguments = function (args)
   inds = NULL
   for (i in seq_along(starter)){
     istart = starter[i]
-    istop = stopper[i]
+    istop = stopper[i] - 1
     inds = c(inds, seq(istart, istop))
   }
   all.inds = seq_along(char_vect)
