@@ -102,7 +102,7 @@ sys_int_antsProcessArguments = function (args)
   }
   starter = which(char_vect == "[")
   stopper = which(char_vect == "]")
-  stopifnot(length(starter == length(stopper)))
+  stopifnot(length(starter) == length(stopper))
   inds = NULL
   for (i in seq_along(starter)){
     istart = starter[i]
