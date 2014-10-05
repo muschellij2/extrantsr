@@ -6,7 +6,7 @@
 N4BiasCorrect_WithField(args)
 }
 \arguments{
-\item{args}{Arguments that must be labeld and be passed to
+\item{args}{Arguments that must be labeled and be passed to
 N4BiasFieldCorrection}
 }
 \value{

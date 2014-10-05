@@ -50,9 +50,10 @@ bias_correct = function(
   if (correction == "N4_Field"){
     funclist = list(d=img@dimension, i=img, o=imgn3, s= shrinkfactor, ...)
     res = N4BiasCorrect_WithField(funclist)
+  } else {
+    antsImageWrite( imgn3, filename = outfile)
   }  
   
-  antsImageWrite( imgn3, filename = outfile)
   
   if (retimg){
     x = readNIfTI(outfile, reorient = reorient)
