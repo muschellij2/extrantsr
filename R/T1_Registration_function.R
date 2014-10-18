@@ -32,7 +32,7 @@
 #' @import oro.nifti
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image
-t1_syn <- function(filename, # filename of T1 image
+ants_regwrite <- function(filename, # filename of T1 image
                    skull_strip = FALSE, # do Skull stripping with FSL BET
 	n3correct = FALSE,  # do N3 Bias correction
 	retimg = TRUE, # return a nifti object from function
@@ -84,6 +84,7 @@ t1_syn <- function(filename, # filename of T1 image
     outprefix = tempfile()
   }
   
+	filename = path.expand(filename)
 	t1 <- antsImageRead(filename, 3)
 
   if (skull_strip){
@@ -126,6 +127,7 @@ t1_syn <- function(filename, # filename of T1 image
 	}
   
 	## 
+  template.file = path.expand(template.file)
 	template <- antsImageRead(template.file, 3)
 	# template.img <- readNIfTI(template.path, reorient = FALSE)
 

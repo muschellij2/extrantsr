@@ -44,16 +44,15 @@ bias_correct = function(
     res = N3BiasFieldCorrection(img@dimension, img, imgn3, "4", ...)
   }
   if (correction == "N4"){
-    funclist = list(d=img@dimension, i=img, o=imgn3, s= shrinkfactor, ...)
+    funclist = list(d=img@dimension, i=img, o=imgn3, s = shrinkfactor, ...)
     res = do.call(func, funclist)
   }
   if (correction == "N4_Field"){
-    funclist = list(d=img@dimension, i=img, o=imgn3, s= shrinkfactor, ...)
+    funclist = list(d=img@dimension, i=img, o=imgn3, s = shrinkfactor, ...)
     res = N4BiasCorrect_WithField(funclist)
-  } else {
-    antsImageWrite( imgn3, filename = outfile)
   }  
   
+  antsImageWrite( imgn3, filename = outfile)
   
   if (retimg){
     x = readNIfTI(outfile, reorient = reorient)
