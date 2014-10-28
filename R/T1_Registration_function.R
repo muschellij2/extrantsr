@@ -81,7 +81,7 @@ ants_regwrite <- function(filename, # filename of T1 image
   if (!remove.warp){
     stopifnot(!is.null(outprefix))
   } else {
-    outprefix = tempfile()
+    if (is.null(outprefix))  outprefix = tempfile()
   }
   
 	filename = path.expand(filename)
