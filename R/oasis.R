@@ -39,7 +39,8 @@ oasis <- function(filename, # filename of T1 image
                    normalize = TRUE, # whitestripe normalization
                    normalize_file = NULL,
                    retimg = TRUE, # return a nifti object from function
-                   outfile = NULL, # output filename, should have .nii or .nii.gz extension
+                   outfile = NULL, # output filename, should have .nii or 
+                  #.nii.gz extension
                    template.file = file.path(fsldir(), "data", "standard", 
                                              "MNI152_T1_1mm_brain.nii.gz"),
                     interpolator = "LanczosWindowedSinc",
@@ -127,6 +128,11 @@ oasis <- function(filename, # filename of T1 image
   #### Mask the files by brain
   if (skull_strip){
     t1N3_bet = maskImage(t1N3, bet_mask)
+    if (have.other) {
+      for (i in seq(lother)){
+        N3.oimgs[[i]] = maskImage(N3.oimgs[[i]], bet_mask) 
+      }
+    }
   }
   
   ## ## read in Template
@@ -136,13 +142,13 @@ oasis <- function(filename, # filename of T1 image
   ### T1 TO TEMPLATE
   antsRegOut.nonlin <- antsRegistration(
     fixed = template, 
-    moving = t1N3, 
+    moving = t1N3_bet, 
     typeofTransform = typeofTransform,  
     outprefix = outprefix)
   
   ### T1 TO TEMPLATE Write  - with skull
   t1.to.template <- antsApplyTransforms(fixed=template, 
-                                        moving=t1 ,
+                                        moving=t1N3_bet,
                                         transformlist=antsRegOut.nonlin$fwdtransforms,
                                         interpolator=interpolator) 
   
@@ -168,30 +174,30 @@ oasis <- function(filename, # filename of T1 image
   antsImageWrite(t1.to.template, outfile)
   
   #### Run BET
-  if (skull_strip){
-    ext = get.imgext()
-    bet_file = tempfile()
-    fslbet(infile = outfile, 
-               outfile = bet_file, 
-               opts = bet.opts, 
-               betcmd = betcmd, retimg= FALSE)
-    bet_maskfile = paste0(bet_file, "_mask", ext)
-    bet_file = paste0(bet_file, ext)
-    bet = antsImageRead(bet_file, 3)
-    bet_mask = antsImageRead(bet_maskfile, 3)
-    if (!is.null(skull_stripfile)){
-      file.copy(bet_maskfile, skull_stripfile, overwrite = TRUE)
-    }
-    #### Mask the files by brain
-    t1.to.template = maskImage(t1.to.template, bet_mask)
-    antsImageWrite(t1.to.template, outfile)
-    
-    if (have.other) {
-      for (i in seq(lother)){
-        reg.oimgs[[i]] = maskImage(reg.oimgs[[i]], bet_mask)
-      }
-    } 
-  }
+#   if (skull_strip){
+#     ext = get.imgext()
+#     bet_file = tempfile()
+#     fslbet(infile = outfile, 
+#                outfile = bet_file, 
+#                opts = bet.opts, 
+#                betcmd = betcmd, retimg= FALSE)
+#     bet_maskfile = paste0(bet_file, "_mask", ext)
+#     bet_file = paste0(bet_file, ext)
+#     bet = antsImageRead(bet_file, 3)
+#     bet_mask = antsImageRead(bet_maskfile, 3)
+#     if (!is.null(skull_stripfile)){
+#       file.copy(bet_maskfile, skull_stripfile, overwrite = TRUE)
+#     }
+#     #### Mask the files by brain
+#     t1.to.template = maskImage(t1.to.template, bet_mask)
+#     antsImageWrite(t1.to.template, outfile)
+#     
+#     if (have.other) {
+#       for (i in seq(lother)){
+#         reg.oimgs[[i]] = maskImage(reg.oimgs[[i]], bet_mask)
+#       }
+#     } 
+#   }
   
   if (have.other) {
     for (i in seq(lother)){
