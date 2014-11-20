@@ -63,6 +63,7 @@ ants_regwrite <- function(filename, # filename of T1 image
 	} else {
 		stopifnot(!is.null(outfile))
 	}	
+  outfile = path.expand(outfile)
 
 	have.other = FALSE
 	if (!is.null(other.files)){
