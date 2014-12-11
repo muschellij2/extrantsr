@@ -29,7 +29,7 @@ remove_neck <- function(file,
 	minz = min(ind[,"dim3"])
 	inds = seq(1, minz-1)
 	newimg = img
-	newimg@.Data[1,,inds] = 0
+	newimg@.Data[,,inds] = 0
 	newimg = cal_img(newimg)
 	return(newimg)
 }
