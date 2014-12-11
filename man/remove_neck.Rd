@@ -6,7 +6,7 @@
 remove_neck(file, template.file = system.file("scct_unsmooth.nii.gz", package
   = "cttools"),
   template.mask = system.file("scct_unsmooth_Skull_Stripped_Mask.nii.gz",
-  package = "cttools"))
+  package = "cttools"), rep.value = 0)
 }
 \arguments{
 \item{file}{File for neck removal - either filename or class nifti}
@@ -14,6 +14,8 @@ remove_neck(file, template.file = system.file("scct_unsmooth.nii.gz", package
 \item{template.file}{Template to warp to original image space}
 
 \item{template.mask}{Mask of template to use as rough brain mask}
+
+\item{rep.value}{Value to replace neck slices with}
 }
 \value{
 Object of class nifti
