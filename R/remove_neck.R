@@ -5,15 +5,17 @@
 #' @param file File for neck removal - either filename or class nifti
 #' @param template.file Template to warp to original image space
 #' @param template.mask Mask of template to use as rough brain mask
+#' @param ret_mask Return mask of slices to keep
 #' @param rep.value Value to replace neck slices with
 #' @export
 #' @importFrom cttools install_dcm2nii
-#' @return Object of class nifti
+#' @return Object of class nifti or vector of indices
 remove_neck <- function(file, 
 	template.file = system.file("scct_unsmooth.nii.gz", 
 		package="cttools"),
 	template.mask = system.file("scct_unsmooth_Skull_Stripped_Mask.nii.gz", 
-		package="cttools"),
+		package="cttools",
+  ret_mask = FALSE),
   rep.value =0 ){
 
 	file = checkimg(file)
@@ -30,8 +32,14 @@ remove_neck <- function(file,
 	# dimg = dim(img)
 	minz = min(ind[,"dim3"])
 	inds = seq(1, minz-1)
-	newimg = img
-	newimg@.Data[,,inds] = rep.value
-	newimg = cal_img(newimg)
+	if (ret_mask) {
+    newimg = array(0, dim = dim(img))
+    newimg[,,inds] = 1	  
+    newimg = niftiarr(img, newimg)
+	} else {
+	  newimg = img
+	  newimg@.Data[,,inds] = rep.value	  
+	  newimg = cal_img(newimg)
+	}
 	return(newimg)
 }

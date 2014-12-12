@@ -6,7 +6,7 @@
 remove_neck(file, template.file = system.file("scct_unsmooth.nii.gz", package
   = "cttools"),
   template.mask = system.file("scct_unsmooth_Skull_Stripped_Mask.nii.gz",
-  package = "cttools"), rep.value = 0)
+  package = "cttools", ret_mask = FALSE), rep.value = 0)
 }
 \arguments{
 \item{file}{File for neck removal - either filename or class nifti}
@@ -16,9 +16,11 @@ remove_neck(file, template.file = system.file("scct_unsmooth.nii.gz", package
 \item{template.mask}{Mask of template to use as rough brain mask}
 
 \item{rep.value}{Value to replace neck slices with}
+
+\item{ret_mask}{Return mask of slices to keep}
 }
 \value{
-Object of class nifti
+Object of class nifti or vector of indices
 }
 \description{
 Removes the neck from axially acquired CT scan so
