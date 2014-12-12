@@ -14,8 +14,8 @@ remove_neck <- function(file,
 	template.file = system.file("scct_unsmooth.nii.gz", 
 		package="cttools"),
 	template.mask = system.file("scct_unsmooth_Skull_Stripped_Mask.nii.gz", 
-		package="cttools",
-  ret_mask = FALSE),
+		package="cttools"),
+	ret_mask = FALSE,
   rep.value =0 ){
 
 	file = checkimg(file)
