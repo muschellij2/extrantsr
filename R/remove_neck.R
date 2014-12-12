@@ -31,12 +31,13 @@ remove_neck <- function(file,
 	#5mm
 	# dimg = dim(img)
 	minz = min(ind[,"dim3"])
-	inds = seq(1, minz-1)
 	if (ret_mask) {
+    inds = seq(minz, dim(img)[3])
     newimg = array(0, dim = dim(img))
     newimg[,,inds] = 1	  
     newimg = niftiarr(img, newimg)
 	} else {
+	  inds = seq(1, minz-1)
 	  newimg = img
 	  newimg@.Data[,,inds] = rep.value	  
 	  newimg = cal_img(newimg)
