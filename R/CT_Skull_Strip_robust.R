@@ -22,7 +22,8 @@
 #' @param ... additional arguments passed to \code{\link{CT_Skull_Strip}}.
 #' @return Skull-stripped \code{nifti} object 
 #' @import fslr
-#' @import cttools
+#' @importFrom cttools CT_Skull_Strip
+#' @importFrom cttools dil_ero
 #' @export
 CT_Skull_Strip_robust <- function(
   img, 

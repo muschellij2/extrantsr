@@ -7,7 +7,7 @@
 #' @param template.mask Mask of template to use as rough brain mask
 #' @param ret_mask Return mask of slices to keep
 #' @param rep.value Value to replace neck slices with
-#' @import cttools
+#' @importFrom cttools install_dcm2nii
 #' @export
 #' @return Object of class nifti or vector of indices
 remove_neck <- function(file, 
