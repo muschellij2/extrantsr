@@ -11,6 +11,5 @@ Imports:
     ANTsR,
     fslr,
     oro.nifti,
-    WhiteStripe,
-    cttools
+    WhiteStripe
 BugReports: https://github.com/muschellij2/extrantsr/issues
