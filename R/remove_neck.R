@@ -8,7 +8,6 @@
 #' @param ret_mask Return mask of slices to keep
 #' @param rep.value Value to replace neck slices with
 #' @export
-#' @importFrom cttools install_dcm2nii
 #' @return Object of class nifti or vector of indices
 remove_neck <- function(file, 
 	template.file = system.file("scct_unsmooth.nii.gz", 
