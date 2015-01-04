@@ -98,10 +98,12 @@ sim <-  function(
 #' @title Non-exported function to make png
 #'
 #' @description Make my png
+#' @param outfile Filename to be added to for png
 #' @param addstub extension to add to outfile
 #' @param ... arguments passed to \code{\link{png}}
 #' @return Alpha level depending on device
 makepng <- function(
+  outfile,
   addstub, # extension to add to outfile
   ... # arguments passed to \code{\link{png}}
 ){

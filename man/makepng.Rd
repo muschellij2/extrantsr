@@ -4,9 +4,11 @@
 \alias{makepng}
 \title{Non-exported function to make png}
 \usage{
-makepng(addstub, ...)
+makepng(outfile, addstub, ...)
 }
 \arguments{
+\item{outfile}{Filename to be added to for png}
+
 \item{addstub}{extension to add to outfile}
 
 \item{...}{arguments passed to \code{\link{png}}}
