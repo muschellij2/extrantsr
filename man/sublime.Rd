@@ -8,9 +8,9 @@ sublime(baseline_files, followup_files, baseline_outfiles, followup_outfiles,
   typeofTransform = "Rigid", skull_strip = FALSE,
   bet.opts = "-B -f 0.1 -v", betcmd = "bet", n3correct = FALSE,
   correction = "N3", shrinkfactor = "4",
-  template.file = file.path(fsldir(), "data", "standard",
-  "MNI152_T1_1mm_brain.nii.gz"), templateTransform = "Affine",
-  verbose = TRUE, ...)
+  template.file = file.path(fsldir(), "data", "standard", ifelse(skull_strip,
+  "MNI152_T1_1mm_brain.nii.gz", "MNI152_T1_1mm.nii.gz")),
+  templateTransform = "Affine", verbose = TRUE, ...)
 }
 \arguments{
 \item{typeofTransform}{type of transformed used, passed to

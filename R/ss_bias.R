@@ -3,6 +3,7 @@
 #' @description This function wraps \code{fslbet} and 
 #' \code{bias_correct}, performing skull stripping first
 #' @param filename filename to be processed
+#' @param maskfile filename of masked to be passed in, otherwise bet is performed 
 #' @param outfile output filename with extension (should be .nii.gz
 #' @param skull_strip should skull stripping be done
 #' @param bet.opts options for fslbet
@@ -16,6 +17,7 @@
 #' @seealso \code{\link{bias_ss}}
 #' @return NULL
 ss_bias <- function(filename, # filename to be processed
+                    maskfile = NULL,
                     outfile = filename, # output filename with extension (should be .nii.gz)
                     skull_strip = TRUE, # should skull stripping be done
                     bet.opts = "-B -f 0.1 -v",
@@ -26,17 +28,24 @@ ss_bias <- function(filename, # filename to be processed
                   verbose = TRUE,
                   ... # passed to \code{\link{bias_correct}}
                   ){
+  
   #### Run BET    
   if (skull_strip){
     if (verbose){
       cat("# Skull Stripping")
     }
-    fslbet(infile = filename, 
-           outfile = outfile, 
-           opts = bet.opts, 
-           betcmd = betcmd, 
-           retimg= FALSE)
-    outfile = filename
+    if ( is.null(maskfile) ){
+      fslbet(infile = filename, 
+             outfile = outfile, 
+             opts = bet.opts, 
+             betcmd = betcmd, 
+             retimg= FALSE)
+    } else {
+      fslmask(file=filename, outfile = outfile, mask = mask)
+    }
+  }
+  if (skull_strip){
+    filename = outfile
   }
   if (n3correct){
     if (verbose){
@@ -56,6 +65,7 @@ ss_bias <- function(filename, # filename to be processed
 #' @description This function wraps \code{fslbet} and 
 #' \code{bias_correct}, performing bias correction first
 #' @param filename filename to be processed
+#' @param maskfile filename of masked to be passed in, otherwise bet is performed 
 #' @param outfile output filename with extension (should be .nii.gz
 #' @param skull_strip should skull stripping be done
 #' @param bet.opts options for fslbet
@@ -69,6 +79,7 @@ ss_bias <- function(filename, # filename to be processed
 #' @seealso \code{\link{ss_bias}}
 #' @return NULL
 bias_ss <- function(filename, # filename to be processed
+                    maskfile = NULL,
                     outfile = filename, # output filename with extension (should be .nii.gz)
                     skull_strip = TRUE, # should skull stripping be done
                     bet.opts = "-B -f 0.1 -v",
@@ -87,18 +98,24 @@ bias_ss <- function(filename, # filename to be processed
                  retimg=FALSE, 
                  correction = correction,
                  shrinkfactor=shrinkfactor, ...)
-    outfile = filename    
+  }  
+  if (n3correct){
+    filename = outfile
   }  
   #### Run BET    
   if (skull_strip){
     if (verbose){
       cat("# Skull Stripping")
-    }    
-    fslbet(infile = filename, 
-           outfile = outfile, 
-           opts = bet.opts, 
-           betcmd = betcmd, 
-           retimg= FALSE)
+    }
+    if ( is.null(maskfile) ){
+      fslbet(infile = filename, 
+             outfile = outfile, 
+             opts = bet.opts, 
+             betcmd = betcmd, 
+             retimg= FALSE)
+    } else {
+      fslmask(file=filename, outfile = outfile, mask = mask)
+    }
   }
 
   return(invisible(NULL))

@@ -44,7 +44,10 @@ sublime <- function(baseline_files, # filename of T1 image
                   correction = "N3", 
                   shrinkfactor= "4",               
                   template.file = file.path(fsldir(),
-                                            "data", "standard", "MNI152_T1_1mm_brain.nii.gz"),
+                                            "data", "standard", 
+                                            ifelse(skull_strip, 
+                                                   "MNI152_T1_1mm_brain.nii.gz",
+                                                   "MNI152_T1_1mm.nii.gz")),
                   templateTransform = "Affine",
                   verbose = TRUE,
                   ... # arguments to \code{\link{antsApplyTransforms}} 
@@ -89,21 +92,28 @@ sublime <- function(baseline_files, # filename of T1 image
     ifelse(grepl("[.]nii[.]gz$", x), ".nii.gz", ".nii")
   }
   
-  ext.base = nii_or_gz(base1)
-  if (ext.base != nii_or_gz(bout1)){
-    warning("Extension of Baseline[1] is not same as baseline out[1], forcing")
-    bout1 = paste0(nii.stub(bout1), ext.base)
+  vec_extension = function(x, y){
+    ext.base = nii_or_gz(x)
+    if (ext.base != nii_or_gz(y)){
+      warning(paste0("Extension of ", basename(x), "is not same as ", 
+                     basename(y), ", forcing"))
+      y = paste0(nii.stub(y), ext.base)
+    }
+    file.copy(from = x, to = y, overwrite = TRUE)
+    return(y)
   }
-  file.copy(from = base1, to = bout1)
-  stopifnot(file.exists(bout1))
+  mapply(vec_extension, 
+         c(base1, fup1, baseline_files,followup_files), 
+         c(bout1, fout1, baseline_outfiles,followup_outfiles))
+  
   
   
   # Remove first scan
-  followup_files = followup_files[[-1]]
-  baseline_files = baseline_files[[-1]]
+  followup_files = followup_files[-1]
+  baseline_files = baseline_files[-1]
   
-  followup_outfiles = followup_outfiles[[-1]]
-  baseline_outfiles = baseline_outfiles[[-1]]
+  followup_outfiles = followup_outfiles[-1]
+  baseline_outfiles = baseline_outfiles[-1]
   
   
   #######################################
@@ -122,11 +132,12 @@ sublime <- function(baseline_files, # filename of T1 image
   }
 
 
-  func = extrants::ss_bias
+  func = extrantsr::ss_bias
   #######################################
   ## Creating wrapper function for worker
   ####################################### 
   wrapper = function(file1, files, 
+                     printer = "",
                      bet.opts = bet.opts, betcmd= betcmd, 
                      skull_strip=skull_strip, 
                      n3correct = n3correct, 
@@ -175,7 +186,7 @@ sublime <- function(baseline_files, # filename of T1 image
           skull_strip = skull_strip, 
           n3correct = n3correct, 
           correction = correction, 
-          shrinkfactor= shrinkfactor, ... = ...)
+          shrinkfactor= shrinkfactor, remove.warp = TRUE, ... = ...)
   
   wrapper(fout1, followup_outfiles, 
           verbose = verbose,
@@ -184,7 +195,7 @@ sublime <- function(baseline_files, # filename of T1 image
           skull_strip = skull_strip, 
           n3correct = n3correct, 
           correction = correction, 
-          shrinkfactor= shrinkfactor, ... = ...)  
+          shrinkfactor= shrinkfactor, remove.warp = TRUE, ... = ...)  
   
 
   #######################################
@@ -198,20 +209,22 @@ sublime <- function(baseline_files, # filename of T1 image
                 other.outfiles = followup_outfiles, 
                 skull_strip = FALSE, 
                 n3correct = FALSE, 
-                retimg = FALSE)
+                retimg = FALSE,
+                remove.warp = TRUE)
   
   #######################################
   ## Registering Baseline to Template
-  #######################################   
+  #######################################  
   ants_regwrite(filename = bout1, 
                 outfile = bout1,
                 template.file = template.file,
                 typeofTransform = templateTransform,
-                other.files = c(baseline_outfiles, followup_outfiles),
-                other.outfiles = c(baseline_outfiles, followup_outfiles), 
+                other.files = c(baseline_outfiles, fout1, followup_outfiles),
+                other.outfiles = c(baseline_outfiles, fout1, followup_outfiles), 
                 skull_strip = FALSE, 
                 n3correct = FALSE, 
-                retimg = FALSE) 
+                retimg = FALSE,
+                remove.warp = TRUE) 
   
   ##### Need to implement normalization
   

@@ -4,12 +4,14 @@
 \alias{ss_bias}
 \title{Skull Strip then Bias Field Correct}
 \usage{
-ss_bias(filename, outfile = filename, skull_strip = TRUE,
+ss_bias(filename, maskfile = NULL, outfile = filename, skull_strip = TRUE,
   bet.opts = "-B -f 0.1 -v", betcmd = "bet", n3correct = TRUE,
   correction = "N3", shrinkfactor = "4", verbose = TRUE, ...)
 }
 \arguments{
 \item{filename}{filename to be processed}
+
+\item{maskfile}{filename of masked to be passed in, otherwise bet is performed}
 
 \item{outfile}{output filename with extension (should be .nii.gz}
 
