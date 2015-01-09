@@ -7,7 +7,10 @@
 #' @param baseline_outfiles output filenames for baseline images
 #' @param followup_outfiles output filenames for followup images
 #' @param retimg (logical) return list of images of class nifti
-#' @param maskfile Filename (or nifti object) of binary mask for baseline image
+#' @param maskfile Filename (or nifti object) of binary mask for baseline image.
+#' If filename exists, skull stripping will be done by masking it.
+#' If it does not, then skull stripping will get one from the baseline
+#' image
 #' @param n3correct Perform N3 correction
 #' @param skull_strip do Skull stripping with FSL BET
 #' @param bet.opts Options to pass to \code{\link{fslbet}}
@@ -27,7 +30,7 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                   retimg = FALSE,
                   maskfile = NULL,
                   n3correct = TRUE,
-                  skull_strip = FALSE, # do Skull stripping with FSL BET
+                  skull_strip = TRUE, # do Skull stripping with FSL BET
                   bet.opts = "-B -f 0.1 -v",
                   betcmd = "bet",
                   within.transform = "Rigid", # Transformation for within-visit registration
@@ -59,22 +62,31 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
   ###################################
   if (skull_strip) {
     if (is.null(maskfile)){
-      fslext = suppressWarnings(get.imgext())
       brain_mask_stub = tempfile()
+      fslext = suppressWarnings(get.imgext())      
       maskfile = paste0(brain_mask_stub, fslext)
+    } else {
+      maskfile = checkimg(maskfile)
+      stopifnot(file.exists(maskfile))
+    }
+    if (!file.exists(maskfile)){
       if (verbose){
         cat("Skull stripping baseline[1] image \n")
       }
       fslbet(infile = baseline_outfiles[1], 
-             outfile = brain_mask_stub, 
+             outfile = maskfile, 
              retimg = FALSE,
              opts = bet.opts, 
              betcmd = betcmd, 
              verbose = verbose, reorient = FALSE)
-    } else {
-      maskfile = checkimg(maskfile)
+      fslbin(file=maskfile, outfile = maskfile, retimg=FALSE,
+             verbose = verbose)
     }
-  } 
+  }
+  
+  ###################################
+  # Processing basleine data
+  ###################################  
   if (verbose){
     cat("# Processing baseline data\n")
   }
