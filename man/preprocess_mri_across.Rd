@@ -5,9 +5,9 @@
 \title{Preprocess MRI acros visits}
 \usage{
 preprocess_mri_across(baseline_files, followup_files, baseline_outfiles,
-  followup_outfiles, retimg = FALSE, maskfile = NULL, skull_strip = FALSE,
-  bet.opts = "-B -f 0.1 -v", betcmd = "bet", within.transform = "Rigid",
-  within.interpolator = "LanczosWindowedSinc",
+  followup_outfiles, retimg = FALSE, maskfile = NULL, n3correct = TRUE,
+  skull_strip = FALSE, bet.opts = "-B -f 0.1 -v", betcmd = "bet",
+  within.transform = "Rigid", within.interpolator = "LanczosWindowedSinc",
   across.transform = within.transform,
   across.interpolator = within.interpolator, verbose = TRUE, ...)
 }
@@ -20,15 +20,17 @@ preprocess_mri_across(baseline_files, followup_files, baseline_outfiles,
 
 \item{followup_outfiles}{output filenames for followup images}
 
-\item{retimg}{}
+\item{retimg}{(logical) return list of images of class nifti}
 
-\item{maskfile}{}
+\item{maskfile}{Filename (or nifti object) of binary mask for baseline image}
+
+\item{n3correct}{Perform N3 correction}
 
 \item{skull_strip}{do Skull stripping with FSL BET}
 
-\item{bet.opts}{}
+\item{bet.opts}{Options to pass to \code{\link{fslbet}}}
 
-\item{betcmd}{}
+\item{betcmd}{Command to pass to \code{\link{fslbet}}}
 
 \item{within.transform}{Transformation for within-visit registration}
 
@@ -48,6 +50,5 @@ NULL or list of objects of class nifti for transformed images
 \description{
 This function performs preprocessing and registration
 across visits and within visits
-using ANTsR and SyN transformation
 }
 

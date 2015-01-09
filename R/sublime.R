@@ -2,16 +2,16 @@
 #'
 #' @description This function performs preprocessing and registration
 #' across visits and within visits
-#' using ANTsR and SyN transformation
 #' @param baseline_files filename of baseline images
 #' @param followup_files filename of followup images
 #' @param baseline_outfiles output filenames for baseline images
 #' @param followup_outfiles output filenames for followup images
-#' @param retimg 
-#' @param maskfile 
+#' @param retimg (logical) return list of images of class nifti
+#' @param maskfile Filename (or nifti object) of binary mask for baseline image
+#' @param n3correct Perform N3 correction
 #' @param skull_strip do Skull stripping with FSL BET
-#' @param bet.opts 
-#' @param betcmd 
+#' @param bet.opts Options to pass to \code{\link{fslbet}}
+#' @param betcmd Command to pass to \code{\link{fslbet}}
 #' @param within.transform Transformation for within-visit registration
 #' @param within.interpolator Interpolator for within-visit registration
 #' @param across.transform Transformation for across-visit registration
@@ -26,6 +26,7 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                   followup_outfiles, # output filenames for followup images
                   retimg = FALSE,
                   maskfile = NULL,
+                  n3correct = TRUE,
                   skull_strip = FALSE, # do Skull stripping with FSL BET
                   bet.opts = "-B -f 0.1 -v",
                   betcmd = "bet",

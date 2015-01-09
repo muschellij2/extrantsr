@@ -18,7 +18,7 @@ within_visit_registration <- function(fixed, # filename of T1 image
 ){
   
   n.moving = length(moving)
-  if (length(n.moving) != length(outfiles)){
+  if (n.moving != length(outfiles)){
     cat("# Output images do not equal input images\n")
     cat(paste0("Moving", n.moving, " outfiles", length(outfiles)))
     cat("# Moving Images\n")
@@ -36,6 +36,7 @@ within_visit_registration <- function(fixed, # filename of T1 image
                   typeofTransform = typeofTransform,
                   interpolator = interpolator,
                   outfile = outfiles[[iimg]],
+                  remove.warp = TRUE,
                   ...)
   }
   return(invisible(NULL))
