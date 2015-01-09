@@ -172,7 +172,7 @@ process_filenames <- function(files, # input filenames
   #############################
   # Checking if extensions are .nii or .nii.gz
   #############################
-  if (force_nifti){
+  if (force_nii){
     if (!all(grepl("[.]nii", c(baseline_outfiles, followup_outfiles)))){
       warning(paste0("Extensions not specified for baseline_outfiles or ", 
                      "followup_outfiles, adding .nii.gz"))
