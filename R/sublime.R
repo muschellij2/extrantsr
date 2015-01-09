@@ -86,7 +86,7 @@ sublime <- function(baseline_files, # filename of T1 image
   # Working on copy of Baseline 1, will be easier when n3 or ss
   #######################################
   nii_or_gz = function(x){
-    ifelse(grepl("[.]nii[.]gz$"), ".nii.gz", ".nii")
+    ifelse(grepl("[.]nii[.]gz$", x), ".nii.gz", ".nii")
   }
   
   ext.base = nii_or_gz(base1)
