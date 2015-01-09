@@ -5,7 +5,7 @@
 \title{OASIS Processing Pipeline}
 \usage{
 within_visit_registration(fixed, moving, outfiles, typeofTransform = "Rigid",
-  ...)
+  interpolator = "Linear", ...)
 }
 \arguments{
 \item{fixed}{filename of fixed image to be registered to.}
@@ -13,6 +13,8 @@ within_visit_registration(fixed, moving, outfiles, typeofTransform = "Rigid",
 \item{moving}{filenames (or nifti) of images to register to fixed image}
 
 \item{typeofTransform}{Transformation of moving to fixed image}
+
+\item{interpolator}{Interpolation to be done}
 
 \item{...}{additional arguments to \code{\link{ants_regwrite}}}
 }

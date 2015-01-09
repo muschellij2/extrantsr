@@ -5,6 +5,7 @@
 #' @param fixed filename of fixed image to be registered to.
 #' @param moving filenames (or nifti) of images to register to fixed image
 #' @param typeofTransform Transformation of moving to fixed image
+#' @param interpolator Interpolation to be done
 #' @param ... additional arguments to \code{\link{ants_regwrite}}
 #' @export
 #' @return NULL 
@@ -12,6 +13,7 @@ within_visit_registration <- function(fixed, # filename of T1 image
                     moving,
                     outfiles, 
                     typeofTransform = "Rigid",
+                    interpolator = "Linear",
                     ...
 ){
   
@@ -24,6 +26,7 @@ within_visit_registration <- function(fixed, # filename of T1 image
     ants_regwrite(filename = m.img, 
                   template.file = f.img, 
                   typeofTransform = typeofTransform,
+                  interpolator = interpolator,
                   outfile = outfiles[[iimg]],
                   ...)
   }
