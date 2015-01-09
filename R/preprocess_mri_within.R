@@ -14,6 +14,8 @@
 #' Passed to \code{\link{readNIfTI}}. 
 #' @param typeofTransform type of transformed used, passed to 
 #' \code{\link{antsRegistration}} 
+#' @param interpolator Interpolation to be performed, passed to
+#' \code{\link{antsRegistration}} 
 #' @param maskfile Filename (or nifti object) of mask for image to be
 #' registered to
 #' @param verbose Diagnostic messages

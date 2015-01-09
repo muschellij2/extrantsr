@@ -41,7 +41,7 @@ ss_bias <- function(filename, # filename to be processed
              betcmd = betcmd, 
              retimg= FALSE)
     } else {
-      fslmask(file=filename, outfile = outfile, mask = mask)
+      fslmask(file=filename, outfile = outfile, mask = maskfile)
     }
   }
   if (skull_strip){
@@ -114,7 +114,7 @@ bias_ss <- function(filename, # filename to be processed
              betcmd = betcmd, 
              retimg= FALSE)
     } else {
-      fslmask(file=filename, outfile = outfile, mask = mask)
+      fslmask(file=filename, outfile = outfile, mask = maskfile)
     }
   }
 

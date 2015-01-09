@@ -12,6 +12,8 @@ within_visit_registration(fixed, moving, outfiles, typeofTransform = "Rigid",
 
 \item{moving}{filenames (or nifti) of images to register to fixed image}
 
+\item{outfiles}{Output filenames, same length as moving}
+
 \item{typeofTransform}{Transformation of moving to fixed image}
 
 \item{interpolator}{Interpolation to be done}

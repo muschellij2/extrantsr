@@ -4,6 +4,7 @@
 #' using ANTsR and SyN transformation
 #' @param fixed filename of fixed image to be registered to.
 #' @param moving filenames (or nifti) of images to register to fixed image
+#' @param outfiles Output filenames, same length as moving
 #' @param typeofTransform Transformation of moving to fixed image
 #' @param interpolator Interpolation to be done
 #' @param ... additional arguments to \code{\link{ants_regwrite}}
@@ -16,6 +17,11 @@ within_visit_registration <- function(fixed, # filename of T1 image
                     interpolator = "Linear",
                     ...
 ){
+  moving = as.list(moving)
+  
+  # Expanding paths for ANTsR - checkimg does expansion  
+  moving = sapply(moving, checkimg)
+  
   
   n.moving = length(moving)
   if (n.moving != length(outfiles)){
@@ -28,14 +34,14 @@ within_visit_registration <- function(fixed, # filename of T1 image
     stop("Check inputs")
   }
   
-  f.img = checkimg(fixed[[1]], ...)
+  f.img = checkimg(fixed, ...)
   for (iimg in seq(n.moving)){
-    m.img = checkimg(moving[[iimg]], ...)
+    m.img = checkimg(moving[iimg], ...)
     ants_regwrite(filename = m.img, 
                   template.file = f.img, 
                   typeofTransform = typeofTransform,
                   interpolator = interpolator,
-                  outfile = outfiles[[iimg]],
+                  outfile = outfiles[iimg],
                   remove.warp = TRUE,
                   ...)
   }

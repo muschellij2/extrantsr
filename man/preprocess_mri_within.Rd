@@ -31,6 +31,9 @@ Passed to \code{\link{readNIfTI}}.}
 \item{typeofTransform}{type of transformed used, passed to
 \code{\link{antsRegistration}}}
 
+\item{interpolator}{Interpolation to be performed, passed to
+\code{\link{antsRegistration}}}
+
 \item{maskfile}{Filename (or nifti object) of mask for image to be
 registered to}
 
