@@ -84,13 +84,16 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                         typeofTransform = within.transform,
                         interpolator = within.interpolator, 
                         maskfile = maskfile,
+                        verbose = verbose,
                         ...)
   #### Doing Followup
   preprocess_mri_within(files = followup_outfiles, 
                         outfiles = followup_outfiles, 
                         typeofTransform = within.transform,
                         interpolator = within.interpolator,                         
-                        reorient = FALSE, ...) 
+                        reorient = FALSE, 
+                        verbose = verbose,                        
+                        ...) 
   
   #######################################
   ## Registering Followup to Baseline
@@ -98,6 +101,8 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
   if (length(followup_outfiles) <= 1){
     other.files = NULL
     other.outfiles = NULL
+  } else {
+    other.outfiles = other.files = followup_outfiles[-1]
   }
   ants_regwrite(filename = followup_outfiles[1], 
                 outfile = followup_outfiles[1],

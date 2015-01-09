@@ -81,8 +81,11 @@ preprocess_mri_within <- function(files,
   # N3 Correction
   #######################################
   if (n3correct){
+    if (verbose){
+      cat("# N3 Correction")
+    }
     for (ifile in seq_along(files)){
-      bias_correct(filename = files[ifile], outfile = outfiles[ifile], 
+      bias_correct(file = files[ifile], outfile = outfiles[ifile], 
                retimg=FALSE, 
                correction = correction,
                shrinkfactor = shrinkfactor, ...)
