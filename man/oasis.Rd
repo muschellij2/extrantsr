@@ -60,6 +60,6 @@ NULL or object of class nifti for transformed T1 image
 }
 \description{
 This function performs registration to a T1 template
-using ANTsR and SyN transformation
+using ANTsR transformation
 }
 

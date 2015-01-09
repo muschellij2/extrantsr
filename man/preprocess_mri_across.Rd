@@ -2,63 +2,52 @@
 % Please edit documentation in R/sublime.R
 \name{preprocess_mri_across}
 \alias{preprocess_mri_across}
-\title{OASIS Processing Pipeline}
+\title{Preprocess MRI acros visits}
 \usage{
 preprocess_mri_across(baseline_files, followup_files, baseline_outfiles,
-  followup_outfiles, retimg = FALSE, reorient = FALSE, maskfile = NULL,
-  skull_strip = FALSE, bet.opts = "-B -f 0.1 -v", betcmd = "bet",
-  within.transform = "Rigid", within.interpolator = "LanczosWindowedSinc",
+  followup_outfiles, retimg = FALSE, maskfile = NULL, skull_strip = FALSE,
+  bet.opts = "-B -f 0.1 -v", betcmd = "bet", within.transform = "Rigid",
+  within.interpolator = "LanczosWindowedSinc",
   across.transform = within.transform,
   across.interpolator = within.interpolator, verbose = TRUE, ...)
 }
 \arguments{
-\item{retimg}{return a nifti object from function}
+\item{baseline_files}{filename of baseline images}
 
-\item{skull_strip}{do skull stripping with FSL BET}
+\item{followup_files}{filename of followup images}
 
-\item{bet.opts}{Options passed to \code{\link{fslbet}}}
+\item{baseline_outfiles}{output filenames for baseline images}
 
-\item{betcmd}{BET command used, passed to \code{\link{fslbet}}}
+\item{followup_outfiles}{output filenames for followup images}
 
-\item{...}{arguments to \code{\link{whitestripe}}}
+\item{retimg}{}
 
-\item{filename}{filename of T1 image}
+\item{maskfile}{}
 
-\item{skull_stripfile}{Output skull strip filename}
+\item{skull_strip}{do Skull stripping with FSL BET}
 
-\item{n3correct}{do N3 Bias correction}
+\item{bet.opts}{}
 
-\item{normalize}{Normalize data using \code{\link{whitestripe}}}
+\item{betcmd}{}
 
-\item{normalize_file}{\code{\link{whitestripe}} image mask}
+\item{within.transform}{Transformation for within-visit registration}
 
-\item{outfile}{output filename should have .nii or .nii.gz
-extension}
+\item{within.interpolator}{Interpolator for within-visit registration}
 
-\item{template.file}{Filename of template to warp to}
+\item{across.transform}{Transformation for across-visit registration}
 
-\item{interpolator}{interpolation done for
-\code{\link{antsApplyTransforms}}}
+\item{across.interpolator}{Interpolator for across-visit registration}
 
-\item{other.files}{Filenames of other iamges to be
-transformed with the T1}
+\item{verbose}{print diagnostic outputs}
 
-\item{other.outfiles}{Output filenames of \code{other.files} to
-be written}
-
-\item{typeofTransform}{type of transformed used, passed to
-\code{\link{antsRegistration}}}
-
-\item{remove.warp}{(logical) Should warping images be deleted?}
-
-\item{outprefix}{Character path of where the warp files should be stored.
-Required if \code{remove.warp = FALSE}}
+\item{...}{arguments to \code{\link{preprocess_mri_within}} and \code{\link{ants_regwrite}}}
 }
 \value{
 NULL or list of objects of class nifti for transformed images
 }
 \description{
-This function performs registration to a T1 template
+This function performs preprocessing and registration
+across visits and within visits
 using ANTsR and SyN transformation
 }
 

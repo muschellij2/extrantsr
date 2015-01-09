@@ -1,7 +1,7 @@
 #' @title OASIS Processing Pipeline
 #'
 #' @description This function performs registration to a T1 template
-#' using ANTsR and SyN transformation
+#' using ANTsR transformation
 #' @param filename filename of T1 image
 #' @param skull_strip do skull stripping with FSL BET 
 #' @param skull_stripfile Output skull strip filename

@@ -1,52 +1,40 @@
-#' @title OASIS Processing Pipeline
+#' @title Preprocess MRI acros visits
 #'
-#' @description This function performs registration to a T1 template
+#' @description This function performs preprocessing and registration
+#' across visits and within visits
 #' using ANTsR and SyN transformation
-#' @param filename filename of T1 image
-#' @param skull_strip do skull stripping with FSL BET 
-#' @param skull_stripfile Output skull strip filename
-#' @param n3correct do N3 Bias correction
-#' @param normalize Normalize data using \code{\link{whitestripe}}
-#' @param normalize_file \code{\link{whitestripe}} image mask
-#' @param retimg return a nifti object from function
-#' @param outfile output filename should have .nii or .nii.gz 
-#' extension
-#' @param template.file Filename of template to warp to
-#' @param interpolator interpolation done for 
-#' \code{\link{antsApplyTransforms}}
-#' @param other.files Filenames of other iamges to be 
-#' transformed with the T1
-#' @param other.outfiles Output filenames of \code{other.files} to 
-#' be written
-#' @param typeofTransform type of transformed used, passed to 
-#' \code{\link{antsRegistration}}
-#' @param remove.warp (logical) Should warping images be deleted?
-#' @param outprefix Character path of where the warp files should be stored.
-#' Required if \code{remove.warp = FALSE}
-#' @param bet.opts Options passed to \code{\link{fslbet}}
-#' @param betcmd BET command used, passed to \code{\link{fslbet}}
-#' @param ... arguments to \code{\link{whitestripe}}
-#' @import ANTsR
-#' @import fslr
-#' @import oro.nifti
+#' @param baseline_files filename of baseline images
+#' @param followup_files filename of followup images
+#' @param baseline_outfiles output filenames for baseline images
+#' @param followup_outfiles output filenames for followup images
+#' @param retimg 
+#' @param maskfile 
+#' @param skull_strip do Skull stripping with FSL BET
+#' @param bet.opts 
+#' @param betcmd 
+#' @param within.transform Transformation for within-visit registration
+#' @param within.interpolator Interpolator for within-visit registration
+#' @param across.transform Transformation for across-visit registration
+#' @param across.interpolator Interpolator for across-visit registration
+#' @param verbose print diagnostic outputs
+#' @param ... arguments to \code{\link{preprocess_mri_within}} and \code{\link{ants_regwrite}}
 #' @export
 #' @return NULL or list of objects of class nifti for transformed images
-preprocess_mri_across <- function(baseline_files, # filename of T1 image
-                  followup_files, # do Skull stripping with FSL BET                  
-                  baseline_outfiles, 
-                  followup_outfiles,
+preprocess_mri_across <- function(baseline_files, # filename of baseline images
+                  followup_files, # filename of followup images                
+                  baseline_outfiles, # output filenames for baseline images
+                  followup_outfiles, # output filenames for followup images
                   retimg = FALSE,
-                  reorient = FALSE,                              
                   maskfile = NULL,
                   skull_strip = FALSE, # do Skull stripping with FSL BET
                   bet.opts = "-B -f 0.1 -v",
                   betcmd = "bet",
-                  within.transform = "Rigid",
-                  within.interpolator =  "LanczosWindowedSinc",
-                  across.transform = within.transform,
-                  across.interpolator = within.interpolator,
-                  verbose = TRUE,
-                  ... # arguments to \code{\link{antsApplyTransforms}} 
+                  within.transform = "Rigid", # Transformation for within-visit registration
+                  within.interpolator =  "LanczosWindowedSinc", # Interpolator for within-visit registration
+                  across.transform = within.transform, # Transformation for across-visit registration
+                  across.interpolator = within.interpolator, # Interpolator for across-visit registration
+                  verbose = TRUE, # print diagnostic outputs
+                  ... # arguments to \code{\link{preprocess_mri_within}} and \code{\link{ants_regwrite}}  
 ){
   #################################
   # Making sure these are character filenames
@@ -81,7 +69,7 @@ preprocess_mri_across <- function(baseline_files, # filename of T1 image
              retimg = FALSE,
              opts = bet.opts, 
              betcmd = betcmd, 
-             verbose = verbose, reorient = reorient)
+             verbose = verbose, reorient = FALSE)
     } else {
       maskfile = checkimg(maskfile)
     }
@@ -89,7 +77,7 @@ preprocess_mri_across <- function(baseline_files, # filename of T1 image
   
   preprocess_mri_within(files = baseline_outfiles, 
                         outfiles = baseline_outfiles, 
-                        reorient = reorient, 
+                        reorient = FALSE, 
                         typeofTransform = within.transform,
                         interpolator = within.interpolator, 
                         maskfile = maskfile,
@@ -99,7 +87,7 @@ preprocess_mri_across <- function(baseline_files, # filename of T1 image
                         outfiles = followup_outfiles, 
                         typeofTransform = within.transform,
                         interpolator = within.interpolator,                         
-                        reorient = reorient, ...) 
+                        reorient = FALSE, ...) 
   
   #######################################
   ## Registering Followup to Baseline
@@ -118,7 +106,7 @@ preprocess_mri_across <- function(baseline_files, # filename of T1 image
                 skull_strip = FALSE, 
                 n3correct = FALSE, 
                 retimg = FALSE,
-                remove.warp = TRUE)
+                remove.warp = TRUE, ...)
   
   #######################################
   # Masking Brain
@@ -133,8 +121,8 @@ preprocess_mri_across <- function(baseline_files, # filename of T1 image
   }  
   
   if (retimg){
-    base = lapply(baseline_outfiles, readNIfTI, reorient = reorient)
-    fup = lapply(followup_outfiles, readNIfTI, reorient = reorient)
+    base = lapply(baseline_outfiles, readNIfTI, reorient = FALSE)
+    fup = lapply(followup_outfiles, readNIfTI, reorient = FALSE)
     L = list(baseline=base, followup = fup)
     return(L)
   } 
