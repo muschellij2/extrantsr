@@ -29,16 +29,15 @@
 #' @import ANTsR
 #' @import fslr
 #' @import oro.nifti
-#' @import WhiteStripe
 #' @export
-#' @return NULL or object of class nifti for transformed T1 image
+#' @return NULL or list of objects of class nifti for transformed images
 preprocess_mri_across <- function(baseline_files, # filename of T1 image
                   followup_files, # do Skull stripping with FSL BET                  
                   baseline_outfiles, 
                   followup_outfiles,
                   retimg = FALSE,
                   reorient = FALSE,                              
-                  brain_mask = NULL,
+                  maskfile = NULL,
                   skull_strip = FALSE, # do Skull stripping with FSL BET
                   bet.opts = "-B -f 0.1 -v",
                   betcmd = "bet",
@@ -46,13 +45,6 @@ preprocess_mri_across <- function(baseline_files, # filename of T1 image
                   within.interpolator =  "LanczosWindowedSinc",
                   across.transform = within.transform,
                   across.interpolator = within.interpolator,
-                  template.file = file.path(fsldir(),
-                                            "data", "standard", 
-                                            ifelse(skull_strip, 
-                                                   "MNI152_T1_1mm_brain.nii.gz",
-                                                   "MNI152_T1_1mm.nii.gz")),
-                  templateTransform = "Affine",
-                  templateInerpolator = "Linear",
                   verbose = TRUE,
                   ... # arguments to \code{\link{antsApplyTransforms}} 
 ){
@@ -73,29 +65,14 @@ preprocess_mri_across <- function(baseline_files, # filename of T1 image
   followup_files = bf$files
   followup_outfiles = bf$outfiles  
     
-  #######################################
-  # Checking filename lengths
-  #######################################
-  n.base = length(baseline_outfiles)
-  n.baseout = length(baseline_outfiles)
-  if (n.baseout != n.base){
-    stop("Number of baseline files must be number of baseline outfiles")
-  }
-
-  n.fup = length(followup_files)
-  n.fout = length(followup_outfiles)
-  if (n.baseout != n.fup){
-    stop("Number of followup files must be number of followup outfiles")
-  }
-
   ###################################
   # Skull stripping baseline T1 image
   ###################################
-  if (is.null(brain_mask)){
-    if (skull_strip) {
+  if (skull_strip) {
+    if (is.null(maskfile)){
       fslext = suppressWarnings(get.imgext())
       brain_mask_stub = tempfile()
-      brain_mask = paste0(brain_mask_stub, fslext)
+      maskfile = paste0(brain_mask_stub, fslext)
       if (verbose){
         cat("Skull stripping baseline[1] image \n")
       }
@@ -105,6 +82,8 @@ preprocess_mri_across <- function(baseline_files, # filename of T1 image
              opts = bet.opts, 
              betcmd = betcmd, 
              verbose = verbose, reorient = reorient)
+    } else {
+      maskfile = checkimg(maskfile)
     }
   } 
   
@@ -113,7 +92,7 @@ preprocess_mri_across <- function(baseline_files, # filename of T1 image
                         reorient = reorient, 
                         typeofTransform = within.transform,
                         interpolator = within.interpolator, 
-                        maskfile = brain_mask,
+                        maskfile = maskfile,
                         ...)
   #### Doing Followup
   preprocess_mri_within(files = followup_outfiles, 
@@ -141,31 +120,27 @@ preprocess_mri_across <- function(baseline_files, # filename of T1 image
                 retimg = FALSE,
                 remove.warp = TRUE)
   
-
-  
   #######################################
-  ## Registering Baseline to Template
-  #######################################  
-  allfiles = c(baseline_outfiles, fout1, followup_outfiles)
-  tfiles = sapply(allfiles, tempfile(fileext = ".nii.gz"))
-  bout1.temp = tempfile(fileext = ".nii.gz")
-  ants_regwrite(filename = bout1, 
-                outfile = bout1.temp,
-                template.file = template.file,
-                typeofTransform = templateTransform,
-                other.files = c(baseline_outfiles, fout1, followup_outfiles),
-                other.outfiles = tfiles, 
-                skull_strip = FALSE, 
-                n3correct = FALSE, 
-                retimg = FALSE,
-                remove.warp = TRUE) 
+  # Masking Brain
+  #######################################
+  if (skull_strip){
+    for (ifile in seq_along(followup_outfiles)){
+      f = followup_outfiles[ifile]
+      fslmask(file = f, mask = maskfile, 
+              outfile = f, 
+              retimg=FALSE, verbose = verbose)
+    } 
+  }  
   
-#   img = readNIfTI(bout1.temp, reorient = FALSE)
-#   ws = whitestripe(img = img, type="T1", verbose = verbose)
-#   maskfile = tempfile()
-#   writeNIfTI(mask.img, filename = maskfile)
-    
-  
+  if (retimg){
+    base = lapply(baseline_outfiles, readNIfTI, reorient = reorient)
+    fup = lapply(followup_outfiles, readNIfTI, reorient = reorient)
+    L = list(baseline=base, followup = fup)
+    return(L)
+  } 
+  return(invisible(NULL))
+}
+
 #   ants_regwrite(filename = bout1, 
 #                 outfile = bout1,
 #                 template.file = template.file,
@@ -176,12 +151,6 @@ preprocess_mri_across <- function(baseline_files, # filename of T1 image
 #                 n3correct = FALSE, 
 #                 retimg = FALSE,
 #                 remove.warp = TRUE)   
-  
-  ##### Need to implement normalization
-  
-  return(invisible(NULL))
-}
-
 
 
 
@@ -208,7 +177,7 @@ process_filenames <- function(files, # input filenames
   
   outfiles = path.expand(outfiles)
   
-  if (!all(grepl("[.]nii", c(files))){
+  if (!all(grepl("[.]nii", files))){
     stop("All filenames must be nifti .nii or .nii.gz")
   }
   
@@ -249,11 +218,22 @@ process_filenames <- function(files, # input filenames
   ##########################
   # Copying files over, now work on baseline_outfiles for output
   ##########################  
-  mapply(vec_extension, 
+  outfiles = mapply(vec_extension, 
          files, 
          outfiles, 
          copyfiles = copyfiles)
   
+  #######################################
+  # Checking filename lengths
+  #######################################  
+  n.in = length(files)
+  n.out = length(outfiles)
+  if (n.in != n.out){
+    stop("Number of input files must be number of outfiles")
+  }  
+  
   l = list(files = files, outfiles = outfiles)
   return(l)
 }
+
+
