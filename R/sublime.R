@@ -74,7 +74,9 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
       maskfile = checkimg(maskfile)
     }
   } 
-  
+  if (verbose){
+    cat("# Processing baseline data\n")
+  }
   preprocess_mri_within(files = baseline_outfiles, 
                         outfiles = baseline_outfiles, 
                         reorient = FALSE, 

@@ -18,7 +18,15 @@ within_visit_registration <- function(fixed, # filename of T1 image
 ){
   
   n.moving = length(moving)
-  stopifnot(n.moving == length(outfiles))
+  if (length(n.moving) != length(outfiles)){
+    cat("# Output images do not equal input images\n")
+    cat(paste0("Moving", n.moving, " outfiles", length(outfiles)))
+    cat("# Moving Images\n")
+    cat(moving, sep="\n")
+    cat("# Outfiles\n")
+    cat(outfiles, sep= "\n")
+    stop("Check inputs")
+  }
   
   f.img = checkimg(fixed[[1]], ...)
   for (iimg in seq(n.moving)){

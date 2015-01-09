@@ -98,9 +98,9 @@ preprocess_mri_within <- function(files,
   other.files = files[seq(2, length(files), by = 1)]
   other.outfiles = outfiles[seq(2, length(files), by = 1)]
 
-  within_visit_registration(file1, # filename of T1 image
+  within_visit_registration(fixed=file1, # filename of T1 image
                           moving = other.files,
-                          outfiles = outfiles, 
+                          outfiles = other.outfiles, 
                           typeofTransform = typeofTransform,
                           interpolator = interpolator,
                           retimg = FALSE, 
