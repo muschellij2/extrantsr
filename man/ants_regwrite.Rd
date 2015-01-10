@@ -2,7 +2,7 @@
 % Please edit documentation in R/T1_Registration_function.R
 \name{ants_regwrite}
 \alias{ants_regwrite}
-\title{Registration to T1 Template}
+\title{Registration to a Template}
 \usage{
 ants_regwrite(filename, skull_strip = FALSE, n3correct = FALSE,
   retimg = TRUE, outfile = NULL, template.file = file.path(fsldir(),
@@ -60,7 +60,9 @@ Required if \code{remove.warp = FALSE}}
 NULL or object of class nifti for transformed T1 image
 }
 \description{
-This function performs registration to a T1 template
-using ANTsR and SyN transformation
+This function performs registration to a template
+using ANTsR and SyN transformation, carry out the transformation
+on other images, and can back-transform atlases
+in template space to the native space of the iimage
 }
 

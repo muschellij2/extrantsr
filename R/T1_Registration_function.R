@@ -1,7 +1,9 @@
-#' @title Registration to T1 Template
+#' @title Registration to a Template
 #'
-#' @description This function performs registration to a T1 template
-#' using ANTsR and SyN transformation
+#' @description This function performs registration to a template
+#' using ANTsR and SyN transformation, carry out the transformation
+#' on other images, and can back-transform atlases
+#' in template space to the native space of the iimage
 #' @param filename filename of T1 image
 #' @param skull_strip do skull stripping with FSL BET 
 #' @param n3correct do N3 Bias correction
