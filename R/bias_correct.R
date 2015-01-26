@@ -9,6 +9,7 @@
 #' Passed to \code{\link{readNIfTI}}.
 #' @param shrinkfactor Shrink factor passed to 
 #' \code{\link{N3BiasFieldCorrection}}
+#' @param dimension Dimension of the image (usually 3 or 4)
 #' @param ... additional arguments passed to 
 #' \code{\link{N3BiasFieldCorrection}}
 #' @return If \code{retimg} then object of class nifti.  Otherwise,
@@ -21,6 +22,7 @@ bias_correct = function(
   retimg = FALSE,
   reorient = FALSE,
   shrinkfactor = "4",
+  dimension = 3, 
   ...){
   correction = match.arg(correction, c("N3", "N4", "N4_Field"))
   func = paste0(correction, "BiasFieldCorrection")
@@ -37,7 +39,7 @@ bias_correct = function(
   if (inherits(file, "antsImage")){
     img = file
   } else {
-    img <- antsImageRead(file, 3)
+    img <- antsImageRead(file, dimension)
   }
   imgn3 <- antsImageClone(img)
   if ( correction == "N3"){

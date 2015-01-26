@@ -5,7 +5,8 @@
 \title{N3 or N4 Correct}
 \usage{
 bias_correct(file, correction = c("N3", "N4", "N4_Field"), outfile = NULL,
-  retimg = FALSE, reorient = FALSE, shrinkfactor = "4", ...)
+  retimg = FALSE, reorient = FALSE, shrinkfactor = "4", dimension = 3,
+  ...)
 }
 \arguments{
 \item{file}{(character) image to be manipulated}
@@ -21,6 +22,8 @@ Passed to \code{\link{readNIfTI}}.}
 
 \item{shrinkfactor}{Shrink factor passed to
 \code{\link{N3BiasFieldCorrection}}}
+
+\item{dimension}{Dimension of the image (usually 3 or 4)}
 
 \item{...}{additional arguments passed to
 \code{\link{N3BiasFieldCorrection}}}
