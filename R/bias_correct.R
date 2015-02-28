@@ -14,18 +14,20 @@
 #' \code{\link{N3BiasFieldCorrection}}
 #' @return If \code{retimg} then object of class nifti.  Otherwise,
 #' Result from system command, depends if intern is TRUE or FALSE.
+#' @import fslr
 #' @export
 bias_correct = function(
   file,
-  correction = c("N3", "N4", "N4_Field"),
+  correction = c("N3", "N4", "n3", "n4"),
   outfile=NULL, 
   retimg = FALSE,
   reorient = FALSE,
   shrinkfactor = "4",
   dimension = 3, 
   ...){
-  correction = match.arg(correction, c("N3", "N4", "N4_Field"))
-  func = paste0(correction, "BiasFieldCorrection")
+  correction = toupper(correction)
+  correction = match.arg(correction, c("N3", "N4"))
+  func = paste0(gsub("^N", "n", correction), "BiasFieldCorrection")
   
   if (retimg){
     if (is.null(outfile)) {
@@ -36,24 +38,27 @@ bias_correct = function(
     stopifnot(!is.null(outfile))
   }
   
+  file = checkimg(file)
   if (inherits(file, "antsImage")){
     img = file
   } else {
     img <- antsImageRead(file, dimension)
   }
-  imgn3 <- antsImageClone(img)
-  if ( correction == "N3"){
-    res = N3BiasFieldCorrection(img@dimension, img, imgn3, "4", ...)
+#   imgn3 <- antsImageClone(img)
+  if ( correction %in% c("N3", "n3")){
+#     res = n3BiasFieldCorrection(img@dimension, img, imgn3, "4", ...)
+    res = n3BiasFieldCorrection(img, downsampleFactor = shrinkfactor)
   }
-  if (correction == "N4"){
-    funclist = list(d=img@dimension, i=img, o=imgn3, s = shrinkfactor, ...)
-    res = do.call(func, funclist)
+  if (correction %in% c("N4", "n4")){
+#     funclist = list(d=img@dimension, i=img, o=imgn3, s = shrinkfactor, ...)
+#     res = do.call(func, funclist)
+    res = n4BiasFieldCorrection(img = img)
   }
-  if (correction == "N4_Field"){
-    funclist = list(d=img@dimension, i=img, o=imgn3, s = shrinkfactor, ...)
-    res = N4BiasCorrect_WithField(funclist)
-  }  
-  
+#   if (correction == "N4_Field"){
+#     funclist = list(d=img@dimension, i=img, o=imgn3, s = shrinkfactor, ...)
+#     res = n4BiasCorrect_WithField(funclist)
+#   }  
+  imgn3 = res
   antsImageWrite( imgn3, filename = outfile)
   
   if (retimg){

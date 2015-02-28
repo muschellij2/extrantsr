@@ -96,6 +96,7 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                         typeofTransform = within.transform,
                         interpolator = within.interpolator, 
                         maskfile = maskfile,
+                        n3correct = n3correct,                        
                         verbose = verbose,
                         ...)
   #### Doing Followup
@@ -104,6 +105,7 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                         typeofTransform = within.transform,
                         interpolator = within.interpolator,                         
                         reorient = FALSE, 
+                        n3correct = n3correct,
                         verbose = verbose,                        
                         ...) 
   
@@ -193,13 +195,10 @@ process_filenames <- function(files, # input filenames
   # Checking if extensions are .nii or .nii.gz
   #############################
   if (force_nii){
-    if (!all(grepl("[.]nii", c(baseline_outfiles, followup_outfiles)))){
-      warning(paste0("Extensions not specified for baseline_outfiles or ", 
-                     "followup_outfiles, adding .nii.gz"))
-      baseline_outfiles[!grepl("[.]nii",baseline_outfiles)] = paste0(
-        baseline_outfiles[!grepl("[.]nii",baseline_outfiles)], '.nii.gz')
-      followup_outfiles[!grepl("[.]nii",followup_outfiles)] = paste0(
-        followup_outfiles[!grepl("[.]nii",followup_outfiles)], '.nii.gz')    
+    if (!all(grepl("[.]nii", c(outfiles)))){
+      warning(paste0("Extensions not specified for outfiles, adding .nii.gz"))
+      outfiles[!grepl("[.]nii",outfiles)] = paste0(
+        outfiles[!grepl("[.]nii",outfiles)], '.nii.gz')    
     }
   }
   

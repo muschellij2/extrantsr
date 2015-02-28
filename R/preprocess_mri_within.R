@@ -16,6 +16,9 @@
 #' \code{\link{antsRegistration}} 
 #' @param interpolator Interpolation to be performed, passed to
 #' \code{\link{antsRegistration}} 
+#' @param skull_strip do Skull stripping with FSL BET
+#' @param bet.opts Options to pass to \code{\link{fslbet}}
+#' @param betcmd Command to pass to \code{\link{fslbet}}
 #' @param maskfile Filename (or nifti object) of mask for image to be
 #' registered to
 #' @param verbose Diagnostic messages
@@ -35,6 +38,9 @@ preprocess_mri_within <- function(files,
                               reorient = FALSE,                              
                               typeofTransform = "Rigid",
                               interpolator = "LanczosWindowedSinc",
+                              skull_strip = FALSE,
+                              bet.opts = "-B -f 0.1 -v",
+                              betcmd = "bet",                              
                               maskfile = NULL,
                              verbose = TRUE,
                            ... # arguments to \code{\link{antsApplyTransforms}} 
@@ -65,6 +71,32 @@ preprocess_mri_within <- function(files,
     stop("All filenames must be nifti .nii or .nii.gz")
   }
   
+  ###################################
+  # Skull stripping baseline T1 image
+  ###################################
+  if (skull_strip) {
+    if (is.null(maskfile)){
+      brain_mask_stub = tempfile()
+      fslext = suppressWarnings(get.imgext())      
+      maskfile = paste0(brain_mask_stub, fslext)
+    } else {
+      maskfile = checkimg(maskfile)
+      stopifnot(file.exists(maskfile))
+    }
+    if (!file.exists(maskfile)){
+      if (verbose){
+        cat("Skull stripping files[1] image \n")
+      }
+      fslbet(infile = files[1], 
+             outfile = maskfile, 
+             retimg = FALSE,
+             opts = bet.opts, 
+             betcmd = betcmd, 
+             verbose = verbose, reorient = FALSE)
+      fslbin(file=maskfile, outfile = maskfile, retimg=FALSE,
+             verbose = verbose)
+    }
+  }  
   #############################
   # Checking if extensions are .nii or .nii.gz
   #############################
@@ -100,16 +132,18 @@ preprocess_mri_within <- function(files,
   # Registration to first scan
   #######################################
   file1 = files[1]
-  other.files = files[seq(2, length(files), by = 1)]
-  other.outfiles = outfiles[seq(2, length(files), by = 1)]
+  if (length(files) > 1){
+    other.files = files[seq(2, length(files), by = 1)]
+    other.outfiles = outfiles[seq(2, length(files), by = 1)]
 
-  within_visit_registration(fixed=file1, # filename of T1 image
-                          moving = other.files,
-                          outfiles = other.outfiles, 
-                          typeofTransform = typeofTransform,
-                          interpolator = interpolator,
-                          retimg = FALSE, 
-                          ...)
+    within_visit_registration(fixed=file1, # filename of T1 image
+                            moving = other.files,
+                            outfiles = other.outfiles, 
+                            typeofTransform = typeofTransform,
+                            interpolator = interpolator,
+                            retimg = FALSE, 
+                            ...)
+  }
 
   #######################################
   # Masking Brain
