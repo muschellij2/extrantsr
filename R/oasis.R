@@ -114,11 +114,10 @@ oasis <- function(filename, # filename of T1 image
   }
   ## N3 Correct files
   if (n3correct){
-    n3BiasFieldCorrection(t1@dimension, t1, t1N3, "4")
+    t1N3 = n3BiasFieldCorrection(t1, 4)
     if (have.other) {
       for (i in seq(lother)){
-        n3BiasFieldCorrection(other.imgs[[i]]@dimension, 
-                              other.imgs[[i]], N3.oimgs[[i]], "4")
+        N3.oimgs[[i]] = n3BiasFieldCorrection(other.imgs[[i]], 4)
       }
     }		
   }

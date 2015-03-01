@@ -5,8 +5,9 @@
 \title{Registration to a Template}
 \usage{
 ants_regwrite(filename, skull_strip = FALSE, n3correct = FALSE,
-  retimg = TRUE, outfile = NULL, template.file = file.path(fsldir(),
-  "data", "standard", "MNI152_T1_1mm_brain.nii.gz"), interpolator = "Linear",
+  correction = "N3", retimg = TRUE, outfile = NULL,
+  template.file = file.path(fsldir(), "data", "standard",
+  "MNI152_T1_1mm_brain.nii.gz"), interpolator = "Linear",
   other.files = NULL, other.outfiles = NULL, native.cereb = FALSE,
   native.fname = NULL, atlas.file = NULL, typeofTransform = "SyN",
   remove.warp = FALSE, outprefix = NULL, bet.opts = "-B -f 0.1 -v",
@@ -17,7 +18,9 @@ ants_regwrite(filename, skull_strip = FALSE, n3correct = FALSE,
 
 \item{skull_strip}{do skull stripping with FSL BET}
 
-\item{n3correct}{do N3 Bias correction}
+\item{n3correct}{do Bias correction}
+
+\item{correction}{N3 or N4 correction, see \code{\link{bias_correct}}}
 
 \item{retimg}{return a nifti object from function}
 

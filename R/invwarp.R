@@ -90,13 +90,13 @@ sys_int_antsProcessArguments = function (args)
             adder = ""
           }
           char_vect <- c(char_vect, 
-                         paste0(as.character(int_antsExtractXptrAsString(
+                         paste0(as.character(ANTsR:::.int_antsExtractXptrAsString(
                            args[[i]][[j]])), adder))
         }
         char_vect <- c(char_vect, "]")
       }
       else {
-        char_vect <- c(char_vect, as.character(int_antsExtractXptrAsString(args[[i]])))
+        char_vect <- c(char_vect, as.character(ANTsR:::.int_antsExtractXptrAsString(args[[i]])))
       }
     }
   }

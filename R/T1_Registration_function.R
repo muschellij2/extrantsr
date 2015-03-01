@@ -6,7 +6,8 @@
 #' in template space to the native space of the iimage
 #' @param filename filename of T1 image
 #' @param skull_strip do skull stripping with FSL BET 
-#' @param n3correct do N3 Bias correction
+#' @param n3correct do Bias correction
+#' @param correction N3 or N4 correction, see \code{\link{bias_correct}}
 #' @param retimg return a nifti object from function
 #' @param outfile output filename should have .nii or .nii.gz 
 #' extension
@@ -37,6 +38,7 @@
 ants_regwrite <- function(filename, # filename of T1 image
                    skull_strip = FALSE, # do Skull stripping with FSL BET
 	n3correct = FALSE,  # do N3 Bias correction
+	correction = "N3",
 	retimg = TRUE, # return a nifti object from function
 	outfile = NULL, # output filename, should have .nii or .nii.gz extension
   template.file = file.path(fsldir(), "data", "standard", 
@@ -112,11 +114,16 @@ ants_regwrite <- function(filename, # filename of T1 image
 	}
 	## 
 	if (n3correct){
-		N3BiasFieldCorrection(t1@dimension, t1, t1N3, "4")
+    t1N3 = bias_correct(file = t1, 
+                        correction = correction, 
+                        retimg = TRUE)
+    t1N3 = oro2ants(t1N3)
 		if (have.other) {
 			for (i in seq(lother)){
-				N3BiasFieldCorrection(other.imgs[[i]]@dimension, 
-					other.imgs[[i]], N3.oimgs[[i]], "4")
+			  N3.oimgs[[i]] = bias_correct(file = other.imgs[[i]], 
+			                      correction = correction, 
+			                      retimg = TRUE)
+			  N3.oimgs[[i]] = oro2ants(N3.oimgs[[i]])
 			}
 		}		
 	}
