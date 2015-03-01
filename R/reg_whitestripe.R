@@ -28,6 +28,7 @@
 #' @import WhiteStripe
 #' @import fslr
 #' @import oro.nifti
+#' @import ANTsR
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image
 reg_whitestripe <- function(t1 =NULL, t2 = NULL, 
@@ -62,6 +63,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   }
   
   typeofTransform = match.arg(typeofTransform, c("Rigid", "Affine"))
+  type = match.arg(type, c("T1", "T2", "hybrid"))
   #####################
   # Checking for T1 and T2 iamges
   #####################
@@ -122,8 +124,12 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   # Perform Registration
   ###################    
   if (register){
-    other.temp = sapply(seq(other.files), 
-                        function(x) tempfile(fileext = '.nii.gz'))
+    if (!nullother){
+      other.temp = sapply(seq(other.files), 
+                          function(x) tempfile(fileext = '.nii.gz'))
+    } else {
+      other.temp = NULL
+    }
     outprefix = tempfile()
     if (!nullt1){
       ###################
@@ -143,7 +149,8 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
                     template.file = template.file,
                     typeofTransform = typeofTransform,
                     interpolator = interpolator,
-                    outprefix = TRUE,
+                    outprefix = outprefix,
+                    remove.warp = TRUE,
                     other.files = other.files,
                     other.outfiles = other.temp)
       t1 = check_nifti(outfile)
@@ -152,7 +159,9 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
         t2 = check_nifti(t2)
         other.temp = other.temp[-1]
       }      
-      other.files = lapply(other.temp, check_nifti)
+      if (!nullother){
+        other.files = lapply(other.temp, check_nifti)
+      }
     } else {
       stop("Registration must be done with the T1 image")
     }
@@ -203,18 +212,84 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
                         bitpix= convert.bitpix()$FLOAT32)
     return(img)
   }
+  ##########################
+  # Apply WhiteStripe
+  ##########################  
   if (!nullt1){
     t1 = dtype(whitestripe_norm(t1, indices = indices))
-    writeNIfTI(t1, filename = t1.outfile)
   }
   if (!nullt2){
     t2 = dtype(whitestripe_norm(t2, indices = indices))
-    writeNIfTI(t2, filename = t2.outfile)
   }
   if (!nullother){
     other.files = lapply(other.files, function(x){
       dtype(whitestripe_norm(x, indices = indices))
     })
+  }
+
+  ###################
+  # Perform Registration
+  ###################    
+  if (native){
+    if (!register){
+      warning("Native is TRUE, but register is false, returning out images")
+    }
+    if (register){
+      inv.trans = paste0(outprefix, "0GenericAffine.mat")
+      template.img = antsImageRead(template.file, dimension = 3)
+      if (!nullt1){
+        ##############################
+        # Applying Transformation
+        ##############################
+        fixed = oro2ants(t1)
+        fixed = antsApplyTransforms(fixed = fixed, 
+                                   moving = template.img, 
+                                   transformlist = inv.trans, 
+                                   interpolator = interpolator, 
+                                   whichtoinvert = 1)
+        t1 = ants2oro(fixed)
+        ###################
+        # Carry T2 with transformation
+        ###################    
+        if (!nullt2){
+          fixed = oro2ants(t2)
+          fixed = antsApplyTransforms(fixed = fixed, 
+                                      moving = template.img, 
+                                      transformlist = inv.trans, 
+                                      interpolator = interpolator, 
+                                      whichtoinvert = 1)
+          t2 = ants2oro(fixed)
+        }
+        ###################
+        # Register
+        ###################  
+        if (!nullother){
+          for (ifile in seq_along(other.files)){
+            fixed = oro2ants(other.files[[ifile]])
+            fixed = antsApplyTransforms(fixed = fixed, 
+                                        moving = template.img, 
+                                        transformlist = inv.trans, 
+                                        interpolator = interpolator, 
+                                        whichtoinvert = 1)
+            other.files[[ifile]] = ants2oro(fixed)
+          }
+        }
+      } else {
+        stop("Registration must be done with the T1 image")
+      }
+    }
+  }
+  
+  ###################
+  # Write out images
+  ###################      
+  if (!nullt1){
+    writeNIfTI(t1, filename = t1.outfile)
+  }
+  if (!nullt2){
+    writeNIfTI(t2, filename = t2.outfile)
+  }
+  if (!nullother){
     mapply(function(img, fname){
       writeNIfTI(img, filename = fname)
     }, other.files, other.outfiles)
