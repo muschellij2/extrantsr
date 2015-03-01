@@ -9,7 +9,7 @@ reg_whitestripe(t1 = NULL, t2 = NULL, register = TRUE, native = TRUE,
   "MNI152_T1_1mm_brain.nii.gz"), typeofTransform = c("Rigid", "Affine"),
   interpolator = "LanczosWindowedSinc", type = c("T1", "T2", "hybrid"),
   t1.outfile = NULL, t2.outfile = NULL, other.files = NULL,
-  other.outfiles = NULL, ...)
+  other.outfiles = NULL, mask = NULL, ...)
 }
 \arguments{
 \item{t1}{filename (or nifti objects) of T1 image}
@@ -40,6 +40,8 @@ normalize.  In the same space as T1.}
 
 \item{other.outfiles}{Character filenames for output
 normalized files.}
+
+\item{mask}{File or nifti image of mask}
 
 \item{...}{arguments to \code{\link{whitestripe}} or
 \code{\link{whitestripe_hybrid}}}

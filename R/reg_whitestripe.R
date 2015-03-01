@@ -19,6 +19,7 @@
 #' normalize.  In the same space as T1.
 #' @param other.outfiles Character filenames for output 
 #' normalized files. 
+#' @param mask File or nifti image of mask  
 #' @param ... arguments to \code{\link{whitestripe}} or 
 #' \code{\link{whitestripe_hybrid}}
 #' @import WhiteStripe
@@ -41,6 +42,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
                             t2.outfile = NULL,
                             other.files = NULL,
                             other.outfiles =  NULL,
+                            mask = NULL,
                             ...
 ){
 
@@ -69,6 +71,23 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     stop("Need a T1 or T2 image")
   }
   
+  nullmask = is.null(mask)
+  #####################
+  # Creating output mask
+  #####################
+  if (!nullmask){
+    # reading in T1
+    mask = checkimg(mask)    
+    mask.outfile = tempfile(fileext = ".nii.gz")
+    maskants = antsImageRead(filename = mask, dimension = 3)
+    ##################
+    # Must have extension
+    ##################
+#     if (!all(grepl("[.]nii", c(mask.outfile)))){
+#       stop("t1 outfile must be nifti .nii or .nii.gz")
+#     }     
+  } 
+  
   #####################
   # Creating output files
   #####################
@@ -79,6 +98,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
       stop("T1 outfile needs te specified if T1 specified")
     }
     t1.outfile = path.expand(t1.outfile)
+    t1ants = antsImageRead(filename = t1, dimension = 3)
     ##################
     # Must have extension
     ##################
@@ -94,6 +114,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
       stop("T2 outfile needs te specified if T2 specified")
     }
     t2.outfile = path.expand(t2.outfile)
+    t2ants = antsImageRead(filename = t2, dimension = 3)    
     ##################
     # Must have extension
     ##################
@@ -112,6 +133,10 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
       stop("All filenames must be nifti .nii or .nii.gz")
     }    
     other.files = sapply(other.files, checkimg)
+    other.ants = lapply(other.files, function(x){
+      antsImageRead(filename = x, dimension = 3)
+    })
+    
   }
   
   ##### everything filesnames from here
@@ -132,9 +157,20 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
       # Carry T2 with transformation
       ###################    
       if (!nullt2){
+        other.files = c(t2 = t2, 
+                        other.files)
         other.temp = c(t2 = tempfile(fileext = '.nii.gz'), 
                      other.temp)
       }
+      
+      ###################
+      # Carry Mask with transformation
+      ###################    
+      if (!nullmask){
+        other.files = c(other.files, mask = mask)
+        other.temp = c(other.temp, mask = mask)
+      }
+    
       ###################
       # Register
       ###################  
@@ -154,6 +190,13 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
         t2 = other.temp[1]
         t2 = check_nifti(t2)
         other.temp = other.temp[-1]
+        other.files = other.files[-1]
+      }  
+      if (!nullmask){
+        mask = other.temp[length(other.temp)]
+        mask = check_nifti(mask)
+        other.temp = other.temp[-length(other.temp)]
+        other.files = other.files[-length(other.temp)]
       }      
       if (!nullother){
         other.files = lapply(other.temp, check_nifti)
@@ -239,8 +282,8 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
         # Applying Transformation
         ##############################
         fixed = oro2ants(t1)
-        fixed = antsApplyTransforms(fixed = fixed, 
-                                   moving = template.img, 
+        fixed = antsApplyTransforms(fixed = t1ants, 
+                                   moving = fixed, 
                                    transformlist = inv.trans, 
                                    interpolator = interpolator, 
                                    whichtoinvert = 1)
@@ -250,8 +293,8 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
         ###################    
         if (!nullt2){
           fixed = oro2ants(t2)
-          fixed = antsApplyTransforms(fixed = fixed, 
-                                      moving = template.img, 
+          fixed = antsApplyTransforms(fixed = t2ants, 
+                                      moving = fixed, 
                                       transformlist = inv.trans, 
                                       interpolator = interpolator, 
                                       whichtoinvert = 1)
@@ -263,8 +306,9 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
         if (!nullother){
           for (ifile in seq_along(other.files)){
             fixed = oro2ants(other.files[[ifile]])
-            fixed = antsApplyTransforms(fixed = fixed, 
-                                        moving = template.img, 
+            aimg = other.ants[[ifile]]
+            fixed = antsApplyTransforms(fixed = aimg, 
+                                        moving = fixed, 
                                         transformlist = inv.trans, 
                                         interpolator = interpolator, 
                                         whichtoinvert = 1)
@@ -281,14 +325,18 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   # Write out images
   ###################      
   if (!nullt1){
-    writeNIfTI(t1, filename = t1.outfile)
+    t1 = cal_img(t1)
+    writeNIfTI(t1, filename = nii.stub(t1.outfile))
   }
   if (!nullt2){
-    writeNIfTI(t2, filename = t2.outfile)
+    t2 = cal_img(t2)
+    writeNIfTI(t2, filename = nii.stub(t2.outfile))
   }
   if (!nullother){
+    print(other.outfiles)
     mapply(function(img, fname){
-      writeNIfTI(img, filename = fname)
+      img = cal_img(img)
+      writeNIfTI(img, filename = nii.stub(fname))
     }, other.files, other.outfiles)
   }
   
