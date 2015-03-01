@@ -10,7 +10,7 @@
 #' @param betcmd bet command to be used see \code{\link{fslbet}}
 #' @param n3correct should n3 correction be done stripping be done
 #' @param correction correction method used see \code{\link{bias_correct}}
-#' @param shrinkfactor correction method used see \code{\link{N3BiasFieldCorrection}}
+#' @param shrinkfactor correction method used see \code{\link{n3BiasFieldCorrection}}
 #' @param verbose Diagnostic output
 #' @param ... passed to \code{\link{bias_correct}}
 #' @export
@@ -24,7 +24,7 @@ ss_bias <- function(filename, # filename to be processed
                     betcmd = "bet",                        
                   n3correct = TRUE, # should n3 correction be done stripping be done
                   correction = "N3", # correction method used, see \code{\link{bias_correct}}
-                  shrinkfactor= "4", # correction method used, see \code{\link{N3BiasFieldCorrection}}
+                  shrinkfactor= "4", # correction method used, see \code{\link{n3BiasFieldCorrection}}
                   verbose = TRUE,
                   ... # passed to \code{\link{bias_correct}}
                   ){
@@ -72,7 +72,7 @@ ss_bias <- function(filename, # filename to be processed
 #' @param betcmd bet command to be used see \code{\link{fslbet}}
 #' @param n3correct should n3 correction be done stripping be done
 #' @param correction correction method used see \code{\link{bias_correct}}
-#' @param shrinkfactor correction method used see \code{\link{N3BiasFieldCorrection}}
+#' @param shrinkfactor correction method used see \code{\link{n3BiasFieldCorrection}}
 #' @param verbose Diagnostic output
 #' @param ... passed to \code{\link{bias_correct}}
 #' @export
@@ -86,7 +86,7 @@ bias_ss <- function(filename, # filename to be processed
                     betcmd = "bet",                        
                     n3correct = TRUE, # should n3 correction be done stripping be done
                     correction = "N3", # correction method used, see \code{\link{bias_correct}}
-                    shrinkfactor= "4", # correction method used, see \code{\link{N3BiasFieldCorrection}}
+                    shrinkfactor= "4", # correction method used, see \code{\link{n3BiasFieldCorrection}}
                     verbose = TRUE,
                     ... # passed to \code{\link{bias_correct}}
 ){

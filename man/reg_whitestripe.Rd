@@ -12,46 +12,40 @@ reg_whitestripe(t1 = NULL, t2 = NULL, register = TRUE, native = TRUE,
   other.outfiles = NULL, ...)
 }
 \arguments{
+\item{t1}{filename (or nifti objects) of T1 image}
+
+\item{t2}{filename (or nifti objects) of T2 image}
+
+\item{register}{Register image to template file}
+
+\item{native}{If images are registered, should the native space
+normalized image be returned?}
+
+\item{template.file}{Filename of template to warp to}
+
 \item{typeofTransform}{type of transformed used, passed to
 \code{\link{antsRegistration}}}
 
 \item{interpolator}{Interpolation to be performed, passed to
 \code{\link{antsRegistration}}}
 
-\item{...}{arguments to \code{\link{bias_correct}} or
-\code{\link{within_visit_registration}}}
+\item{type}{Type of whitestripe normalization done}
 
-\item{files}{filenames (or nifti objects) of images to be processed.
-Will register to the first scan}
+\item{t1.outfile}{Output filename of normalized T1 image}
 
-\item{outfiles}{(character) name of output files, with extension}
+\item{t2.outfile}{Output filename of normalized T2 image}
 
-\item{n3correct}{do N3 Bias correction}
+\item{other.files}{Character filenames or list of nifti objects to
+normalize.  In the same space as T1.}
 
-\item{correction}{(character) N3 or N4 correction?}
+\item{other.outfiles}{Character filenames for output
+normalized files.}
 
-\item{shrinkfactor}{Shrink factor passed to
-\code{\link{N3BiasFieldCorrection}}}
-
-\item{retimg}{(logical) return list of images of class nifti}
-
-\item{reorient}{(logical) If retimg, should file be
-reoriented when read in?
-Passed to \code{\link{readNIfTI}}.}
-
-\item{skull_strip}{do Skull stripping with FSL BET}
-
-\item{bet.opts}{Options to pass to \code{\link{fslbet}}}
-
-\item{betcmd}{Command to pass to \code{\link{fslbet}}}
-
-\item{maskfile}{Filename (or nifti object) of mask for image to be
-registered to}
-
-\item{verbose}{Diagnostic messages}
+\item{...}{arguments to \code{\link{whitestripe}} or
+\code{\link{whitestripe_hybrid}}}
 }
 \value{
-NULL or object of class nifti for transformed T1 image
+List of nifti objects or character filenames
 }
 \description{
 This function performs registration to a T1 template

@@ -8,10 +8,10 @@
 #' @param reorient (logical) If retimg, should file be reoriented when read in?
 #' Passed to \code{\link{readNIfTI}}.
 #' @param shrinkfactor Shrink factor passed to 
-#' \code{\link{N3BiasFieldCorrection}}
+#' \code{\link{n3BiasFieldCorrection}}
 #' @param dimension Dimension of the image (usually 3 or 4)
 #' @param ... additional arguments passed to 
-#' \code{\link{N3BiasFieldCorrection}}
+#' \code{\link{n3BiasFieldCorrection}}
 #' @return If \code{retimg} then object of class nifti.  Otherwise,
 #' Result from system command, depends if intern is TRUE or FALSE.
 #' @import fslr

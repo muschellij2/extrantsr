@@ -22,7 +22,7 @@ Will register to the first scan}
 \item{correction}{(character) N3 or N4 correction?}
 
 \item{shrinkfactor}{Shrink factor passed to
-\code{\link{N3BiasFieldCorrection}}}
+\code{\link{n3BiasFieldCorrection}}}
 
 \item{retimg}{(logical) return list of images of class nifti}
 

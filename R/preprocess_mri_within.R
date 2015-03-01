@@ -8,7 +8,7 @@
 #' @param n3correct do N3 Bias correction
 #' @param correction (character) N3 or N4 correction?
 #' @param shrinkfactor Shrink factor passed to 
-#' \code{\link{N3BiasFieldCorrection}} 
+#' \code{\link{n3BiasFieldCorrection}} 
 #' @param retimg (logical) return list of images of class nifti
 #' @param reorient (logical) If retimg, should file be reoriented when read in?
 #' Passed to \code{\link{readNIfTI}}. 

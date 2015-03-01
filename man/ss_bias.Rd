@@ -25,7 +25,7 @@ ss_bias(filename, maskfile = NULL, outfile = filename, skull_strip = TRUE,
 
 \item{correction}{correction method used see \code{\link{bias_correct}}}
 
-\item{shrinkfactor}{correction method used see \code{\link{N3BiasFieldCorrection}}}
+\item{shrinkfactor}{correction method used see \code{\link{n3BiasFieldCorrection}}}
 
 \item{verbose}{Diagnostic output}
 

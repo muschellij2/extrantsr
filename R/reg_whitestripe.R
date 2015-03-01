@@ -2,35 +2,31 @@
 #'
 #' @description This function performs registration to a T1 template
 #' using ANTsR and SyN transformation
-#' @param files filenames (or nifti objects) of images to be processed.
-#' Will register to the first scan
-#' @param outfiles (character) name of output files, with extension
-#' @param n3correct do N3 Bias correction
-#' @param correction (character) N3 or N4 correction?
-#' @param shrinkfactor Shrink factor passed to 
-#' \code{\link{N3BiasFieldCorrection}} 
-#' @param retimg (logical) return list of images of class nifti
-#' @param reorient (logical) If retimg, should file be 
-#' reoriented when read in?
-#' Passed to \code{\link{readNIfTI}}. 
+#' @param t1 filename (or nifti objects) of T1 image
+#' @param t2 filename (or nifti objects) of T2 image
+#' @param register Register image to template file
+#' @param native If images are registered, should the native space
+#' normalized image be returned?
+#' @param template.file Filename of template to warp to
 #' @param typeofTransform type of transformed used, passed to 
 #' \code{\link{antsRegistration}} 
 #' @param interpolator Interpolation to be performed, passed to
 #' \code{\link{antsRegistration}} 
-#' @param skull_strip do Skull stripping with FSL BET
-#' @param bet.opts Options to pass to \code{\link{fslbet}}
-#' @param betcmd Command to pass to \code{\link{fslbet}}
-#' @param maskfile Filename (or nifti object) of mask for image to be
-#' registered to
-#' @param verbose Diagnostic messages
-#' @param ... arguments to \code{\link{bias_correct}} or 
-#' \code{\link{within_visit_registration}}
+#' @param type Type of whitestripe normalization done
+#' @param t1.outfile Output filename of normalized T1 image
+#' @param t2.outfile Output filename of normalized T2 image
+#' @param other.files Character filenames or list of nifti objects to 
+#' normalize.  In the same space as T1.
+#' @param other.outfiles Character filenames for output 
+#' normalized files. 
+#' @param ... arguments to \code{\link{whitestripe}} or 
+#' \code{\link{whitestripe_hybrid}}
 #' @import WhiteStripe
 #' @import fslr
 #' @import oro.nifti
 #' @import ANTsR
 #' @export
-#' @return NULL or object of class nifti for transformed T1 image
+#' @return List of nifti objects or character filenames
 reg_whitestripe <- function(t1 =NULL, t2 = NULL, 
                             register = TRUE,
                             native = TRUE,
@@ -231,9 +227,10 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   # Perform Registration
   ###################    
   if (native){
-    if (!register){
-      warning("Native is TRUE, but register is false, returning out images")
-    }
+#     if (!register){
+#       warning(paste0("Native is TRUE, but register is FALSE,",
+#         "returning out images"))
+#     }
     if (register){
       inv.trans = paste0(outprefix, "0GenericAffine.mat")
       template.img = antsImageRead(template.file, dimension = 3)
