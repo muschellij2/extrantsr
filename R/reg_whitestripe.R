@@ -194,7 +194,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
       }  
       if (!nullmask){
         mask = other.temp[length(other.temp)]
-        mask = check_nifti(mask)
+        mask = cal_img(check_nifti(mask) > 0.5)
         other.temp = other.temp[-length(other.temp)]
         other.files = other.files[-length(other.temp)]
       }      
@@ -211,6 +211,9 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   }
   if (!nullt2){
     t2 = check_nifti(t2)
+  }
+  if (!nullmask){
+    mask = cal_img(check_nifti(mask) > 0.5)
   }
   if (!nullother){
     other.files = lapply(other.files, check_nifti)
@@ -301,6 +304,12 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
           t2 = ants2oro(fixed)
         }
         ###################
+        # Use Native mask Image
+        ###################           
+        if (!nullmask){
+          mask = ants2oro(maskants)
+        }        
+        ###################
         # Register
         ###################  
         if (!nullother){
@@ -326,16 +335,19 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   ###################      
   if (!nullt1){
     t1 = cal_img(t1)
+    t1 = mask_img(t1, mask)
     writeNIfTI(t1, filename = nii.stub(t1.outfile))
   }
   if (!nullt2){
     t2 = cal_img(t2)
+    t2 = mask_img(t2, mask)
     writeNIfTI(t2, filename = nii.stub(t2.outfile))
   }
   if (!nullother){
     print(other.outfiles)
     mapply(function(img, fname){
       img = cal_img(img)
+      img = mask_img(img, mask)
       writeNIfTI(img, filename = nii.stub(fname))
     }, other.files, other.outfiles)
   }
