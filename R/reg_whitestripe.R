@@ -105,8 +105,18 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   # Creating output files
   #####################
   if (!nullt1){
+    #############
+    # Mask the images
+    ###########
+    if (!nullmask){
+      tfile = tempfile()
+      fslmask(file = t1, mask = mask, outfile = tfile, verbose = FALSE)
+      ext = get.imgext()
+      t1 = paste0(tfile, ext)
+      rm(list="tfile")
+    }
     # reading in T1
-    t1 = checkimg(t1)    
+    t1 = checkimg(t1)
     if (is.null(t1.outfile)){
       stop("T1 outfile needs te specified if T1 specified")
     }
@@ -121,6 +131,16 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   } 
   
   if (!nullt2){
+    #############
+    # Mask the images
+    ###########
+    if (!nullmask){
+      tfile = tempfile()
+      fslmask(file = t2, mask = mask, outfile = tfile, verbose = FALSE)
+      ext = get.imgext()
+      t2 = paste0(tfile, ext)
+      rm(list="tfile")      
+    }
     # reading in T2
     t2 = checkimg(t2) 
     if (is.null(t2.outfile)){
@@ -144,14 +164,26 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     ##################
     if (!all(grepl("[.]nii", c(other.outfiles)))){
       stop("All filenames must be nifti .nii or .nii.gz")
+    }
+    #############
+    # Mask the images
+    ###########
+    if (!nullmask){
+      other.files = sapply(other.files, function(fname){
+        tfile = tempfile()
+        fslmask(file = fname, mask = mask, outfile = tfile, verbose = FALSE)
+        ext = get.imgext()
+        tfile = paste0(tfile, ext)
+        return(tfile)
+      })      
     }    
-    other.files = sapply(other.files, checkimg)
+    other.files = sapply(other.files, checkimg)    
     other.ants = lapply(other.files, function(x){
       antsImageRead(filename = x, dimension = 3)
-    })
-    
+    }) 
   }
   
+
   ##### everything filesnames from here
   
   ###################
