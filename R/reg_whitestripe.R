@@ -19,9 +19,11 @@
 #' normalize.  In the same space as T1.
 #' @param other.outfiles Character filenames for output 
 #' normalized files. 
-#' @param ws.outfile Character filenames for output 
+#' @param ws.outfile Character filename for output 
 #' whitestripe mask.  
 #' @param mask File or nifti image of brain mask  
+#' @param mask.outfile Character filename for output 
+#' brain mask.  
 #' @param ... arguments to \code{\link{whitestripe}} or 
 #' \code{\link{whitestripe_hybrid}}
 #' @import WhiteStripe
@@ -48,6 +50,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
                             other.outfiles =  NULL,
                             ws.outfile = NULL,
                             mask = NULL,
+                            mask.outfile = NULL,
                             ...
 ){
 
@@ -85,13 +88,17 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   }
   
   nullmask = is.null(mask)
+  nullmask.outfile = is.null(mask.outfile)
+  
   #####################
   # Creating output mask
   #####################
   if (!nullmask){
     # reading in T1
-    mask = checkimg(mask)    
-    mask.outfile = tempfile(fileext = ".nii.gz")
+    mask = checkimg(mask)
+    if (nullmask.outfile){
+      mask.outfile = tempfile(fileext = ".nii.gz")
+    }
     maskants = antsImageRead(filename = mask, dimension = 3)
     ##################
     # Must have extension
@@ -296,8 +303,8 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   dtype = function(img){
     img = drop_img_dim(img)
     img = datatype(img, 
-                        datatype= convert.datatype()$FLOAT32,
-                        bitpix= convert.bitpix()$FLOAT32)
+                   datatype= convert.datatype()$FLOAT32,
+                   bitpix= convert.bitpix()$FLOAT32)
     return(img)
   }
   ##########################
@@ -398,11 +405,6 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     t2 = mask_img(t2, mask)
     writeNIfTI(t2, filename = nii.stub(t2.outfile))
   }
-  if (!nullt2){
-    t2 = cal_img(t2)
-    t2 = mask_img(t2, mask)
-    writeNIfTI(t2, filename = nii.stub(t2.outfile))
-  }
   if (!nullother){
     print(other.outfiles)
     mapply(function(img, fname){
@@ -417,7 +419,11 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   } else {
     mask.img = NULL
   }
-  
+  if (!nullmask & !nullmask.outfile){
+    mask = cal_img(mask)
+    writeNIfTI(mask, filename = nii.stub(mask.outfile))
+  }  
+
   return(list(t1 = t1, 
               t2 = t2, 
               other.files = other.files, 
