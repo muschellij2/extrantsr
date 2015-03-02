@@ -4,7 +4,7 @@
 \alias{preprocess_mri_within}
 \title{OASIS Processing Pipeline}
 \usage{
-preprocess_mri_within(files, outfiles = NULL, n3correct = TRUE,
+preprocess_mri_within(files, outfiles = NULL, correct = TRUE,
   correction = "N3", shrinkfactor = "4", retimg = FALSE,
   reorient = FALSE, typeofTransform = "Rigid",
   interpolator = "LanczosWindowedSinc", skull_strip = FALSE,
@@ -17,7 +17,7 @@ Will register to the first scan}
 
 \item{outfiles}{(character) name of output files, with extension}
 
-\item{n3correct}{do N3 Bias correction}
+\item{correct}{do N3 Bias correction}
 
 \item{correction}{(character) N3 or N4 correction?}
 

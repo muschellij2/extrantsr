@@ -6,7 +6,7 @@
 #' in template space to the native space of the iimage
 #' @param filename filename of T1 image
 #' @param skull_strip do skull stripping with FSL BET 
-#' @param n3correct do Bias correction
+#' @param correct do Bias correction
 #' @param correction N3 or N4 correction, see \code{\link{bias_correct}}
 #' @param retimg return a nifti object from function
 #' @param outfile output filename should have .nii or .nii.gz 
@@ -37,7 +37,7 @@
 #' @return NULL or object of class nifti for transformed T1 image
 ants_regwrite <- function(filename, # filename of T1 image
                    skull_strip = FALSE, # do Skull stripping with FSL BET
-	n3correct = FALSE,  # do N3 Bias correction
+	correct = FALSE,  # do N3 Bias correction
 	correction = "N3",
 	retimg = TRUE, # return a nifti object from function
 	outfile = NULL, # output filename, should have .nii or .nii.gz extension
@@ -113,7 +113,7 @@ ants_regwrite <- function(filename, # filename of T1 image
 		N3.oimgs = lapply(other.imgs, antsImageClone)
 	}
 	## 
-	if (n3correct){
+	if (correct){
     t1N3 = bias_correct(file = t1, 
                         correction = correction, 
                         retimg = TRUE)

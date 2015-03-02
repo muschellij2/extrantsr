@@ -5,7 +5,7 @@
 #' @param files filenames (or nifti objects) of images to be processed.
 #' Will register to the first scan
 #' @param outfiles (character) name of output files, with extension
-#' @param n3correct do N3 Bias correction
+#' @param correct do N3 Bias correction
 #' @param correction (character) N3 or N4 correction?
 #' @param shrinkfactor Shrink factor passed to 
 #' \code{\link{n3BiasFieldCorrection}} 
@@ -31,7 +31,7 @@
 #' @return NULL or object of class nifti for transformed T1 image
 preprocess_mri_within <- function(files, 
                               outfiles = NULL,
-                              n3correct = TRUE,  # do N3 Bias correction
+                              correct = TRUE,  # do N3 Bias correction
                               correction = "N3", 
                               shrinkfactor= "4",
                               retimg = FALSE,
@@ -100,7 +100,7 @@ preprocess_mri_within <- function(files,
   #############################
   # Checking if extensions are .nii or .nii.gz
   #############################
-  if (n3correct){
+  if (correct){
     if (!all(grepl("[.]nii", c(outfiles)))){
       warning("Extensions not specified for outfiles, adding .nii.gz")
       outfiles[!grepl("[.]nii",outfiles)] = paste0(
@@ -114,7 +114,7 @@ preprocess_mri_within <- function(files,
   #######################################
   # N3 Correction
   #######################################
-  if (n3correct){
+  if (correct){
     if (verbose){
       cat("# N3 Correction")
     }

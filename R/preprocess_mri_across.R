@@ -11,7 +11,8 @@
 #' If filename exists, skull stripping will be done by masking it.
 #' If it does not, then skull stripping will get one from the baseline
 #' image
-#' @param n3correct Perform N3 correction
+#' @param correct Perform N3 correction
+#' @param correction (character) N3 or N4 correction? 
 #' @param skull_strip do Skull stripping with FSL BET
 #' @param bet.opts Options to pass to \code{\link{fslbet}}
 #' @param betcmd Command to pass to \code{\link{fslbet}}
@@ -29,7 +30,8 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                   followup_outfiles, # output filenames for followup images
                   retimg = FALSE,
                   maskfile = NULL,
-                  n3correct = TRUE,
+                  correct = TRUE,
+                  correction = "N3",
                   skull_strip = TRUE, # do Skull stripping with FSL BET
                   bet.opts = "-B -f 0.1 -v",
                   betcmd = "bet",
@@ -96,7 +98,8 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                         typeofTransform = within.transform,
                         interpolator = within.interpolator, 
                         maskfile = maskfile,
-                        n3correct = n3correct,                        
+                        correct = correct,
+                        correction = correction,
                         verbose = verbose,
                         ...)
   #### Doing Followup
@@ -105,7 +108,8 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                         typeofTransform = within.transform,
                         interpolator = within.interpolator,                         
                         reorient = FALSE, 
-                        n3correct = n3correct,
+                        correct = correct,
+                        correction = correction,                        
                         verbose = verbose,                        
                         ...) 
   
@@ -126,7 +130,7 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                 other.files = other.files,
                 other.outfiles = other.outfiles, 
                 skull_strip = FALSE, 
-                n3correct = FALSE, 
+                correct = FALSE, 
                 retimg = FALSE,
                 remove.warp = TRUE, ...)
   
@@ -151,16 +155,6 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
   return(invisible(NULL))
 }
 
-#   ants_regwrite(filename = bout1, 
-#                 outfile = bout1,
-#                 template.file = template.file,
-#                 typeofTransform = templateTransform,
-#                 other.files = c(baseline_outfiles, fout1, followup_outfiles),
-#                 other.outfiles = c(baseline_outfiles, fout1, followup_outfiles), 
-#                 skull_strip = FALSE, 
-#                 n3correct = FALSE, 
-#                 retimg = FALSE,
-#                 remove.warp = TRUE)   
 
 
 

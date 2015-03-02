@@ -5,9 +5,10 @@
 \title{Preprocess MRI acros visits}
 \usage{
 preprocess_mri_across(baseline_files, followup_files, baseline_outfiles,
-  followup_outfiles, retimg = FALSE, maskfile = NULL, n3correct = TRUE,
-  skull_strip = TRUE, bet.opts = "-B -f 0.1 -v", betcmd = "bet",
-  within.transform = "Rigid", within.interpolator = "LanczosWindowedSinc",
+  followup_outfiles, retimg = FALSE, maskfile = NULL, correct = TRUE,
+  correction = "N3", skull_strip = TRUE, bet.opts = "-B -f 0.1 -v",
+  betcmd = "bet", within.transform = "Rigid",
+  within.interpolator = "LanczosWindowedSinc",
   across.transform = within.transform,
   across.interpolator = within.interpolator, verbose = TRUE, ...)
 }
@@ -27,7 +28,9 @@ If filename exists, skull stripping will be done by masking it.
 If it does not, then skull stripping will get one from the baseline
 image}
 
-\item{n3correct}{Perform N3 correction}
+\item{correct}{Perform N3 correction}
+
+\item{correction}{(character) N3 or N4 correction?}
 
 \item{skull_strip}{do Skull stripping with FSL BET}
 
