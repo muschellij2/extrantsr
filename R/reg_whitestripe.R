@@ -19,6 +19,8 @@
 #' normalize.  In the same space as T1.
 #' @param other.outfiles Character filenames for output 
 #' normalized files. 
+#' @param ws.outfile Character filenames for output 
+#' whitestripe mask.  
 #' @param mask File or nifti image of mask  
 #' @param ... arguments to \code{\link{whitestripe}} or 
 #' \code{\link{whitestripe_hybrid}}
@@ -42,6 +44,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
                             t2.outfile = NULL,
                             other.files = NULL,
                             other.outfiles =  NULL,
+                            ws.outfile = NULL,
                             mask = NULL,
                             ...
 ){
@@ -69,6 +72,14 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   nullt2 = is.null(t2)
   if (nullt1 & nullt2){
     stop("Need a T1 or T2 image")
+  }
+  
+  ####################
+  # WhiteStripe file
+  ####################  
+  nullws = is.null(ws.outfile)
+  if (nullws){
+    ws.outfile = tempfile(fileext = ".nii.gz")
   }
   
   nullmask = is.null(mask)
@@ -246,6 +257,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   # Get whitestripe indices
   ##########################
   indices = ws$whitestripe.ind
+  mask.img = ws$mask.img
   
   dtype = function(img){
     img = drop_img_dim(img)
@@ -291,6 +303,15 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
                                    interpolator = interpolator, 
                                    whichtoinvert = 1)
         t1 = ants2oro(fixed)
+        if (!nullws){
+          fixed = oro2ants(mask.img)
+          fixed = antsApplyTransforms(fixed = t1ants, 
+                                      moving = fixed, 
+                                      transformlist = inv.trans, 
+                                      interpolator = interpolator, 
+                                      whichtoinvert = 1)
+          mask.img = cal_img(ants2oro(fixed) > 0.5)
+        }
         ###################
         # Carry T2 with transformation
         ###################    
@@ -308,7 +329,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
         ###################           
         if (!nullmask){
           mask = ants2oro(maskants)
-        }        
+        }    
         ###################
         # Register
         ###################  
@@ -343,6 +364,11 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     t2 = mask_img(t2, mask)
     writeNIfTI(t2, filename = nii.stub(t2.outfile))
   }
+  if (!nullt2){
+    t2 = cal_img(t2)
+    t2 = mask_img(t2, mask)
+    writeNIfTI(t2, filename = nii.stub(t2.outfile))
+  }
   if (!nullother){
     print(other.outfiles)
     mapply(function(img, fname){
@@ -351,8 +377,17 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
       writeNIfTI(img, filename = nii.stub(fname))
     }, other.files, other.outfiles)
   }
+  if (!nullws){
+    mask.img = cal_img(mask.img)
+    writeNIfTI(mask.img, filename = nii.stub(ws.outfile))
+  } else {
+    mask.img = NULL
+  }
   
-  return(list(t1 = t1, t2 = t2, other.files = other.files))
+  return(list(t1 = t1, 
+              t2 = t2, 
+              other.files = other.files, 
+              mask.img = mask.img))
 }
 
 

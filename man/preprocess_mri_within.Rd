@@ -26,7 +26,8 @@ Will register to the first scan}
 
 \item{retimg}{(logical) return list of images of class nifti}
 
-\item{reorient}{(logical) If retimg, should file be reoriented when read in?
+\item{reorient}{(logical) If retimg, should file be reoriented
+when read in?
 Passed to \code{\link{readNIfTI}}.}
 
 \item{typeofTransform}{type of transformed used, passed to
