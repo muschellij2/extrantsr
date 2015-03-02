@@ -6,7 +6,8 @@
 \usage{
 reg_whitestripe(t1 = NULL, t2 = NULL, register = TRUE, native = TRUE,
   template.file = file.path(fsldir(), "data", "standard",
-  "MNI152_T1_1mm_brain.nii.gz"), typeofTransform = c("Rigid", "Affine"),
+  paste0("MNI152_T1_1mm", ifelse(is.null(mask), "", "_brain"), ".nii.gz")),
+  typeofTransform = c("Rigid", "Affine"),
   interpolator = "LanczosWindowedSinc", type = c("T1", "T2", "hybrid"),
   t1.outfile = NULL, t2.outfile = NULL, other.files = NULL,
   other.outfiles = NULL, ws.outfile = NULL, mask = NULL, ...)
