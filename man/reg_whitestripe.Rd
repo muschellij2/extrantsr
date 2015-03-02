@@ -44,7 +44,7 @@ normalized files.}
 \item{ws.outfile}{Character filenames for output
 whitestripe mask.}
 
-\item{mask}{File or nifti image of mask}
+\item{mask}{File or nifti image of brain mask}
 
 \item{...}{arguments to \code{\link{whitestripe}} or
 \code{\link{whitestripe_hybrid}}}

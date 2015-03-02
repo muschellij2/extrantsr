@@ -21,7 +21,7 @@
 #' normalized files. 
 #' @param ws.outfile Character filenames for output 
 #' whitestripe mask.  
-#' @param mask File or nifti image of mask  
+#' @param mask File or nifti image of brain mask  
 #' @param ... arguments to \code{\link{whitestripe}} or 
 #' \code{\link{whitestripe_hybrid}}
 #' @import WhiteStripe
