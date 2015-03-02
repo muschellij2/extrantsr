@@ -8,7 +8,7 @@
 #' @param skull_strip should skull stripping be done
 #' @param bet.opts options for fslbet
 #' @param betcmd bet command to be used see \code{\link{fslbet}}
-#' @param n3correct should n3 correction be done stripping be done
+#' @param correct should n3 correction be done stripping be done
 #' @param correction correction method used see \code{\link{bias_correct}}
 #' @param shrinkfactor correction method used see \code{\link{n3BiasFieldCorrection}}
 #' @param verbose Diagnostic output
@@ -22,7 +22,7 @@ ss_bias <- function(filename, # filename to be processed
                     skull_strip = TRUE, # should skull stripping be done
                     bet.opts = "-B -f 0.1 -v",
                     betcmd = "bet",                        
-                  n3correct = TRUE, # should n3 correction be done stripping be done
+                  correct = TRUE, # should n3 correction be done stripping be done
                   correction = "N3", # correction method used, see \code{\link{bias_correct}}
                   shrinkfactor= "4", # correction method used, see \code{\link{n3BiasFieldCorrection}}
                   verbose = TRUE,
@@ -47,7 +47,7 @@ ss_bias <- function(filename, # filename to be processed
   if (skull_strip){
     filename = outfile
   }
-  if (n3correct){
+  if (correct){
     if (verbose){
       cat("# Bias Correction")
     }    
@@ -70,7 +70,7 @@ ss_bias <- function(filename, # filename to be processed
 #' @param skull_strip should skull stripping be done
 #' @param bet.opts options for fslbet
 #' @param betcmd bet command to be used see \code{\link{fslbet}}
-#' @param n3correct should n3 correction be done stripping be done
+#' @param correct should n3 correction be done stripping be done
 #' @param correction correction method used see \code{\link{bias_correct}}
 #' @param shrinkfactor correction method used see \code{\link{n3BiasFieldCorrection}}
 #' @param verbose Diagnostic output
@@ -84,13 +84,13 @@ bias_ss <- function(filename, # filename to be processed
                     skull_strip = TRUE, # should skull stripping be done
                     bet.opts = "-B -f 0.1 -v",
                     betcmd = "bet",                        
-                    n3correct = TRUE, # should n3 correction be done stripping be done
+                    correct = TRUE, # should n3 correction be done stripping be done
                     correction = "N3", # correction method used, see \code{\link{bias_correct}}
                     shrinkfactor= "4", # correction method used, see \code{\link{n3BiasFieldCorrection}}
                     verbose = TRUE,
                     ... # passed to \code{\link{bias_correct}}
 ){
-  if (n3correct){
+  if (correct){
     if (verbose){
       cat("# Bias Correction")
     }        
@@ -99,7 +99,7 @@ bias_ss <- function(filename, # filename to be processed
                  correction = correction,
                  shrinkfactor=shrinkfactor, ...)
   }  
-  if (n3correct){
+  if (correct){
     filename = outfile
   }  
   #### Run BET    

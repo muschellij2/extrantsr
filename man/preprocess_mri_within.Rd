@@ -17,7 +17,7 @@ Will register to the first scan}
 
 \item{outfiles}{(character) name of output files, with extension}
 
-\item{correct}{do N3 Bias correction}
+\item{correct}{do Bias field correction}
 
 \item{correction}{(character) N3 or N4 correction?}
 

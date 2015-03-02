@@ -5,12 +5,13 @@
 #' @param files filenames (or nifti objects) of images to be processed.
 #' Will register to the first scan
 #' @param outfiles (character) name of output files, with extension
-#' @param correct do N3 Bias correction
+#' @param correct do Bias field correction
 #' @param correction (character) N3 or N4 correction?
 #' @param shrinkfactor Shrink factor passed to 
 #' \code{\link{n3BiasFieldCorrection}} 
 #' @param retimg (logical) return list of images of class nifti
-#' @param reorient (logical) If retimg, should file be reoriented when read in?
+#' @param reorient (logical) If retimg, should file be reoriented 
+#' when read in?
 #' Passed to \code{\link{readNIfTI}}. 
 #' @param typeofTransform type of transformed used, passed to 
 #' \code{\link{antsRegistration}} 
@@ -35,15 +36,15 @@ preprocess_mri_within <- function(files,
                               correction = "N3", 
                               shrinkfactor= "4",
                               retimg = FALSE,
-                              reorient = FALSE,                              
+                              reorient = FALSE,                          
                               typeofTransform = "Rigid",
                               interpolator = "LanczosWindowedSinc",
                               skull_strip = FALSE,
                               bet.opts = "-B -f 0.1 -v",
-                              betcmd = "bet",                              
+                              betcmd = "bet",        
                               maskfile = NULL,
                              verbose = TRUE,
-                           ... # arguments to \code{\link{antsApplyTransforms}} 
+                  ... # arguments to \code{\link{antsApplyTransforms}} 
 ){
   
   # Expanding paths for ANTsR
@@ -102,7 +103,8 @@ preprocess_mri_within <- function(files,
   #############################
   if (correct){
     if (!all(grepl("[.]nii", c(outfiles)))){
-      warning("Extensions not specified for outfiles, adding .nii.gz")
+      warning(paste0("Extensions not specified for ", 
+        "outfiles, adding .nii.gz"))
       outfiles[!grepl("[.]nii",outfiles)] = paste0(
         outfiles[!grepl("[.]nii",outfiles)], '.nii.gz')  
     }

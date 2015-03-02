@@ -28,7 +28,7 @@ If filename exists, skull stripping will be done by masking it.
 If it does not, then skull stripping will get one from the baseline
 image}
 
-\item{correct}{Perform N3 correction}
+\item{correct}{Perform bias field correction}
 
 \item{correction}{(character) N3 or N4 correction?}
 

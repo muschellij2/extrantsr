@@ -11,7 +11,7 @@
 #' If filename exists, skull stripping will be done by masking it.
 #' If it does not, then skull stripping will get one from the baseline
 #' image
-#' @param correct Perform N3 correction
+#' @param correct Perform bias field correction
 #' @param correction (character) N3 or N4 correction? 
 #' @param skull_strip do Skull stripping with FSL BET
 #' @param bet.opts Options to pass to \code{\link{fslbet}}

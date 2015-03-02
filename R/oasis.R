@@ -5,7 +5,7 @@
 #' @param filename filename of T1 image
 #' @param skull_strip do skull stripping with FSL BET 
 #' @param skull_stripfile Output skull strip filename
-#' @param n3correct do N3 Bias correction
+#' @param correct do N3 Bias correction
 #' @param normalize Normalize data using \code{\link{whitestripe}}
 #' @param normalize_file \code{\link{whitestripe}} image mask
 #' @param retimg return a nifti object from function
@@ -35,7 +35,7 @@
 oasis <- function(filename, # filename of T1 image
                    skull_strip = TRUE, # do Skull stripping with FSL BET
                    skull_stripfile = NULL,
-                   n3correct = TRUE,  # do N3 Bias correction
+                   correct = TRUE,  # do N3 Bias correction
                    normalize = TRUE, # whitestripe normalization
                    normalize_file = NULL,
                    retimg = TRUE, # return a nifti object from function
@@ -113,7 +113,7 @@ oasis <- function(filename, # filename of T1 image
     N3.oimgs = lapply(other.imgs, antsImageClone)
   }
   ## N3 Correct files
-  if (n3correct){
+  if (correct){
     t1N3 = n3BiasFieldCorrection(t1, 4)
     if (have.other) {
       for (i in seq(lother)){

@@ -5,7 +5,7 @@
 \title{Skull Strip then Bias Field Correct}
 \usage{
 ss_bias(filename, maskfile = NULL, outfile = filename, skull_strip = TRUE,
-  bet.opts = "-B -f 0.1 -v", betcmd = "bet", n3correct = TRUE,
+  bet.opts = "-B -f 0.1 -v", betcmd = "bet", correct = TRUE,
   correction = "N3", shrinkfactor = "4", verbose = TRUE, ...)
 }
 \arguments{
@@ -21,7 +21,7 @@ ss_bias(filename, maskfile = NULL, outfile = filename, skull_strip = TRUE,
 
 \item{betcmd}{bet command to be used see \code{\link{fslbet}}}
 
-\item{n3correct}{should n3 correction be done stripping be done}
+\item{correct}{should n3 correction be done stripping be done}
 
 \item{correction}{correction method used see \code{\link{bias_correct}}}
 

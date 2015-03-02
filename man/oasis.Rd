@@ -5,7 +5,7 @@
 \title{OASIS Processing Pipeline}
 \usage{
 oasis(filename, skull_strip = TRUE, skull_stripfile = NULL,
-  n3correct = TRUE, normalize = TRUE, normalize_file = NULL,
+  correct = TRUE, normalize = TRUE, normalize_file = NULL,
   retimg = TRUE, outfile = NULL, template.file = file.path(fsldir(),
   "data", "standard", "MNI152_T1_1mm_brain.nii.gz"),
   interpolator = "LanczosWindowedSinc", other.files = NULL,
@@ -19,7 +19,7 @@ oasis(filename, skull_strip = TRUE, skull_stripfile = NULL,
 
 \item{skull_stripfile}{Output skull strip filename}
 
-\item{n3correct}{do N3 Bias correction}
+\item{correct}{do N3 Bias correction}
 
 \item{normalize}{Normalize data using \code{\link{whitestripe}}}
 
