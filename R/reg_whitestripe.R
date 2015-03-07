@@ -99,7 +99,8 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     if (nullmask.outfile){
       mask.outfile = tempfile(fileext = ".nii.gz")
     }
-    maskants = antsImageRead(filename = mask, dimension = 3)
+    mm = antsImageRead(filename = mask, dimension = 3)
+    maskants = antsImageClone(mm)
     ##################
     # Must have extension
     ##################
@@ -125,7 +126,11 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     # reading in T1
     t1 = checkimg(t1)
     if (is.null(t1.outfile)){
-      stop("T1 outfile needs te specified if T1 specified")
+      if (type %in% c("T1", "hybrid")){
+        stop("T1 outfile needs te specified if T1 specified")
+      } else {
+        t1.outfile = tempfile(fileext = ".nii.gz")
+      }
     }
     t1.outfile = path.expand(t1.outfile)
     t1ants = antsImageRead(filename = t1, dimension = 3)
@@ -220,7 +225,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
       ###################    
       if (!nullmask){
         other.files = c(other.files, mask = mask)
-        other.temp = c(other.temp, mask = mask)
+        other.temp = c(other.temp, mask = mask.outfile)
       }
     
       ###################
@@ -285,8 +290,10 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   }
   if (type == "T2"){
     if (!nullt1){
-      stop(paste0("T1 should not be specified when type = ", 
+      if (!register){
+        stop(paste0("T1 should not be specified when type = ", 
           "'T2', put in other.files"))
+      }
     }    
     ws = whitestripe( t2, type = "T2", ...)
   }  
@@ -419,7 +426,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   } else {
     mask.img = NULL
   }
-  if (!nullmask & !nullmask.outfile){
+  if (!nullmask){
     mask = cal_img(mask)
     writeNIfTI(mask, filename = nii.stub(mask.outfile))
   }  
@@ -427,7 +434,12 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   return(list(t1 = t1, 
               t2 = t2, 
               other.files = other.files, 
-              mask.img = mask.img))
+              mask.img = mask.img,
+              native = native,
+              register = register,
+              ws.type = type
+#               template.file = template.file
+              ))
 }
 
 
