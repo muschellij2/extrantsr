@@ -309,7 +309,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   
   dtype = function(img){
     img = drop_img_dim(img)
-    img = datatype(img, 
+    img = datatyper(img, 
                    datatype= convert.datatype()$FLOAT32,
                    bitpix= convert.bitpix()$FLOAT32)
     return(img)

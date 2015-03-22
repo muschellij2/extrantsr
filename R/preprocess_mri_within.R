@@ -118,7 +118,7 @@ preprocess_mri_within <- function(files,
   #######################################
   if (correct){
     if (verbose){
-      cat("# N3 Correction")
+      cat(paste0("# ", correction, " Correction"))
     }
     for (ifile in seq_along(files)){
       bias_correct(file = files[ifile], outfile = outfiles[ifile], 
