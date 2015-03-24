@@ -50,7 +50,7 @@ ants_regwrite <- function(filename, # filename of T1 image
 	native.fname = NULL,
 	atlas.file = NULL,
 	typeofTransform = "SyN",
-	remove.warp = FALSE,
+	remove.warp = TRUE,
   outprefix = NULL,
   bet.opts = "-B -f 0.1 -v",
   betcmd = "bet",
