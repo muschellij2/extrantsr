@@ -89,7 +89,11 @@ ants_regwrite <- function(filename, # filename of T1 image
     if (is.null(outprefix))  outprefix = tempfile()
   }
   
-	filename = path.expand(filename)
+  if (is(filename, "antsImage")){
+    filename = tempants(filename)
+  }
+  filename = checkimg(filename)
+# 	filename = path.expand(filename)
 	t1 <- antsImageRead(filename, 3)
 
   if (skull_strip){
