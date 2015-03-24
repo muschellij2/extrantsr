@@ -8,6 +8,8 @@ before_install:
   - ./travis-tool.sh bootstrap
 
 install:
+  - ./travis-tool.sh install_github stnava/cmaker
+  - ./travis-tool.sh install_github stnava/ITKR
   - ./travis-tool.sh install_github stnava/ANTsR
   - ./travis-tool.sh install_deps
 script: ./travis-tool.sh run_tests
