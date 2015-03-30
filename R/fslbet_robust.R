@@ -102,6 +102,7 @@ fslbet_robust <- function(
   
   ss = mask_img(n4img, ssmask)
   
+  ss = drop_img_dim(ss)
   writeNIfTI(ss, 
              filename = outfile)
   
