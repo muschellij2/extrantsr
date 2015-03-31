@@ -14,6 +14,10 @@
 #' @param swapdim Use \code{\link{fslswapdim}} to reorient image
 #' @param remove.neck Run \code{\link{remove_neck}} to register the template to a 
 #' thresholded image to remove neck slices.
+#' @param template.file Template to warp to original image space, passed to 
+#' \code{\link{remove_neck}}
+#' @param template.mask Mask of template to use as rough brain mask, passed 
+#' to \code{\link{remove_neck}} 
 #' @param verbose (logical) Should diagnostic output be printed?
 #' @param ... additional arguments passed to \code{\link{CT_Skull_Strip}} or 
 #' \code{\link{remove_neck}}.
@@ -40,6 +44,10 @@ fslbet_robust <- function(
   nvoxels = 5,
   swapdim = FALSE,
   remove.neck = TRUE,
+  template.file = file.path( fsldir(), "data/standard", 
+                             "MNI152_T1_1mm_brain.nii.gz"),
+  template.mask = file.path( fsldir(), "data/standard", 
+                             "MNI152_T1_1mm_brain_mask.nii.gz"),    
   verbose=TRUE,
   ...
 ){
@@ -75,6 +83,8 @@ fslbet_robust <- function(
       cat(paste0("# Removing Neck\n"))
     }
     noneck = remove_neck(n4img, 
+                         template.file = template.file,
+                         template.mask = template.mask,
                          rep.value=0, ...)  
     if (swapdim){
       cat(paste0("# Swapping Dimensions Back\n"))
