@@ -112,6 +112,8 @@ fslbet_robust <- function(
   opts = paste(bet.opts, opts)  
   brain2 = fslbet(noneck, retimg= TRUE, 
                   opts = opts, verbose = verbose)
+  #### adding a 3rd bet
+  brain2 = fslbet(noneck, retimg= TRUE, verbose = verbose)
   ssmask = cal_img(brain2 > 0)
   
   #############################
