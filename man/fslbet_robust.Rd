@@ -6,7 +6,7 @@
 \usage{
 fslbet_robust(img, outfile = NULL, retimg = FALSE, correct = TRUE,
   correction = "N4", reorient = FALSE, bet.opts = "", nvoxels = 5,
-  remove.neck = TRUE, verbose = TRUE, ...)
+  swapdim = FALSE, remove.neck = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{img}{(character) File to be skull stripped or object of class
@@ -25,6 +25,8 @@ Passed to \code{\link{readNIfTI}}.}
 
 \item{nvoxels}{Number of voxels to dilate/erode.  See \code{\link{dil_ero}}.
 If \code{nvoxels = 0}, then no smoothing is done.}
+
+\item{swapdim}{Use \code{\link{fslswapdim}} to reorient image}
 
 \item{remove.neck}{Run \code{\link{remove_neck}} to register the template to a
 thresholded image to remove neck slices.}

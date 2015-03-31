@@ -11,6 +11,7 @@
 #' Passed to \code{\link{readNIfTI}}. 
 #' @param nvoxels Number of voxels to dilate/erode.  See \code{\link{dil_ero}}.
 #' If \code{nvoxels = 0}, then no smoothing is done.
+#' @param swapdim Use \code{\link{fslswapdim}} to reorient image
 #' @param remove.neck Run \code{\link{remove_neck}} to register the template to a 
 #' thresholded image to remove neck slices.
 #' @param verbose (logical) Should diagnostic output be printed?
@@ -37,6 +38,7 @@ fslbet_robust <- function(
   reorient = FALSE,  
   bet.opts = "",
   nvoxels = 5,
+  swapdim = FALSE,
   remove.neck = TRUE,
   verbose=TRUE,
   ...
@@ -51,6 +53,9 @@ fslbet_robust <- function(
   img = check_nifti(img, reorient = reorient)
   
   if (correct){
+    if (verbose){
+      cat("# Running Bias-Field Correction\n")
+    }
     n4img = bias_correct(img, correction = correction, retimg = TRUE)
   } else {
     n4img = img
@@ -59,6 +64,10 @@ fslbet_robust <- function(
   # Removing Neck
   #############################
   if (remove.neck){
+    if (swapdim){
+      cat(paste0("# Swapping Dimensions \n"))
+      n4img = fslswapdim(file=n4img, retimg=TRUE, a="RL", b="PA", z="IS")
+    } 
     if (verbose){
       cat(paste0("# Removing Neck\n"))
     }
