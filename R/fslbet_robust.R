@@ -66,7 +66,7 @@ fslbet_robust <- function(
   if (remove.neck){
     if (swapdim){
       cat(paste0("# Swapping Dimensions \n"))
-      n4img = fslswapdim(file=n4img, retimg=TRUE, a="RL", b="PA", z="IS")
+      n4img = fslswapdim(file=n4img, retimg=TRUE, a="RL", b="PA", c="IS")
     } 
     if (verbose){
       cat(paste0("# Removing Neck\n"))
