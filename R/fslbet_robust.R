@@ -80,6 +80,8 @@ fslbet_robust <- function(
       cat(paste0("# Swapping Dimensions Back\n"))
       noneck = fslswapdim(file=noneck, retimg=TRUE, a=sorient[1], 
                           b=sorient[2], c=sorient[3])
+      n4img = fslswapdim(file=n4img, retimg=TRUE, a=sorient[1], 
+                          b=sorient[2], c=sorient[3])      
     } 
   } else {
     noneck = n4img
@@ -95,7 +97,7 @@ fslbet_robust <- function(
   if (verbose){
     cat(paste0("# Skull Stripping with new cog\n"))
   }
-  xyz = cog(brain1, ceil=TRUE)
+  xyz = ceiling(fslcog(brain1, mm = FALSE, verbose=FALSE))
   opts =  paste("-c", paste(xyz, collapse = " "))
   opts = paste(bet.opts, opts)  
   brain2 = fslbet(noneck, retimg= TRUE, 
