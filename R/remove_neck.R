@@ -4,7 +4,9 @@
 #' Skull stripping can be done.
 #' @param file File for neck removal - either filename or class nifti
 #' @param template.file Template to warp to original image space
-#' @param template.mask Mask of template to use as rough brain mask
+#' @param template.mask Mask of template to use as rough brain mask.  If
+#' \code{template.file} is specified, but \code{template.mask} is not,
+#' then \code{fslbin(file=template.file)} is performed.
 #' @param ret_mask Return mask of slices to keep
 #' @param typeofTransform Transformation for template to image, passed to
 #' \code{\link{ants_regwrite}}.
@@ -13,7 +15,7 @@
 #' @export
 #' @return Object of class nifti or vector of indices
 remove_neck <- function(file, 
-	template.file = NULL,
+	template.file,
 	template.mask = NULL,
 	ret_mask = FALSE,
 	typeofTransform = "Rigid",
@@ -22,7 +24,7 @@ remove_neck <- function(file,
 
 	file = checkimg(file)
 	ofile = paste0(tempfile(), '.nii.gz')
-  if (is.null(template.file)){
+  if (missing(template.file)){
     cat("Potential atlases are at\n ")
     cat(paste0('system.file("scct_unsmooth.nii.gz", package="cttools")\n'))
     cat(paste0('file.path( fsldir(), "data/standard", ', 

@@ -4,15 +4,17 @@
 \alias{remove_neck}
 \title{Remove Neck from CT Scan}
 \usage{
-remove_neck(file, template.file = NULL, template.mask = NULL,
-  ret_mask = FALSE, typeofTransform = "Rigid", rep.value = 0, ...)
+remove_neck(file, template.file, template.mask = NULL, ret_mask = FALSE,
+  typeofTransform = "Rigid", rep.value = 0, ...)
 }
 \arguments{
 \item{file}{File for neck removal - either filename or class nifti}
 
 \item{template.file}{Template to warp to original image space}
 
-\item{template.mask}{Mask of template to use as rough brain mask}
+\item{template.mask}{Mask of template to use as rough brain mask.  If
+\code{template.file} is specified, but \code{template.mask} is not,
+then \code{fslbin(file=template.file)} is performed.}
 
 \item{ret_mask}{Return mask of slices to keep}
 
