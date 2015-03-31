@@ -4,11 +4,8 @@
 \alias{remove_neck}
 \title{Remove Neck from CT Scan}
 \usage{
-remove_neck(file, template.file = system.file("scct_unsmooth.nii.gz", package
-  = "cttools"),
-  template.mask = system.file("scct_unsmooth_Skull_Stripped_Mask.nii.gz",
-  package = "cttools"), ret_mask = FALSE, typeofTransform = "Rigid",
-  rep.value = 0, ...)
+remove_neck(file, template.file = NULL, template.mask = NULL,
+  ret_mask = FALSE, typeofTransform = "Rigid", rep.value = 0, ...)
 }
 \arguments{
 \item{file}{File for neck removal - either filename or class nifti}

@@ -13,10 +13,8 @@
 #' @export
 #' @return Object of class nifti or vector of indices
 remove_neck <- function(file, 
-	template.file = system.file("scct_unsmooth.nii.gz", 
-		package="cttools"),
-	template.mask = system.file("scct_unsmooth_Skull_Stripped_Mask.nii.gz", 
-		package="cttools"),
+	template.file = NULL,
+	template.mask = NULL,
 	ret_mask = FALSE,
 	typeofTransform = "Rigid",
   rep.value =0,
@@ -24,6 +22,19 @@ remove_neck <- function(file,
 
 	file = checkimg(file)
 	ofile = paste0(tempfile(), '.nii.gz')
+  if (is.null(template.file)){
+    cat("Potential atlases are at\n ")
+    cat(paste0('system.file("scct_unsmooth.nii.gz", package="cttools")\n'))
+    cat(paste0('file.path( fsldir(), "data/standard", ', 
+               '"MNI152_T1_1mm_brain.nii.gz")\n'))
+    stop("Need template.file specified!")
+  }
+  template.file = checkimg(template.file)
+  if (is.null(template.mask)){
+    template.mask = fslbin(file=template.file, retimg=TRUE)
+  } 
+	template.mask = checkimg(template.mask)
+	
 	ret = ants_regwrite(filename = template.file, template.file = file, 
 		typeofTransform=typeofTransform, other.files = template.mask, 
 		other.outfiles = ofile, retimg = TRUE, remove.warp = TRUE)
