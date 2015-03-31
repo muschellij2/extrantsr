@@ -71,11 +71,11 @@ fslbet_robust <- function(
   #############################
   # Removing Neck
   #############################
-  if (remove.neck){
-    forms = getForms(n4img)
-    sorient = forms$ssor  
+  if (remove.neck){ 
     if (swapdim){
       cat(paste0("# Swapping Dimensions \n"))
+      forms = getForms(n4img)
+      sorient = forms$ssor       
 #       qorient = forms$sqor
       n4img = fslswapdim(file=n4img, retimg=TRUE, a="RL", b="PA", c="IS")
     } 
