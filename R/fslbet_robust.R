@@ -80,7 +80,7 @@ fslbet_robust <- function(
       n4img = fslswapdim(file=n4img, retimg=TRUE, a="RL", b="PA", c="IS")
     } 
     if (verbose){
-      cat(paste0("# Removing Neck\n"))
+      cat(paste0("# Removing Neck with template:", template.file, '\n'))
     }
     noneck = remove_neck(n4img, 
                          template.file = template.file,
