@@ -6,7 +6,7 @@
 \usage{
 fslbet_robust(img, outfile = NULL, retimg = FALSE, correct = TRUE,
   correction = "N4", reorient = FALSE, bet.opts = "", nvoxels = 5,
-  swapdim = FALSE, remove.neck = TRUE, robust.mask = TRUE,
+  swapdim = FALSE, remove.neck = TRUE, robust.mask = FALSE,
   template.file = file.path(fsldir(), "data/standard",
   "MNI152_T1_1mm_brain.nii.gz"), template.mask = file.path(fsldir(),
   "data/standard", "MNI152_T1_1mm_brain_mask.nii.gz"), verbose = TRUE, ...)

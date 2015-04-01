@@ -46,7 +46,7 @@ fslbet_robust <- function(
   nvoxels = 5,
   swapdim = FALSE,
   remove.neck = TRUE,
-  robust.mask = TRUE,
+  robust.mask = FALSE,
   template.file = file.path( fsldir(), "data/standard", 
                              "MNI152_T1_1mm_brain.nii.gz"),
   template.mask = file.path( fsldir(), "data/standard", 
