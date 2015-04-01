@@ -6,10 +6,10 @@
 \usage{
 fslbet_robust(img, outfile = NULL, retimg = FALSE, correct = TRUE,
   correction = "N4", reorient = FALSE, bet.opts = "", nvoxels = 5,
-  swapdim = FALSE, remove.neck = TRUE, template.file = file.path(fsldir(),
-  "data/standard", "MNI152_T1_1mm_brain.nii.gz"),
-  template.mask = file.path(fsldir(), "data/standard",
-  "MNI152_T1_1mm_brain_mask.nii.gz"), verbose = TRUE, ...)
+  swapdim = FALSE, remove.neck = TRUE, robust.mask = TRUE,
+  template.file = file.path(fsldir(), "data/standard",
+  "MNI152_T1_1mm_brain.nii.gz"), template.mask = file.path(fsldir(),
+  "data/standard", "MNI152_T1_1mm_brain_mask.nii.gz"), verbose = TRUE, ...)
 }
 \arguments{
 \item{img}{(character) File to be skull stripped or object of class
@@ -33,6 +33,9 @@ If \code{nvoxels = 0}, then no smoothing is done.}
 
 \item{remove.neck}{Run \code{\link{remove_neck}} to register the template to a
 thresholded image to remove neck slices.}
+
+\item{robust.mask}{Run \code{\link{robust_brain_mask}} to register the template to a
+thresholded image and inflate for .}
 
 \item{template.file}{Template to warp to original image space, passed to
 \code{\link{remove_neck}}}

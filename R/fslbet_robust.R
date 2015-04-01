@@ -14,6 +14,8 @@
 #' @param swapdim Use \code{\link{fslswapdim}} to reorient image
 #' @param remove.neck Run \code{\link{remove_neck}} to register the template to a 
 #' thresholded image to remove neck slices.
+#' @param robust.mask Run \code{\link{robust_brain_mask}} to register the template to a 
+#' thresholded image and inflate for . 
 #' @param template.file Template to warp to original image space, passed to 
 #' \code{\link{remove_neck}}
 #' @param template.mask Mask of template to use as rough brain mask, passed 
@@ -44,6 +46,7 @@ fslbet_robust <- function(
   nvoxels = 5,
   swapdim = FALSE,
   remove.neck = TRUE,
+  robust.mask = TRUE,
   template.file = file.path( fsldir(), "data/standard", 
                              "MNI152_T1_1mm_brain.nii.gz"),
   template.mask = file.path( fsldir(), "data/standard", 
@@ -97,6 +100,19 @@ fslbet_robust <- function(
     noneck = n4img
   }
   
+  #############################
+  # Removing Neck
+  #############################
+  if (robust.mask){ 
+    if (verbose){
+      cat(paste0("# Robust Brain Mask from:", template.file, '\n'))
+    }
+    noneck = robust_brain_mask(noneck, 
+                         template.file = template.file,
+                         template.mask = template.mask,
+                         ...)  
+  } 
+
   #############################
   # Skull Stripping no-neck image
   #############################
