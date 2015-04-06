@@ -4,7 +4,7 @@
 \alias{robust_brain_mask}
 \title{Robust Brain Mask from Template}
 \usage{
-robust_brain_mask(file, template.file, template.mask = NULL, nvoxels = 11,
+robust_brain_mask(file, template.file, template.mask = NULL, nvoxels = 7,
   ret_mask = FALSE, typeofTransform = "Rigid", verbose = TRUE, ...)
 }
 \arguments{
@@ -17,7 +17,7 @@ robust_brain_mask(file, template.file, template.mask = NULL, nvoxels = 11,
 then \code{fslbin(file=template.file)} is performed.}
 
 \item{nvoxels}{Number of voxels in nxnxn direction to inflate, see
-\code{\link{fslmaths.help()}} for \code{-kernel boxv n -dilM}.}
+\code{\link{fslmaths.help}} for \code{-kernel boxv n -dilM}.}
 
 \item{ret_mask}{Return mask of robust brain}
 

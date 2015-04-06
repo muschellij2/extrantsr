@@ -10,7 +10,7 @@
 #' then \code{fslbin(file=template.file)} is performed.
 #' @param ret_mask Return mask of robust brain
 #' @param nvoxels Number of voxels in nxnxn direction to inflate, see
-#' \code{\link{fslmaths.help()}} for \code{-kernel boxv n -dilM}.
+#' \code{\link{fslmaths.help}} for \code{-kernel boxv n -dilM}.
 #' @param typeofTransform Transformation for template to image, passed to
 #' \code{\link{ants_regwrite}}.
 #' @param verbose Print diagnostic progress
@@ -20,7 +20,7 @@
 robust_brain_mask <- function(file, 
                         template.file,
                         template.mask = NULL,
-                        nvoxels = 11,
+                        nvoxels = 7,
                         ret_mask = FALSE,
                         typeofTransform = "Rigid",
                         verbose = TRUE,

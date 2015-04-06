@@ -24,6 +24,8 @@ then \code{fslbin(file=template.file)} is performed.}
 \item{rep.value}{Value to replace neck slices with}
 
 \item{...}{not used}
+
+\item{verbose}{Print out diagnostic messages}
 }
 \value{
 Object of class nifti or vector of indices

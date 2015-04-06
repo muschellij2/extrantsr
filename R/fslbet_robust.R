@@ -7,21 +7,24 @@
 #' @param retimg (logical) return image of class nifti
 #' @param correct Perform bias field correction
 #' @param correction (character) N3 or N4 correction?  
+#' @param recog Rerun bet with a new center of gravity (COG) estimate
 #' @param reorient (logical) If retimg, should file be reoriented when read in?
 #' Passed to \code{\link{readNIfTI}}. 
-#' @param nvoxels Number of voxels to dilate/erode.  See \code{\link{dil_ero}}.
+#' @param bet.opts Options for \code{\link{fslbet}}
+#' @param nvoxels Number of voxels to dilate/erode.  See \code{\link{fslfill2}}.
 #' If \code{nvoxels = 0}, then no smoothing is done.
 #' @param swapdim Use \code{\link{fslswapdim}} to reorient image
 #' @param remove.neck Run \code{\link{remove_neck}} to register the template to a 
 #' thresholded image to remove neck slices.
 #' @param robust.mask Run \code{\link{robust_brain_mask}} to register the template to a 
-#' thresholded image and inflate for . 
+#' thresholded image and inflate for 
+#' @param rbm.voxels Number of voxels to inflate mask for \code{\link{robust_brain_mask}}
 #' @param template.file Template to warp to original image space, passed to 
 #' \code{\link{remove_neck}}
 #' @param template.mask Mask of template to use as rough brain mask, passed 
 #' to \code{\link{remove_neck}} 
 #' @param verbose (logical) Should diagnostic output be printed?
-#' @param ... additional arguments passed to \code{\link{CT_Skull_Strip}} or 
+#' @param ... additional arguments passed to \code{\link{robust_brain_mask}} or 
 #' \code{\link{remove_neck}}.
 #' @return Skull-stripped \code{nifti} object 
 #' @import fslr
@@ -31,9 +34,20 @@
 #' then skull stripped using defaults in \code{\link{fslbet}}.  A new 
 #' center of gravity is estiamted using \code{\link{cog}}, then the image is
 #' skull stripped again using the new cog. After the skull stripped mask is 
-#' created, the image is dilated and eroded using \code{\link{dil_ero}} to
+#' created, the image is dilated and eroded using \code{\link{fslfill2}} to
 #' fill holes using a box kernel with the number of voxels \code{nvoxels} in 
 #' all 3 directions.
+#' @examples 
+#' \dontrun{
+#'   stubs = c("T1Strip.nii.gz",
+#'   "T2Strip.nii.gz")
+#'   img_files = system.file(stubs,
+#'   package="WhiteStripe")
+#'   
+#'   if (all(file.exists(img_files)){
+#'    fslbet_robust(system.file('T1Strip.nii.gz', package="WhiteStripe"))
+#'   }
+#' }
 #' @export
 fslbet_robust <- function(
   img, 
@@ -41,12 +55,14 @@ fslbet_robust <- function(
   retimg = FALSE,
   correct = TRUE,
   correction = "N4",
+  recog = TRUE,
   reorient = FALSE,  
   bet.opts = "",
-  nvoxels = 5,
+  nvoxels = 0,
   swapdim = FALSE,
   remove.neck = TRUE,
   robust.mask = FALSE,
+  rbm.voxels = 7,
   template.file = file.path( fsldir(), "data/standard", 
                              "MNI152_T1_1mm_brain.nii.gz"),
   template.mask = file.path( fsldir(), "data/standard", 
@@ -110,6 +126,7 @@ fslbet_robust <- function(
     noneck = robust_brain_mask(noneck, 
                          template.file = template.file,
                          template.mask = template.mask,
+                         nvoxels = rbm.voxels,
                          ...)  
   } 
 
@@ -120,17 +137,20 @@ fslbet_robust <- function(
     cat(paste0("# Skull Stripping for COG\n"))
   }
   brain1 = fslbet(noneck, retimg=TRUE, opts = bet.opts, verbose = verbose)
-  if (verbose){
-    cat(paste0("# Skull Stripping with new cog\n"))
-  }
-  xyz = ceiling(fslcog(brain1, mm = FALSE, verbose=FALSE))
-  opts =  paste("-c", paste(xyz, collapse = " "))
-  opts = paste(bet.opts, opts)  
-  brain2 = fslbet(noneck, retimg= TRUE, 
-                  opts = opts, verbose = verbose)
-  #### adding a 3rd bet
-  brain2 = fslbet(noneck, retimg= TRUE, verbose = verbose)
-  ssmask = cal_img(brain2 > 0)
+  if (recog){
+    if (verbose){
+      cat(paste0("# Skull Stripping with new cog\n"))
+    }
+    xyz = ceiling(fslcog(brain1, mm = FALSE, verbose=FALSE))
+    opts =  paste("-c", paste(xyz, collapse = " "))
+    opts = paste(bet.opts, opts)  
+    brain1 = fslbet(noneck, retimg= TRUE, 
+                    opts = opts, verbose = verbose)
+    #### adding a 3rd bet
+#     brain1 = fslbet(noneck, retimg= TRUE, verbose = verbose, 
+#                     opts = bet.opts)
+  } 
+  ssmask = cal_img(brain1 > 0)
   
   #############################
   # Filling the mask
