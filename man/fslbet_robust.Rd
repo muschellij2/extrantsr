@@ -4,7 +4,7 @@
 \alias{fslbet_robust}
 \title{Robust Skull Stripping with COG estimation and Bias Correction}
 \usage{
-fslbet_robust(img, outfile = NULL, retimg = FALSE, correct = TRUE,
+fslbet_robust(img, outfile = NULL, retimg = TRUE, correct = TRUE,
   correction = "N4", recog = TRUE, reorient = FALSE, bet.opts = "",
   nvoxels = 0, swapdim = FALSE, remove.neck = TRUE, robust.mask = FALSE,
   rbm.voxels = 7, template.file = file.path(fsldir(), "data/standard",

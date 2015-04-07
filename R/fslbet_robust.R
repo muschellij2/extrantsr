@@ -52,7 +52,7 @@
 fslbet_robust <- function(
   img, 
   outfile = NULL,
-  retimg = FALSE,
+  retimg = TRUE,
   correct = TRUE,
   correction = "N4",
   recog = TRUE,
@@ -71,7 +71,9 @@ fslbet_robust <- function(
   ...
 ){
   
-  outfile = check_outfile(outfile = outfile, retimg = retimg, fileext = "")
+  outfile = check_outfile(outfile = outfile, 
+                          retimg = retimg, 
+                          fileext = "")
   outfile = nii.stub(outfile)
   
   #############################
