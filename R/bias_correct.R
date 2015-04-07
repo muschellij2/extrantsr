@@ -20,7 +20,7 @@ bias_correct = function(
   file,
   correction = c("N3", "N4", "n3", "n4"),
   outfile=NULL, 
-  retimg = FALSE,
+  retimg = TRUE,
   reorient = FALSE,
   shrinkfactor = "4",
   dimension = 3, 
@@ -29,14 +29,9 @@ bias_correct = function(
   correction = match.arg(correction, c("N3", "N4"))
   func = paste0(gsub("^N", "n", correction), "BiasFieldCorrection")
   
-  if (retimg){
-    if (is.null(outfile)) {
-      outfile = tempfile()
-      outfile = paste0(nii.stub(outfile), '.nii.gz')      
-    }
-  } else {
-    stopifnot(!is.null(outfile))
-  }
+  outfile = check_outfile(outfile = outfile, 
+                          retimg = retimg, 
+                          fileext = '.nii.gz')
   
   file = checkimg(file)
   if (inherits(file, "antsImage")){

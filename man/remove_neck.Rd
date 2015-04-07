@@ -5,7 +5,7 @@
 \title{Remove Neck from CT Scan}
 \usage{
 remove_neck(file, template.file, template.mask = NULL, ret_mask = FALSE,
-  typeofTransform = "Rigid", rep.value = 0, ...)
+  typeofTransform = "Rigid", rep.value = 0, verbose = TRUE, ...)
 }
 \arguments{
 \item{file}{File for neck removal - either filename or class nifti}
@@ -23,9 +23,9 @@ then \code{fslbin(file=template.file)} is performed.}
 
 \item{rep.value}{Value to replace neck slices with}
 
-\item{...}{not used}
-
 \item{verbose}{Print out diagnostic messages}
+
+\item{...}{not used}
 }
 \value{
 Object of class nifti or vector of indices

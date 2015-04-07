@@ -21,6 +21,7 @@ remove_neck <- function(file,
 	ret_mask = FALSE,
 	typeofTransform = "Rigid",
   rep.value =0,
+  verbose = TRUE,
   ...){
 
 	file = checkimg(file)

@@ -5,7 +5,7 @@
 \title{N3 or N4 Correct}
 \usage{
 bias_correct(file, correction = c("N3", "N4", "n3", "n4"), outfile = NULL,
-  retimg = FALSE, reorient = FALSE, shrinkfactor = "4", dimension = 3,
+  retimg = TRUE, reorient = FALSE, shrinkfactor = "4", dimension = 3,
   ...)
 }
 \arguments{
