@@ -12,15 +12,17 @@
 check_ants = function(x, dimension = 3){
   if (inherits(x, "character")) {
     img = antsImageRead(x, dimension = dimension)
-  } else if (inherits(x, "nifti")) {
+    return(img)
+  } 
+  if (inherits(x, "nifti")) {
     img = oro2ants(x)
-  } else {
-    if (inherits(x, "antsImage")){
-    img = x
-    } else {
-    stop("x has unknown class - not char, nifti, antsImage")
-    }
+    return(img)
   }
-  return(img)
+  if (inherits(x, "antsImage")){
+    return(x)
+  }  
+  msg = paste0("x has class ", class(x), " - not char, nifti, antsImage")
+  stop(msg)
+  return(NULL)
 }
 
