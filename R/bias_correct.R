@@ -11,7 +11,8 @@
 #' \code{\link{n3BiasFieldCorrection}}
 #' @param dimension Dimension of the image (usually 3 or 4)
 #' @param ... additional arguments passed to 
-#' \code{\link{n3BiasFieldCorrection}}
+#' \code{\link{n3BiasFieldCorrection}} or 
+#' \code{\link{n4BiasFieldCorrection}}
 #' @return If \code{retimg} then object of class nifti.  Otherwise,
 #' Result from system command, depends if intern is TRUE or FALSE.
 #' @import fslr
@@ -42,12 +43,14 @@ bias_correct = function(
 #   imgn3 <- antsImageClone(img)
   if ( correction %in% c("N3", "n3")){
 #     res = n3BiasFieldCorrection(img@dimension, img, imgn3, "4", ...)
-    res = n3BiasFieldCorrection(img, downsampleFactor = shrinkfactor)
+    res = n3BiasFieldCorrection(img, 
+                                downsampleFactor = shrinkfactor, 
+                                ...)
   }
   if (correction %in% c("N4", "n4")){
 #     funclist = list(d=img@dimension, i=img, o=imgn3, s = shrinkfactor, ...)
 #     res = do.call(func, funclist)
-    res = n4BiasFieldCorrection(img = img)
+    res = n4BiasFieldCorrection(img = img, ...)
   }
 #   if (correction == "N4_Field"){
 #     funclist = list(d=img@dimension, i=img, o=imgn3, s = shrinkfactor, ...)
