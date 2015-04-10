@@ -8,8 +8,6 @@ oro2ants(img)
 }
 \arguments{
 \item{img}{Object of class \code{nifti}}
-
-\item{reorient}{Reorientation passed to \code{\link{readNIfTI}}}
 }
 \value{
 Object of class \code{antsImage}
