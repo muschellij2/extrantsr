@@ -8,14 +8,16 @@
 #' @return Object of class \code{nifti}
 ants2oro <- function(img, 
                      reorient = FALSE){
-  if (inherits(x, "antsImage")) {
+  if (inherits(x, "antsImage") | inherits(x, "character")) {
     fname = tempants(img)
     img = readNIfTI(fname, reorient = reorient)
+    return(img)
   }
   if (!inherits(x, "nifti")) {
-    stop("img not class nifti or antsImage")
-  } 
-  return(img)
+    return(x)
+  }
+  stop("img not class nifti or antsImage")
+  return(NULL)
 }
 
 #' @title Convert Between oro.nifti and antsImage    
@@ -28,12 +30,13 @@ ants2oro <- function(img,
 #' @import fslr
 #' @return Object of class \code{antsImage}
 oro2ants <- function(img){
-  if (inherits(x, "nifti")) {
+  if (inherits(x, "nifti") | inherits(x, "character")) {
     fname = checkimg(img)
     img = antsImageRead(fname, dimension = 3)
   }
   if (!inherits(x, "antsImage")) {
-    stop("img not class nifti or antsImage")
+    return(x)    
   }   
+  stop("img not class nifti or antsImage")
   return(img)
 }
