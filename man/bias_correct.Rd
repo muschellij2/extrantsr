@@ -6,7 +6,7 @@
 \usage{
 bias_correct(file, correction = c("N3", "N4", "n3", "n4"), outfile = NULL,
   retimg = TRUE, reorient = FALSE, shrinkfactor = "4", dimension = 3,
-  ...)
+  mask = NULL, ...)
 }
 \arguments{
 \item{file}{(character) image to be manipulated}
@@ -25,9 +25,10 @@ Passed to \code{\link{readNIfTI}}.}
 
 \item{dimension}{Dimension of the image (usually 3 or 4)}
 
+\item{mask}{Mask to pass to \code{\link{n4BiasFieldCorrection}}}
+
 \item{...}{additional arguments passed to
-\code{\link{n3BiasFieldCorrection}} or
-\code{\link{n4BiasFieldCorrection}}}
+\code{\link{n3BiasFieldCorrection}}}
 }
 \value{
 If \code{retimg} then object of class nifti.  Otherwise,
