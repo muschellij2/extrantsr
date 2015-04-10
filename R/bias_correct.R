@@ -54,7 +54,7 @@ bias_correct = function(
     } else {
       mask = NA
     }
-    print(class(mask))
+#     print(class(mask))
 #     funclist = list(d=img@dimension, i=img, o=imgn3, s = shrinkfactor, ...)
 #     res = do.call(func, funclist)
     res = n4BiasFieldCorrection(img = img, mask = mask)
