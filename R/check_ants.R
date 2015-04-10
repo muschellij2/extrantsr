@@ -10,15 +10,15 @@
 #' is read in
 #' @export
 check_ants = function(x, dimension = 3){
-  if (inherits(x, "character")) {
+  if (is.character(x)) {
     img = antsImageRead(x, dimension = dimension)
     return(img)
   } 
-  if (inherits(x, "nifti")) {
+  if (is.nifti(x)) {
     img = oro2ants(x)
     return(img)
   }
-  if (inherits(x, "antsImage")){
+  if (is.antsImage(x)) {
     return(x)
   }  
   msg = paste0("x has class ", class(x), " - not char, nifti, antsImage")
