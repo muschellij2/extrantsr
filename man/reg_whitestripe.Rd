@@ -11,7 +11,7 @@ reg_whitestripe(t1 = NULL, t2 = NULL, register = TRUE, native = TRUE,
   interpolator = "LanczosWindowedSinc", type = c("T1", "T2", "hybrid"),
   t1.outfile = NULL, t2.outfile = NULL, other.files = NULL,
   other.outfiles = NULL, ws.outfile = NULL, mask = NULL,
-  mask.outfile = NULL, ...)
+  mask.outfile = NULL, verbose = TRUE, ...)
 }
 \arguments{
 \item{t1}{filename (or nifti objects) of T1 image}
@@ -50,6 +50,8 @@ whitestripe mask.}
 
 \item{mask.outfile}{Character filename for output
 brain mask.}
+
+\item{verbose}{Print Diagnostic Messages}
 
 \item{...}{arguments to \code{\link{whitestripe}} or
 \code{\link{whitestripe_hybrid}}}
