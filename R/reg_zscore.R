@@ -1,9 +1,8 @@
-#' @title WhiteStripe Normalization
+#' @title Z-score Normalization
 #'
-#' @description This function performs registration to a T1 template
-#' using ANTsR and SyN transformation
+#' @description This function performs registration to a template
+#' using ANTsR and will run \code{\link{zscore_img}}
 #' @param t1 filename (or nifti objects) of T1 image
-#' @param t2 filename (or nifti objects) of T2 image
 #' @param register Register image to template file
 #' @param native If images are registered, should the native space
 #' normalized image be returned?
@@ -12,64 +11,53 @@
 #' \code{\link{antsRegistration}} 
 #' @param interpolator Interpolation to be performed, passed to
 #' \code{\link{antsRegistration}} 
-#' @param type Type of whitestripe normalization done
 #' @param t1.outfile Output filename of normalized T1 image
-#' @param t2.outfile Output filename of normalized T2 image
 #' @param other.files Character filenames or list of nifti objects to 
 #' normalize.  In the same space as T1.
 #' @param other.outfiles Character filenames for output 
 #' normalized files. 
-#' @param ws.outfile Character filename for output 
-#' whitestripe mask.  
 #' @param mask File or nifti image of brain mask  
 #' @param mask.outfile Character filename for output 
 #' brain mask.  
 #' @param verbose Print Diagnostic Messages
-#' @param ... arguments to \code{\link{whitestripe}} or 
-#' \code{\link{whitestripe_hybrid}}
-#' @import WhiteStripe
+#' @param ... arguments to \code{\link{zscore_img}}
 #' @import fslr
 #' @import ANTsR
 #' @export
 #' @return List of nifti objects or character filenames
-reg_whitestripe <- function(t1 =NULL, t2 = NULL, 
-                            register = TRUE,
-                            native = TRUE,
-                            template.file = file.path(fsldir(), 
-                                                      "data", 
-                                                      "standard", 
-                                          paste0("MNI152_T1_1mm", 
-                                                 ifelse(is.null(mask), "", 
-                                                        "_brain"), 
-                                                 ".nii.gz")),
-                            typeofTransform = c("Rigid", "Affine"),
-                            interpolator = "LanczosWindowedSinc",
-                            type = c("T1", "T2", "hybrid"),
-                            t1.outfile = NULL, 
-                            t2.outfile = NULL,
-                            other.files = NULL,
-                            other.outfiles =  NULL,
-                            ws.outfile = NULL,
-                            mask = NULL,
-                            mask.outfile = NULL,
-                            verbose = TRUE,
-                            ...
+reg_zscore <- function(t1, 
+                       register = TRUE,
+                       native = TRUE,
+                       template.file = file.path(fsldir(), 
+                                                 "data", 
+                                                 "standard", 
+                                                 paste0("MNI152_T1_1mm", 
+                                                        ifelse(is.null(mask), "", 
+                                                               "_brain"), 
+                                                        ".nii.gz")),
+                       typeofTransform = c("Rigid", "Affine"),
+                       interpolator = "LanczosWindowedSinc",
+                       t1.outfile = NULL, 
+                       other.files = NULL,
+                       other.outfiles =  NULL,
+                       mask = NULL,
+                       mask.outfile = NULL,
+                       verbose = TRUE,
+                       ...
 ){
-
+  
   #####################
   # Checking for T1 and T2 iamges
   #####################
-
+  
   
   typeofTransform = match.arg(typeofTransform, c("Rigid", "Affine"))
-  type = match.arg(type, c("T1", "T2", "hybrid"))
   #####################
   # Checking for T1 and T2 iamges
   #####################
   nullt1 = is.null(t1)
-  nullt2 = is.null(t2)
-  if (nullt1 & nullt2){
-    stop("Need a T1 or T2 image")
+  if (nullt1){
+    stop("Need a T1 image")
   }
   
   ####################
@@ -100,9 +88,9 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     ##################
     # Must have extension
     ##################
-#     if (!all(grepl("[.]nii", c(mask.outfile)))){
-#       stop("t1 outfile must be nifti .nii or .nii.gz")
-#     }     
+    #     if (!all(grepl("[.]nii", c(mask.outfile)))){
+    #       stop("t1 outfile must be nifti .nii or .nii.gz")
+    #     }     
   } 
   
   #####################
@@ -141,36 +129,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     }     
   } 
   
-  if (!nullt2){
-    #############
-    # Mask the images
-    ###########
-    if (verbose){
-      cat("# Doing Checks on T2 \n")
-    }         
-    if (!nullmask){
-      tfile = tempfile()
-      fslmask(file = t2, mask = mask, outfile = tfile, verbose = verbose)
-      ext = get.imgext()
-      t2 = paste0(tfile, ext)
-      rm(list="tfile")      
-    }
-    # reading in T2
-    t2 = checkimg(t2) 
-    if (is.null(t2.outfile)){
-      stop("T2 outfile needs te specified if T2 specified")
-    }
-    t2.outfile = path.expand(t2.outfile)
-    t2ants = antsImageRead(filename = t2, dimension = 3)    
-    ##################
-    # Must have extension
-    ##################
-    if (!all(grepl("[.]nii", c(t2.outfile)))){
-      stop("t2 outfile must be nifti .nii or .nii.gz")
-    }     
-  }
   nullother = is.null(other.files)
-  
   if (!nullother){
     stopifnot(length(other.files)== length(other.outfiles))
     ##################
@@ -200,7 +159,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     }) 
   }
   
-
+  
   ##### everything filesnames from here
   
   ###################
@@ -214,17 +173,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
       other.temp = NULL
     }
     outprefix = tempfile()
-    if (!nullt1){
-      ###################
-      # Carry T2 with transformation
-      ###################    
-      if (!nullt2){
-        other.files = c(t2 = t2, 
-                        other.files)
-        other.temp = c(t2 = tempfile(fileext = '.nii.gz'), 
-                     other.temp)
-      }
-      
+    if (!nullt1){  
       ###################
       # Carry Mask with transformation
       ###################    
@@ -232,7 +181,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
         other.files = c(other.files, mask = mask)
         other.temp = c(other.temp, mask = mask.outfile)
       }
-    
+      
       ###################
       # Register
       ###################  
@@ -274,9 +223,6 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   if (!nullt1){
     t1 = check_nifti(t1)
   }
-  if (!nullt2){
-    t2 = check_nifti(t2)
-  }
   if (!nullmask){
     mask = cal_img(check_nifti(mask) > 0.5)
   }
@@ -286,63 +232,39 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   
   ########### everything is images from here on out
   
-  ###################
-  # Different Scenarios
-  ###################  
-  if (verbose){
-    cat("# Running WhiteStripe Estimation \n")
-  }     
-  if (type == "T1"){
-    if (!nullt2){
-      stop(paste0("T2 should not be specified when type = ", 
-                  "'T1', put in other.files"))
-    }
-    ws = whitestripe( t1, type = "T1", ...)
-  }
-  if (type == "T2"){
-    if (!nullt1){
-      if (!register){
-        stop(paste0("T1 should not be specified when type = ", 
-          "'T2', put in other.files"))
-      }
-    }    
-    ws = whitestripe( t2, type = "T2", ...)
-  }  
-  if (type == "hybrid"){
-    ws = whitestripe_hybrid( t1 = t1, t2 = t2, ...)
-  }
-  
-  ##########################
-  # Get whitestripe indices
-  ##########################
-  indices = ws$whitestripe.ind
-  mask.img = ws$mask.img
-  
   dtype = function(img){
     img = drop_img_dim(img)
     img = datatyper(img, 
-                   datatype= convert.datatype()$FLOAT32,
-                   bitpix= convert.bitpix()$FLOAT32)
+                    datatype= convert.datatype()$FLOAT32,
+                    bitpix= convert.bitpix()$FLOAT32)
     return(img)
   }
   ##########################
   # Apply WhiteStripe
   ##########################  
   if (verbose){
-    cat("# Running WhiteStripe Normalization\n")
+    cat("# Running Z-scoring Normalization\n")
   }
   if (!nullt1){
-    t1 = dtype(whitestripe_norm(t1, indices = indices))
-  }
-  if (!nullt2){
-    t2 = dtype(whitestripe_norm(t2, indices = indices))
+    t1 = dtype(zscore_img(t1, mask = 
+                            if (nullmask){
+                              NULL
+                            } else {
+                              mask
+                            }, ...))
   }
   if (!nullother){
     other.files = lapply(other.files, function(x){
-      dtype(whitestripe_norm(x, indices = indices))
+      dtype(zscore_img(x, mask = 
+                         if (nullmask){
+                           NULL
+                         } else {
+                           mask
+                         }, ...)
+      )    
     })
-  }
-
+  }  
+  
   ###################
   # Perform Registration
   ###################    
@@ -350,10 +272,10 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     if (verbose){
       cat("# Returning images to Native Space\n")
     }    
-#     if (!register){
-#       warning(paste0("Native is TRUE, but register is FALSE,",
-#         "returning out images"))
-#     }
+    #     if (!register){
+    #       warning(paste0("Native is TRUE, but register is FALSE,",
+    #         "returning out images"))
+    #     }
     if (register){
       inv.trans = paste0(outprefix, "0GenericAffine.mat")
       template.img = antsImageRead(template.file, dimension = 3)
@@ -363,32 +285,11 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
         ##############################
         fixed = oro2ants(t1)
         fixed = antsApplyTransforms(fixed = t1ants, 
-                                   moving = fixed, 
-                                   transformlist = inv.trans, 
-                                   interpolator = interpolator, 
-                                   whichtoinvert = 1)
+                                    moving = fixed, 
+                                    transformlist = inv.trans, 
+                                    interpolator = interpolator, 
+                                    whichtoinvert = 1)
         t1 = ants2oro(fixed)
-        if (!nullws){
-          fixed = oro2ants(mask.img)
-          fixed = antsApplyTransforms(fixed = t1ants, 
-                                      moving = fixed, 
-                                      transformlist = inv.trans, 
-                                      interpolator = interpolator, 
-                                      whichtoinvert = 1)
-          mask.img = cal_img(ants2oro(fixed) > 0.5)
-        }
-        ###################
-        # Carry T2 with transformation
-        ###################    
-        if (!nullt2){
-          fixed = oro2ants(t2)
-          fixed = antsApplyTransforms(fixed = t2ants, 
-                                      moving = fixed, 
-                                      transformlist = inv.trans, 
-                                      interpolator = interpolator, 
-                                      whichtoinvert = 1)
-          t2 = ants2oro(fixed)
-        }
         ###################
         # Use Native mask Image
         ###################           
@@ -420,27 +321,19 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   # Write out images
   ###################   
   if (verbose){
-    cat("# Writing out Normalized Images\n")
+    cat("# Writing out Z-score Normalized Images\n")
   }  
   if (!nullt1){
     if (verbose){
-      cat("# Writing out Normalized T1\n")
+      cat("# Writing out Z-score Normalized T1\n")
     }      
     t1 = cal_img(t1)
     t1 = mask_img(t1, mask)
     writeNIfTI(t1, filename = nii.stub(t1.outfile))
   }
-  if (!nullt2){
-    if (verbose){
-      cat("# Writing out Normalized T2\n")
-    }      
-    t2 = cal_img(t2)
-    t2 = mask_img(t2, mask)
-    writeNIfTI(t2, filename = nii.stub(t2.outfile))
-  }
   if (!nullother){
     if (verbose){
-      cat("# Writing out Normalized Other Files\n")
+      cat("# Writing out Z-score Normalized Other Files\n")
     }      
     print(other.outfiles)
     mapply(function(img, fname){
@@ -449,15 +342,6 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
       writeNIfTI(img, filename = nii.stub(fname))
     }, other.files, other.outfiles)
   }
-  if (!nullws){
-    if (verbose){
-      cat("# Writing out WhiteStripe Mask\n")
-    }          
-    mask.img = cal_img(mask.img)
-    writeNIfTI(mask.img, filename = nii.stub(ws.outfile))
-  } else {
-    mask.img = NULL
-  }
   if (!nullmask.outfile){
     if (verbose){
       cat("# Writing out Brain Mask Outfile\n")
@@ -465,16 +349,13 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     mask = cal_img(mask)
     writeNIfTI(mask, filename = nii.stub(mask.outfile))
   }  
-
+  
   return(list(t1 = t1, 
-              t2 = t2, 
               other.files = other.files, 
-              mask.img = mask.img,
               native = native,
-              register = register,
-              ws.type = type
-#               template.file = template.file
-              ))
+              register = register
+              #               template.file = template.file
+  ))
 }
 
 
