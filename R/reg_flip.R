@@ -234,7 +234,8 @@ reg_flip <- function(t1,
     cat("# Running Z-scoring Normalization\n")
   }
   if (!nullt1){
-    t1 = dtype(fslswapdim(t1, retimg = TRUE, a = a, b = b, c = c, ...))
+    t1 = dtype(fslswapdim(t1, retimg = TRUE, a = a, b = b, c = c, 
+                          verbose = verbose, ...))
   }
   if (!nullother){
     other.files = lapply(other.files, function(x){
@@ -242,6 +243,7 @@ reg_flip <- function(t1,
                        a = a, 
                        b = b, 
                        c = c, 
+                       verbose = verbose,                        
                        ...)
 
       )    
