@@ -196,12 +196,6 @@ reg_zscore <- function(t1,
                     other.files = other.files,
                     other.outfiles = other.temp)
       t1 = check_nifti(outfile)
-      if (!nullt2){
-        t2 = other.temp[1]
-        t2 = check_nifti(t2)
-        other.temp = other.temp[-1]
-        other.files = other.files[-1]
-      }  
       if (!nullmask){
         mask = other.temp[length(other.temp)]
         mask = cal_img(check_nifti(mask) > 0.5)
