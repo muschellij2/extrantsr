@@ -61,13 +61,9 @@ reg_zscore <- function(t1,
   }
   
   ####################
-  # WhiteStripe file
+  # Mask file
   ####################  
-  nullws = is.null(ws.outfile)
-  if (nullws){
-    ws.outfile = tempfile(fileext = ".nii.gz")
-  }
-  
+
   nullmask = is.null(mask)
   nullmask.outfile = is.null(mask.outfile)
   
@@ -240,7 +236,7 @@ reg_zscore <- function(t1,
     return(img)
   }
   ##########################
-  # Apply WhiteStripe
+  # Apply Z-score
   ##########################  
   if (verbose){
     cat("# Running Z-scoring Normalization\n")
