@@ -111,11 +111,7 @@ reg_flip <- function(t1,
     # reading in T1
     t1 = checkimg(t1)
     if (is.null(t1.outfile)){
-      if (type %in% c("T1", "hybrid")){
-        stop("T1 outfile needs te specified if T1 specified")
-      } else {
         t1.outfile = tempfile(fileext = ".nii.gz")
-      }
     }
     t1.outfile = path.expand(t1.outfile)
     t1ants = antsImageRead(filename = t1, dimension = 3)
