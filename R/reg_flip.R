@@ -231,7 +231,7 @@ reg_flip <- function(t1,
   # Apply Z-score
   ##########################  
   if (verbose){
-    cat("# Running Z-scoring Normalization\n")
+    cat("# Running Flipping\n")
   }
   if (!nullt1){
     t1 = dtype(fslswapdim(t1, retimg = TRUE, a = a, b = b, c = c, 
