@@ -94,6 +94,7 @@ ants_regwrite <- function(filename, # filename of T1 image
   }
   filename = checkimg(filename)
 # 	filename = path.expand(filename)
+  stopifnot(file.exists(filename))
 	t1 <- antsImageRead(filename, 3)
 
   if (skull_strip){
@@ -112,6 +113,7 @@ ants_regwrite <- function(filename, # filename of T1 image
 	t1N3 <- antsImageClone(t1)
 
 	if (have.other) {
+	  stopifnot(all(file.exists(other.files)))
 		other.imgs = lapply(other.files, antsImageRead, 
 			dimension = 3)
 		N3.oimgs = lapply(other.imgs, antsImageClone)
@@ -141,6 +143,8 @@ ants_regwrite <- function(filename, # filename of T1 image
 	}
   
 	## 
+  stopifnot(file.exists(template.file))
+
   template.file = path.expand(template.file)
 	template <- antsImageRead(template.file, 3)
 	# template.img <- readNIfTI(template.path, reorient = FALSE)
