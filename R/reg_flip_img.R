@@ -20,34 +20,36 @@
 #' @param mask.outfile Character filename for output 
 #' brain mask.  
 #' @param verbose Print Diagnostic Messages
-#' @param a Option for x domain in \code{\link{fslswapdim}}
-#' @param b Option for y domain in \code{\link{fslswapdim}}
-#' @param c Option for z domain in \code{\link{fslswapdim}}
-#' @param ... arguments to \code{\link{fslswapdim}}
+#' @param flipx Option for flipping x domain in \code{\link{flip_img}}
+#' @param flipy Option for flipping y domain in \code{\link{flip_img}}
+#' @param flipz Option for flipping z domain in \code{\link{flip_img}}
+#' @param ... arguments to \code{\link{flip_img}}
 #' @import fslr
 #' @import ANTsR
 #' @export
 #' @return List of nifti objects or character filenames
-reg_flip <- function(t1, 
-                     register = TRUE,
-                     native = TRUE,
-                     template.file = file.path(fsldir(), 
-                                               "data", 
-                                               "standard", 
-                                               paste0("MNI152_T1_1mm", 
-                                                      ifelse(is.null(mask), "", 
-                                                             "_brain"), 
-                                                      ".nii.gz")),
-                     typeofTransform = c("Rigid", "Affine"),
-                     interpolator = "LanczosWindowedSinc",
-                     t1.outfile = NULL, 
-                     other.files = NULL,
-                     other.outfiles =  NULL,
-                     mask = NULL,
-                     mask.outfile = NULL,
-                     verbose = TRUE,
-                     a = "-x", b = "y", c = "z",                   
-                     ...
+reg_flip_img <- function(t1, 
+                         register = TRUE,
+                         native = TRUE,
+                         template.file = file.path(fsldir(), 
+                                                   "data", 
+                                                   "standard", 
+                                                   paste0("MNI152_T1_1mm", 
+                                                          ifelse(is.null(mask), "", 
+                                                                 "_brain"), 
+                                                          ".nii.gz")),
+                         typeofTransform = c("Rigid", "Affine"),
+                         interpolator = "LanczosWindowedSinc",
+                         t1.outfile = NULL, 
+                         other.files = NULL,
+                         other.outfiles =  NULL,
+                         mask = NULL,
+                         mask.outfile = NULL,
+                         verbose = TRUE,
+                         flipx = FALSE,
+                         flipy = FALSE,
+                         flipz = FALSE,
+                         ...
 ){
   
   #####################
@@ -234,20 +236,19 @@ reg_flip <- function(t1,
     cat("# Running Flipping\n")
   }
   if (!nullt1){
-    t1 = dtype(fslswapdim(t1, retimg = TRUE, 
-                          a = a, 
-                          b = b, 
-                          c = c, 
-                          verbose = verbose, ...))
+    t1 = dtype(flip_img(t1, 
+                        x = flipx, 
+                        y = flipy, 
+                        z = flipz, 
+                        ...))
   }
   if (!nullother){
     other.files = lapply(other.files, function(x){
-      dtype(fslswapdim(x, retimg = TRUE, 
-                       a = a, 
-                       b = b, 
-                       c = c, 
-                       verbose = verbose,                        
-                       ...)
+      dtype(flip_img(x, 
+                     x = flipx, 
+                     y = flipy, 
+                     z = flipz, 
+                     ...)
             
       )    
     })
