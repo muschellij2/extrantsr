@@ -15,7 +15,6 @@
 #' @param retimg Return Image to user using \code{\link{readNIfTI}}
 #' @param ... Arguments to be passed to \code{\link{ants_regwrite}}
 #' @export
-#' @import matrixStats
 #' @import fslr
 #' @return The output filename or the nifti image
 malf <- function(infile, template.image, template.structs,
