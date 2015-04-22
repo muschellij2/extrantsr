@@ -12,7 +12,8 @@
 #' @param dimension Dimension of the image (usually 3 or 4)
 #' @param mask Mask to pass to \code{\link{n4BiasFieldCorrection}} 
 #' @param ... additional arguments passed to 
-#' \code{\link{n3BiasFieldCorrection}} 
+#' \code{\link{n3BiasFieldCorrection}} or 
+#'  \code{\link{n4BiasFieldCorrection}} 
 #' @return If \code{retimg} then object of class nifti.  Otherwise,
 #' Result from system command, depends if intern is TRUE or FALSE.
 #' @import fslr
@@ -57,7 +58,10 @@ bias_correct = function(
 #     print(class(mask))
 #     funclist = list(d=img@dimension, i=img, o=imgn3, s = shrinkfactor, ...)
 #     res = do.call(func, funclist)
-    res = n4BiasFieldCorrection(img = img, mask = mask)
+    res = n4BiasFieldCorrection(img = img, 
+                                mask = mask, 
+                                shrinkFactor = as.numeric(shrinkfactor), 
+                                ...)
   }
 #   if (correction == "N4_Field"){
 #     funclist = list(d=img@dimension, i=img, o=imgn3, s = shrinkfactor, ...)

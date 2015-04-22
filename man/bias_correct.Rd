@@ -28,7 +28,8 @@ Passed to \code{\link{readNIfTI}}.}
 \item{mask}{Mask to pass to \code{\link{n4BiasFieldCorrection}}}
 
 \item{...}{additional arguments passed to
-\code{\link{n3BiasFieldCorrection}}}
+\code{\link{n3BiasFieldCorrection}} or
+ \code{\link{n4BiasFieldCorrection}}}
 }
 \value{
 If \code{retimg} then object of class nifti.  Otherwise,
