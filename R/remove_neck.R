@@ -59,7 +59,7 @@ remove_neck <- function(file,
 	#5mm
 	# dimg = dim(img)
 	if (verbose){
-	  cat("Dropping slices not in mask\n")
+	  cat("# Dropping slices not in mask\n")
 	}   
 	minz = min(ind[,"dim3"])
 	if (ret_mask) {
