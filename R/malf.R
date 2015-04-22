@@ -65,7 +65,7 @@ malf <- function(infile, template.images, template.structs,
       cat("# Reading in Files\n")
     }
     oimgs = lapply(outfiles, readNIfTI, reorient = FALSE)
-    mat = do.call(oimgs, c)
+    mat = sapply(oimgs, c)
     outimg = niftiarr(oimgs[[1]], rowMeans(mat))
     writeNIfTI(outimg, filename = outfile)
     if (retimg){
