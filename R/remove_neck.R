@@ -43,14 +43,14 @@ remove_neck <- function(file,
 	template.mask = checkimg(template.mask)
 	
 	if (verbose){
-	  cat("Registration to template\n")
+	  cat("# Registration to template\n")
 	}  
 	ret = ants_regwrite(filename = template.file, template.file = file, 
 		typeofTransform=typeofTransform, other.files = template.mask, 
 		other.outfiles = ofile, retimg = TRUE, remove.warp = TRUE)
 
 	if (verbose){
-	  cat("Reading in Transformed data\n")
+	  cat("# Reading in Transformed data\n")
 	}  
 	img = readNIfTI(file, reorient=FALSE)
 	mask = readNIfTI(ofile, reorient=FALSE)
