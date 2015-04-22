@@ -4,14 +4,11 @@
 \alias{malf}
 \title{Multi-Atlas Label Fusion}
 \usage{
-malf(infile, template.image, template.structs, keep_images = TRUE,
-  outfiles = NULL, outfile = NULL, retimg = TRUE, ...)
+malf(infile, template.images, template.structs, keep_images = TRUE,
+  outfiles = NULL, outfile = NULL, retimg = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{infile}{Input Image file}
-
-\item{template.image}{Template Images to register
-to \code{infile}}
 
 \item{template.structs}{Template gold standards to apply
 registration into \code{infile} space}
@@ -26,7 +23,12 @@ registration into \code{infile} space}
 
 \item{retimg}{Return Image to user using \code{\link{readNIfTI}}}
 
+\item{verbose}{Print diagnostic output}
+
 \item{...}{Arguments to be passed to \code{\link{ants_regwrite}}}
+
+\item{template.image}{Template Images to register
+to \code{infile}}
 }
 \value{
 The output filename or the nifti image

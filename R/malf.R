@@ -13,15 +13,17 @@
 #' \code{infile} space
 #' @param outfile Fused output filename
 #' @param retimg Return Image to user using \code{\link{readNIfTI}}
+#' @param verbose Print diagnostic output
 #' @param ... Arguments to be passed to \code{\link{ants_regwrite}}
 #' @export
 #' @import fslr
 #' @return The output filename or the nifti image
-malf <- function(infile, template.image, template.structs,
+malf <- function(infile, template.images, template.structs,
                 keep_images = TRUE, 
                 outfiles = NULL,
                 outfile = NULL, 
                 retimg = TRUE,
+                verbose = TRUE,
                 ...){
     
     nimgs = length(template.images)
