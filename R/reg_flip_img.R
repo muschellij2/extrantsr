@@ -209,6 +209,10 @@ reg_flip_img <- function(t1,
       stop("Registration must be done with the T1 image")
     }
   }
+
+  if (verbose){
+    cat("# Registration Complete \n")
+  }     
   
   if (!nullt1){
     t1 = check_nifti(t1)
@@ -249,7 +253,6 @@ reg_flip_img <- function(t1,
                      y = flipy, 
                      z = flipz, 
                      ...)
-            
       )    
     })
   }  
