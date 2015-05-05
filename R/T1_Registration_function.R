@@ -143,6 +143,7 @@ ants_regwrite <- function(filename, # filename of T1 image
 	}
   
 	## 
+  template.file = checkimg(template.file)
   stopifnot(file.exists(template.file))
 
   template.file = path.expand(template.file)
