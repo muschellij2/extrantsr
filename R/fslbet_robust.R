@@ -106,7 +106,9 @@ fslbet_robust <- function(
     noneck = remove_neck(n4img, 
                          template.file = template.file,
                          template.mask = template.mask,
-                         rep.value=0, ...)  
+                         rep.value=0, 
+                         verbose = verbose,
+                         ...)  
     if (swapdim){
       cat(paste0("# Swapping Dimensions Back\n"))
       noneck = fslswapdim(file=noneck, retimg=TRUE, a=sorient[1], 
@@ -129,6 +131,7 @@ fslbet_robust <- function(
                          template.file = template.file,
                          template.mask = template.mask,
                          nvoxels = rbm.voxels,
+                         verbose = verbose,
                          ...)  
   } 
 
@@ -166,7 +169,8 @@ fslbet_robust <- function(
                    retimg = TRUE, 
                    kopts = kopts,
                    remove.ends = FALSE,
-                   refill = FALSE)
+                   refill = FALSE,
+                   verbose = verbose)
   }
   
   ss = mask_img(n4img, ssmask)
