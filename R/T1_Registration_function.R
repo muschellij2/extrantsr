@@ -29,6 +29,7 @@
 #' Required if \code{remove.warp = FALSE}
 #' @param bet.opts Options passed to \code{\link{fslbet}}
 #' @param betcmd BET command used, passed to \code{\link{fslbet}}
+#' @param verbose Print diagnostic messages
 #' @param ... arguments to \code{\link{antsApplyTransforms}}
 #' @import ANTsR
 #' @import fslr
@@ -54,6 +55,7 @@ ants_regwrite <- function(filename, # filename of T1 image
   outprefix = NULL,
   bet.opts = "-B -f 0.1 -v",
   betcmd = "bet",
+  verbose = TRUE,
 	... # arguments to \code{\link{antsApplyTransforms}} 
 	){
 
@@ -98,6 +100,9 @@ ants_regwrite <- function(filename, # filename of T1 image
 	t1 <- antsImageRead(filename, 3)
 
   if (skull_strip){
+    if (verbose){
+      cat("# Skull Stripping\n")
+    }
     ext = get.imgext()
     bet_file = tempfile()
   	x = fslbet(infile = filename, 
@@ -113,6 +118,7 @@ ants_regwrite <- function(filename, # filename of T1 image
 	t1N3 <- antsImageClone(t1)
 
 	if (have.other) {
+    other.files = sapply(other.files, checkimg)
 	  stopifnot(all(file.exists(other.files)))
 		other.imgs = lapply(other.files, antsImageRead, 
 			dimension = 3)
@@ -120,11 +126,17 @@ ants_regwrite <- function(filename, # filename of T1 image
 	}
 	## 
 	if (correct){
+	  if (verbose){
+	    cat("# Running Bias-Field Correction on file\n")
+	  }    
     t1N3 = bias_correct(file = t1, 
                         correction = correction, 
                         retimg = TRUE)
     t1N3 = oro2ants(t1N3)
 		if (have.other) {
+		  if (verbose){
+		    cat("# Running Bias-Field Correction on other.files\n")
+		  }        
 			for (i in seq(lother)){
 			  N3.oimgs[[i]] = bias_correct(file = other.imgs[[i]], 
 			                      correction = correction, 
@@ -150,14 +162,18 @@ ants_regwrite <- function(filename, # filename of T1 image
 	template <- antsImageRead(template.file, 3)
 	# template.img <- readNIfTI(template.path, reorient = FALSE)
 
-
+  if (verbose){
+    cat("# Running Registration of file to template\n")
+  }  
 	antsRegOut.nonlin <- antsRegistration(
 		fixed = template, 
 		moving = t1N3, 
 		typeofTransform = typeofTransform,  
 		outprefix = outprefix)
 
-
+  if (verbose){
+    cat("# Applying Transformations to file\n")
+  }  
 	t1.to.template <- antsApplyTransforms(fixed=template, 
 	  moving=t1N3 ,
 	  transformlist=antsRegOut.nonlin$fwdtransforms,
@@ -173,6 +189,9 @@ ants_regwrite <- function(filename, # filename of T1 image
 	if (native.cereb){
 	  stopifnot(!is.null(atlas.file))
 	  
+	  if (verbose){
+	    cat("# Applying Inverse transforms to atlas.file\n")
+	  }  	  
 	  for (iatlas in seq_along(atlas.file)){
 			output = native.fname[iatlas]
 
@@ -196,6 +215,9 @@ ants_regwrite <- function(filename, # filename of T1 image
 
 
 	if (have.other) {
+	  if (verbose){
+	    cat("# Applying Transforms to other.files\n")
+	  }  	    
 		reg.oimgs = lapply(N3.oimgs, function(x){
 			antsApplyTransforms(fixed=template, 
 				moving = x, 
@@ -205,9 +227,15 @@ ants_regwrite <- function(filename, # filename of T1 image
 		})
 	}
 
+  if (verbose){
+    cat("# Writing out file\n")
+  }  
 	antsImageWrite(t1.to.template, outfile)
 
 	if (have.other) {
+	  if (verbose){
+	    cat("# Writing out other.files\n")
+	  }      
 		for (i in seq(lother)){
 			antsImageWrite(reg.oimgs[[i]], 
 				other.outfiles[i])
@@ -215,12 +243,18 @@ ants_regwrite <- function(filename, # filename of T1 image
 	}
 
   if (remove.warp){
+    if (verbose){
+      cat("# Removing Warping images\n")
+    }        
     files = unlist(antsRegOut.nonlin[
     	c("fwdtransforms", "invtransforms")])
     files = grep("Warp", files, value=TRUE)
     file.remove(files)
   }
 	if (retimg){
+	  if (verbose){
+	    cat("# Reading data back into R\n")
+	  }          
 		img = readNIfTI(outfile, reorient= FALSE)
 		return(img)
 	}
