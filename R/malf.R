@@ -3,7 +3,7 @@
 #' @description Takes in an input file and template images with 
 #' a set of template structures and creates a label fusion
 #' @param infile Input Image file
-#' @param template.image Template Images to register 
+#' @param template.images Template Images to register 
 #' to \code{infile}
 #' @param template.structs Template gold standards to apply 
 #' registration into \code{infile} space

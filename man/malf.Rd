@@ -10,6 +10,9 @@ malf(infile, template.images, template.structs, keep_images = TRUE,
 \arguments{
 \item{infile}{Input Image file}
 
+\item{template.images}{Template Images to register
+to \code{infile}}
+
 \item{template.structs}{Template gold standards to apply
 registration into \code{infile} space}
 
@@ -26,9 +29,6 @@ registration into \code{infile} space}
 \item{verbose}{Print diagnostic output}
 
 \item{...}{Arguments to be passed to \code{\link{ants_regwrite}}}
-
-\item{template.image}{Template Images to register
-to \code{infile}}
 }
 \value{
 The output filename or the nifti image
