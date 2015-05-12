@@ -94,11 +94,14 @@ fslbet_robust <- function(
   #############################
   if (remove.neck){ 
     if (swapdim){
-      cat(paste0("# Swapping Dimensions \n"))
+      if (verbose){
+        cat(paste0("# Swapping Dimensions \n"))
+      }
       forms = getForms(n4img)
       sorient = forms$ssor       
 #       qorient = forms$sqor
-      n4img = fslswapdim(file=n4img, retimg=TRUE, a="RL", b="PA", c="IS")
+      n4img = fslswapdim(file=n4img, retimg=TRUE, a="RL", b="PA", c="IS", 
+                         verbose = verbose)
     } 
     if (verbose){
       cat(paste0("# Removing Neck with template:", template.file, '\n'))
@@ -110,11 +113,13 @@ fslbet_robust <- function(
                          verbose = verbose,
                          ...)  
     if (swapdim){
-      cat(paste0("# Swapping Dimensions Back\n"))
+      if (verbose) {
+        cat(paste0("# Swapping Dimensions Back\n"))
+      }
       noneck = fslswapdim(file=noneck, retimg=TRUE, a=sorient[1], 
-                          b=sorient[2], c=sorient[3])
+                          b=sorient[2], c=sorient[3], verbose = verbose)
       n4img = fslswapdim(file=n4img, retimg=TRUE, a=sorient[1], 
-                          b=sorient[2], c=sorient[3])      
+                          b=sorient[2], c=sorient[3], verbose = verbose)      
     } 
   } else {
     noneck = n4img

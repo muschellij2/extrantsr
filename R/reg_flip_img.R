@@ -194,7 +194,8 @@ reg_flip_img <- function(t1,
                     outprefix = outprefix,
                     remove.warp = TRUE,
                     other.files = other.files,
-                    other.outfiles = other.temp)
+                    other.outfiles = other.temp,
+                    verbose = verbose)
       t1 = check_nifti(outfile)
       if (!nullmask){
         mask = other.temp[length(other.temp)]

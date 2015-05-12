@@ -249,7 +249,8 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
                     outprefix = outprefix,
                     remove.warp = TRUE,
                     other.files = other.files,
-                    other.outfiles = other.temp)
+                    other.outfiles = other.temp,
+                    verbose = verbose)
       t1 = check_nifti(outfile)
       if (!nullt2){
         t2 = other.temp[1]

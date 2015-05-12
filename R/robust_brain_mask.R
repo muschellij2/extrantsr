@@ -14,7 +14,7 @@
 #' @param typeofTransform Transformation for template to image, passed to
 #' \code{\link{ants_regwrite}}.
 #' @param verbose Print diagnostic progress
-#' @param ... not used
+#' @param ... Arguments passed to \code{\link{ants_regwrite}}
 #' @export
 #' @return Object of class nifti or vector of indices
 robust_brain_mask <- function(file, 
@@ -47,7 +47,10 @@ robust_brain_mask <- function(file,
                       typeofTransform=typeofTransform, 
                       other.files = template.mask, 
                       outfile = tempfile(fileext = '.nii.gz'),
-                      other.outfiles = ofile, retimg = FALSE, remove.warp = TRUE)
+                      other.outfiles = ofile, retimg = FALSE, 
+                      remove.warp = TRUE,
+                      verbose = verbose, 
+                      ...)
   
   if (verbose){
     cat("# Binarizing Template mask in native space\n")

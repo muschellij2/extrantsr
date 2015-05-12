@@ -53,6 +53,7 @@ malf <- function(infile, template.images, template.structs,
                     template.file = infile,
                     other.files = tstruct,
                     other.outfiles = ofile,
+                    verbose = verbose,
                     ...)
       if (verbose){
         setTxtProgressBar(pb, iimg)

@@ -26,7 +26,7 @@ then \code{fslbin(file=template.file)} is performed.}
 
 \item{verbose}{Print diagnostic progress}
 
-\item{...}{not used}
+\item{...}{Arguments passed to \code{\link{ants_regwrite}}}
 }
 \value{
 Object of class nifti or vector of indices

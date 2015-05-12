@@ -132,7 +132,8 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                 skull_strip = FALSE, 
                 correct = FALSE, 
                 retimg = FALSE,
-                remove.warp = TRUE, ...)
+                remove.warp = TRUE, 
+                verbose = verbose, ...)
   
   #######################################
   # Masking Brain

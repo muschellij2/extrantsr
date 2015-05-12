@@ -47,7 +47,8 @@ remove_neck <- function(file,
 	}  
 	ret = ants_regwrite(filename = template.file, template.file = file, 
 		typeofTransform=typeofTransform, other.files = template.mask, 
-		other.outfiles = ofile, retimg = TRUE, remove.warp = TRUE)
+		other.outfiles = ofile, retimg = TRUE, remove.warp = TRUE,
+    verbose = verbose)
 
 	if (verbose){
 	  cat("# Reading in Transformed data\n")
