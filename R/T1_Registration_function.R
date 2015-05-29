@@ -74,12 +74,15 @@ ants_regwrite <- function(filename, # filename of T1 image
 		lother = length(other.files)
 		lout = length(other.outfiles)
 		if (lother != lout) {
-			stopifnot("Other outfile and infiles must be same length")
+			stop("Other outfile and infiles must be same length")
 		}
 	}
 
 	if (native.cereb){
 		stopifnot(!is.null(native.fname))
+		if (length(atlas.file) != length(native.fname)){
+      stop("Length of atlas.files and native.fnames must be equal!")
+		}
 	}
 
   if (!remove.warp){
