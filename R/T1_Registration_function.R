@@ -44,7 +44,7 @@ ants_regwrite <- function(filename, # filename of T1 image
 	outfile = NULL, # output filename, should have .nii or .nii.gz extension
   template.file = file.path(fsldir(), "data", "standard", 
 "MNI152_T1_1mm_brain.nii.gz"),
-	interpolator="Linear", # interpolation done for \code{\link{antsApplyTransforms}}
+	interpolator="Linear", 
 	other.files = NULL,
 	other.outfiles= NULL,
 	native.cereb = FALSE,
@@ -170,6 +170,10 @@ ants_regwrite <- function(filename, # filename of T1 image
 		moving = t1N3, 
 		typeofTransform = typeofTransform,  
 		outprefix = outprefix)
+  if (verbose){
+    cat("# Applying Registration output is\n")
+    print(antsRegOut.nonlin)
+  }  
 
   if (verbose){
     cat("# Applying Transformations to file\n")
