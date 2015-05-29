@@ -172,12 +172,19 @@ ants_regwrite <- function(filename, # filename of T1 image
     print(antsRegOut.nonlin)
   }  
 
+  if (!all(file.exists(antsRegOut.nonlin$fwdtransforms))){
+    stop("ANTs Registration did not complete, transforms do not exist!")
+  }
+  if (!all(file.exists(antsRegOut.nonlin$invtransforms))){
+    stop("ANTs Registration did not complete, transforms do not exist!")
+  }
+
   if (verbose){
     cat("# Applying Transformations to file\n")
-    cat("# Fixed is \n")
-    print(template)
-    cat("# Moving is \n")
-    print(t1N3)
+#     cat("# Fixed is \n")
+#     print(template)
+#     cat("# Moving is \n")
+#     print(t1N3)
   }  
 	t1.to.template <- antsApplyTransforms(fixed=template, 
 	  moving=t1N3,
