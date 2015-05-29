@@ -218,11 +218,11 @@ ants_regwrite <- function(filename, # filename of T1 image
 # 				output = paste0(output, ".nii.gz")
 # 			}
 
-			antsApplyTransforms(fixed = t1N3, 
-				output = output, 
+			tmp_img = antsApplyTransforms(fixed = t1N3, 
 				moving = atlas,
 				transformlist = transformlist,
         interpolator = "NearestNeighbor")
+      antsImageWrite(tmp_img, output)
 		}
 	}
 
