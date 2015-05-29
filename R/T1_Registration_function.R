@@ -177,9 +177,14 @@ ants_regwrite <- function(filename, # filename of T1 image
 
   if (verbose){
     cat("# Applying Transformations to file\n")
+    cat("# Fixed is \n")
+    print(template)
+    cat("# Moving is \n")
+    print(t1N3)
+    
   }  
 	t1.to.template <- antsApplyTransforms(fixed=template, 
-	  moving=t1N3 ,
+	  moving=t1N3,
 	  transformlist=antsRegOut.nonlin$fwdtransforms,
 	  interpolator=interpolator) 
 
