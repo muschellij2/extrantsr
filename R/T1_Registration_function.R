@@ -59,12 +59,9 @@ ants_regwrite <- function(filename, # filename of T1 image
 	... # arguments to \code{\link{antsApplyTransforms}} 
 	){
 
-	writeFile = FALSE
 	if (retimg){
 		if (is.null(outfile)) {
 	  		outfile = paste0(tempfile(), ".nii.gz")
-		} else {
-			writeFile = TRUE
 		}
 	} else {
 		stopifnot(!is.null(outfile))
@@ -181,7 +178,6 @@ ants_regwrite <- function(filename, # filename of T1 image
     print(template)
     cat("# Moving is \n")
     print(t1N3)
-    
   }  
 	t1.to.template <- antsApplyTransforms(fixed=template, 
 	  moving=t1N3,
@@ -204,20 +200,22 @@ ants_regwrite <- function(filename, # filename of T1 image
 	  for (iatlas in seq_along(atlas.file)){
 			output = native.fname[iatlas]
 
-			atlas.img <- readNIfTI(atlas.file[iatlas], 
-				reorient = FALSE)
-			atlas.img  = cal_img( atlas.img > 0 )
+# 			atlas.img <- readNIfTI(atlas.file[iatlas], 
+# 				reorient = FALSE)
+# 			atlas.img  = cal_img( atlas.img > 0 )
+# 
+# 			temp.atlas = tempimg(atlas.img)
 
-			temp.atlas = tempimg(atlas.img)
+			atlas = antsImageRead(atlas.file[iatlas])
+# 			if (!grepl("[.]nii$|[.]nii[.]gz$", output)){
+# 				output = paste0(output, ".nii.gz")
+# 			}
 
-			fixed = temp.atlas
-			if (!grepl("[.]nii$|[.]nii[.]gz$", output)){
-				output = paste0(output, ".nii.gz")
-			}
-			invwarp(3, fixed = fixed, 
+			antsApplyTransforms(fixed = t1N3, 
 				output = output, 
-				moving = moving,
-				transformlist = transformlist)
+				moving = atlas,
+				transformlist = transformlist,
+        interpolator = "NearestNeighbor")
 		}
 	}
 
