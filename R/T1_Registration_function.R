@@ -179,7 +179,7 @@ ants_regwrite <- function(filename, # filename of T1 image
     stop("ANTs Registration did not complete, transforms do not exist!")
   }
   if (!all(file.exists(antsRegOut.nonlin$invtransforms))){
-    stop("ANTs Registration did not complete, transforms do not exist!")
+    stop("ANTs Registration did not complete, inverse transforms do not exist!")
   }
 
   if (verbose){
