@@ -5,8 +5,9 @@
 \title{Skull Strip then Bias Field Correct}
 \usage{
 ss_bias(filename, maskfile = NULL, outfile = filename, skull_strip = TRUE,
-  bet.opts = "-B -f 0.1 -v", betcmd = "bet", correct = TRUE,
-  correction = "N3", shrinkfactor = "4", verbose = TRUE, ...)
+  bet.opts = "", betcmd = "bet", correct = TRUE, correction = "N3",
+  shrinkfactor = "4", retimg = TRUE, reorient = FALSE, verbose = TRUE,
+  ...)
 }
 \arguments{
 \item{filename}{filename to be processed}
@@ -27,9 +28,17 @@ ss_bias(filename, maskfile = NULL, outfile = filename, skull_strip = TRUE,
 
 \item{shrinkfactor}{correction method used see \code{\link{n3BiasFieldCorrection}}}
 
+\item{retimg}{(logical) return image of class nifti}
+
+\item{reorient}{(logical) If retimg, should file be reoriented when read in?
+Passed to \code{\link{readNIfTI}}.}
+
 \item{verbose}{Diagnostic output}
 
 \item{...}{passed to \code{\link{bias_correct}}}
+}
+\value{
+Filename of output file or object of class nifti
 }
 \description{
 This function wraps \code{fslbet} and

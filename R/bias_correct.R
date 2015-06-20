@@ -36,12 +36,7 @@ bias_correct = function(
                           retimg = retimg, 
                           fileext = '.nii.gz')
   
-  file = checkimg(file)
-  if (inherits(file, "antsImage")){
-    img = file
-  } else {
-    img <- antsImageRead(file, dimension)
-  }
+  img = check_ants(file, dimension = dimension)
 #   imgn3 <- antsImageClone(img)
   if ( correction %in% c("N3", "n3")){
 #     res = n3BiasFieldCorrection(img@dimension, img, imgn3, "4", ...)

@@ -11,52 +11,69 @@
 #' @param correct should n3 correction be done stripping be done
 #' @param correction correction method used see \code{\link{bias_correct}}
 #' @param shrinkfactor correction method used see \code{\link{n3BiasFieldCorrection}}
+#' @param retimg (logical) return image of class nifti
+#' @param reorient (logical) If retimg, should file be reoriented when read in?
+#' Passed to \code{\link{readNIfTI}}. 
 #' @param verbose Diagnostic output
 #' @param ... passed to \code{\link{bias_correct}}
 #' @export
 #' @seealso \code{\link{bias_ss}}
-#' @return NULL
+#' @return Filename of output file or object of class nifti
 ss_bias <- function(filename, # filename to be processed
                     maskfile = NULL,
                     outfile = filename, # output filename with extension (should be .nii.gz)
                     skull_strip = TRUE, # should skull stripping be done
-                    bet.opts = "-B -f 0.1 -v",
+                    bet.opts = "",
                     betcmd = "bet",                        
-                  correct = TRUE, # should n3 correction be done stripping be done
-                  correction = "N3", # correction method used, see \code{\link{bias_correct}}
-                  shrinkfactor= "4", # correction method used, see \code{\link{n3BiasFieldCorrection}}
-                  verbose = TRUE,
-                  ... # passed to \code{\link{bias_correct}}
-                  ){
+                    correct = TRUE, # should n3 correction be done stripping be done
+                    correction = "N3", # correction method used, see \code{\link{bias_correct}}
+                    shrinkfactor= "4", # correction method used, see \code{\link{n3BiasFieldCorrection}}
+                    retimg = TRUE,
+                    reorient = FALSE,
+                    verbose = TRUE,
+                    ... # passed to \code{\link{bias_correct}}
+){
   
   #### Run BET    
-  if (skull_strip){
-    if (verbose){
-      cat("# Skull Stripping")
+  if (skull_strip) {
+    if (verbose) {
+      cat("# Skull Stripping\n")
     }
-    if ( is.null(maskfile) ){
+    if ( is.null(maskfile) ) {
       fslbet(infile = filename, 
              outfile = outfile, 
              opts = bet.opts, 
              betcmd = betcmd, 
-             retimg= FALSE)
+             retimg = FALSE,
+             verbose = verbose)
     } else {
-      fslmask(file=filename, outfile = outfile, mask = maskfile)
+      fslmask(file = filename, outfile = outfile, mask = maskfile,
+              verbose = verbose)
     }
   }
-  if (skull_strip){
+  if (skull_strip) {
     filename = outfile
   }
-  if (correct){
-    if (verbose){
-      cat("# Bias Correction")
+  if (correct) {
+    if (verbose) {
+      cat("# Bias Correction\n")
     }    
     bias_correct(filename, outfile = outfile, 
-                 retimg=FALSE, 
+                 retimg = FALSE, 
                  correction = correction,
-                 shrinkfactor=shrinkfactor, ...)
+                 shrinkfactor = shrinkfactor, ...)
   }
-  return(invisible(NULL))
+  ####### 
+  # Returning image
+  ###########
+  if (retimg) {
+    img = readNIfTI(outfile, reorient = reorient)
+    return(img)
+  } else {
+    return(outfile)
+  }
+  
+  # return(invisible(NULL))
 }
 
 
@@ -73,50 +90,66 @@ ss_bias <- function(filename, # filename to be processed
 #' @param correct should n3 correction be done stripping be done
 #' @param correction correction method used see \code{\link{bias_correct}}
 #' @param shrinkfactor correction method used see \code{\link{n3BiasFieldCorrection}}
+#' @param retimg (logical) return image of class nifti
+#' @param reorient (logical) If retimg, should file be reoriented when read in?
+#' Passed to \code{\link{readNIfTI}}.  
 #' @param verbose Diagnostic output
 #' @param ... passed to \code{\link{bias_correct}}
 #' @export
 #' @seealso \code{\link{ss_bias}}
-#' @return NULL
+#' @return Filename of output file or object of class nifti
 bias_ss <- function(filename, # filename to be processed
                     maskfile = NULL,
                     outfile = filename, # output filename with extension (should be .nii.gz)
                     skull_strip = TRUE, # should skull stripping be done
-                    bet.opts = "-B -f 0.1 -v",
+                    bet.opts = "",
                     betcmd = "bet",                        
                     correct = TRUE, # should n3 correction be done stripping be done
                     correction = "N3", # correction method used, see \code{\link{bias_correct}}
                     shrinkfactor= "4", # correction method used, see \code{\link{n3BiasFieldCorrection}}
+                    retimg = TRUE,
+                    reorient = FALSE,                    
                     verbose = TRUE,
                     ... # passed to \code{\link{bias_correct}}
 ){
-  if (correct){
-    if (verbose){
-      cat("# Bias Correction")
+  if (correct) {
+    if (verbose) {
+      cat("# Bias Correction\n")
     }        
     bias_correct(filename, outfile = outfile, 
-                 retimg=FALSE, 
+                 retimg = FALSE, 
                  correction = correction,
-                 shrinkfactor=shrinkfactor, ...)
+                 shrinkfactor = shrinkfactor, ...)
   }  
-  if (correct){
+  if (correct) {
     filename = outfile
   }  
   #### Run BET    
-  if (skull_strip){
-    if (verbose){
-      cat("# Skull Stripping")
+  if (skull_strip) {
+    if (verbose) {
+      cat("# Skull Stripping\n")
     }
-    if ( is.null(maskfile) ){
+    if ( is.null(maskfile) ) {
       fslbet(infile = filename, 
              outfile = outfile, 
              opts = bet.opts, 
              betcmd = betcmd, 
-             retimg= FALSE)
+             retimg = FALSE,
+             verbose = verbose)
     } else {
-      fslmask(file=filename, outfile = outfile, mask = maskfile)
+      fslmask(file = filename, outfile = outfile, mask = maskfile,
+              verbose = verbose)
     }
   }
-
+  ####### 
+  # Returning image
+  ###########
+  if (retimg) {
+    img = readNIfTI(outfile, reorient = reorient)
+    return(img)
+  } else {
+    return(outfile)
+  }
+  
   return(invisible(NULL))
 }
