@@ -4,7 +4,7 @@
 #' \code{bias_correct}, performing skull stripping first
 #' @param filename filename to be processed
 #' @param maskfile filename of masked to be passed in, otherwise bet is performed 
-#' @param outfile output filename with extension (should be .nii.gz
+#' @param outfile output filename with extension (e.g. \code{.nii.gz})
 #' @param skull_strip should skull stripping be done
 #' @param bet.opts options for fslbet
 #' @param betcmd bet command to be used see \code{\link{fslbet}}
@@ -21,7 +21,7 @@
 #' @return Filename of output file or object of class nifti
 ss_bias <- function(filename, # filename to be processed
                     maskfile = NULL,
-                    outfile = filename, # output filename with extension (should be .nii.gz)
+                    outfile = tempfile(fileext = ".nii.gz"), # output filename with extension (should be .nii.gz)
                     skull_strip = TRUE, # should skull stripping be done
                     bet.opts = "",
                     betcmd = "bet",                        
@@ -83,7 +83,7 @@ ss_bias <- function(filename, # filename to be processed
 #' \code{bias_correct}, performing bias correction first
 #' @param filename filename to be processed
 #' @param maskfile filename of masked to be passed in, otherwise bet is performed 
-#' @param outfile output filename with extension (should be .nii.gz
+#' @param outfile output filename with extension (e.g. \code{.nii.gz})s
 #' @param skull_strip should skull stripping be done
 #' @param bet.opts options for fslbet
 #' @param betcmd bet command to be used see \code{\link{fslbet}}
@@ -100,7 +100,7 @@ ss_bias <- function(filename, # filename to be processed
 #' @return Filename of output file or object of class nifti
 bias_ss <- function(filename, # filename to be processed
                     maskfile = NULL,
-                    outfile = filename, # output filename with extension (should be .nii.gz)
+                    outfile = tempfile(fileext = ".nii.gz"), # output filename with extension (should be .nii.gz)
                     skull_strip = TRUE, # should skull stripping be done
                     bet.opts = "",
                     betcmd = "bet",                        

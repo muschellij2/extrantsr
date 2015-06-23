@@ -4,17 +4,17 @@
 \alias{bias_ss}
 \title{Bias Field Correct then Skull Strip}
 \usage{
-bias_ss(filename, maskfile = NULL, outfile = filename, skull_strip = TRUE,
-  bet.opts = "", betcmd = "bet", correct = TRUE, correction = "N3",
-  shrinkfactor = "4", retimg = TRUE, reorient = FALSE, verbose = TRUE,
-  ...)
+bias_ss(filename, maskfile = NULL, outfile = tempfile(fileext = ".nii.gz"),
+  skull_strip = TRUE, bet.opts = "", betcmd = "bet", correct = TRUE,
+  correction = "N3", shrinkfactor = "4", retimg = TRUE,
+  reorient = FALSE, verbose = TRUE, ...)
 }
 \arguments{
 \item{filename}{filename to be processed}
 
 \item{maskfile}{filename of masked to be passed in, otherwise bet is performed}
 
-\item{outfile}{output filename with extension (should be .nii.gz}
+\item{outfile}{output filename with extension (e.g. \code{.nii.gz})s}
 
 \item{skull_strip}{should skull stripping be done}
 
