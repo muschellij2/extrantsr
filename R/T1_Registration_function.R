@@ -30,7 +30,7 @@
 #' @param bet.opts Options passed to \code{\link{fslbet}}
 #' @param betcmd BET command used, passed to \code{\link{fslbet}}
 #' @param verbose Print diagnostic messages
-#' @param ... arguments to \code{\link{antsApplyTransforms}}
+#' @param ... arguments to \code{\link{antsRegistration}}
 #' @import ANTsR
 #' @import fslr
 #' @import oro.nifti
@@ -56,7 +56,7 @@ ants_regwrite <- function(filename, # filename of T1 image
   bet.opts = "-B -f 0.1 -v",
   betcmd = "bet",
   verbose = TRUE,
-	... # arguments to \code{\link{antsApplyTransforms}} 
+	... # arguments to \code{\link{antsRegistration}} 
 	){
 
 	if (retimg){
@@ -169,7 +169,8 @@ ants_regwrite <- function(filename, # filename of T1 image
 		fixed = template, 
 		moving = t1N3, 
 		typeofTransform = typeofTransform,  
-		outprefix = outprefix)
+		outprefix = outprefix,
+		verbose = verbose, ...)
   if (verbose){
     cat("# Applying Registration output is\n")
     print(antsRegOut.nonlin)

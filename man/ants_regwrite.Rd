@@ -59,7 +59,7 @@ Required if \code{remove.warp = FALSE}}
 
 \item{verbose}{Print diagnostic messages}
 
-\item{...}{arguments to \code{\link{antsApplyTransforms}}}
+\item{...}{arguments to \code{\link{antsRegistration}}}
 }
 \value{
 NULL or object of class nifti for transformed T1 image
