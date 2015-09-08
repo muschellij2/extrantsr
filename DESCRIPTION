@@ -1,11 +1,11 @@
 Package: extrantsr
 Type: Package
 Title: Extra Functions to Build on ANTsR Package
-Version: 1.1.1
-Date: 2015-05-12
+Version: 1.1.2
+Date: 2015-09-08
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
-Description: More about what it does (maybe more than one line)
+Description: Extends the ANTsR package with simple wrappers and complex processing streams built in
 License: GPL-3 | file LICENSE
 Imports:
     ANTsR,
