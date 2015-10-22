@@ -16,22 +16,22 @@ invwarp <- function(
   moving, # moving image to be mapped to fixed space.
   transformlist # list of transforms, usually from \code{antsRegistration}
 ){
-  
-  moving = tempants(moving)
-  fixed = tempants(fixed)
-  output = tempants(output)
-  
-  args <- list(dimension, fixed, output,
-               R = moving, 
-               i = transformlist)
-  myargs <- sys_int_antsProcessArguments(c(args))
-  myargs = myargs[ myargs != '-']
-
-  myargs = paste(myargs, collapse=" ")
-  
-  cmd = paste0("WarpImageMultiTransform ", 
-               myargs)
-  system(cmd)
+  .Deprecated("antsApplyTransforms", package = "ANTsR")
+#   moving = tempants(moving)
+#   fixed = tempants(fixed)
+#   output = tempants(output)
+#   
+#   args <- list(dimension, fixed, output,
+#                R = moving, 
+#                i = transformlist)
+#   myargs <- sys_int_antsProcessArguments(c(args))
+#   myargs = myargs[ myargs != '-']
+# 
+#   myargs = paste(myargs, collapse=" ")
+#   
+#   cmd = paste0("WarpImageMultiTransform ", 
+#                myargs)
+#   system(cmd)
   
 }
 
@@ -46,13 +46,14 @@ invwarp <- function(
 N4BiasCorrect_WithField <- function(
  args
 ){
-
-  myargs <- sys_int_antsProcessArguments(c(args))
-  myargs = myargs[ myargs != '-']
-  myargs = paste(myargs, collapse="")
-  cmd = paste0("N4BiasFieldCorrection ", 
-               myargs)
-  system(cmd)
+  .Deprecated("n4BiasFieldCorrection", package = "ANTsR")
+#   
+#   myargs <- sys_int_antsProcessArguments(c(args))
+#   myargs = myargs[ myargs != '-']
+#   myargs = paste(myargs, collapse="")
+#   cmd = paste0("N4BiasFieldCorrection ", 
+#                myargs)
+#   system(cmd)
   
 }
 
@@ -66,51 +67,53 @@ N4BiasCorrect_WithField <- function(
 #' @return Character vector
 sys_int_antsProcessArguments = function (args) 
 {
-  if (typeof(args) == "list") {
-    char_vect <- NULL
-    for (i in (1:length(args))) {
-      if (length(names(args)) != 0) {
-        if (nchar(names(args)[i]) > 1) {
-          char_vect <- c(char_vect, paste("--", names(args)[i], 
-                                          sep = ""))
-        }
-        else {
-          char_vect <- c(char_vect, paste("-", names(args)[i], 
-                                          sep = ""))
-        }
-      }
-      if (typeof(args[[i]]) == "list") {
-        char_vect <- c(char_vect, paste(args[[i]]$name, 
-                                        "[", sep = ""))
-        args[[i]]$name <- NULL
-        adder = 
-        for (j in (1:length(args[[i]]))) {
-          adder = ","
-          if (j == length(args[[i]])){
-            adder = ""
-          }
-          char_vect <- c(char_vect, 
-                         paste0(as.character(ANTsR:::.int_antsExtractXptrAsString(
-                           args[[i]][[j]])), adder))
-        }
-        char_vect <- c(char_vect, "]")
-      }
-      else {
-        char_vect <- c(char_vect, as.character(ANTsR:::.int_antsExtractXptrAsString(args[[i]])))
-      }
-    }
-  }
-  starter = which(char_vect == "[")
-  stopper = which(char_vect == "]")
-  stopifnot(length(starter) == length(stopper))
-  inds = NULL
-  for (i in seq_along(starter)){
-    istart = starter[i]
-    istop = stopper[i] - 1
-    inds = c(inds, seq(istart, istop))
-  }
-  all.inds = seq_along(char_vect)
-  spacer = !(all.inds %in% inds)
-  char_vect[ spacer ] = paste0(char_vect[ spacer ], " ")
-  return(char_vect)
+  .Deprecated(".int_antsExtractXptrAsString", "ANTsR",
+              msg = "Not used, ANTsR Update made this obsolete")
+#   if (typeof(args) == "list") {
+#     char_vect <- NULL
+#     for (i in (1:length(args))) {
+#       if (length(names(args)) != 0) {
+#         if (nchar(names(args)[i]) > 1) {
+#           char_vect <- c(char_vect, paste("--", names(args)[i], 
+#                                           sep = ""))
+#         }
+#         else {
+#           char_vect <- c(char_vect, paste("-", names(args)[i], 
+#                                           sep = ""))
+#         }
+#       }
+#       if (typeof(args[[i]]) == "list") {
+#         char_vect <- c(char_vect, paste(args[[i]]$name, 
+#                                         "[", sep = ""))
+#         args[[i]]$name <- NULL
+#         adder = 
+#         for (j in (1:length(args[[i]]))) {
+#           adder = ","
+#           if (j == length(args[[i]])){
+#             adder = ""
+#           }
+#           char_vect <- c(char_vect, 
+#                          paste0(as.character(ANTsR:::.int_antsExtractXptrAsString(
+#                            args[[i]][[j]])), adder))
+#         }
+#         char_vect <- c(char_vect, "]")
+#       }
+#       else {
+#         char_vect <- c(char_vect, as.character(ANTsR:::.int_antsExtractXptrAsString(args[[i]])))
+#       }
+#     }
+#   }
+#   starter = which(char_vect == "[")
+#   stopper = which(char_vect == "]")
+#   stopifnot(length(starter) == length(stopper))
+#   inds = NULL
+#   for (i in seq_along(starter)){
+#     istart = starter[i]
+#     istop = stopper[i] - 1
+#     inds = c(inds, seq(istart, istop))
+#   }
+#   all.inds = seq_along(char_vect)
+#   spacer = !(all.inds %in% inds)
+#   char_vect[ spacer ] = paste0(char_vect[ spacer ], " ")
+#   return(char_vect)
 }
