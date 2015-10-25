@@ -21,7 +21,8 @@ then mask is created by first}
 \item{...}{Additional arguments to be passed to \code{\link{atropos}}}
 
 \item{make_mask}{Logical indicating if mask should be created if
-\code{x} is missing}
+\code{x} is missing.  Mask is made using \code{\link{getMask}} with
+first image of \code{a}.}
 
 \item{reset_origin}{Should \code{\link{antsCopyOrigin}} be done
 on the mask?}
