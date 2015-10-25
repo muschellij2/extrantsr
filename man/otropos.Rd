@@ -18,7 +18,7 @@ then mask is created by first}
 \item{make_mask}{Logical indicating if mask should be created if
 \code{x} is missing}
 
-\item{reset_orogin}{Should \code{\link{antsCopyOrigin}} be done
+\item{reset_origin}{Should \code{\link{antsCopyOrigin}} be done
 on the mask?}
 }
 \value{
