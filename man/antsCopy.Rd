@@ -31,6 +31,6 @@ to copy the information over.  Finer control than
 library(ANTsR)
 img <- makeImage(c(10,10),rnorm(100))
 img2 <- makeImage(c(10,10), rnorm(100))
-img2 <- antsResetOrigin(img, img2)
+img2 <- antsCopyOrigin(img, img2)
 }
 

@@ -22,7 +22,7 @@ otropos <- function(a,
                     ..., 
                     make_mask = TRUE,
                     reset_origin = TRUE) {
-  if ( is.list(a) | is.character(a)  ) {
+  if ( is.list(a) | (is.character(a) & length(a) > 0)  ) {
     a = lapply(a, check_ants)
     img = antsImageClone(a[[1]])
   } else {
@@ -43,7 +43,7 @@ otropos <- function(a,
       (x * 0) + (x > 0), 
       out_pixeltype = "unsigned int")
     if (reset_origin) {
-      x = antsCopyOrigin(a, x)
+      x = antsCopyOrigin(img, x)
     }
     args = list(x = x, ...)
   }
