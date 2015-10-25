@@ -12,6 +12,7 @@
 #' @name antsCopy
 #' @rdname antsCopy
 #' @examples
+#' library(ANTsR)
 #' img <- makeImage(c(10,10),rnorm(100))
 #' img2 <- makeImage(c(10,10), rnorm(100))
 #' img2 <- antsResetOrigin(img, img2)
