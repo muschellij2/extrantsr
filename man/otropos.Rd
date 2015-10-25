@@ -18,8 +18,8 @@ then mask is created by first}
 \item{make_mask}{Logical indicating if mask should be created if
 \code{x} is missing}
 
-\item{reset_orogin}{Logical indicating origin of mask should be
-set to that of \code{a}}
+\item{reset_orogin}{Should \code{\link{antsCopyOrigin}} be done
+on the mask?}
 }
 \value{
 Result of \code{\link{atropos}}, but with nifti objects.

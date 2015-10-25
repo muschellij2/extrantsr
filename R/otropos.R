@@ -9,8 +9,8 @@
 #' @param ... Additional arguments to be passed to \code{\link{atropos}}
 #' @param make_mask Logical indicating if mask should be created if
 #' \code{x} is missing
-#' @param reset_orogin Logical indicating origin of mask should be 
-#' set to that of \code{a}
+#' @param reset_orogin Should \code{\link{antsCopyOrigin}} be done
+#' on the mask?
 #' @export
 #' @return Result of \code{\link{atropos}}, but with nifti objects.
 otropos <- function(a, 
@@ -34,6 +34,7 @@ otropos <- function(a,
     }
   } else {
     x = check_ants(x)
+    x = antsCopyOrigin(a, x)
     args = list(x = x, ...)
   }
   args = c(a = a, args)
