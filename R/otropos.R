@@ -14,9 +14,9 @@
 #' @export
 #' @return Result of \code{\link{atropos}}, but with nifti objects.
 otropos <- function(a, 
-                     x, ..., 
-                     make_mask = TRUE,
-                     reset_origin = TRUE) {
+                    x, ..., 
+                    make_mask = TRUE,
+                    reset_origin = TRUE) {
   if ( is.list(a) | is.character(a)  ) {
     a = lapply(a, check_ants)
     img = antsImageClone(a[[1]])
@@ -34,7 +34,10 @@ otropos <- function(a,
     }
   } else {
     x = check_ants(x)
-    if (reset_origin){
+    x = antsImageClone(
+      (x * 0) + (x > 0), 
+      out_pixeltype = "unsigned int")
+    if (reset_origin) {
       x = antsCopyOrigin(a, x)
     }
     args = list(x = x, ...)
