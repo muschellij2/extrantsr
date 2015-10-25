@@ -4,7 +4,8 @@
 \alias{otropos}
 \title{Run Atropos for nifti objects}
 \usage{
-otropos(a, x, ..., make_mask = TRUE, reset_origin = TRUE)
+otropos(a, x, m = "[0.2,1x1x1]", ..., make_mask = TRUE,
+  reset_origin = TRUE)
 }
 \arguments{
 \item{a}{Images to segment.  Can be a \code{nifti} object,
@@ -12,6 +13,10 @@ otropos(a, x, ..., make_mask = TRUE, reset_origin = TRUE)
 
 \item{x}{Mask image.  If none is supplied and \code{make_mask = TRUE},
 then mask is created by first}
+
+\item{m}{mrf parameters as a string, usually
+"\code{[smoothingFactor,radius]}".  Reset for 3D images, compared to
+2D default atropos has.}
 
 \item{...}{Additional arguments to be passed to \code{\link{atropos}}}
 

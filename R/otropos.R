@@ -6,6 +6,9 @@
 #' \code{antsImage} object, \code{character} vector, or list of these
 #' @param x Mask image.  If none is supplied and \code{make_mask = TRUE},
 #' then mask is created by first 
+#' @param m mrf parameters as a string, usually 
+#' "\code{[smoothingFactor,radius]}".  Reset for 3D images, compared to 
+#' 2D default atropos has. 
 #' @param ... Additional arguments to be passed to \code{\link{atropos}}
 #' @param make_mask Logical indicating if mask should be created if
 #' \code{x} is missing
@@ -14,7 +17,9 @@
 #' @export
 #' @return Result of \code{\link{atropos}}, but with nifti objects.
 otropos <- function(a, 
-                    x, ..., 
+                    x, 
+                    m = "[0.2,1x1x1]", 
+                    ..., 
                     make_mask = TRUE,
                     reset_origin = TRUE) {
   if ( is.list(a) | is.character(a)  ) {
@@ -42,7 +47,7 @@ otropos <- function(a,
     }
     args = list(x = x, ...)
   }
-  args = c(a = a, args)
+  args = c(a = a, args, m = m)
   res = do.call(atropos, args)
   
   return(res)
