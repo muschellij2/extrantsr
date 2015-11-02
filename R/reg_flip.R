@@ -317,7 +317,9 @@ reg_flip <- function(t1,
       cat("# Writing out Flipped T1\n")
     }      
     t1 = cal_img(t1)
-    t1 = mask_img(t1, mask)
+    if (!nullmask){
+      t1 = mask_img(t1, mask)
+    }
     writeNIfTI(t1, filename = nii.stub(t1.outfile))
   }
   if (!nullother){
@@ -327,7 +329,9 @@ reg_flip <- function(t1,
     print(other.outfiles)
     mapply(function(img, fname){
       img = cal_img(img)
-      img = mask_img(img, mask)
+      if (!nullmask){
+        img = mask_img(img, mask)
+      }
       writeNIfTI(img, filename = nii.stub(fname))
     }, other.files, other.outfiles)
   }
