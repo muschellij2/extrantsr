@@ -19,7 +19,8 @@ check_ants = function(x, dimension = 3){
     return(img)
   }
   if (is.antsImage(x)) {
-    return(x)
+    x2 = antsImageClone(x)
+    return(x2)
   }  
   msg = paste0("x has class ", class(x), " - not char, nifti, antsImage")
   stop(msg)
