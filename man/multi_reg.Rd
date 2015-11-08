@@ -9,6 +9,11 @@ multi_reg(infiles, template.file, outfiles = NULL, typeofTransform = "SyN",
   verbose = TRUE, ...)
 }
 \arguments{
+\item{infiles}{Input image files}
+
+\item{template.file}{Template image to register 
+to}
+
 \item{outfiles}{Output filenames for  \code{template.structs} in 
 \code{infile} space}
 
@@ -18,24 +23,14 @@ multi_reg(infiles, template.file, outfiles = NULL, typeofTransform = "SyN",
 \item{interpolator}{interpolation done for 
 \code{\link{antsApplyTransforms}}}
 
+\item{outprefix}{Character path of where the warp files and transformations
+should be stored.}
+
 \item{retimg}{Return image to user using \code{\link{readNIfTI}}}
 
 \item{verbose}{Print diagnostic output}
 
 \item{...}{Arguments to be passed to \code{\link{ants_regwrite}}}
-
-\item{infile}{Input image file}
-
-\item{template.images}{Template images to register 
-to \code{infile}}
-
-\item{template.structs}{Template gold standards to apply 
-registration into \code{infile} space}
-
-\item{keep_images}{Keep the \code{template.structs} in 
-\code{infile} space}
-
-\item{outfile}{Fused output filename}
 }
 \value{
 Output list of registered images and transformations

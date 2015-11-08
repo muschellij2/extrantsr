@@ -2,20 +2,17 @@
 #'
 #' @description Takes a list of images and registers them to a template, 
 #' keeping the registration information in a list.
-#' @param infile Input image file
-#' @param template.images Template images to register 
-#' to \code{infile}
-#' @param template.structs Template gold standards to apply 
-#' registration into \code{infile} space
-#' @param keep_images Keep the \code{template.structs} in 
-#' \code{infile} space
+#' @param infiles Input image files
+#' @param template.file Template image to register 
+#' to
 #' @param outfiles Output filenames for  \code{template.structs} in 
 #' \code{infile} space
+#' @param typeofTransform type of transformed used, passed to 
+#' \code{\link{antsRegistration}}  
 #' @param interpolator interpolation done for 
 #' \code{\link{antsApplyTransforms}}
-#' @param typeofTransform type of transformed used, passed to 
-#' \code{\link{antsRegistration}} 
-#' @param outfile Fused output filename
+#' @param outprefix Character path of where the warp files and transformations
+#' should be stored.
 #' @param retimg Return image to user using \code{\link{readNIfTI}}
 #' @param verbose Print diagnostic output
 #' @param ... Arguments to be passed to \code{\link{ants_regwrite}}
@@ -71,6 +68,7 @@ multi_reg <- function(infiles,
       interpolator = interpolator, 
       verbose = verbose,
       outprefix = oprefix,
+      remove.warp = FALSE,
       ...)
     oimgs[[iimg]] = res
     if (verbose) {
