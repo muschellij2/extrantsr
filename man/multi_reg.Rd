@@ -2,7 +2,7 @@
 % Please edit documentation in R/multi_reg.R
 \name{multi_reg}
 \alias{multi_reg}
-\title{Multi-Atlas Label Fusion}
+\title{Multi-Registration}
 \usage{
 multi_reg(infiles, template.file, outfiles = NULL, typeofTransform = "SyN",
   interpolator = "Linear", outprefix = NULL, retimg = TRUE,
@@ -12,15 +12,21 @@ multi_reg(infiles, template.file, outfiles = NULL, typeofTransform = "SyN",
 \item{outfiles}{Output filenames for  \code{template.structs} in 
 \code{infile} space}
 
-\item{retimg}{Return Image to user using \code{\link{readNIfTI}}}
+\item{typeofTransform}{type of transformed used, passed to 
+\code{\link{antsRegistration}}}
+
+\item{interpolator}{interpolation done for 
+\code{\link{antsApplyTransforms}}}
+
+\item{retimg}{Return image to user using \code{\link{readNIfTI}}}
 
 \item{verbose}{Print diagnostic output}
 
 \item{...}{Arguments to be passed to \code{\link{ants_regwrite}}}
 
-\item{infile}{Input Image file}
+\item{infile}{Input image file}
 
-\item{template.images}{Template Images to register 
+\item{template.images}{Template images to register 
 to \code{infile}}
 
 \item{template.structs}{Template gold standards to apply 
@@ -32,10 +38,10 @@ registration into \code{infile} space}
 \item{outfile}{Fused output filename}
 }
 \value{
-The output filename or the nifti image
+Output list of registered images and transformations
 }
 \description{
-Takes in an input file and template images with 
-a set of template structures and creates a label fusion
+Takes a list of images and registers them to a template, 
+keeping the registration information in a list.
 }
 
