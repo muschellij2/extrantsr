@@ -58,15 +58,8 @@ ants_regwrite <- function(filename, # filename of T1 image
   verbose = TRUE,
 	... # arguments to \code{\link{antsRegistration}} 
 	){
-
-	if (retimg){
-		if (is.null(outfile)) {
-	  		outfile = paste0(tempfile(), ".nii.gz")
-		}
-	} else {
-		stopifnot(!is.null(outfile))
-	}	
-  outfile = path.expand(outfile)
+  
+  outfile = check_outfile(outfile = outfile, retimg = retimg)
 
 	have.other = FALSE
 	if (!is.null(other.files)){
