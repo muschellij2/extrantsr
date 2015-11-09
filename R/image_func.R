@@ -1,6 +1,6 @@
-#' @title Generic Image Function
+#' @title Create Statistics Image
 #' @description Creates output from a list of images, performing voxel-wise
-#' operations
+#' operations to create a statistic image
 #' @param imgs Character vector, list of characters, or object of class 
 #' \code{nifti}
 #' @param func Function to perform voxel-wise on list of images 
@@ -9,7 +9,7 @@
 #' @import matrixStats
 #' @return Object of class \code{nifti}
 #' @export
-image_func = function(imgs, 
+stat_img = function(imgs, 
                       func = c("mean", 
                                "median",
                                "sd",
