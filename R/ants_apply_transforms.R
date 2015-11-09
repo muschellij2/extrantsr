@@ -59,9 +59,10 @@ setMethod("ants_apply_transforms",
             
             fixed = check_ants(fixed)
             moving = check_ants(moving)
-            res = ants_apply_transforms(fixed = fixed, 
+            moving_to_fixed = antsApplyTransforms(fixed = fixed, 
                                         moving = moving,
                                         ...)
+            moving_to_fixed = ants2oro(moving_to_fixed)
             
-            return(res)
-          })
+            return(moving_to_fixed)            
+})
