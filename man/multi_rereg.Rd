@@ -4,10 +4,13 @@
 \alias{multi_rereg}
 \title{Two-Stage Multi-Registration of images}
 \usage{
-multi_rereg(infiles, func = "mean", ...)
+multi_rereg(infiles, template.file, func = "mean", ...)
 }
 \arguments{
 \item{infiles}{Input image files}
+
+\item{template.file}{Template image to register to for first pass.
+Second pass will be statistic image}
 
 \item{func}{Function to be passed to}
 
