@@ -10,7 +10,7 @@ Description: Extends the ANTsR package with simple wrappers and complex
 License: GPL-3 | file LICENSE
 Imports:
     ANTsR,
-    fslr,
+    fslr (>= 1.5.3),
     oro.nifti,
     WhiteStripe,
     matrixStats

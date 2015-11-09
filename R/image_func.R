@@ -54,7 +54,7 @@ image_func = function(imgs,
   res_img = niftiarr(nim, 
                      res_img)
   if (finite) {
-    res_img = finite_img(res_img, replace = 0)
+    res_img = fslr::finite_img(res_img, replace = 0)
   }
   return(res_img)
 }
