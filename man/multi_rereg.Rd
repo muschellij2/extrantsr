@@ -17,7 +17,8 @@ Second pass will be statistic image}
 \item{...}{Arguments to be passed to \code{\link{multi_reg}}.}
 }
 \value{
-Output list of registered images to statistic image 
+Output list of statistic image, 
+registered images to statistic image 
 and transformations
 }
 \description{

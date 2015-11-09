@@ -11,7 +11,8 @@
 #' @note The second stage will use the same arguments passed in \code{...}, but
 #' the \code{template.file} will be the statistic image
 #' @export
-#' @return Output list of registered images to statistic image 
+#' @return Output list of statistic image, 
+#' registered images to statistic image 
 #' and transformations
 multi_rereg <- function(infiles, 
                         template.file,
@@ -23,6 +24,7 @@ multi_rereg <- function(infiles,
   run_stat_img = stat_img(outfiles, func = func)
   res = multi_reg(infiles = infiles, template.file = run_stat_img, ...)
   
-  return(res)
+  L = list(stat_img = run_stat_img, results = res)
+  return(L)
 }
 
