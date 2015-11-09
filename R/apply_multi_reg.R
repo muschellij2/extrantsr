@@ -42,7 +42,7 @@ setMethod("apply_multi_reg",
                                     moving = x,
                                     transformlist = y,
                                     ...)
-            }, SIMPLIFY = FALSE)
+            }, infiles, transformlist, SIMPLIFY = FALSE)
             
             return(res)
           })
@@ -66,7 +66,7 @@ setMethod("apply_multi_reg",
                                     moving = x,
                                     transformlist = y,
                                     ...)
-            }, SIMPLIFY = FALSE)
+            }, infiles, transformlist, SIMPLIFY = FALSE)
             
             return(res)
           })
