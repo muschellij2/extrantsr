@@ -1,8 +1,8 @@
 Package: extrantsr
 Type: Package
 Title: Extra Functions to Build on the ANTsR Package
-Version: 1.1.5
-Date: 2015-11-08
+Version: 1.1.6
+Date: 2015-11-09
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Extends the ANTsR package with simple wrappers and complex
@@ -12,6 +12,7 @@ Imports:
     ANTsR,
     fslr,
     oro.nifti,
-    WhiteStripe
+    WhiteStripe,
+    matrixStats
 BugReports: https://github.com/muschellij2/extrantsr/issues
 RoxygenNote: 5.0.0
