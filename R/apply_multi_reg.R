@@ -37,12 +37,16 @@ setMethod("apply_multi_reg",
             
             infiles = check_ants(infiles)
             fixed = check_ants(fixed)
-            res = mapply(function(x, y){
-              ants_apply_transforms(fixed = fixed, 
-                                    moving = x,
-                                    transformlist = y,
-                                    ...)
-            }, infiles, transformlist, SIMPLIFY = FALSE)
+            res = vector(mode = "list", length = length(infiles))
+            for (ifile in seq_along(infiles)) {
+              tlist = transformlist[[ifile]]
+              files = infiles[[ifile]]
+              r = ants_apply_transforms(fixed = fixed, 
+                                        moving = files,
+                                        transformlist = tlist,
+                                        ...)
+              res[[ifile]] = r 
+            }
             
             return(res)
           })
