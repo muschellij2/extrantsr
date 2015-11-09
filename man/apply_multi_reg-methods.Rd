@@ -32,10 +32,6 @@ by antsRegistration where each transform is a filename.}
 is transformed}
 
 \item{...}{Arguments passed to \code{\link{antsApplyTransforms}}}
-
-\item{dimension}{(numeric) passed to 
-\code{\link{antsImageRead}} if the image
-is read in}
 }
 \value{
 Object of class \code{\link{nifti}}

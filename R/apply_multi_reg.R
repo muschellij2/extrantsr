@@ -9,9 +9,6 @@
 #' by antsRegistration where each transform is a filename. 
 #' @param fixed fixed image defining domain into which the infiles image 
 #' is transformed
-#' @param dimension (numeric) passed to 
-#' \code{\link{antsImageRead}} if the image
-#' is read in
 #' @param ... Arguments passed to \code{\link{antsApplyTransforms}}
 #' @export 
 #' @return Object of class \code{\link{nifti}}
