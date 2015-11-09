@@ -9,6 +9,7 @@ Description: Extends the ANTsR package with simple wrappers and complex
     processing streams.
 License: GPL-3 | file LICENSE
 Imports:
+    methods,
     ANTsR,
     fslr (>= 1.5.3),
     oro.nifti,
