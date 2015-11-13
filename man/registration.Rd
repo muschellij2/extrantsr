@@ -11,7 +11,7 @@ registration(filename, skull_strip = FALSE, correct = FALSE,
   other.files = NULL, other.outfiles = NULL, template_to_native = FALSE,
   invert.native.fname = NULL, invert.file = NULL, typeofTransform = "SyN",
   remove.warp = TRUE, outprefix = NULL, bet.opts = "-B -f 0.1 -v",
-  betcmd = "bet", verbose = TRUE, ...)
+  betcmd = "bet", copy_origin = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{filename}{filename of image to be registred}
@@ -56,6 +56,8 @@ Required if \code{remove.warp = FALSE}}
 \item{bet.opts}{Options passed to \code{\link{fslbet}}}
 
 \item{betcmd}{BET command used, passed to \code{\link{fslbet}}}
+
+\item{copy_origin}{Copy image origin from t1, using \code{\link{antsCopyOrigin}}}
 
 \item{verbose}{Print diagnostic messages}
 

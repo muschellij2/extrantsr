@@ -30,6 +30,7 @@
 #' Required if \code{remove.warp = FALSE}
 #' @param bet.opts Options passed to \code{\link{fslbet}}
 #' @param betcmd BET command used, passed to \code{\link{fslbet}}
+#' @param copy_origin Copy image origin from t1, using \code{\link{antsCopyOrigin}}
 #' @param verbose Print diagnostic messages
 #' @param ... arguments to \code{\link{antsRegistration}}
 #' @import ANTsR
@@ -58,6 +59,7 @@ registration <- function(filename,
                      outprefix = NULL,
                      bet.opts = "-B -f 0.1 -v",
                      betcmd = "bet",
+                     copy_origin = TRUE,
                      verbose = TRUE,
                      ... 
 ){
@@ -120,11 +122,16 @@ registration <- function(filename,
     stopifnot(all(file.exists(other.files)))
     other.imgs = lapply(other.files, antsImageRead, 
                         dimension = 3)
+    if (copy_origin) {
+      other.imgs = lapply(other.imgs, 
+                          antsCopyOrigin,
+                          reference = t1N3)
+    }
     N3.oimgs = lapply(other.imgs, antsImageClone)
   }
   ## 
-  if (correct){
-    if (verbose){
+  if (correct) {
+    if (verbose) {
       cat("# Running Bias-Field Correction on file\n")
     }    
     t1N3 = bias_correct(file = t1, 

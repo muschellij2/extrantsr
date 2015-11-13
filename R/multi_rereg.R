@@ -24,6 +24,26 @@ multi_rereg <- function(infiles,
   run_stat_img = stat_img(outfiles, func = func)
   res = multi_reg(infiles = infiles, template.file = run_stat_img, ...)
   
+#   e = new.env()
+#   fixed = res$stat_img
+#   assign("fixed", fixed, envir = e)
+#   tlist2 = sapply(res$results, `[[`, 
+#                   "fwdtransforms")
+#   interpolator2 = sapply(res$results, `[[`, 
+#                          "interpolator")  
+#   assign("interpolator", 
+#          interpolator2, 
+#          envir = e)
+#   assign("tlist", 
+#          tlist2, 
+#          envir = e)  
+#   assign("apply_fun", function(infiles, ...){
+#     apply_multi_reg(
+#       infiles,
+#       fixed = fixed,
+#       transformlist = tlist,
+#       ...)  
+#   }, envir = e)
   L = list(stat_img = run_stat_img, results = res)
   return(L)
 }
