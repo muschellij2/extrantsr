@@ -4,16 +4,12 @@
 \alias{sim}
 \title{Calculate Overlap Metrics}
 \usage{
-sim(dman, dauto, dim.dman, dim.dauto)
+sim(dman, dauto)
 }
 \arguments{
 \item{dman}{vector of manually delineated values}
 
 \item{dauto}{vector of automatically delineated values}
-
-\item{dim.dman}{dimension of mask for manual}
-
-\item{dim.dauto}{dimension of mask for automatic}
 }
 \value{
 List of performance measures

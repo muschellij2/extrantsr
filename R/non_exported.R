@@ -32,17 +32,16 @@ my.tab <- function(
 #' sensitivity, specificity
 #' @param dman vector of manually delineated values
 #' @param dauto vector of automatically delineated values
-#' @param dim.dman dimension of mask for manual
-#' @param dim.dauto dimension of mask for automatic
 #' @return List of performance measures
 sim <-  function(
   dman, # vector of manually delineated values
-  dauto, # vector of automatically delineated values
-  dim.dman, # dimension of mask for manual
-  dim.dauto # dimension of mask for automatic
+  dauto # vector of automatically delineated values
 ){
-  if ( !all(dim.dman == dim.dauto)) stop("Wrong Dimensions")
-  N <- prod(dim.dman)
+  dman = c(dman)
+  dauto = c(dauto)
+  N = length(dman)
+  N_auto = length(dauto)
+  stopifnot( N == N_auto)
   
   stopifnot( ! any(is.na(dman)) )
   stopifnot( ! any(is.na(dauto)) )
@@ -57,7 +56,7 @@ sim <-  function(
   #   tab
   # })
   
-  tab = my.tab(dman, dauto, dnames=c("dman", "dauto"))
+  tab = my.tab(dman, dauto, dnames = c("dman", "dauto"))
   tt = tab["TRUE", 'TRUE']
   
   ptab = prop.table(tab)
