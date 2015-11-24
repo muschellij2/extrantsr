@@ -5,7 +5,8 @@
 \title{Remove Neck from CT Scan}
 \usage{
 remove_neck(file, template.file, template.mask = NULL, ret_mask = FALSE,
-  typeofTransform = "Rigid", rep.value = 0, verbose = TRUE, ...)
+  typeofTransform = "Rigid", rep.value = 0, swapdim = TRUE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{file}{File for neck removal - either filename or class nifti}
@@ -22,6 +23,9 @@ then \code{fslbin(file=template.file)} is performed.}
 \code{\link{ants_regwrite}}.}
 
 \item{rep.value}{Value to replace neck slices with}
+
+\item{swapdim}{Should the dimensions be swapped before registration, 
+and then reset after}
 
 \item{verbose}{Print out diagnostic messages}
 

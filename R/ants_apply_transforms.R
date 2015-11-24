@@ -62,6 +62,9 @@ setMethod("ants_apply_transforms",
             moving_to_fixed = antsApplyTransforms(fixed = fixed, 
                                         moving = moving,
                                         ...)
+            if (!is.antsImage(moving_to_fixed)){
+              warning(moving_to_fixed)
+            }
             moving_to_fixed = ants2oro(moving_to_fixed)
             
             return(moving_to_fixed)            
