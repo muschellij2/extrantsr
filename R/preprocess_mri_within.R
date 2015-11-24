@@ -29,7 +29,7 @@
 #' @import fslr
 #' @import oro.nifti
 #' @export
-#' @return NULL or object of class nifti for transformed T1 image
+#' @return List of outfiles, maskfile, and output from \code{\link{registration}}.
 preprocess_mri_within <- function(files, 
                               outfiles = NULL,
                               correct = TRUE,  # do N3 Bias correction
@@ -138,13 +138,15 @@ preprocess_mri_within <- function(files,
     other.files = files[seq(2, length(files), by = 1)]
     other.outfiles = outfiles[seq(2, length(files), by = 1)]
 
-    within_visit_registration(fixed=file1, # filename of T1 image
+    regs = within_visit_registration(fixed=file1, # filename of T1 image
                             moving = other.files,
                             outfiles = other.outfiles, 
                             typeofTransform = typeofTransform,
                             interpolator = interpolator,
                             retimg = FALSE, 
                             ...)
+  } else {
+    regs = NULL
   }
 
   #######################################
@@ -160,13 +162,12 @@ preprocess_mri_within <- function(files,
     } 
   }
 
-  
   # Returning images
   if (retimg){
-    L = lapply(outfiles, readNIfTI, reorient = reorient)
-    return(L)
+    outfiles = lapply(outfiles, readNIfTI, reorient = reorient)
   }
-  return(outfiles)
+  L = c(outfiles = outfiles, maskfile = maskfile, regs = regs)
+  return(L)
 }
 
 

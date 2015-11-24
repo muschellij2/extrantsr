@@ -23,7 +23,8 @@
 #' @param verbose print diagnostic outputs
 #' @param ... arguments to \code{\link{preprocess_mri_within}} and \code{\link{ants_regwrite}}
 #' @export
-#' @return NULL or list of objects of class nifti for transformed images
+#' @return list of objects from \code{\link{preprocess_mri_within}} and
+#' \code{\link{registration}} 
 preprocess_mri_across <- function(baseline_files, # filename of baseline images
                   followup_files, # filename of followup images                
                   baseline_outfiles, # output filenames for baseline images
@@ -92,7 +93,7 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
   if (verbose){
     cat("# Processing baseline data\n")
   }
-  preprocess_mri_within(files = baseline_outfiles, 
+  proc_1 = preprocess_mri_within(files = baseline_outfiles, 
                         outfiles = baseline_outfiles, 
                         reorient = FALSE, 
                         typeofTransform = within.transform,
@@ -103,7 +104,7 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                         verbose = verbose,
                         ...)
   #### Doing Followup
-  preprocess_mri_within(files = followup_outfiles, 
+  proc_2 = preprocess_mri_within(files = followup_outfiles, 
                         outfiles = followup_outfiles, 
                         typeofTransform = within.transform,
                         interpolator = within.interpolator,                         
@@ -122,7 +123,7 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
   } else {
     other.outfiles = other.files = followup_outfiles[-1]
   }
-  ants_regwrite(filename = followup_outfiles[1], 
+  regs = registration(filename = followup_outfiles[1], 
                 outfile = followup_outfiles[1],
                 template.file = baseline_outfiles[1], 
                 typeofTransform = across.transform,
@@ -150,10 +151,12 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
   if (retimg){
     base = lapply(baseline_outfiles, readNIfTI, reorient = FALSE)
     fup = lapply(followup_outfiles, readNIfTI, reorient = FALSE)
-    L = list(baseline=base, followup = fup)
-    return(L)
-  } 
-  return(invisible(NULL))
+  } else {
+    base = fup = NULL
+  }
+  L = list(baseline = base, followup = fup)  
+  L = c(L, regs = regs, proc_1 = proc_1, proc_2 = proc_2)
+  return(L)
 }
 
 

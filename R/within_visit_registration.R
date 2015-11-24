@@ -9,7 +9,7 @@
 #' @param interpolator Interpolation to be done
 #' @param ... additional arguments to \code{\link{ants_regwrite}}
 #' @export
-#' @return NULL 
+#' @return List of resutls from \code{\link{registration}}
 within_visit_registration <- function(fixed, # filename of T1 image
                     moving,
                     outfiles, 
@@ -35,17 +35,19 @@ within_visit_registration <- function(fixed, # filename of T1 image
   }
   
   f.img = checkimg(fixed, ...)
+  L = NULL
   for (iimg in seq(n.moving)){
     m.img = checkimg(moving[iimg], ...)
-    ants_regwrite(filename = m.img, 
+    ll = registration(filename = m.img, 
                   template.file = f.img, 
                   typeofTransform = typeofTransform,
                   interpolator = interpolator,
                   outfile = outfiles[iimg],
                   remove.warp = TRUE,
                   ...)
+    L = c(L, ll)
   }
-  return(invisible(NULL))
+  return(L)
   
 }
 

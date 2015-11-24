@@ -20,6 +20,9 @@ within_visit_registration(fixed, moving, outfiles, typeofTransform = "Rigid",
 
 \item{...}{additional arguments to \code{\link{ants_regwrite}}}
 }
+\value{
+List of resutls from \code{\link{registration}}
+}
 \description{
 This function performs registration to a T1 template
 using ANTsR and SyN transformation

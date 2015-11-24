@@ -51,7 +51,7 @@ registered to}
 \code{\link{within_visit_registration}}}
 }
 \value{
-NULL or object of class nifti for transformed T1 image
+List of outfiles, maskfile, and output from \code{\link{registration}}.
 }
 \description{
 This function performs registration to a T1 template

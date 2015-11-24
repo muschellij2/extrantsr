@@ -51,7 +51,8 @@ image}
 \item{...}{arguments to \code{\link{preprocess_mri_within}} and \code{\link{ants_regwrite}}}
 }
 \value{
-NULL or list of objects of class nifti for transformed images
+list of objects from \code{\link{preprocess_mri_within}} and
+\code{\link{registration}}
 }
 \description{
 This function performs preprocessing and registration
