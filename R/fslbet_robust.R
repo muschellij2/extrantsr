@@ -83,7 +83,7 @@ fslbet_robust <- function(
   
   if (correct){
     if (verbose){
-      cat("# Running Bias-Field Correction\n")
+      message("# Running Bias-Field Correction\n")
     }
     n4img = bias_correct(img, correction = correction, retimg = TRUE)
   } else {
@@ -95,7 +95,7 @@ fslbet_robust <- function(
   if (remove.neck){ 
     if (swapdim){
       if (verbose){
-        cat(paste0("# Swapping Dimensions \n"))
+        message(paste0("# Swapping Dimensions \n"))
       }
       forms = getForms(n4img)
       sorient = forms$ssor       
@@ -104,7 +104,7 @@ fslbet_robust <- function(
                          verbose = verbose)
     } 
     if (verbose){
-      cat(paste0("# Removing Neck with template:", template.file, '\n'))
+      message(paste0("# Removing Neck with template:", template.file, '\n'))
     }
     noneck = remove_neck(n4img, 
                          template.file = template.file,
@@ -114,7 +114,7 @@ fslbet_robust <- function(
                          ...)  
     if (swapdim){
       if (verbose) {
-        cat(paste0("# Swapping Dimensions Back\n"))
+        message(paste0("# Swapping Dimensions Back\n"))
       }
       noneck = fslswapdim(file=noneck, retimg=TRUE, a=sorient[1], 
                           b=sorient[2], c=sorient[3], verbose = verbose)
@@ -130,7 +130,7 @@ fslbet_robust <- function(
   #############################
   if (robust.mask){ 
     if (verbose){
-      cat(paste0("# Robust Brain Mask from:", template.file, '\n'))
+      message(paste0("# Robust Brain Mask from:", template.file, '\n'))
     }
     noneck = robust_brain_mask(noneck, 
                          template.file = template.file,
@@ -144,12 +144,12 @@ fslbet_robust <- function(
   # Skull Stripping no-neck image
   #############################
   if (verbose){
-    cat(paste0("# Skull Stripping for COG\n"))
+    message(paste0("# Skull Stripping for COG\n"))
   }
   brain1 = fslbet(noneck, retimg=TRUE, opts = bet.opts, verbose = verbose)
   if (recog){
     if (verbose){
-      cat(paste0("# Skull Stripping with new cog\n"))
+      message(paste0("# Skull Stripping with new cog\n"))
     }
     xyz = ceiling(fslcog(brain1, mm = FALSE, verbose=FALSE))
     opts =  paste("-c", paste(xyz, collapse = " "))
@@ -166,7 +166,7 @@ fslbet_robust <- function(
   # Filling the mask
   ############################# 
   if (verbose){
-    cat(paste0("# Filling Holes \n"))
+    message(paste0("# Filling Holes \n"))
   }
   if (nvoxels > 0){
     kopts = paste0("-kernel boxv ", nvoxels)

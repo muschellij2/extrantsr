@@ -37,7 +37,7 @@ ss_bias <- function(filename, # filename to be processed
   #### Run BET    
   if (skull_strip) {
     if (verbose) {
-      cat("# Skull Stripping\n")
+      message("# Skull Stripping\n")
     }
     if ( is.null(maskfile) ) {
       fslbet(infile = filename, 
@@ -56,7 +56,7 @@ ss_bias <- function(filename, # filename to be processed
   }
   if (correct) {
     if (verbose) {
-      cat("# Bias Correction\n")
+      message("# Bias Correction\n")
     }    
     bias_correct(filename, outfile = outfile, 
                  retimg = FALSE, 
@@ -114,7 +114,7 @@ bias_ss <- function(filename, # filename to be processed
 ){
   if (correct) {
     if (verbose) {
-      cat("# Bias Correction\n")
+      message("# Bias Correction\n")
     }        
     bias_correct(filename, outfile = outfile, 
                  retimg = FALSE, 
@@ -127,7 +127,7 @@ bias_ss <- function(filename, # filename to be processed
   #### Run BET    
   if (skull_strip) {
     if (verbose) {
-      cat("# Skull Stripping\n")
+      message("# Skull Stripping\n")
     }
     if ( is.null(maskfile) ) {
       fslbet(infile = filename, 

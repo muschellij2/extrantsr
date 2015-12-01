@@ -100,7 +100,7 @@ registration <- function(filename,
   
   if (skull_strip){
     if (verbose){
-      cat("# Skull Stripping\n")
+      message("# Skull Stripping\n")
     }
     ext = get.imgext()
     bet_file = tempfile()
@@ -132,7 +132,7 @@ registration <- function(filename,
   ## 
   if (correct) {
     if (verbose) {
-      cat("# Running Bias-Field Correction on file\n")
+      message("# Running Bias-Field Correction on file\n")
     }    
     t1N3 = bias_correct(file = t1, 
                         correction = correction, 
@@ -140,7 +140,7 @@ registration <- function(filename,
     t1N3 = oro2ants(t1N3)
     if (have.other) {
       if (verbose){
-        cat("# Running Bias-Field Correction on other.files\n")
+        message("# Running Bias-Field Correction on other.files\n")
       }        
       for (i in seq(lother)){
         N3.oimgs[[i]] = bias_correct(file = other.imgs[[i]], 
@@ -168,7 +168,7 @@ registration <- function(filename,
   # template.img <- readNIfTI(template.path, reorient = FALSE)
   
   if (verbose){
-    cat("# Running Registration of file to template\n")
+    message("# Running Registration of file to template\n")
   }  
   antsRegOut.nonlin <- antsRegistration(
     fixed = template, 
@@ -177,7 +177,7 @@ registration <- function(filename,
     outprefix = outprefix,
     verbose = verbose, ...)
   if (verbose){
-    cat("# Applying Registration output is\n")
+    message("# Applying Registration output is\n")
     print(antsRegOut.nonlin)
   }  
   
@@ -189,10 +189,10 @@ registration <- function(filename,
   }
   
   if (verbose){
-    cat("# Applying Transformations to file\n")
-    #     cat("# Fixed is \n")
+    message("# Applying Transformations to file\n")
+    #     message("# Fixed is \n")
     #     print(template)
-    #     cat("# Moving is \n")
+    #     message("# Moving is \n")
     #     print(t1N3)
   }  
   t1.to.template <- antsApplyTransforms(fixed=template, 
@@ -211,7 +211,7 @@ registration <- function(filename,
     stopifnot(!is.null(invert.file))
     
     if (verbose){
-      cat("# Applying Inverse transforms to invert.file\n")
+      message("# Applying Inverse transforms to invert.file\n")
     }  	  
     for (iatlas in seq_along(invert.file)){
       output = invert.native.fname[iatlas]
@@ -234,7 +234,7 @@ registration <- function(filename,
   
   if (have.other) {
     if (verbose){
-      cat("# Applying Transforms to other.files\n")
+      message("# Applying Transforms to other.files\n")
     }  	    
     reg.oimgs = lapply(N3.oimgs, function(x){
       antsApplyTransforms(fixed = template, 
@@ -246,13 +246,13 @@ registration <- function(filename,
   }
   
   if (verbose){
-    cat("# Writing out file\n")
+    message("# Writing out file\n")
   }  
   antsImageWrite(t1.to.template, outfile)
   
   if (have.other) {
     if (verbose){
-      cat("# Writing out other.files\n")
+      message("# Writing out other.files\n")
     }      
     for (i in seq(lother)){
       antsImageWrite(reg.oimgs[[i]], 
@@ -262,7 +262,7 @@ registration <- function(filename,
   
   if (remove.warp){
     if (verbose){
-      cat("# Removing Warping images\n")
+      message("# Removing Warping images\n")
     }        
     files = unlist(antsRegOut.nonlin[
       c("fwdtransforms", "invtransforms")])
@@ -273,7 +273,7 @@ registration <- function(filename,
   }
   if (retimg){
     if (verbose){
-      cat("# Reading data back into R\n")
+      message("# Reading data back into R\n")
     }          
     img = readNIfTI(outfile, reorient= FALSE)
     outfile = img

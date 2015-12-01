@@ -50,7 +50,7 @@ multi_reg <- function(infiles,
   )
   
   if (verbose) {
-    cat("# Doing Registrations\n")
+    message("# Doing Registrations\n")
     pb = txtProgressBar(min = 0, max = nimgs, style = 3) 
   }
   
