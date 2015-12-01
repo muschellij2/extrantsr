@@ -165,7 +165,7 @@ registration <- function(filename,
   
   template.file = path.expand(template.file)
   template <- antsImageRead(template.file, 3)
-  # template.img <- readNIfTI(template.path, reorient = FALSE)
+  # template.img <- readnii(template.path, reorient = FALSE)
   
   if (verbose){
     message("# Running Registration of file to template\n")
@@ -275,7 +275,7 @@ registration <- function(filename,
     if (verbose){
       message("# Reading data back into R\n")
     }          
-    img = readNIfTI(outfile, reorient= FALSE)
+    img = readnii(outfile, reorient= FALSE)
     outfile = img
   }
   

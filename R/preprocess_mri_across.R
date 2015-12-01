@@ -149,8 +149,8 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
   }  
   
   if (retimg){
-    base = lapply(baseline_outfiles, readNIfTI, reorient = FALSE)
-    fup = lapply(followup_outfiles, readNIfTI, reorient = FALSE)
+    base = lapply(baseline_outfiles, readnii, reorient = FALSE)
+    fup = lapply(followup_outfiles, readnii, reorient = FALSE)
   } else {
     base = fup = NULL
   }

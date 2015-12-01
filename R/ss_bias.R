@@ -13,7 +13,7 @@
 #' @param shrinkfactor correction method used see \code{\link{n3BiasFieldCorrection}}
 #' @param retimg (logical) return image of class nifti
 #' @param reorient (logical) If retimg, should file be reoriented when read in?
-#' Passed to \code{\link{readNIfTI}}. 
+#' Passed to \code{\link{readnii}}. 
 #' @param verbose Diagnostic output
 #' @param ... passed to \code{\link{bias_correct}}
 #' @export
@@ -67,7 +67,7 @@ ss_bias <- function(filename, # filename to be processed
   # Returning image
   ###########
   if (retimg) {
-    img = readNIfTI(outfile, reorient = reorient)
+    img = readnii(outfile, reorient = reorient)
     return(img)
   } else {
     return(outfile)
@@ -92,7 +92,7 @@ ss_bias <- function(filename, # filename to be processed
 #' @param shrinkfactor correction method used see \code{\link{n3BiasFieldCorrection}}
 #' @param retimg (logical) return image of class nifti
 #' @param reorient (logical) If retimg, should file be reoriented when read in?
-#' Passed to \code{\link{readNIfTI}}.  
+#' Passed to \code{\link{readnii}}.  
 #' @param verbose Diagnostic output
 #' @param ... passed to \code{\link{bias_correct}}
 #' @export
@@ -145,7 +145,7 @@ bias_ss <- function(filename, # filename to be processed
   # Returning image
   ###########
   if (retimg) {
-    img = readNIfTI(outfile, reorient = reorient)
+    img = readnii(outfile, reorient = reorient)
     return(img)
   } else {
     return(outfile)

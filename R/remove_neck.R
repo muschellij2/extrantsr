@@ -73,7 +73,7 @@ remove_neck <- function(file,
     cat("# Reading in Transformed data\n")
   }
   img = check_nifti(file)
-  mask = readNIfTI(ofile, reorient = FALSE)
+  mask = readnii(ofile, reorient = FALSE)
   
   ind = which(mask > 0.5, arr.ind = TRUE)
   #5mm

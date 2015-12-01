@@ -136,7 +136,7 @@ oasis <- function(filename, # filename of T1 image
   
   ## ## read in Template
   template <- antsImageRead(template.file, 3)
-  # template.img <- readNIfTI(template.path, reorient = FALSE)
+  # template.img <- readnii(template.path, reorient = FALSE)
   
   ### T1 TO TEMPLATE
   antsRegOut.nonlin <- antsRegistration(
@@ -215,7 +215,7 @@ oasis <- function(filename, # filename of T1 image
 ###########################################
 # White Stripe Normalization
 ###########################################
-  img = readNIfTI(outfile, reorient= FALSE)
+  img = readnii(outfile, reorient= FALSE)
   if (normalize) {
     ws = whitestripe(img, type = "T1", ...)
     mask.img = ws$mask.img
@@ -231,7 +231,7 @@ oasis <- function(filename, # filename of T1 image
     writeNIfTI(img, filename = nii.stub(outfile))
     if (have.other) {
       for (i in seq(lother)){
-        oimg = readNIfTI(other.outfiles[i], reorient= FALSE)
+        oimg = readnii(other.outfiles[i], reorient= FALSE)
         oimg[ mask == 0 ] = NA
         oimg = whitestripe_norm(oimg, 
                                 indices = ws$whitestripe.ind, 

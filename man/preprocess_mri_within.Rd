@@ -28,7 +28,7 @@ Will register to the first scan}
 
 \item{reorient}{(logical) If retimg, should file be reoriented 
 when read in?
-Passed to \code{\link{readNIfTI}}.}
+Passed to \code{\link{readnii}}.}
 
 \item{typeofTransform}{type of transformed used, passed to 
 \code{\link{antsRegistration}}}

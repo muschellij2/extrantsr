@@ -9,7 +9,7 @@
 #' @param correction (character) N3 or N4 correction?  
 #' @param recog Rerun bet with a new center of gravity (COG) estimate
 #' @param reorient (logical) If retimg, should file be reoriented when read in?
-#' Passed to \code{\link{readNIfTI}}. 
+#' Passed to \code{\link{readnii}}. 
 #' @param bet.opts Options for \code{\link{fslbet}}
 #' @param nvoxels Number of voxels to dilate/erode.  See \code{\link{fslfill2}}.
 #' If \code{nvoxels = 0}, then no smoothing is done.

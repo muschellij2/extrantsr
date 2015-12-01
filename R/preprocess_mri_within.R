@@ -12,7 +12,7 @@
 #' @param retimg (logical) return list of images of class nifti
 #' @param reorient (logical) If retimg, should file be reoriented 
 #' when read in?
-#' Passed to \code{\link{readNIfTI}}. 
+#' Passed to \code{\link{readnii}}. 
 #' @param typeofTransform type of transformed used, passed to 
 #' \code{\link{antsRegistration}} 
 #' @param interpolator Interpolation to be performed, passed to
@@ -164,7 +164,7 @@ preprocess_mri_within <- function(files,
 
   # Returning images
   if (retimg){
-    outfiles = lapply(outfiles, readNIfTI, reorient = reorient)
+    outfiles = lapply(outfiles, readnii, reorient = reorient)
   }
   L = c(outfiles = outfiles, maskfile = maskfile, regs = regs)
   return(L)

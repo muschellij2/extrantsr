@@ -26,7 +26,7 @@ to}
 \item{outprefix}{Character path of where the warp files and transformations
 should be stored.}
 
-\item{retimg}{Return image to user using \code{\link{readNIfTI}}}
+\item{retimg}{Return image to user using \code{\link{readnii}}}
 
 \item{verbose}{Print diagnostic output}
 

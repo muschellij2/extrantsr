@@ -24,7 +24,7 @@ registration into \code{infile} space}
 
 \item{outfile}{Fused output filename}
 
-\item{retimg}{Return Image to user using \code{\link{readNIfTI}}}
+\item{retimg}{Return Image to user using \code{\link{readnii}}}
 
 \item{verbose}{Print diagnostic output}
 

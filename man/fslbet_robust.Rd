@@ -26,7 +26,7 @@ nifti}
 \item{recog}{Rerun bet with a new center of gravity (COG) estimate}
 
 \item{reorient}{(logical) If retimg, should file be reoriented when read in?
-Passed to \code{\link{readNIfTI}}.}
+Passed to \code{\link{readnii}}.}
 
 \item{bet.opts}{Options for \code{\link{fslbet}}}
 

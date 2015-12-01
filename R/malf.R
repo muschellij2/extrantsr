@@ -12,7 +12,7 @@
 #' @param outfiles Output filenames for  \code{template.structs} in 
 #' \code{infile} space
 #' @param outfile Fused output filename
-#' @param retimg Return Image to user using \code{\link{readNIfTI}}
+#' @param retimg Return Image to user using \code{\link{readnii}}
 #' @param verbose Print diagnostic output
 #' @param ... Arguments to be passed to \code{\link{ants_regwrite}}
 #' @export
@@ -65,7 +65,7 @@ malf <- function(infile, template.images, template.structs,
     if (verbose){
       cat("# Reading in Files\n")
     }
-    oimgs = lapply(outfiles, readNIfTI, reorient = FALSE)
+    oimgs = lapply(outfiles, readnii, reorient = FALSE)
     mat = sapply(oimgs, c)
     outimg = niftiarr(oimgs[[1]], rowMeans(mat))
     writeNIfTI(outimg, filename = outfile)

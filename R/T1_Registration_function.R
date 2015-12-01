@@ -153,7 +153,7 @@ ants_regwrite <- function(filename, # filename of T1 image
 
   template.file = path.expand(template.file)
 	template <- antsImageRead(template.file, 3)
-	# template.img <- readNIfTI(template.path, reorient = FALSE)
+	# template.img <- readnii(template.path, reorient = FALSE)
 
   if (verbose){
     message("# Running Registration of file to template\n")
@@ -204,7 +204,7 @@ ants_regwrite <- function(filename, # filename of T1 image
 	  for (iatlas in seq_along(atlas.file)){
 			output = native.fname[iatlas]
 
-# 			atlas.img <- readNIfTI(atlas.file[iatlas], 
+# 			atlas.img <- readnii(atlas.file[iatlas], 
 # 				reorient = FALSE)
 # 			atlas.img  = cal_img( atlas.img > 0 )
 # 
@@ -266,7 +266,7 @@ ants_regwrite <- function(filename, # filename of T1 image
 	  if (verbose){
 	    message("# Reading data back into R\n")
 	  }          
-		img = readNIfTI(outfile, reorient= FALSE)
+		img = readnii(outfile, reorient= FALSE)
 		return(img)
 	}
 	return(invisible(NULL))

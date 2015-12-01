@@ -13,7 +13,7 @@
 #' \code{\link{antsApplyTransforms}}
 #' @param outprefix Character path of where the warp files and transformations
 #' should be stored.
-#' @param retimg Return image to user using \code{\link{readNIfTI}}
+#' @param retimg Return image to user using \code{\link{readnii}}
 #' @param verbose Print diagnostic output
 #' @param ... Arguments to be passed to \code{\link{ants_regwrite}}
 #' @export

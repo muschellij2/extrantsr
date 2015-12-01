@@ -9,7 +9,7 @@ ants2oro(img, reorient = FALSE)
 \arguments{
 \item{img}{Object of class antsImage}
 
-\item{reorient}{Reorientation passed to \code{\link{readNIfTI}}}
+\item{reorient}{Reorientation passed to \code{\link{readnii}}}
 }
 \value{
 Object of class \code{nifti}

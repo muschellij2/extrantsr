@@ -3,14 +3,14 @@
 #' @description NIfTI data can be converted between \code{antsImage} 
 #' (from the ANTsR package) and nifti S4 objects.
 #' @param img Object of class antsImage 
-#' @param reorient Reorientation passed to \code{\link{readNIfTI}}
+#' @param reorient Reorientation passed to \code{\link{readnii}}
 #' @export
 #' @return Object of class \code{nifti}
 ants2oro <- function(img, 
                      reorient = FALSE){
   if ( is.antsImage(img) | is.character(img) ) {
     fname = tempants(img)
-    img = readNIfTI(fname, reorient = reorient)
+    img = readnii(fname, reorient = reorient)
     return(img)
   }
   if ( is.nifti(img) ) {

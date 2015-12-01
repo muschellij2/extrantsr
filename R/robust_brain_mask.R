@@ -65,7 +65,7 @@ robust_brain_mask <- function(file,
            opts = paste0("-kernel boxv ", nvoxels, " -dilM"))
   }
   if (ret_mask){
-    newimg = readNIfTI(endofile, reorient = FALSE)
+    newimg = readnii(endofile, reorient = FALSE)
   } else {
     newimg = fslmask(file = file, mask = endofile, retimg = TRUE)
   }

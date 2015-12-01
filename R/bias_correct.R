@@ -6,7 +6,7 @@
 #' @param outfile (character) resultant image name (optional)
 #' @param retimg (logical) return image of class nifti
 #' @param reorient (logical) If retimg, should file be reoriented when read in?
-#' Passed to \code{\link{readNIfTI}}.
+#' Passed to \code{\link{readnii}}.
 #' @param shrinkfactor Shrink factor passed to 
 #' \code{\link{n3BiasFieldCorrection}}
 #' @param dimension Dimension of the image (usually 3 or 4)
@@ -66,7 +66,7 @@ bias_correct = function(
   antsImageWrite( imgn3, filename = outfile)
   
   if (retimg){
-    x = readNIfTI(outfile, reorient = reorient)
+    x = readnii(outfile, reorient = reorient)
   } else {
     x = outfile
   }
