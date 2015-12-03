@@ -5,6 +5,7 @@
 \title{Multi-Atlas Label Fusion Registration}
 \usage{
 malf_registration(infile, template.images, template.structs,
+  typeofTransform = "SyN", interpolator = "NearestNeighbor",
   keep_images = TRUE, outfiles = NULL, outprefix = NULL, verbose = TRUE,
   ...)
 }
@@ -16,6 +17,12 @@ to \code{infile}}
 
 \item{template.structs}{Template gold standards to apply 
 registration into \code{infile} space}
+
+\item{typeofTransform}{type of transformed used, passed to 
+\code{\link{antsRegistration}}}
+
+\item{interpolator}{interpolation done for 
+\code{\link{antsApplyTransforms}}}
 
 \item{keep_images}{Keep the \code{template.structs} in 
 \code{infile} space}

@@ -7,6 +7,10 @@
 #' to \code{infile}
 #' @param template.structs Template gold standards to apply 
 #' registration into \code{infile} space
+#' @param typeofTransform type of transformed used, passed to 
+#' \code{\link{antsRegistration}}  
+#' @param interpolator interpolation done for 
+#' \code{\link{antsApplyTransforms}}
 #' @param keep_images Keep the \code{template.structs} in 
 #' \code{infile} space
 #' @param outfiles Output filenames for  \code{template.structs} in 
@@ -21,6 +25,8 @@
 #' output files
 malf_registration <- function(
   infile, template.images, template.structs,
+  typeofTransform = "SyN",  
+  interpolator = "NearestNeighbor",
   keep_images = TRUE, 
   outfiles = NULL,
   outprefix = NULL,
@@ -52,6 +58,8 @@ malf_registration <- function(
     }
     reg = registration(filename = timage, 
                        outfile = tempfile(fileext = ".nii.gz"),
+                       typeofTransform = typeofTransform,
+                       interpolator = interpolator,
                        retimg = FALSE,
                        template.file = infile,
                        other.files = tstruct,

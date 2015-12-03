@@ -20,6 +20,10 @@
 #' \code{remove.warp = FALSE} in \code{\link{registration}}
 #' @param outprefix passed to \code{\link{registration}} if 
 #' \code{keep_regs = TRUE}
+#' @param typeofTransform type of transformed used, passed to 
+#' \code{\link{antsRegistration}}  
+#' @param interpolator interpolation done for 
+#' \code{\link{antsApplyTransforms}} 
 #' @param verbose Print diagnostic output
 #' @param ... Arguments to be passed to \code{\link{malf_registration}}, which
 #' really are optios for \code{\link{registration}} 
@@ -33,10 +37,12 @@ malf <- function(
   outfiles = NULL,
   outfile = NULL, 
   retimg = TRUE,
-  func = "mean",
+  func = "mode",
   ties.method = "first",
   keep_regs = FALSE,
   outprefix = NULL,
+  interpolator = "NearestNeighbor",
+  typeofTransform = "SyN",
   verbose = TRUE,
   ...){
   
@@ -53,6 +59,8 @@ malf <- function(
     infile = infile, 
     template.images = template.images, 
     template.structs = template.structs,
+    typeofTransform = typeofTransform,
+    interpolator = interpolator,    
     keep_images = keep_images, 
     outfiles = outfiles,
     outprefix = outprefix,

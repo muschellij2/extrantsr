@@ -5,8 +5,9 @@
 \title{Multi-Atlas Label Fusion}
 \usage{
 malf(infile, template.images, template.structs, keep_images = TRUE,
-  outfiles = NULL, outfile = NULL, retimg = TRUE, func = "mean",
+  outfiles = NULL, outfile = NULL, retimg = TRUE, func = "mode",
   ties.method = "first", keep_regs = FALSE, outprefix = NULL,
+  interpolator = "NearestNeighbor", typeofTransform = "SyN",
   verbose = TRUE, ...)
 }
 \arguments{
@@ -38,6 +39,12 @@ registration into \code{infile} space}
 
 \item{outprefix}{passed to \code{\link{registration}} if 
 \code{keep_regs = TRUE}}
+
+\item{interpolator}{interpolation done for 
+\code{\link{antsApplyTransforms}}}
+
+\item{typeofTransform}{type of transformed used, passed to 
+\code{\link{antsRegistration}}}
 
 \item{verbose}{Print diagnostic output}
 
