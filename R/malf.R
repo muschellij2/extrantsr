@@ -14,95 +14,80 @@
 #' @param outfile Fused output filename
 #' @param retimg Return Image to user using \code{\link{readnii}}
 #' @param func function to combine labels.  See \code{\link{stat_img}}.
+#' @param ties.method If \code{func = "mode"}, then this is passed to 
+#' \code{\link{stat_img}}. 
 #' @param keep_regs Keep list of registrations.  If \code{TRUE}, then
 #' \code{remove.warp = FALSE} in \code{\link{registration}}
 #' @param outprefix passed to \code{\link{registration}} if 
 #' \code{keep_regs = TRUE}
 #' @param verbose Print diagnostic output
-#' @param ... Arguments to be passed to \code{\link{registration}}
+#' @param ... Arguments to be passed to \code{\link{malf_registration}}, which
+#' really are optios for \code{\link{registration}} 
 #' @export
 #' @import fslr
-#' @return The output filename or the nifti image
-malf <- function(infile, template.images, template.structs,
-                keep_images = TRUE, 
-                outfiles = NULL,
-                outfile = NULL, 
-                retimg = TRUE,
-                func = "mean",
-                keep_regs = FALSE,
-                outprefix = NULL,
-                verbose = TRUE,
-                ...){
-    
-    nimgs = length(template.images)
-    stopifnot(nimgs == length(template.structs))
-    if (keep_images) {
-      stopifnot(length(outfiles) == nimgs)
-    }
-    if (is.null(outfiles)) {
-      outfiles = sapply(seq(nimgs), function(x){
-        tempfile(fileext = ".nii.gz")
-      })
-    }
-    have.outfile = !is.null(outfile)
-    outfile = check_outfile(outfile = outfile, retimg = retimg, 
-                            fileext = "")
-    
-    if (verbose) {
-      cat("# Doing Registrations\n")
-      pb = txtProgressBar(min = 0, max = nimgs, style = 3)     
-    }
-    all.regs = NULL
-    for (iimg in seq_along(template.images)) {
-      timage = template.images[[iimg]]
-      tstruct = template.structs[[iimg]]
-      ofile = outfiles[[iimg]]
-      if (is.null(outprefix)) {
-        outprefix = tempfile()
-      }
-      reg = registration(filename = timage, 
-                    outfile = tempfile(fileext = ".nii.gz"),
-                    retimg = FALSE,
-                    template.file = infile,
-                    other.files = tstruct,
-                    other.outfiles = ofile,
-                    outprefix = outprefix,
-                    remove.warp = !keep_regs,
-                    verbose = verbose,
-                    ...)
-      if (keep_regs) {
-        all.regs = c(all.regs, reg)
-      }
-      if (verbose) {
-        setTxtProgressBar(pb, iimg)
-      }
-    }
-    if (verbose) {
-      close(pb)         
-    }
-    if (verbose) {
-      cat("# Reading in Files\n")
-    }
+#' @return The output filename or the nifti image or list of registrations and
+#' output file
+malf <- function(
+  infile, template.images, template.structs,
+  keep_images = TRUE, 
+  outfiles = NULL,
+  outfile = NULL, 
+  retimg = TRUE,
+  func = "mean",
+  ties.method = "first",
+  keep_regs = FALSE,
+  outprefix = NULL,
+  verbose = TRUE,
+  ...){
+  
+  
+  
+  have.outfile = !is.null(outfile)
+  outfile = fslr::check_outfile(outfile = outfile, retimg = retimg, 
+                          fileext = "")
+  
+  ##############################
+  # Run all the registrations
+  ##############################
+  L = malf_registration(
+    infile = infile, 
+    template.images = template.images, 
+    template.structs = template.structs,
+    keep_images = keep_images, 
+    outfiles = outfiles,
+    outprefix = outprefix,
+    verbose = verbose,
+    ...)
+  outfiles = L$outfiles
+  all.regs = L$regs
+  
+  if (verbose) {
+    cat("# Reading in Files\n")
+  }
+  if (func == "mode") {
+    outimg = stat_img(imgs = outfiles, func = func, ties.method = ties.method)
+  } else {
     outimg = stat_img(imgs = outfiles, func = func)
-#     oimgs = lapply(outfiles, readnii, reorient = FALSE)
-#     mat = sapply(oimgs, c)
-#     outimg = niftiarr(oimgs[[1]], rowMeans(mat))
-    if (have.outfile) {
-      writenii(outimg, filename = outfile)
-    }
-    if (!keep_regs) {
-      if (retimg) {
-        return(outimg)
-      } else {
-        return(outfile)
-      }
+  }
+  #     oimgs = lapply(outfiles, readnii, reorient = FALSE)
+  #     mat = sapply(oimgs, c)
+  #     outimg = niftiarr(oimgs[[1]], rowMeans(mat))
+  if (have.outfile) {
+    writenii(outimg, filename = outfile)
+  }
+  if (!keep_regs) {
+    if (retimg) {
+      return(outimg)
     } else {
-      if (!retimg) {
-        outimg = outfile
-      } 
-      L = list(regs = all.regs, 
-               outimg = outimg, 
-               statistic = func)
-      return(L)
+      return(outfile)
     }
+  } else {
+    if (!retimg) {
+      outimg = outfile
+    } 
+    L = list(regs = all.regs, 
+             outimg = outimg, 
+             statistic = func)
+    return(L)
+  }
 }

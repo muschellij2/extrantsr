@@ -9,6 +9,10 @@
 #' @import matrixStats
 #' @return Object of class \code{nifti}
 #' @export
+#' @note When \code{func = "mode"}, the data is tabulated and then
+#' \code{\link{max.col}} is run.  The user can pass \code{ties.method} to 
+#' determine how to break ties.  The default is \code{"first"} as compared to 
+#' \code{\link{max.col}} where it is \code{"random"}.
 stat_img = function(imgs, 
                     func = c("mean", 
                              "median",
@@ -31,20 +35,20 @@ stat_img = function(imgs,
     rowMeans(x)/rowSds(x)
   }
   
-  rowModes = function(x){
+  rowModes = function(x, ties.method = "first" ){
     is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5){
         abs(x - round(x)) < tol
     }
     stopifnot(all(is.wholenumber(x)))
     
-    x = array(as.integer(x), 
-              dim = dim(x))
+    x = array(as.integer(x), dim = dim(x))
     tabs = rowTabulates(x)
     cn = as.integer(colnames(tabs))
-    ind = apply(tabs, 1, which.max)
+    ind = max.col(tabs, ties.method = ties.method)
     labs = cn[ind]
     labs
   }  
+  
   func = switch(func,
                 mean = rowMeans,
                 median = rowMedians,

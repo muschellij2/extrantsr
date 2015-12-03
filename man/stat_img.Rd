@@ -24,4 +24,10 @@ Object of class \code{nifti}
 Creates output from a list of images, performing voxel-wise
 operations to create a statistic image
 }
+\note{
+When \code{func = "mode"}, the data is tabulated and then
+\code{\link{max.col}} is run.  The user can pass \code{ties.method} to 
+determine how to break ties.  The default is \code{"first"} as compared to 
+\code{\link{max.col}} where it is \code{"random"}.
+}
 

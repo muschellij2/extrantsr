@@ -6,7 +6,8 @@
 \usage{
 malf(infile, template.images, template.structs, keep_images = TRUE,
   outfiles = NULL, outfile = NULL, retimg = TRUE, func = "mean",
-  keep_regs = FALSE, outprefix = NULL, verbose = TRUE, ...)
+  ties.method = "first", keep_regs = FALSE, outprefix = NULL,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{infile}{Input Image file}
@@ -29,6 +30,9 @@ registration into \code{infile} space}
 
 \item{func}{function to combine labels.  See \code{\link{stat_img}}.}
 
+\item{ties.method}{If \code{func = "mode"}, then this is passed to 
+\code{\link{stat_img}}.}
+
 \item{keep_regs}{Keep list of registrations.  If \code{TRUE}, then
 \code{remove.warp = FALSE} in \code{\link{registration}}}
 
@@ -37,10 +41,12 @@ registration into \code{infile} space}
 
 \item{verbose}{Print diagnostic output}
 
-\item{...}{Arguments to be passed to \code{\link{registration}}}
+\item{...}{Arguments to be passed to \code{\link{malf_registration}}, which
+really are optios for \code{\link{registration}}}
 }
 \value{
-The output filename or the nifti image
+The output filename or the nifti image or list of registrations and
+output file
 }
 \description{
 Takes in an input file and template images with 
