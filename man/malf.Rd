@@ -5,7 +5,8 @@
 \title{Multi-Atlas Label Fusion}
 \usage{
 malf(infile, template.images, template.structs, keep_images = TRUE,
-  outfiles = NULL, outfile = NULL, retimg = TRUE, verbose = TRUE, ...)
+  outfiles = NULL, outfile = NULL, retimg = TRUE, func = "mean",
+  keep_regs = FALSE, outprefix = NULL, verbose = TRUE, ...)
 }
 \arguments{
 \item{infile}{Input Image file}
@@ -26,9 +27,17 @@ registration into \code{infile} space}
 
 \item{retimg}{Return Image to user using \code{\link{readnii}}}
 
+\item{func}{function to combine labels.  See \code{\link{stat_img}}.}
+
+\item{keep_regs}{Keep list of registrations.  If \code{TRUE}, then
+\code{remove.warp = FALSE} in \code{\link{registration}}}
+
+\item{outprefix}{passed to \code{\link{registration}} if 
+\code{keep_regs = TRUE}}
+
 \item{verbose}{Print diagnostic output}
 
-\item{...}{Arguments to be passed to \code{\link{ants_regwrite}}}
+\item{...}{Arguments to be passed to \code{\link{registration}}}
 }
 \value{
 The output filename or the nifti image

@@ -4,8 +4,8 @@
 \alias{stat_img}
 \title{Create Statistics Image}
 \usage{
-stat_img(imgs, func = c("mean", "median", "sd", "var", "mad", "sum", "prod",
-  "z"), finite = TRUE, ...)
+stat_img(imgs, func = c("mean", "median", "mode", "sd", "var", "mad", "sum",
+  "prod", "z"), finite = TRUE, ...)
 }
 \arguments{
 \item{imgs}{Character vector, list of characters, or object of class 

@@ -10,17 +10,18 @@
 #' @return Object of class \code{nifti}
 #' @export
 stat_img = function(imgs, 
-                      func = c("mean", 
-                               "median",
-                               "sd",
-                               "var",
-                               "mad",
-                               "sum",
-                               "prod",
-                               "z"),
-                      finite = TRUE,
-                      ...)
-  {
+                    func = c("mean", 
+                             "median",
+                             "mode",
+                             "sd",
+                             "var",
+                             "mad",
+                             "sum",
+                             "prod",
+                             "z"),
+                    finite = TRUE,
+                    ...)
+{
   if (!is.character(func)) {
     stop("func must be of type character")
   }
@@ -29,6 +30,21 @@ stat_img = function(imgs,
   rowZs = function(x){
     rowMeans(x)/rowSds(x)
   }
+  
+  rowModes = function(x){
+    is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5){
+        abs(x - round(x)) < tol
+    }
+    stopifnot(all(is.wholenumber(x)))
+    
+    x = array(as.integer(x), 
+              dim = dim(x))
+    tabs = rowTabulates(x)
+    cn = as.integer(colnames(tabs))
+    ind = apply(tabs, 1, which.max)
+    labs = cn[ind]
+    labs
+  }  
   func = switch(func,
                 mean = rowMeans,
                 median = rowMedians,
@@ -37,7 +53,8 @@ stat_img = function(imgs,
                 mad = rowMads,
                 sum = rowSums,
                 prod = rowProds,
-                z = rowZs
+                z = rowZs,
+                mode = rowModes
   )
   
   imgs = check_nifti(imgs)
