@@ -40,7 +40,7 @@ within_visit_registration <- function(fixed, # filename of T1 image
   }
   
   f.img = checkimg(fixed, ...)
-  L = NULL
+  L = vector(mode = "list", length = n.moving)
   for (iimg in seq(n.moving)) {
     m.img = checkimg(moving[iimg], ...)
     ll = registration(filename = m.img, 
@@ -50,7 +50,7 @@ within_visit_registration <- function(fixed, # filename of T1 image
                   outfile = outfiles[iimg],
                   remove.warp = TRUE,
                   ...)
-    L = c(L, ll)
+    L[[iimg]] = ll
   }
   return(L)
   
