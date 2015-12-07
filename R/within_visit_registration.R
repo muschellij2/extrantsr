@@ -1,4 +1,4 @@
-#' @title OASIS Processing Pipeline
+#' @title Within Visit Registration
 #'
 #' @description This function performs registration to a T1 template
 #' using ANTsR and SyN transformation
@@ -7,12 +7,12 @@
 #' @param outfiles Output filenames, same length as moving
 #' @param typeofTransform Transformation of moving to fixed image
 #' @param interpolator Interpolation to be done
-#' @param ... additional arguments to \code{\link{ants_regwrite}}
+#' @param ... additional arguments to \code{\link{registration}}
 #' @export
 #' @return List of resutls from \code{\link{registration}}
 within_visit_registration <- function(fixed, # filename of T1 image
                     moving,
-                    outfiles, 
+                    outfiles = NULL, 
                     typeofTransform = "Rigid",
                     interpolator = "Linear",
                     ...
@@ -22,21 +22,26 @@ within_visit_registration <- function(fixed, # filename of T1 image
   # Expanding paths for ANTsR - checkimg does expansion  
   moving = sapply(moving, checkimg)
   
-  
+  if (is.null(outfiles)) {
+    outfiles = sapply(seq_along(moving),
+                      function(x){
+                        tempfile(fileext = ".nii.gz")
+                      })
+  }
   n.moving = length(moving)
-  if (n.moving != length(outfiles)){
+  if (n.moving != length(outfiles)) {
     message("# Output images do not equal input images\n")
     message(paste0("Moving", n.moving, " outfiles", length(outfiles)))
     message("# Moving Images\n")
-    message(moving, sep="\n")
+    message(moving, sep = "\n")
     message("# Outfiles\n")
-    message(outfiles, sep= "\n")
+    message(outfiles, sep = "\n")
     stop("Check inputs")
   }
   
   f.img = checkimg(fixed, ...)
   L = NULL
-  for (iimg in seq(n.moving)){
+  for (iimg in seq(n.moving)) {
     m.img = checkimg(moving[iimg], ...)
     ll = registration(filename = m.img, 
                   template.file = f.img, 

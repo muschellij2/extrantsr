@@ -2,10 +2,10 @@
 % Please edit documentation in R/within_visit_registration.R
 \name{within_visit_registration}
 \alias{within_visit_registration}
-\title{OASIS Processing Pipeline}
+\title{Within Visit Registration}
 \usage{
-within_visit_registration(fixed, moving, outfiles, typeofTransform = "Rigid",
-  interpolator = "Linear", ...)
+within_visit_registration(fixed, moving, outfiles = NULL,
+  typeofTransform = "Rigid", interpolator = "Linear", ...)
 }
 \arguments{
 \item{fixed}{filename of fixed image to be registered to.}
@@ -18,7 +18,7 @@ within_visit_registration(fixed, moving, outfiles, typeofTransform = "Rigid",
 
 \item{interpolator}{Interpolation to be done}
 
-\item{...}{additional arguments to \code{\link{ants_regwrite}}}
+\item{...}{additional arguments to \code{\link{registration}}}
 }
 \value{
 List of resutls from \code{\link{registration}}
