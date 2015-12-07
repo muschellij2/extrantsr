@@ -31,17 +31,17 @@ smooth_image <- function(
   file = check_ants(file)
   if (!is.null(mask) ) {
     mask = check_ants(mask)
-    file = maskImage(img.in = file, img.mask = mask)
+    file = ANTsR::maskImage(img.in = file, img.mask = mask)
   }
   
-  sm_file = smoothImage(inimg = file, sigma = sigma, ...)
+  sm_file = ANTsR::smoothImage(inimg = file, sigma = sigma, ...)
   if (!is.null(mask)  & smooth_mask ) {
     # smoothing mask
-    sm_mask = smoothImage(inimg = mask, sigma = sigma, ...)
+    sm_mask = ANTsR::smoothImage(inimg = mask, sigma = sigma, ...)
     # dividing smoothed mask
     sm_file = sm_file / sm_mask
     # remask
-    sm_file = maskImage(img.in = sm_file, img.mask = mask)
+    sm_file = ANTsR::maskImage(img.in = sm_file, img.mask = mask)
   }
   sm_file = ants2oro(sm_file)
   return(sm_file)
