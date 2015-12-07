@@ -52,6 +52,9 @@ within_visit_registration <- function(fixed, # filename of T1 image
                   ...)
     L[[iimg]] = ll
   }
+  if (n.moving == 1) {
+    L = L[[1]]
+  }
   return(L)
   
 }
