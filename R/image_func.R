@@ -30,14 +30,13 @@ stat_img = function(imgs,
     stop("func must be of type character")
   }
   
-  func = match.arg(func)
   rowZs = function(x){
     rowMeans(x)/rowSds(x)
   }
   
   rowModes = function(x, ties.method = "first" ){
     is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5){
-        abs(x - round(x)) < tol
+      abs(x - round(x)) < tol
     }
     stopifnot(all(is.wholenumber(x)))
     
@@ -49,18 +48,12 @@ stat_img = function(imgs,
     labs
   }  
   
-  func = switch(func,
-                mean = rowMeans,
-                median = rowMedians,
-                sd = rowSds,
-                var = rowVars,
-                mad = rowMads,
-                sum = rowSums,
-                prod = rowProds,
-                z = rowZs,
-                mode = rowModes
-  )
   
+  func = match.arg(func, several.ok = TRUE)
+  
+  ##########################################
+  # Make a large matrix of images
+  ##########################################  
   imgs = check_nifti(imgs)
   nim = imgs[[1]]
   dims = lapply(imgs, dim)
@@ -71,11 +64,36 @@ stat_img = function(imgs,
   mat = lapply(imgs, c)
   mat = do.call("cbind", mat)
   stopifnot(nrow(mat) == prod(dims[[1]]))
-  res_img = func(mat, ...)
-  res_img = niftiarr(nim, 
-                     res_img)
-  if (finite) {
-    res_img = fslr::finite_img(res_img, replace = 0)
+  
+  ##########################################
+  # Run through all functions
+  ##########################################    
+  all.func = func
+  nfunc = length(all.func)
+  L = vector(mode = "list", 
+             length = nfunc)
+  names(L) = all.func
+  for (ifunc in seq(nfunc)) {
+    func = switch(all.func[ifunc],
+                  mean = rowMeans,
+                  median = rowMedians,
+                  sd = rowSds,
+                  var = rowVars,
+                  mad = rowMads,
+                  sum = rowSums,
+                  prod = rowProds,
+                  z = rowZs,
+                  mode = rowModes)  
+    res_img = func(mat, ...)
+    res_img = niftiarr(nim, res_img)
+    if (finite) {
+      res_img = fslr::finite_img(res_img, replace = 0)
+    }
+    L[[ifunc]] = res_img
   }
-  return(res_img)
+  # return image if only one
+  if (nfunc == 1) {
+    L = L[[ifunc]]
+  }
+  return(L)
 }
