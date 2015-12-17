@@ -110,18 +110,18 @@ remove_neck <- function(file,
     if (verbose) {
       cat(paste0("# Swapping Dimensions Back\n"))
     }
+    if (ori == "NEUROLOGICAL") {   
+      newimg = fslorient(newimg, 
+                         opts = "-swaporient",
+                         retimg = TRUE, 
+                         verbose = verbose)      
+    }
     newimg = fslswapdim(file = newimg, 
                         retimg = TRUE, 
                         a = sorient[1], 
                         b = sorient[2], 
                         c = sorient[3], 
                         verbose = verbose)
-    if (ori == "NEUROLOGICAL") {   
-      newimg = fslorient(newimg, 
-                       opts = "-swaporient",
-                       retimg = TRUE, 
-                       verbose = verbose)      
-    }
   }   
   return(newimg)
 }
