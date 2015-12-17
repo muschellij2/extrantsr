@@ -54,7 +54,20 @@ remove_neck <- function(file,
       cat(paste0("# Swapping Dimensions \n"))
     }
     forms = getForms(file)
-    sorient = forms$ssor       
+    sorient = forms$ssor  
+    ori = fslgetorient(file)
+    if (ori == "NEUROLOGICAL") {
+      # need to copy because fslorient samefile stuff
+      tfile = file.path(tempdir(), 
+                        basename(file))
+      file.copy(file, tfile, overwrite = TRUE)
+      # changes from NEUROLOGICAL to RADIOLOGICAL
+      file = fslorient(tfile, 
+                       opts = "-swaporient",
+                       retimg = TRUE, 
+                       verbose = verbose)
+    }
+    # Changes the data
     file = fslswapdim(file = file, 
                       retimg = TRUE, 
                       a = "RL", b = "PA", c = "IS", 
@@ -103,6 +116,12 @@ remove_neck <- function(file,
                         b = sorient[2], 
                         c = sorient[3], 
                         verbose = verbose)
+    if (ori == "NEUROLOGICAL") {   
+      newimg = fslorient(newimg, 
+                       opts = "-swaporient",
+                       retimg = TRUE, 
+                       verbose = verbose)      
+    }
   }   
   return(newimg)
 }
