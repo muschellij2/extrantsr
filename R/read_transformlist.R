@@ -1,0 +1,74 @@
+#' @title Read Transform List from ANTsR
+#' @description Transform a transformlist from ANTsR into an object in R
+#' 
+#' @param transformlist Character vector of transform list
+#'
+#' @return List of transforms
+#' @export
+#' @importFrom R.matlab readMat
+read_transformlist = function(transformlist){
+  endings = gsub("(.*)[.](.*$)", "\\2", transformlist)
+  type = rep(NA, length = length(transformlist))
+  type[ endings %in% 
+          c("gz", ".gz",
+            "nii", ".nii",
+            "nii.gz", ".nii.gz")] = "image"
+  type[ endings %in% 
+          c("mat", ".mat",
+            "txt", ".txt")] = "matrix"
+  stopifnot( !any(is.na(type)))
+  
+  trans = mapply(function(xx, tt) {
+    if (tt %in% "matrix"){
+      return(R.matlab::readMat(xx))
+    }
+    if (tt %in% "image") {
+      return(fslr::readnii(xx,
+                           drop_dim = FALSE))
+    }        
+  }, transformlist, type, 
+  SIMPLIFY = FALSE)
+  return(trans) 
+}
+
+
+#' @title Read Transform List from ANTsR
+#' @description Transform a transformlist from ANTsR into an object in R
+#' 
+#' @param transformlist List of transform elements
+#'
+#' @return List of transforms
+#' @export
+#' @importFrom R.matlab writeMat
+write_transformlist = function(transformlist){
+  classes = sapply(transformlist, class)
+  type = rep(NA, length = length(transformlist))
+  type[ classes %in% c("nifti", "niftiExtension")] = "image"
+  type[ classes %in% c("list")] = "matrix"
+  stopifnot( !any(is.na(type)))
+  
+  trans = mapply(function(xx, tt){
+    if (tt %in% "matrix") {
+      fname = tempfile(fileext = ".mat")
+      nn = names(xx)
+      stopifnot(all(nn %in% c("AffineTransform.float.3.3", "fixed")))
+      R.matlab::writeMat(
+        con = fname, 
+        AffineTransform.float.3.3 = xx$AffineTransform.float.3.3,
+        fixed = xx$fixed)
+    }
+    if (tt %in% "image") {
+      fname = tempfile(fileext = ".nii.gz")
+      pd = pixdim(xx)
+      pd[ pd == 0] = 1
+      pixdim(xx) = pd
+      writenii(xx,
+               filename = fname,
+               drop_dim = FALSE,
+               dtype = FALSE)
+    }        
+    return(fname)
+  }, transformlist, type, SIMPLIFY = TRUE)
+  names(trans) = NULL
+  return(trans) 
+}

@@ -14,6 +14,7 @@ Imports:
     fslr (>= 1.5.3),
     oro.nifti,
     WhiteStripe,
-    matrixStats
+    matrixStats,
+    R.matlab
 BugReports: https://github.com/muschellij2/extrantsr/issues
 RoxygenNote: 5.0.0
