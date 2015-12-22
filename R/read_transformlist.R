@@ -68,7 +68,7 @@ write_transformlist = function(transformlist){
       hdr = c(hdr, paste0("Parameters: ", params))
       fixed = paste0(sprintf(fmt, xx$fixed), 
                       collapse = " ")      
-      hdr = c(hdr, paste0("FixedParameters: ", params))
+      hdr = c(hdr, paste0("FixedParameters: ", fixed))
       writeLines(text = hdr, sep = "\n", con = fname)
     }
     if (tt %in% "image") {
