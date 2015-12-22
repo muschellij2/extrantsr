@@ -54,7 +54,7 @@ write_transformlist = function(transformlist){
       stopifnot(all(nn %in% c("AffineTransform.float.3.3", "fixed")))
       R.matlab::writeMat(
         con = fname, 
-        AffineTransform.float.3.3 = xx$AffineTransform.float.3.3,
+        AffineTransform_float_3_3 = xx$AffineTransform.float.3.3,
         fixed = xx$fixed)
     }
     if (tt %in% "image") {
