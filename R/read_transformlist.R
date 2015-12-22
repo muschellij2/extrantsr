@@ -62,7 +62,7 @@ write_transformlist = function(transformlist){
       
       hdr = c("#Insight Transform File V1.0", "#Transform 0", 
               "Transform: AffineTransform_float_3_3")
-      fmt = "%16.16f"
+      fmt = "%15.15f"
       params = paste0(sprintf(fmt, xx$AffineTransform.float.3.3), 
                       collapse = " ")
       hdr = c(hdr, paste0("Parameters: ", params))
