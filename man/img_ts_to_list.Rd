@@ -4,11 +4,15 @@
 \alias{img_ts_to_list}
 \title{Image Time Series to list}
 \usage{
-img_ts_to_list(imgs, warn = TRUE)
+img_ts_to_list(imgs, nifti = TRUE, warn = TRUE)
 }
 \arguments{
 \item{imgs}{object of class \code{\link{nifti}} with 4 dimensions, 
 aka a 4D time series}
+
+\item{nifti}{Should \code{nifti} objects be returned (\code{TRUE}) or 
+simply arrays (\code{FALSE}).  Should only be used for slight speed up when
+array is adequate}
 
 \item{warn}{Should a warning be printed if object is not class
 \code{\link{nifti}}}

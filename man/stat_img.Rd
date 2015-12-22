@@ -4,8 +4,8 @@
 \alias{stat_img}
 \title{Create Statistics Image}
 \usage{
-stat_img(imgs, func = c("mean", "median", "mode", "sd", "var", "mad", "sum",
-  "prod", "z"), finite = TRUE, ...)
+stat_img(imgs, func = c("mean", "median", "mode", "peak", "sd", "var", "mad",
+  "sum", "prod", "z"), finite = TRUE, ...)
 }
 \arguments{
 \item{imgs}{Character vector, list of characters, or object of class 
@@ -28,6 +28,8 @@ operations to create a statistic image
 When \code{func = "mode"}, the data is tabulated and then
 \code{\link{max.col}} is run.  The user can pass \code{ties.method} to 
 determine how to break ties.  The default is \code{"first"} as compared to 
-\code{\link{max.col}} where it is \code{"random"}.
+\code{\link{max.col}} where it is \code{"random"}.  When \code{func = "peak"},
+\code{\link{density}} is run on each voxel and the value with the maximum.  If 
+the number of unique values is only 1, that value is returned.
 }
 

@@ -12,11 +12,14 @@
 #' @note When \code{func = "mode"}, the data is tabulated and then
 #' \code{\link{max.col}} is run.  The user can pass \code{ties.method} to 
 #' determine how to break ties.  The default is \code{"first"} as compared to 
-#' \code{\link{max.col}} where it is \code{"random"}.
+#' \code{\link{max.col}} where it is \code{"random"}.  When \code{func = "peak"},
+#' \code{\link{density}} is run on each voxel and the value with the maximum.  If 
+#' the number of unique values is only 1, that value is returned.
 stat_img = function(imgs, 
                     func = c("mean", 
                              "median",
                              "mode",
+                             "peak",
                              "sd",
                              "var",
                              "mad",
@@ -32,6 +35,19 @@ stat_img = function(imgs,
   
   rowZs = function(x){
     rowMeans(x)/rowSds(x)
+  }
+  
+  rowPeaks = function(x, ...) {
+    apply(x, 1, function(r) {
+      ur = unique(r)
+      if (length(ur) == 1) {
+        res = ur[1]
+      } else {
+        d = density(r, ...)
+        res = d$x[which.max(d$y)]
+      }
+      return(res)
+    })
   }
   
   rowModes = function(x, ties.method = "first" ){
@@ -55,7 +71,7 @@ stat_img = function(imgs,
   # Make a large matrix of images
   ##########################################  
   imgs = check_nifti(imgs)
-  imgs = img_ts_to_list(imgs, warn = FALSE)
+  imgs = img_ts_to_list(imgs, nifti = FALSE, warn = FALSE)
   nim = imgs[[1]]
   dims = lapply(imgs, dim)
   same_dim = sapply(dims, all.equal, dims[[1]])
@@ -84,7 +100,8 @@ stat_img = function(imgs,
                   sum = rowSums,
                   prod = rowProds,
                   z = rowZs,
-                  mode = rowModes)  
+                  mode = rowModes,
+                  peak = rowPeaks)  
     res_img = func(mat, ...)
     res_img = niftiarr(nim, res_img)
     if (finite) {
