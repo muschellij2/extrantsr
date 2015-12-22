@@ -75,14 +75,15 @@ write_transformlist = function(transformlist){
       fname = tempfile(fileext = ".nii.gz")
       if (is.antsImage(xx)) {
         antsImageWrite(image = xx, filename = fname)
+      } else {
+        pd = pixdim(xx)
+        pd[ pd == 0] = 1
+        pixdim(xx) = pd
+        writenii(xx,
+                 filename = fname,
+                 drop_dim = FALSE,
+                 dtype = FALSE)
       }
-      pd = pixdim(xx)
-      pd[ pd == 0] = 1
-      pixdim(xx) = pd
-      writenii(xx,
-               filename = fname,
-               drop_dim = FALSE,
-               dtype = FALSE)
     }        
     return(fname)
   }, transformlist, type, SIMPLIFY = TRUE)
