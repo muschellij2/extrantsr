@@ -4,10 +4,12 @@
 \alias{read_transformlist}
 \title{Read Transform List from ANTsR}
 \usage{
-read_transformlist(transformlist)
+read_transformlist(transformlist, useOro = TRUE)
 }
 \arguments{
 \item{transformlist}{Character vector of transform list}
+
+\item{useOro}{Use \code{oro.nifti} (if \code{TRUE}) or ANTs}
 }
 \value{
 List of transforms

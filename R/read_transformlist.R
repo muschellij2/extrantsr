@@ -2,11 +2,12 @@
 #' @description Transform a transformlist from ANTsR into an object in R
 #' 
 #' @param transformlist Character vector of transform list
-#'
+#' @param useOro Use \code{oro.nifti} (if \code{TRUE}) or ANTs
 #' @return List of transforms
 #' @export
 #' @importFrom R.matlab readMat
-read_transformlist = function(transformlist){
+read_transformlist = function(transformlist, 
+                              useOro = TRUE){
   endings = gsub("(.*)[.](.*$)", "\\2", transformlist)
   type = rep(NA, length = length(transformlist))
   type[ endings %in% 
@@ -19,12 +20,17 @@ read_transformlist = function(transformlist){
   stopifnot( !any(is.na(type)))
   
   trans = mapply(function(xx, tt) {
-    if (tt %in% "matrix"){
+    if (tt %in% "matrix") {
       return(R.matlab::readMat(xx))
     }
     if (tt %in% "image") {
-      return(fslr::readnii(xx,
-                           drop_dim = FALSE))
+      if (useOro) {
+        img = fslr::readnii(xx,
+                      drop_dim = FALSE)
+      } else {
+        img = antsImageRead(xx)
+      }
+      return(img)
     }        
   }, transformlist, type, 
   SIMPLIFY = FALSE)
@@ -43,7 +49,8 @@ read_transformlist = function(transformlist){
 write_transformlist = function(transformlist){
   classes = sapply(transformlist, class)
   type = rep(NA, length = length(transformlist))
-  type[ classes %in% c("nifti", "niftiExtension")] = "image"
+  type[ classes %in% c("nifti", "niftiExtension", 
+                       "antsImage")] = "image"
   type[ classes %in% c("list")] = "matrix"
   stopifnot( !any(is.na(type)))
   
@@ -66,6 +73,9 @@ write_transformlist = function(transformlist){
     }
     if (tt %in% "image") {
       fname = tempfile(fileext = ".nii.gz")
+      if (is.antsImage(xx)) {
+        antsImageWrite(image = xx, filename = fname)
+      }
       pd = pixdim(xx)
       pd[ pd == 0] = 1
       pixdim(xx) = pd

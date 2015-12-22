@@ -1,8 +1,8 @@
 Package: extrantsr
 Type: Package
 Title: Extra Functions to Build on the ANTsR Package
-Version: 1.1.9.2
-Date: 2015-12-15
+Version: 1.1.9.3
+Date: 2015-12-20
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Extends the ANTsR package with simple wrappers and complex
