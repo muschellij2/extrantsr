@@ -55,6 +55,7 @@ stat_img = function(imgs,
   # Make a large matrix of images
   ##########################################  
   imgs = check_nifti(imgs)
+  imgs = img_ts_to_list(imgs, warn = FALSE)
   nim = imgs[[1]]
   dims = lapply(imgs, dim)
   same_dim = sapply(dims, all.equal, dims[[1]])
