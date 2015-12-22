@@ -49,13 +49,20 @@ write_transformlist = function(transformlist){
   
   trans = mapply(function(xx, tt){
     if (tt %in% "matrix") {
-      fname = tempfile(fileext = ".mat")
+      fname = tempfile(fileext = ".txt")
       nn = names(xx)
       stopifnot(all(nn %in% c("AffineTransform.float.3.3", "fixed")))
-      R.matlab::writeMat(
-        con = fname, 
-        AffineTransform_float_3_3 = xx$AffineTransform.float.3.3,
-        fixed = xx$fixed)
+      
+      hdr = c("#Insight Transform File V1.0", "#Transform 0", 
+              "Transform: AffineTransform_double_3_3")
+      fmt = "%15.15f"
+      params = paste0(sprintf(fmt, xx$AffineTransform.float.3.3), 
+                      collapse = " ")
+      hdr = c(hdr, paste0("Parameters: ", params))
+      fixed = paste0(sprintf(fmt, xx$fixed), 
+                      collapse = " ")      
+      hdr = c(hdr, paste0("FixedParameters: ", params))
+      writeLines(text = hdr, sep = "\n", con = fname)
     }
     if (tt %in% "image") {
       fname = tempfile(fileext = ".nii.gz")
