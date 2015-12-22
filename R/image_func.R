@@ -43,7 +43,7 @@ stat_img = function(imgs,
       if (length(ur) == 1) {
         res = ur[1]
       } else {
-        d = density(r, ...)
+        d = density(r, bw = "SJ", ...)
         res = d$x[which.max(d$y)]
       }
       return(res)
@@ -64,6 +64,10 @@ stat_img = function(imgs,
     labs
   }  
   
+  rowNuniques = function(x) {
+    apply(x, 1, function(r) length(unique(r)))
+  }    
+  
   
   func = match.arg(func, several.ok = TRUE)
   
@@ -71,7 +75,7 @@ stat_img = function(imgs,
   # Make a large matrix of images
   ##########################################  
   imgs = check_nifti(imgs)
-  imgs = img_ts_to_list(imgs, nifti = FALSE, warn = FALSE)
+  imgs = img_ts_to_list(imgs, copy_nifti = TRUE, warn = FALSE)
   nim = imgs[[1]]
   dims = lapply(imgs, dim)
   same_dim = sapply(dims, all.equal, dims[[1]])
