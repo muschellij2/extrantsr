@@ -61,8 +61,8 @@ write_transformlist = function(transformlist){
       stopifnot(all(nn %in% c("AffineTransform.float.3.3", "fixed")))
       
       hdr = c("#Insight Transform File V1.0", "#Transform 0", 
-              "Transform: AffineTransform_float_3_3")
-      fmt = "%15.15f"
+              "Transform: AffineTransform_double_3_3")
+      fmt = "%17.17f"
       params = paste0(sprintf(fmt, xx$AffineTransform.float.3.3), 
                       collapse = " ")
       hdr = c(hdr, paste0("Parameters: ", params))
