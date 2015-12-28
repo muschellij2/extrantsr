@@ -4,14 +4,30 @@
 \alias{N4BiasCorrect_WithField}
 \title{N4BiasCorrect with Bias Field}
 \usage{
-N4BiasCorrect_WithField(args)
+N4BiasCorrect_WithField(img, mask = NA, shrinkFactor = 4,
+  convergence = list(iters = c(50, 50, 50, 50), tol = 1e-07),
+  splineParam = 200, ...)
 }
 \arguments{
-\item{args}{Arguments that must be labeled and be passed to 
-N4BiasFieldCorrection}
+\item{img}{input antsImage}
+
+\item{mask}{input mask, if one is not passed one will be made}
+
+\item{shrinkFactor}{Shrink factor for multi-resolution correction, 
+typically integer less than 4}
+
+\item{convergence}{List of: iters, vector of maximum number of iterations 
+for each shrinkage factor, and tol, the convergence tolerance.}
+
+\item{splineParam}{Parameter controlling number of control points in spline. 
+Either single value, indicating how many control points, or vector with one 
+entry per dimension of image, indicating the spacing in each direction.}
+
+\item{...}{options to be passed to \code{n4BiasFieldCorrection}, such as
+\code{v = 1} for verbose.}
 }
 \value{
-Result of \code{system} command
+List of output image and field image.
 }
 \description{
 N4BiasCorrect_WithField

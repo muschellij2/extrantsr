@@ -39,14 +39,64 @@ invwarp <- function(
 #' @title N4BiasCorrect with Bias Field
 #'
 #' @description N4BiasCorrect_WithField
-#' @param args Arguments that must be labeled and be passed to 
-#' N4BiasFieldCorrection
+#' @param img	input antsImage
+#' @param mask input mask, if one is not passed one will be made
+#' @param shrinkFactor Shrink factor for multi-resolution correction, 
+#' typically integer less than 4
+#' @param convergence List of: iters, vector of maximum number of iterations 
+#' for each shrinkage factor, and tol, the convergence tolerance.
+#' @param splineParam Parameter controlling number of control points in spline. 
+#' Either single value, indicating how many control points, or vector with one 
+#' entry per dimension of image, indicating the spacing in each direction.
+#' @param ... options to be passed to \code{n4BiasFieldCorrection}, such as
+#' \code{v = 1} for verbose.
 #' @export
-#' @return Result of \code{system} command
-N4BiasCorrect_WithField <- function(
- args
-){
-  .Deprecated("n4BiasFieldCorrection", package = "ANTsR")
+#' @return List of output image and field image.
+N4BiasCorrect_WithField <- function (img, mask = NA, shrinkFactor = 4, 
+                                     convergence = list(iters = c(50, 50, 50, 50), 
+                                                        tol = 1e-07), 
+                                     splineParam = 200, ...) {
+  if (!is.antsImage(mask)) 
+    mask <- getMask(img)
+  N4_CONVERGENCE_1 <- paste("[", paste(convergence$iters, collapse = "x"), 
+                            ",", sprintf("%.10f", convergence$tol), "]", sep = "")
+  N4_SHRINK_FACTOR_1 <- paste(shrinkFactor)
+  if (length(splineParam) == 1) {
+    N4_BSPLINE_PARAMS <- paste("[", splineParam, "]", sep = "")
+  }
+  else if (length(splineParam) == img@dimension) {
+    N4_BSPLINE_PARAMS <- paste("[", paste(splineParam, collapse = "x"), 
+                               "]", sep = "")
+  }
+  else {
+    stop("Length of splineParam must either be 1 or dimensionality of image.")
+  }
+  
+  tfile = tempants(img)
+  field_fname = tempfile(fileext = ".nii.gz")
+  o = paste0("[", tfile, ",",
+             field_fname,
+             "]")  
+  
+  ANTsR:::.helpn4BiasFieldCorrection(list(d = img@dimension, i = img, 
+                                  s = N4_SHRINK_FACTOR_1, c = N4_CONVERGENCE_1, b = N4_BSPLINE_PARAMS, 
+                                  x = mask, o = o))
+  
+  outimg = antsImageRead(tfile)
+  field = antsImageRead(field_fname)
+  res = list(outimg = outimg, field = field)
+
+#   
+#   outimg <- antsImageClone(img)
+#   ANTsR:::.helpn4BiasFieldCorrection(
+#     list(d = outimg@dimension, 
+#          i = img, 
+#          s = N4_SHRINK_FACTOR_1, 
+#          c = N4_CONVERGENCE_1, 
+#          b = N4_BSPLINE_PARAMS, 
+#          x = mask, o = o, v = 1))  
+  
+  # .Deprecated("n4BiasFieldCorrection", package = "ANTsR")
 #   
 #   myargs <- sys_int_antsProcessArguments(c(args))
 #   myargs = myargs[ myargs != '-']
@@ -54,7 +104,7 @@ N4BiasCorrect_WithField <- function(
 #   cmd = paste0("N4BiasFieldCorrection ", 
 #                myargs)
 #   system(cmd)
-  
+  return(res)
 }
 
 
