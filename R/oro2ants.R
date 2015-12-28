@@ -32,7 +32,7 @@ oro2ants <- function(img){
   if (  is.nifti(img) | is.character(img) ) {
     fname = checkimg(img)
     stopifnot(file.exists(fname))
-    img = antsImageRead(fname, dimension = 3)
+    img = antsImageRead(fname)
     return(img)
   }
   if ( is.antsImage(img) ) {
