@@ -81,7 +81,7 @@ N4BiasCorrect_WithField <- function(img, mask = NA, shrinkFactor = 4,
   
   ANTsR:::.helpn4BiasFieldCorrection(list(d = img@dimension, i = img, 
                                           s = N4_SHRINK_FACTOR_1, c = N4_CONVERGENCE_1, b = N4_BSPLINE_PARAMS, 
-                                          x = mask, o = o))
+                                          x = mask, o = o, ...))
   
   outimg = antsImageRead(tfile)
   field = antsImageRead(field_fname)
