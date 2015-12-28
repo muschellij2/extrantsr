@@ -8,20 +8,17 @@
 #' @seealso \code{\link{antsImageRead}}
 #' @param x character path of image or 
 #' an object of class antsImage
-#' @param dimension (numeric) passed to 
-#' \code{\link{antsImageRead}} if the image
-#' is read in
 #' @export 
 #' @import methods
 #' @author John Muschelli \email{muschellij2@@gmail.com}  
-setGeneric("check_ants", function(x, dimension = 3) {
+setGeneric("check_ants", function(x) {
   standardGeneric("check_ants")
 })
 
 #' @rdname check_ants-methods
 #' @aliases check_ants,antsImage-method
 #' @export
-setMethod("check_ants", "antsImage", function(x, dimension = 3) { 
+setMethod("check_ants", "antsImage", function(x) { 
     x2 = antsImageClone(x)
     return(x2)
 })
@@ -29,7 +26,7 @@ setMethod("check_ants", "antsImage", function(x, dimension = 3) {
 #' @rdname check_ants-methods
 #' @aliases check_ants,nifti-method
 #' @export
-setMethod("check_ants", "nifti", function(x, dimension = 3) { 
+setMethod("check_ants", "nifti", function(x) { 
   x = oro2ants(x)
   return(x)
 })
@@ -38,13 +35,13 @@ setMethod("check_ants", "nifti", function(x, dimension = 3) {
 #' @aliases check_ants,character-method
 #'  
 #' @export
-setMethod("check_ants", "character", function(x, dimension = 3) { 
+setMethod("check_ants", "character", function(x) { 
   ### add vector capability
   if (length(x) > 1){
-    file = lapply(x, check_ants, dimension = dimension)
+    file = lapply(x, check_ants)
     return(file)
   } else {
-    img = antsImageRead(x, dimension = dimension)
+    img = antsImageRead(x)
     return(img)
   }
 })
@@ -53,9 +50,9 @@ setMethod("check_ants", "character", function(x, dimension = 3) {
 #' @rdname check_ants-methods
 #' @aliases check_ants,list-method
 #' @export
-setMethod("check_ants", "list", function(x, dimension = 3) { 
+setMethod("check_ants", "list", function(x) { 
   ### add vector capability
-  file = lapply(x, check_ants, dimension = dimension)
+  file = lapply(x, check_ants)
   return(file)
 })
 

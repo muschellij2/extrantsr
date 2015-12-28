@@ -10,23 +10,19 @@
 \alias{check_ants-methods}
 \title{Check if antsImage or read in}
 \usage{
-check_ants(x, dimension = 3)
+check_ants(x)
 
-\S4method{check_ants}{antsImage}(x, dimension = 3)
+\S4method{check_ants}{antsImage}(x)
 
-\S4method{check_ants}{nifti}(x, dimension = 3)
+\S4method{check_ants}{nifti}(x)
 
-\S4method{check_ants}{character}(x, dimension = 3)
+\S4method{check_ants}{character}(x)
 
-\S4method{check_ants}{list}(x, dimension = 3)
+\S4method{check_ants}{list}(x)
 }
 \arguments{
 \item{x}{character path of image or 
 an object of class antsImage}
-
-\item{dimension}{(numeric) passed to 
-\code{\link{antsImageRead}} if the image
-is read in}
 }
 \value{
 antsImage object
