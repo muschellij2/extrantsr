@@ -27,7 +27,7 @@ entry per dimension of image, indicating the spacing in each direction.}
 \code{v = 1} for verbose.}
 }
 \value{
-List of output image and field image.
+List of output image, field image, and mask.
 }
 \description{
 N4BiasCorrect_WithField
