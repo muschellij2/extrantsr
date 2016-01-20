@@ -9,7 +9,6 @@
 #' Passed to \code{\link{readnii}}.
 #' @param shrinkfactor Shrink factor passed to 
 #' \code{\link{n3BiasFieldCorrection}}
-#' @param dimension Dimension of the image (usually 3 or 4)
 #' @param mask Mask to pass to \code{\link{n4BiasFieldCorrection}} 
 #' @param ... additional arguments passed to 
 #' \code{\link{n3BiasFieldCorrection}} or 
@@ -25,7 +24,6 @@ bias_correct = function(
   retimg = TRUE,
   reorient = FALSE,
   shrinkfactor = "4",
-  dimension = 3, 
   mask = NULL,
   ...){
   correction = toupper(correction)
@@ -36,7 +34,7 @@ bias_correct = function(
                           retimg = retimg, 
                           fileext = '.nii.gz')
   
-  img = check_ants(file, dimension = dimension)
+  img = check_ants(file)
 #   imgn3 <- antsImageClone(img)
   if ( correction %in% c("N3", "n3")){
 #     res = n3BiasFieldCorrection(img@dimension, img, imgn3, "4", ...)

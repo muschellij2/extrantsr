@@ -50,18 +50,23 @@ stat_img = function(imgs,
     })
   }
   
-  rowModes = function(x, ties.method = "first" ){
-    is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5){
-      abs(x - round(x)) < tol
-    }
-    stopifnot(all(is.wholenumber(x)))
+  rowModes = function(x, ties.method = "first", run_tab = TRUE ){
     
-    x = array(as.integer(x), dim = dim(x))
-    tabs = rowTabulates(x)
-    cn = as.integer(colnames(tabs))
-    ind = max.col(tabs, ties.method = ties.method)
-    labs = cn[ind]
-    labs
+    if (run_tab) {
+      is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5){
+      abs(x - round(x)) < tol
+      }
+      stopifnot(all(is.wholenumber(x)))
+      
+      x = array(as.integer(x), dim = dim(x))
+      tabs = rowTabulates(x)
+      cn = as.integer(colnames(tabs))
+      ind = max.col(tabs, ties.method = ties.method)
+      labs = cn[ind]
+    } else {
+      labs = max.col(x, ties.method = ties.method)
+    }
+    return(labs)
   }  
   
   rowNuniques = function(x) {

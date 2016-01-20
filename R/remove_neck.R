@@ -32,7 +32,7 @@ remove_neck <- function(file,
   
   if (missing(template.file)) {
     cat("Potential atlases are at\n ")
-    cat(paste0('system.file("scct_unsmooth.nii.gz", package="cttools")\n'))
+    cat(paste0('system.file("scct_unsmooth.nii.gz", package="ichseg")\n'))
     cat(paste0('file.path( fsldir(), "data/standard", ', 
                '"MNI152_T1_1mm_brain.nii.gz")\n'))
     stop("Need template.file specified!")
