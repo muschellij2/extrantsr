@@ -19,6 +19,8 @@
 #' transformed with the T1
 #' @param other.outfiles Output filenames of \code{other.files} to 
 #' be written
+#' @param other.init Initial transformation lists (same length as \code{other.files})
+#' to use in before the estimated transformation for one interpolation
 #' @param template_to_native Logical indicating if native cerebellum should be 
 #' created to \code{invert.native.fname}
 #' @param invert.native.fname filename of native cerebellum file
@@ -50,7 +52,8 @@ registration <- function(filename,
                        "MNI152_T1_1mm_brain.nii.gz"),
                      interpolator="Linear", 
                      other.files = NULL,
-                     other.outfiles= NULL,
+                     other.outfiles = NULL,
+                     other.init = NULL,
                      template_to_native = FALSE,
                      invert.native.fname = NULL,
                      invert.file = NULL,
@@ -73,6 +76,12 @@ registration <- function(filename,
     lout = length(other.outfiles)
     if (lother != lout) {
       stop("Other outfile and infiles must be same length")
+    }
+    if (!is.null(other.init)){
+      ltrans = length(other.init)
+      if (ltrans != lout) {
+        stop("Other initial transformations and infiles must be same length")
+      }    
     }
   }
   
@@ -235,14 +244,24 @@ registration <- function(filename,
   if (have.other) {
     if (verbose){
       message("# Applying Transforms to other.files\n")
-    }  	    
-    reg.oimgs = lapply(N3.oimgs, function(x){
-      antsApplyTransforms(fixed = template, 
-                          moving = x, 
-                          transformlist=antsRegOut.nonlin$fwdtransforms,
-                          interpolator = interpolator
-      )
-    })
+    }  	 
+    if (is.null(other.init)){
+      reg.oimgs = lapply(N3.oimgs, function(x){
+        antsApplyTransforms(fixed = template, 
+                            moving = x, 
+                            transformlist = antsRegOut.nonlin$fwdtransforms,
+                            interpolator = interpolator
+        )
+      })
+    } else {
+      reg.oimgs = mapply(function(x, y){
+        antsApplyTransforms(fixed = template, 
+                            moving = x, 
+                            transformlist = c(y, antsRegOut.nonlin$fwdtransforms),
+                            interpolator = interpolator
+        )
+      }, N3.oimgs, other.init, SIMPLIFY = FALSE)  
+    }
   }
   
   if (verbose){

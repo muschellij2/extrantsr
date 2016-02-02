@@ -8,10 +8,11 @@ registration(filename, skull_strip = FALSE, correct = FALSE,
   correction = "N4", retimg = TRUE, outfile = NULL,
   template.file = file.path(fsldir(), "data", "standard",
   "MNI152_T1_1mm_brain.nii.gz"), interpolator = "Linear",
-  other.files = NULL, other.outfiles = NULL, template_to_native = FALSE,
-  invert.native.fname = NULL, invert.file = NULL, typeofTransform = "SyN",
-  remove.warp = TRUE, outprefix = NULL, bet.opts = "-B -f 0.1 -v",
-  betcmd = "bet", copy_origin = TRUE, verbose = TRUE, ...)
+  other.files = NULL, other.outfiles = NULL, other.init = NULL,
+  template_to_native = FALSE, invert.native.fname = NULL,
+  invert.file = NULL, typeofTransform = "SyN", remove.warp = TRUE,
+  outprefix = NULL, bet.opts = "-B -f 0.1 -v", betcmd = "bet",
+  copy_origin = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{filename}{filename of image to be registred}
@@ -37,6 +38,9 @@ transformed with the T1}
 
 \item{other.outfiles}{Output filenames of \code{other.files} to 
 be written}
+
+\item{other.init}{Initial transformation lists (same length as \code{other.files})
+to use in before the estimated transformation for one interpolation}
 
 \item{template_to_native}{Logical indicating if native cerebellum should be 
 created to \code{invert.native.fname}}

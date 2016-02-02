@@ -114,10 +114,13 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                         verbose = verbose,                        
                         ...) 
   
+  # get the transformations out
+  proc2_trans = lapply(proc_2$regs, `[[`, "fwdtransforms")
+  
   #######################################
   ## Registering Followup to Baseline
   ####################################### 
-  if (length(followup_outfiles) <= 1){
+  if (length(followup_outfiles) <= 1) {
     other.files = NULL
     other.outfiles = NULL
   } else {
@@ -130,6 +133,7 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                 interpolator = across.interpolator,
                 other.files = other.files,
                 other.outfiles = other.outfiles, 
+                other.init = proc2_trans,
                 skull_strip = FALSE, 
                 correct = FALSE, 
                 retimg = FALSE,
