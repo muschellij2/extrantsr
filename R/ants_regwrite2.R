@@ -72,6 +72,9 @@ registration <- function(filename,
   have.other = FALSE
   if (!is.null(other.files)){
     have.other = TRUE
+    other.files = checkimg(other.files)
+    other.outfiles = checkimg(other.outfiles)
+    
     lother = length(other.files)
     lout = length(other.outfiles)
     if (lother != lout) {
@@ -127,7 +130,6 @@ registration <- function(filename,
   t1N3 <- antsImageClone(t1)
   
   if (have.other) {
-    other.files = sapply(other.files, checkimg)
     stopifnot(all(file.exists(other.files)))
     other.imgs = lapply(other.files, antsImageRead, 
                         dimension = 3)
