@@ -54,7 +54,14 @@ remove_neck <- function(file,
       cat(paste0("# Swapping Dimensions \n"))
     }
     forms = getForms(file)
-    sorient = forms$ssor  
+    if (forms$sform_code == 0 & forms$qform_code == 0) {
+      stop("Cannot swap dimensions - sform_code and qform_code are 0!")
+    }
+    if (forms$sform_code != 0) {
+      sorient = forms$ssor  
+    } else {
+      sorient = forms$sqor  
+    }
     ori = fslgetorient(file)
     if (ori == "NEUROLOGICAL") {
       # need to copy because fslorient samefile stuff
