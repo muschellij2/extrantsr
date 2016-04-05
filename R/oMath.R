@@ -5,12 +5,17 @@
 #' \code{\link{iMath}}, and the result is a \code{nifti} object.
 #' @param img Object of class \code{nifti} 
 #' @param ... Additional arguments passed to \code{\link{iMath}}
+#' @param retfile logical to indicate if an \code{antsImage} should be returned
+#' (useful for chaining)
 #' @export
 #' @import ANTsR
 #' @return Object of class \code{nifti}
-oMath <- function(img, ...){
+oMath <- function(img, ..., retfile = FALSE){
   img = check_ants(img)
   res = iMath(img = img, ...)
+  if (retfile) {
+    return(res)
+  }
   res = ants2oro(res)
   return(res)
 }

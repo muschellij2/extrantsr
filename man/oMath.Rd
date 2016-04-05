@@ -4,12 +4,15 @@
 \alias{oMath}
 \title{Perform iMath on nifti objects}
 \usage{
-oMath(img, ...)
+oMath(img, ..., retfile = FALSE)
 }
 \arguments{
 \item{img}{Object of class \code{nifti}}
 
 \item{...}{Additional arguments passed to \code{\link{iMath}}}
+
+\item{retfile}{logical to indicate if an \code{antsImage} should be returned
+(useful for chaining)}
 }
 \value{
 Object of class \code{nifti}
