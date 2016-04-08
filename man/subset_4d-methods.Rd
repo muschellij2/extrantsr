@@ -30,11 +30,11 @@ an object of class nifti, or antsImage}
 \code{\link{antsCopyImageInfo}}}
 }
 \value{
-An \code{\link{antsImage}} or \code{\link{nifti}} depending on
+An \code{antsImage} or \code{\link{nifti}} depending on
 input
 }
 \description{
-Subsets an \code{\link{antsImage}} or \code{\link{nifti}}
+Subsets an \code{antsImage} or \code{\link{nifti}}
 object from 4D
 }
 \examples{

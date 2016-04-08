@@ -2,9 +2,9 @@
 #' @docType methods 
 #' @aliases subset_4d 
 #' @title Subset a 4D image
-#' @description Subsets an \code{\link{antsImage}} or \code{\link{nifti}}
+#' @description Subsets an \code{antsImage} or \code{\link{nifti}}
 #' object from 4D
-#' @return An \code{\link{antsImage}} or \code{\link{nifti}} depending on
+#' @return An \code{antsImage} or \code{\link{nifti}} depending on
 #' input
 #' @param img character path of image or 
 #' an object of class nifti, or antsImage
@@ -80,7 +80,7 @@ setMethod("subset_4d", "antsImage", function(img, ind, ...) {
 #' @rdname subset_4d-methods
 .subset_4d = function(img, ind) {
   dimg = dim(img)
-  if (length(dimg) != 4){
+  if (length(dimg) != 4) {
     stop("not a 4D image")
   }
   arr = as.array(img)[,,,ind]
