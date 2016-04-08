@@ -38,6 +38,7 @@ Subsets an \code{\link{antsImage}} or \code{\link{nifti}}
 object from 4D
 }
 \examples{
+library(oro.nifti)
 n = 20
 x = nifti(array(rnorm(n^3*10), dim = c(n, n, n, 10)))
 ind = 2:3

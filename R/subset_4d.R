@@ -13,6 +13,7 @@
 #' \code{\link{antsCopyImageInfo}}
 #' @export 
 #' @examples 
+#' library(oro.nifti)
 #' n = 20
 #' x = nifti(array(rnorm(n^3*10), dim = c(n, n, n, 10)))
 #' ind = 2:3
@@ -54,9 +55,23 @@ setMethod("subset_4d", "antsImage", function(img, ind, ...) {
   
   arr = .subset_4d(img, ind)
   newimg = as.antsImage(arr)
-  newimg = antsCopyImageInfo(img, 
-                             newimg, 
-                             ...)   
+  get_ind = seq(length(dim(newimg)))
+  
+  origin = as.numeric(antsGetOrigin(img))
+  origin = origin[get_ind]
+  antsSetOrigin(newimg, origin)
+  
+  adir = antsGetDirection(img)
+  adir = adir[get_ind, get_ind]
+  antsSetDirection(newimg, adir)
+  
+  spacing = as.numeric(antsGetSpacing(img))
+  spacing = spacing[get_ind]
+  antsSetSpacing(newimg, spacing)
+  
+  # newimg = antsCopyImageInfo(img, 
+  #                            newimg, 
+  #                            ...)   
   return(newimg)
 })
 
