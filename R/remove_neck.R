@@ -31,27 +31,27 @@ remove_neck <- function(file,
   ofile = tempfile(fileext = '.nii.gz')
   
   if (missing(template.file)) {
-    cat("Potential atlases are at\n ")
-    cat(paste0('system.file("scct_unsmooth.nii.gz", package="ichseg")\n'))
-    cat(paste0('file.path( fsldir(), "data/standard", ', 
+    message("Potential atlases are at\n ")
+    message(paste0('system.file("scct_unsmooth.nii.gz", package="ichseg")\n'))
+    message(paste0('file.path( fsldir(), "data/standard", ', 
                '"MNI152_T1_1mm_brain.nii.gz")\n'))
     stop("Need template.file specified!")
   }
   template.file = checkimg(template.file)
   if (is.null(template.mask)) {
     if (verbose) {
-      cat("# Creating Binary Template mask using fslbin\n")
+      message("# Creating Binary Template mask using fslbin\n")
     }
     template.mask = fslbin(file = template.file, retimg = TRUE)
   } 
   template.mask = checkimg(template.mask)
   
   if (verbose) {
-    cat("# Registration to template\n")
+    message("# Registration to template\n")
   }
   if (swapdim) {
     if (verbose) {
-      cat(paste0("# Swapping Dimensions \n"))
+      message(paste0("# Swapping Dimensions \n"))
     }
     forms = getForms(file)
     if (forms$sform_code == 0 & forms$qform_code == 0) {
@@ -90,7 +90,7 @@ remove_neck <- function(file,
                       verbose = verbose)
   
   if (verbose) {
-    cat("# Reading in Transformed data\n")
+    message("# Reading in Transformed data\n")
   }
   img = check_nifti(file)
   mask = readnii(ofile, reorient = FALSE)
@@ -99,7 +99,7 @@ remove_neck <- function(file,
   #5mm
   # dimg = dim(img)
   if (verbose) {
-    cat("# Dropping slices not in mask\n")
+    message("# Dropping slices not in mask\n")
   }   
   minz = min(ind[,"dim3"])
   if (ret_mask) {
@@ -115,7 +115,7 @@ remove_neck <- function(file,
   }
   if (swapdim) {
     if (verbose) {
-      cat(paste0("# Swapping Dimensions Back\n"))
+      message(paste0("# Swapping Dimensions Back\n"))
     }
     if (ori == "NEUROLOGICAL") {   
       newimg = fslorient(newimg, 
