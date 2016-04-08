@@ -15,6 +15,7 @@ Imports:
     oro.nifti,
     WhiteStripe,
     matrixStats,
-    R.matlab
+    R.matlab,
+    abind
 BugReports: https://github.com/muschellij2/extrantsr/issues
 RoxygenNote: 5.0.1
