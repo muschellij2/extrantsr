@@ -1,4 +1,4 @@
-#' @title Convert Between antsImage and oro.nifti  
+#' @title Convert Between antsImage and nifti  
 #'
 #' @description NIfTI data can be converted between \code{antsImage} 
 #' (from the ANTsR package) and nifti S4 objects.
@@ -20,15 +20,28 @@ ants2oro <- function(img,
   return(NULL)
 }
 
-#' @title Convert Between oro.nifti and antsImage    
+#' @title Convert Between nifti and antsImage    
 #'
 #' @description NIfTI data can be converted between \code{nifti} 
 #' (from the oro.nifti package) and \code{antsImage} objects.
 #' @param img Object of class \code{nifti} 
+#' @param reference Object of class \code{antsImage} to 
+#' copy header information (origin, spacing, direction) (experimental)
 #' @export
 #' @import fslr
+#' @import ANTsR
 #' @return Object of class \code{antsImage}
-oro2ants <- function(img){
+oro2ants <- function(img, reference = NULL){
+  if (!is.null(reference)) {
+    if (is.antsImage(reference)) {
+      img = as(img, Class = "array")
+      aimg = as.antsImage(img)
+      aimg = antsCopyImageInfo(
+        target = aimg, 
+        reference = reference)
+      return(aimg)
+    }
+  }
   if (  is.nifti(img) | is.character(img) ) {
     fname = checkimg(img)
     stopifnot(file.exists(fname))

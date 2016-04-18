@@ -2,12 +2,15 @@
 % Please edit documentation in R/oro2ants.R
 \name{oro2ants}
 \alias{oro2ants}
-\title{Convert Between oro.nifti and antsImage}
+\title{Convert Between nifti and antsImage}
 \usage{
-oro2ants(img)
+oro2ants(img, reference = NULL)
 }
 \arguments{
 \item{img}{Object of class \code{nifti}}
+
+\item{reference}{Object of class \code{antsImage} to 
+copy header information (origin, spacing, direction) (experimental)}
 }
 \value{
 Object of class \code{antsImage}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/oro2ants.R
 \name{ants2oro}
 \alias{ants2oro}
-\title{Convert Between antsImage and oro.nifti}
+\title{Convert Between antsImage and nifti}
 \usage{
 ants2oro(img, reorient = FALSE)
 }
