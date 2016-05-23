@@ -23,7 +23,7 @@ label_mask = function(img, k = 1){
 #' See \code{\link{label_mask}}
 #' @return Matrix of 3 columns of dimension indices.
 #' @export 
-group_xyz2 = function(img, k = 1, ...) {
+group_xyz2 = function(img, k = 1) {
   les_xyz = label_mask(img, k = k)
   les_levs = sort(unique(les_xyz[les_xyz != 0]))
   if (length(les_levs) <= 1) {

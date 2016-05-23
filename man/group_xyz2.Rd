@@ -4,7 +4,7 @@
 \alias{group_xyz2}
 \title{Center of Gravity for Multiple Components/Areas}
 \usage{
-group_xyz2(img, k = 1, ...)
+group_xyz2(img, k = 1)
 }
 \arguments{
 \item{img}{Object of class \code{\link{nifti}} or array}
