@@ -65,7 +65,9 @@ remove_neck <- function(file,
     ori = fslgetorient(file)
     if (ori == "NEUROLOGICAL") {
       # need to copy because fslorient samefile stuff
-      tfile = file.path(tempdir(), 
+      tdir = tempfile()
+      dir.create(tdir, showWarnings = verbose)
+      tfile = file.path(tdir, 
                         basename(file))
       file.copy(file, tfile, overwrite = TRUE)
       # changes from NEUROLOGICAL to RADIOLOGICAL
