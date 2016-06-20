@@ -1,5 +1,10 @@
 # Sample .travis.yml for R projects
 
+before_install:
+    - sudo add-apt-repository --yes ppa:kalakris/cmake
+    - sudo apt-get update -qq
+    - sudo apt-get install cmake
+    
 language: r
 warnings_are_errors: true
 sudo: required
