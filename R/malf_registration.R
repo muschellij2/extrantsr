@@ -33,6 +33,9 @@ malf_registration <- function(
   verbose = TRUE,
   ...){
   
+  template.images = checkimg(template.images)
+  template.structs = checkimg(template.structs)
+  
   nimgs = length(template.images)
   stopifnot(nimgs == length(template.structs))
   if (keep_images) {
