@@ -20,6 +20,8 @@ will be taken}
 Default is 27 neighbors (including voxel at center).  
 Passed to \code{\link{getNeighborhoodInMask}}.}
 
+\item{method}{Type of correlation.}
+
 \item{verbose}{print diagnostic messages}
 }
 \value{

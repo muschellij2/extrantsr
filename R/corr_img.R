@@ -9,6 +9,7 @@
 #' @param radius vector of length 3 for number of voxels to go in each direction.
 #' Default is 27 neighbors (including voxel at center).  
 #' Passed to \code{\link{getNeighborhoodInMask}}.
+#' @param method Type of correlation.
 #' @param verbose print diagnostic messages
 #'
 #' @return Object of class \code{nifti}
