@@ -1,4 +1,3 @@
-
 #' @title Neighborhood Correlation Image
 #' @description 
 #'
