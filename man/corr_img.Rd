@@ -18,6 +18,8 @@ will be taken}
 \item{radius}{vector of length 3 for number of voxels to go in each direction.
 Default is 27 neighbors (including voxel at center).  
 Passed to \code{\link{getNeighborhoodInMask}}.}
+
+\item{verbose}{print diagnostic messages}
 }
 \value{
 Object of class \code{nifti}

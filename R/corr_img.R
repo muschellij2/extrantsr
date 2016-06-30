@@ -9,6 +9,7 @@
 #' @param radius vector of length 3 for number of voxels to go in each direction.
 #' Default is 27 neighbors (including voxel at center).  
 #' Passed to \code{\link{getNeighborhoodInMask}}.
+#' @param verbose print diagnostic messages
 #'
 #' @return Object of class \code{nifti}
 #' @export 
@@ -20,7 +21,8 @@ corr_img = function(
   img1, 
   img2,
   mask = NULL, 
-  radius = rep(1,3)){
+  radius = rep(1,3), 
+  verbose = TRUE){
   
   
   img1 = check_ants(img1)
@@ -35,7 +37,9 @@ corr_img = function(
   xmask = mask
   
   mask = check_ants(mask)
-  
+  if (verbose) {
+    message("Checking dimensions of images")
+  }
   stopifnot(
     same_dims(img1, img2, mask)
   )
@@ -58,9 +62,15 @@ corr_img = function(
       grads$values)
     return(grads)
   }
+  if (verbose) {
+    message("Getting Neighborhood for Image 1")
+  }  
   neigh1 = neigh(img = img1, 
                  mask = mask, 
                  radius = radius)
+  if (verbose) {
+    message("Getting Neighborhood for Image 2")
+  }    
   neigh2 = neigh(img = img2,
                  mask = mask, 
                  radius = radius)
@@ -70,6 +80,9 @@ corr_img = function(
               neigh2$indices)
   )  
   
+  if (verbose) {
+    message("Calculating Correlations")
+  } 
   corrs = neigh1$values * neigh2$values
   nNA <- colCounts(corrs, 
                    value = NA_real_, 
@@ -94,12 +107,17 @@ corr_img = function(
   #####################
   # Must ADD 1 because they are 0-indexed!
   #####################
+  if (verbose) {
+    message("Reordering indices from ANTsR output")
+  } 
   out = reorder_neighborhood(neigh1,
                              img.dim = dim(img1))
   ord = out$order_ind
   corrs = corrs[ ord ]
   
-  
+  if (verbose) {
+    message("Creating Output Image")
+  }   
   xmask = check_nifti(xmask)
   ximg = xmask
   ximg[xmask == 1] = corrs
