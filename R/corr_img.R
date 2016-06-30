@@ -61,7 +61,9 @@ corr_img = function(
     # not_zero = grads1$offsets != 0
     # neighbor = rowSums(not_zero) > 0
     if (method == "spearman") {
-      grads$values = colRanks(grads$values, ties.method = "average")
+      grads$values = colRanks(grads$values, 
+                              ties.method = "average",
+                              preserveShape = TRUE)
     }
     grads$values = col_scale(
       grads$values)
