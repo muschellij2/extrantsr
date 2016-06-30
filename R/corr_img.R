@@ -22,9 +22,10 @@ corr_img = function(
   img2,
   mask = NULL, 
   radius = rep(1,3), 
+  method = c("pearson", "spearman"),
   verbose = TRUE){
   
-  
+  method = match.arg(method)
   img1 = check_ants(img1)
   img2 = check_ants(img2)
   if (is.null(mask)) {
@@ -50,7 +51,7 @@ corr_img = function(
                  na.rm = TRUE)
     x = t( (t(x) - cm) / csd )
   }
-  neigh = function(img, mask, radius){
+  neigh = function(img, mask, radius, method){
     grads = getNeighborhoodInMask(
       image = img, 
       mask = mask, 
@@ -58,22 +59,28 @@ corr_img = function(
       spatial.info = TRUE)
     # not_zero = grads1$offsets != 0
     # neighbor = rowSums(not_zero) > 0
+    if (method == "spearman") {
+      grads$values = colRanks(grads$values, ties.method = "average")
+    }
     grads$values = col_scale(
       grads$values)
     return(grads)
   }
+  
   if (verbose) {
     message("Getting Neighborhood for Image 1")
   }  
   neigh1 = neigh(img = img1, 
                  mask = mask, 
-                 radius = radius)
+                 radius = radius,
+                 method = method)
   if (verbose) {
     message("Getting Neighborhood for Image 2")
   }    
   neigh2 = neigh(img = img2,
                  mask = mask, 
-                 radius = radius)
+                 radius = radius,
+                 method = method)
   
   stopifnot(
     identical(neigh1$indices,
