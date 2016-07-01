@@ -16,6 +16,7 @@
 neighborhood = function(img, mask = NULL, 
                         radius = rep(1, 3), ...){
   
+  #####!! need verbose option
   img = check_ants(img)
   img.dim = dim(img)
   
@@ -42,7 +43,8 @@ neighborhood = function(img, mask = NULL,
   ##########################
   # Getting Dimension
   ##########################  
-  inds = grads$indices + 1
+  grads$indices = grads$indices + 1
+  inds = grads$indices
   tmp = array(0, 
               dim = img.dim)
   tmp[inds] = 1
