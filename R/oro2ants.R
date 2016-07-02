@@ -1,14 +1,40 @@
-#' @title Convert Between antsImage and nifti  
+#' @title Convert Between antsImage and nifti objects
 #'
 #' @description NIfTI data can be converted between \code{antsImage} 
 #' (from the ANTsR package) and nifti S4 objects.
 #' @param img Object of class antsImage 
 #' @param reorient Reorientation passed to \code{\link{readnii}}
+#' @param reference Object of class \code{\link{nifti}} to copy header
+#' information
+#' @param ... Arguments passed to \code{\link{copyNIfTIHeader}} if 
+#' reference is set and \code{img} is \code{antsImage}
 #' @export
-#' @return Object of class \code{nifti}
+#' @return Object of class \code{nifti}.
 ants2oro <- function(img, 
-                     reorient = FALSE){
+                     reorient = FALSE,
+                     reference = NULL,
+                     ...){
   if ( is.antsImage(img) | is.character(img) ) {
+    if (is.antsImage(img) & !is.null(reference)) {
+      #######
+      # allow for reference, but need nifti
+      #######
+      if (!is.null(reference)) {
+        if (!is.nifti(reference)) {
+          stop("reference must be of class nifti")
+        }
+      }
+      #######
+      # Turn into array and then make nifti
+      #######
+      img = as(img, Class = "array")
+      img = copyNIfTIHeader(img = reference, arr = img, ...)
+      return(img)
+    }
+    ############################
+    # Otherwise write image to disk
+    # And read in nifti
+    ############################    
     fname = tempants(img)
     img = readnii(fname, reorient = reorient)
     return(img)
@@ -16,7 +42,7 @@ ants2oro <- function(img,
   if ( is.nifti(img) ) {
     return(img)
   }
-  stop("img not class nifti or antsImage")
+  stop("img not class nifti or antsImage or character")
   return(NULL)
 }
 
