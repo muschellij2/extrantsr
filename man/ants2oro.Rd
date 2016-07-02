@@ -2,17 +2,23 @@
 % Please edit documentation in R/oro2ants.R
 \name{ants2oro}
 \alias{ants2oro}
-\title{Convert Between antsImage and nifti}
+\title{Convert Between antsImage and nifti objects}
 \usage{
-ants2oro(img, reorient = FALSE)
+ants2oro(img, reorient = FALSE, reference = NULL, ...)
 }
 \arguments{
 \item{img}{Object of class antsImage}
 
 \item{reorient}{Reorientation passed to \code{\link{readnii}}}
+
+\item{reference}{Object of class \code{\link{nifti}} to copy header
+information}
+
+\item{...}{Arguments passed to \code{\link{copyNIfTIHeader}} if 
+reference is set and \code{img} is \code{antsImage}}
 }
 \value{
-Object of class \code{nifti}
+Object of class \code{nifti}.
 }
 \description{
 NIfTI data can be converted between \code{antsImage} 
