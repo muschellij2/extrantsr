@@ -158,7 +158,7 @@ remove_neck <- function(file,
 #' @param verbose Print out diagnostic messages
 #' @export
 #' @return Object of class nifti
-double_remove_neck = function(fname,
+double_remove_neck = function(file,
                               template.file,
                               template.mask,
                               typeofTransform = "Rigid",
@@ -170,7 +170,7 @@ double_remove_neck = function(fname,
   # removing neck once
   ########################
   noneck = remove_neck(
-    file = fname,
+    file = file,
     template.file = template.file,
     template.mask = template.mask,
     typeofTransform = typeofTransform,

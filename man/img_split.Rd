@@ -4,12 +4,14 @@
 \alias{img_split}
 \title{Split an Image into Multiple Sub-Images}
 \usage{
-img_split(img, output_basename = NULL)
+img_split(img, output_basename = NULL, verbose = TRUE)
 }
 \arguments{
-\item{img}{Object of class \code{\link{antsImage}}}
+\item{img}{Object of class \code{antsImage}}
 
-\item{output_basename}{}
+\item{output_basename}{prefix for output files}
+
+\item{verbose}{print diagnostic messages}
 }
 \value{
 Names of output files

@@ -10,6 +10,7 @@
 #' @param ... arguments to be passed to \code{\link[graphics]{image} }
 #' @export
 #' @return NULL
+#' @import grDevices graphics
 ants.overlay <- function(
   img, # Image to be plotted
   oimg, # image to be overlaid

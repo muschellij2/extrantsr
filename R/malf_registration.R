@@ -23,6 +23,7 @@
 #' @import fslr
 #' @return List of registrations and
 #' output files
+#' @import utils
 malf_registration <- function(
   infile, template.images, template.structs,
   typeofTransform = "SyN",  

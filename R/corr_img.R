@@ -1,5 +1,6 @@
 #' @title Neighborhood Correlation Image
-#' @description 
+#' @description Calculates the neighborhood of 2 registered images, and then
+#' does the correlation of each neighbor with itself in the other imaging modality
 #'
 #' @param img1 image of class \code{nifti}, \code{antsImage}, \code{character}
 #' @param img2 image of class \code{nifti}, \code{antsImage}, \code{character}

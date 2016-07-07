@@ -8,7 +8,7 @@ stat_img(imgs, func = c("mean", "median", "mode", "peak", "sd", "var", "mad",
   "sum", "prod", "z", "quantile"), finite = TRUE, ...)
 }
 \arguments{
-\item{imgs}{Character vector, list of characters, or object of class 
+\item{imgs}{Character vector, list of characters, or object of class
 \code{nifti}}
 
 \item{func}{Function to perform voxel-wise on list of images}
@@ -26,10 +26,10 @@ operations to create a statistic image
 }
 \note{
 When \code{func = "mode"}, the data is tabulated and then
-\code{\link{max.col}} is run.  The user can pass \code{ties.method} to 
-determine how to break ties.  The default is \code{"first"} as compared to 
+\code{\link{max.col}} is run.  The user can pass \code{ties.method} to
+determine how to break ties.  The default is \code{"first"} as compared to
 \code{\link{max.col}} where it is \code{"random"}.  When \code{func = "peak"},
-\code{\link{density}} is run on each voxel and the value with the maximum.  If 
+\code{\link{density}} is run on each voxel and the value with the maximum.  If
 the number of unique values is only 1, that value is returned.
 }
 

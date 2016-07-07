@@ -1,13 +1,15 @@
 #' @title Split an Image into Multiple Sub-Images
 #' @description Split an image on a certain dimension
-#' @param img Object of class \code{\link{antsImage}}
-#' @param output_basename  
+#' @param img Object of class \code{antsImage}
+#' @param output_basename prefix for output files
+#' @param verbose print diagnostic messages
 #' @return Names of output files
 #' @export
 #' @importFrom R.utils extract.array
 img_split = function(img, 
                      # direction = c("t", "x", "y", "z"),
-                     output_basename = NULL
+                     output_basename = NULL,
+                     verbose = TRUE
                      ){
   img = check_ants(img)
   arr = as.array(img)

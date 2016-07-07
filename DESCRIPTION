@@ -1,7 +1,7 @@
 Package: extrantsr
 Type: Package
 Title: Extra Functions to Build on the ANTsR Package
-Version: 1.1.16.3
+Version: 1.1.16.4
 Date: 2016-07-07
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
@@ -9,8 +9,12 @@ Description: Extends the ANTsR package with simple wrappers and complex
     processing streams.
 License: GPL-3 | file LICENSE
 Imports:
-    oro.nifti,
     methods,
+    stats,
+    grDevices,
+    graphics,
+    utils,
+    oro.nifti,
     ANTsR,
     fslr (>= 1.5.3),
     WhiteStripe,

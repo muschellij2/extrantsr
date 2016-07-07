@@ -4,11 +4,13 @@
 \alias{double_remove_neck}
 \title{Remove Neck Twice from a Scan}
 \usage{
-double_remove_neck(fname, template.file, template.mask,
+double_remove_neck(file, template.file, template.mask,
   typeofTransform = "Rigid", rep.value = 0, swapdim = TRUE,
   verbose = TRUE)
 }
 \arguments{
+\item{file}{File for neck removal - either filename or class nifti}
+
 \item{template.file}{Template to warp to original image space}
 
 \item{template.mask}{Mask of template to use as rough brain mask.  If
@@ -24,8 +26,6 @@ then \code{fslbin(file=template.file)} is performed.}
 and then reset after}
 
 \item{verbose}{Print out diagnostic messages}
-
-\item{file}{File for neck removal - either filename or class nifti}
 }
 \value{
 Object of class nifti

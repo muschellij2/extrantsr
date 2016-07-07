@@ -28,7 +28,8 @@ Passed to \code{\link{getNeighborhoodInMask}}.}
 Object of class \code{nifti}
 }
 \description{
-
+Calculates the neighborhood of 2 registered images, and then
+does the correlation of each neighbor with itself in the other imaging modality
 }
 \examples{
 \dontrun{

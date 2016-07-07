@@ -14,19 +14,14 @@
 #' img_hist_entropy(img)
 #' @export
 #' @import fslr
-img_hist_entropy <- function(img, mask = NULL, 
-                            breaks = 2000, 
+#' @import graphics
+img_hist_entropy <- function(img, mask = NULL,
+                            breaks = 2000,
                             base = exp(1), ...) {
   img = check_nifti(img)
   if (!is.null(mask)){
     mask = check_nifti(mask)
-    allowable = c(0, 1)
-    mask = as(mask, "array")
-    class(mask) = "numeric"
-    umask = unique(c(mask))
-    if (!all(umask %in% allowable)) {
-      stop("Mask must be binary 0/1.")
-    }
+    check_mask_fail(mask, allow.NA = FALSE)
     vals = img[mask == 1]
   } else {
     vals = c(img)
