@@ -53,34 +53,38 @@ remove_neck <- function(file,
     if (verbose) {
       message(paste0("# Swapping Dimensions \n"))
     }
-    forms = getForms(file)
-    if (forms$sform_code == 0 & forms$qform_code == 0) {
-      stop("Cannot swap dimensions - sform_code and qform_code are 0!")
-    }
-    if (forms$sform_code != 0) {
-      sorient = forms$ssor  
-    } else {
-      sorient = forms$sqor  
-    }
-    ori = fslgetorient(file)
-    if (ori == "NEUROLOGICAL") {
-      # need to copy because fslorient samefile stuff
-      tdir = tempfile()
-      dir.create(tdir, showWarnings = verbose)
-      tfile = file.path(tdir, 
-                        basename(file))
-      file.copy(file, tfile, overwrite = TRUE)
-      # changes from NEUROLOGICAL to RADIOLOGICAL
-      file = fslorient(tfile, 
-                       opts = "-swaporient",
-                       retimg = TRUE, 
-                       verbose = verbose)
-    }
-    # Changes the data
-    file = fslswapdim(file = file, 
-                      retimg = TRUE, 
-                      a = "RL", b = "PA", c = "IS", 
-                      verbose = verbose)
+    # forms = getForms(file)
+    # if (forms$sform_code == 0 & forms$qform_code == 0) {
+    #   stop("Cannot swap dimensions - sform_code and qform_code are 0!")
+    # }
+    # if (forms$sform_code != 0) {
+    #   sorient = forms$ssor  
+    # } else {
+    #   sorient = forms$sqor  
+    # }
+    # ori = fslgetorient(file)
+    # if (ori == "NEUROLOGICAL") {
+    #   # need to copy because fslorient samefile stuff
+    #   tdir = tempfile()
+    #   dir.create(tdir, showWarnings = verbose)
+    #   tfile = file.path(tdir, 
+    #                     basename(file))
+    #   file.copy(file, tfile, overwrite = TRUE)
+    #   # changes from NEUROLOGICAL to RADIOLOGICAL
+    #   file = fslorient(tfile, 
+    #                    opts = "-swaporient",
+    #                    retimg = TRUE, 
+    #                    verbose = verbose)
+    # }
+    # # Changes the data
+    # file = fslswapdim(file = file, 
+    #                   retimg = TRUE, 
+    #                   a = "RL", b = "PA", c = "IS", 
+    #                   verbose = verbose)
+    L = rpi_orient(file)
+    file = L$img
+    sorient = L$orientation
+    ori = L$convention
   }
   ants_regwrite(filename = template.file, 
                       template.file = file, 
