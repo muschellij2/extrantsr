@@ -1,7 +1,7 @@
-#' @title Remove Neck from CT Scan
-#'
-#' @description Removes the neck from axially acquired CT scan so
-#' Skull stripping can be done.
+#' @title Remove Neck from Image
+#' 
+#' @description Removes the neck from axially acquired scan so
+#' skull stripping can be done.
 #' @param file File for neck removal - either filename or class nifti
 #' @param template.file Template to warp to original image space
 #' @param template.mask Mask of template to use as rough brain mask.  If
@@ -133,4 +133,59 @@ remove_neck <- function(file,
                         verbose = verbose)
   }   
   return(newimg)
+}
+
+
+#' @title Remove Neck Twice from a Scan
+#'
+#' @description Wrapper for running \code{remove_neck} twice, as some images
+#' require this if large number of slices of the neck or upper shoulders
+#' were scanned
+#' @param file File for neck removal - either filename or class nifti
+#' @param template.file Template to warp to original image space
+#' @param template.mask Mask of template to use as rough brain mask.  If
+#' \code{template.file} is specified, but \code{template.mask} is not,
+#' then \code{fslbin(file=template.file)} is performed.
+#' @param typeofTransform Transformation for template to image, passed to
+#' \code{\link{ants_regwrite}}.
+#' @param rep.value Value to replace neck slices with
+#' @param swapdim Should the dimensions be swapped before registration, 
+#' and then reset after
+#' @param verbose Print out diagnostic messages
+#' @export
+#' @return Object of class nifti
+double_remove_neck = function(fname,
+                              template.file,
+                              template.mask,
+                              typeofTransform = "Rigid",
+                              rep.value =0,
+                              swapdim = TRUE,                              
+                              verbose = TRUE) {
+  
+  ########################
+  # removing neck once
+  ########################
+  noneck = remove_neck(
+    file = fname,
+    template.file = template.file,
+    template.mask = template.mask,
+    typeofTransform = typeofTransform,
+    rep.value = rep.value,
+    swapdim = swapdim,                              
+    verbose = verbose,
+    ret_mask = FALSE)
+  
+  ########################
+  # removing neck twice
+  ########################
+  noneck2 = remove_neck(
+    file = noneck,
+    template.file = template.file,
+    template.mask = template.mask,
+    typeofTransform = typeofTransform,
+    rep.value = rep.value,
+    swapdim = swapdim,                              
+    verbose = verbose,
+    ret_mask = FALSE)
+  return(noneck2)
 }
