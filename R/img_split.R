@@ -11,6 +11,7 @@ img_split = function(img,
                      output_basename = NULL,
                      verbose = TRUE
                      ){
+  stop("work in progress")
   img = check_ants(img)
   arr = as.array(img)
   
