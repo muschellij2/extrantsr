@@ -5,7 +5,7 @@
 \title{Create Statistics Image}
 \usage{
 stat_img(imgs, func = c("mean", "median", "mode", "peak", "sd", "var", "mad",
-  "sum", "prod", "z"), finite = TRUE, ...)
+  "sum", "prod", "z", "quantile"), finite = TRUE, ...)
 }
 \arguments{
 \item{imgs}{Character vector, list of characters, or object of class 

@@ -4,7 +4,8 @@
 \alias{neighborhood}
 \title{Get Neighborhood of Voxels from an Image}
 \usage{
-neighborhood(img, mask = NULL, radius = rep(1, 3), ...)
+neighborhood(img, mask = NULL, radius = rep(1, 3), get.gradient = TRUE,
+  ...)
 }
 \arguments{
 \item{img}{Object of class \code{\link{nifti}}, character or \code{antsImage}}
@@ -16,6 +17,9 @@ will be taken}
 \item{radius}{vector of length 3 for number of voxels to go in each direction.
 Default is 27 neighbors (including voxel at center).  
 Passed to \code{\link{getNeighborhoodInMask}}.}
+
+\item{get.gradient}{logical indicating if a matrix of gradients (at the center voxel) 
+should be returned in addition to the value matrix}
 
 \item{...}{arguments other than \code{spatial.info} passed to 
 \code{\link{getNeighborhoodInMask}}}

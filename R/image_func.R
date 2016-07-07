@@ -25,7 +25,8 @@ stat_img = function(imgs,
                              "mad",
                              "sum",
                              "prod",
-                             "z"),
+                             "z",
+                             "quantile"),
                     finite = TRUE,
                     ...)
 {
@@ -110,8 +111,14 @@ stat_img = function(imgs,
                   prod = rowProds,
                   z = rowZs,
                   mode = rowModes,
-                  peak = rowPeaks)  
+                  peak = rowPeaks,
+                  quantile = rowQuantiles)
     res_img = func(mat, ...)
+    if (length(res_img) != nrow(mat)) {
+      stop(paste0("Function used did not result in a vector-", 
+                  "may need to pass more arguments, ", 
+                  "such as quantile needs to pass ONE prob"))
+    }
     res_img = niftiarr(nim, res_img)
     if (finite) {
       res_img = fslr::finite_img(res_img, replace = 0)

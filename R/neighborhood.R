@@ -8,13 +8,17 @@
 #' @param radius vector of length 3 for number of voxels to go in each direction.
 #' Default is 27 neighbors (including voxel at center).  
 #' Passed to \code{\link{getNeighborhoodInMask}}.
+#' @param get.gradient logical indicating if a matrix of gradients (at the center voxel) 
+#' should be returned in addition to the value matrix 
 #' @param ... arguments other than \code{spatial.info} passed to 
 #' \code{\link{getNeighborhoodInMask}}
 #'
 #' @return List similar to the output of \code{\link{getNeighborhoodInMask}}
 #' @export
 neighborhood = function(img, mask = NULL, 
-                        radius = rep(1, 3), ...){
+                        radius = rep(1, 3), 
+                        get.gradient = TRUE,
+                        ...){
   
   #####!! need verbose option
   img = check_ants(img)
@@ -52,8 +56,17 @@ neighborhood = function(img, mask = NULL,
   
   order_ind = order(inds)
   grads$values = grads$values[, order_ind]
-  
   grads$indices = grads$indices[order_ind,]
+  if (get.gradient) {
+    ggrads = getNeighborhoodInMask(
+      image = img, 
+      mask = mask, 
+      radius = radius,
+      spatial.info = FALSE,
+      get.gradient = TRUE, ...)
+    ggrads$gradients = ggrads$gradients[, order_ind]
+    grads$gradients = ggrads$gradients
+  }
   
   return(grads)
 }
