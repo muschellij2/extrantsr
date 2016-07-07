@@ -7,7 +7,7 @@
 rpi_orient(file, verbose = TRUE)
 }
 \arguments{
-\item{file}{Object of clas}
+\item{file}{Object of class \code{nifti} or character path}
 
 \item{verbose}{print diagnostic messages}
 }

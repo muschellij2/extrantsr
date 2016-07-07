@@ -1,6 +1,6 @@
 #' @title Reorient an Image to RPI orientation
 #' @description This function uses \code{fslswapdim} to reorient an image
-#' @param file Object of clas
+#' @param file Object of class \code{nifti} or character path
 #' @param verbose print diagnostic messages
 #' @return List of 3 elements
 #' \itemize{
@@ -43,4 +43,35 @@ rpi_orient = function(file, verbose = TRUE){
            convention = ori,
            orientation = sorient)
   return(L)
+}
+
+#' @title Reverse Reorientation an Image to RPI orientation
+#' @description This function uses \code{fslswapdim} to reorient an image
+#' @param file Object of class \code{nifti} or character path
+#' @param convention Convention of original image (usually from \code{\link{rpi_orient}})
+#' @param orientation Vector of length 3 fromoriginal image 
+#' (usually from \code{\link{rpi_orient}})
+#' @param verbose print diagnostic messages
+#' @return Object of class \code{nifti}
+#' @export
+reverse_rpi_orient = function(file, 
+                              convention = c("NEUROLOGICAL", "RADIOLOGICAL"), 
+                              orientation, verbose = TRUE){
+  file = checkimg(file)
+  stopifnot(length(orientation) == 3)
+  convention = match.arg(convention)
+  
+  if (convention == "NEUROLOGICAL") {   
+    file = fslorient(file, 
+                       opts = "-swaporient",
+                       retimg = TRUE, 
+                       verbose = verbose)      
+  }
+  file = fslswapdim(file = file, 
+                      retimg = TRUE, 
+                      a = orientation[1], 
+                      b = orientation[2], 
+                      c = orientation[3], 
+                      verbose = verbose)
+  return(file)
 }
