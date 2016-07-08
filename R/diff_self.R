@@ -12,7 +12,10 @@ diff_self <- function(img,
                       verbose = TRUE){
   img = checkimg(img)
   if (swapdim) {
-    L = rpi_orient(file = file)
+    if (verbose){
+      message("Making RPI orientation")
+    }
+    L = rpi_orient(file = img)
     img = checkimg(L$img)
   }
   
@@ -39,6 +42,9 @@ diff_self <- function(img,
   
   img.return <- original.img - flipped.reg
   if (swapdim) {
+    if (verbose){
+      message("Reverse RPI orientation")
+    }
     file = checkimg(img.return)
     file = reverse_rpi_orient(file = file, 
                            convention = L$convention,
