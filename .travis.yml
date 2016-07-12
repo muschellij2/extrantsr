@@ -12,5 +12,5 @@ sudo: required
 
 r_github_packages:
  - stnava/cmaker
- - stnava/ITKR
+ - muschellij2/ITKR
  - stnava/ANTsR
