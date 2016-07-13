@@ -1,8 +1,8 @@
 Package: extrantsr
 Type: Package
 Title: Extra Functions to Build on the ANTsR Package
-Version: 1.2.0.0
-Date: 2016-07-07
+Version: 1.2.1.0
+Date: 2016-07-13
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Extends the ANTsR package with simple wrappers and complex
@@ -16,7 +16,7 @@ Imports:
     utils,
     oro.nifti,
     ANTsR,
-    fslr (>= 1.5.3),
+    fslr (>= 1.6.7.0),
     WhiteStripe,
     matrixStats,
     R.matlab,
