@@ -38,11 +38,19 @@ neighborhood = function(img, mask = NULL,
   ##########################
   # Getting Neighborhood
   ##########################  
-  grads = getNeighborhoodInMask(
-    image = img, 
-    mask = mask, 
-    radius = radius,
-    spatial.info = TRUE, ...)
+  dots = list(..., 
+              image = img, 
+              mask = mask, 
+              radius = radius)
+  dots$spatial.info = TRUE
+  dots$get.gradient = FALSE
+
+  grads = do.call(getNeighborhoodInMask, dots)
+  # grads = getNeighborhoodInMask(
+  #   image = img, 
+  #   mask = mask, 
+  #   radius = radius,
+  #   spatial.info = TRUE, ...)
   
   ##########################
   # Getting Dimension
@@ -58,12 +66,16 @@ neighborhood = function(img, mask = NULL,
   grads$values = grads$values[, order_ind]
   grads$indices = grads$indices[order_ind,]
   if (get.gradient) {
-    ggrads = getNeighborhoodInMask(
-      image = img, 
-      mask = mask, 
-      radius = radius,
-      spatial.info = FALSE,
-      get.gradient = TRUE, ...)
+    dots$get.gradient = TRUE
+    
+    ggrads = do.call(getNeighborhoodInMask, dots)
+    
+    # ggrads = getNeighborhoodInMask(
+    #   image = img, 
+    #   mask = mask, 
+    #   radius = radius,
+    #   spatial.info = FALSE,
+    #   get.gradient = TRUE, ...)
     ggrads$gradients = ggrads$gradients[, order_ind]
     grads$gradients = ggrads$gradients
   }
