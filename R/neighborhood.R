@@ -10,6 +10,7 @@
 #' Passed to \code{\link{getNeighborhoodInMask}}.
 #' @param get.gradient logical indicating if a matrix of gradients (at the center voxel) 
 #' should be returned in addition to the value matrix 
+#' @param verbose Print diagnostic messages
 #' @param ... arguments other than \code{spatial.info} passed to 
 #' \code{\link{getNeighborhoodInMask}}
 #'
@@ -18,8 +19,12 @@
 neighborhood = function(img, mask = NULL, 
                         radius = rep(1, 3), 
                         get.gradient = TRUE,
+                        verbose = TRUE,
                         ...){
   
+  if (verbose) {
+    message("Getting Image and Mask")
+  }
   #####!! need verbose option
   img = check_ants(img)
   img.dim = dim(img)
@@ -32,9 +37,11 @@ neighborhood = function(img, mask = NULL,
       target = mask, 
       reference = img)    
   }
-  
   mask = check_ants(mask)
   
+  if (verbose) {
+    message("Creating argument list")
+  }  
   ##########################
   # Getting Neighborhood
   ##########################  
@@ -45,6 +52,13 @@ neighborhood = function(img, mask = NULL,
   dots$spatial.info = TRUE
   dots$get.gradient = FALSE
 
+  if (verbose > 1) {
+    print(dots)
+  } 
+  
+  if (verbose) {
+    message("Running getNeighborhood")
+  } 
   grads = do.call(getNeighborhoodInMask, dots)
   # grads = getNeighborhoodInMask(
   #   image = img, 
@@ -55,6 +69,9 @@ neighborhood = function(img, mask = NULL,
   ##########################
   # Getting Dimension
   ##########################  
+  if (verbose) {
+    message("Reordering output")
+  }   
   grads$indices = grads$indices + 1
   inds = grads$indices
   tmp = array(0, 
@@ -66,8 +83,14 @@ neighborhood = function(img, mask = NULL,
   grads$values = grads$values[, order_ind]
   grads$indices = grads$indices[order_ind,]
   if (get.gradient) {
+    if (verbose) {
+      message("Getting Gradient")
+    }       
+    dots$spatial.info = FALSE
     dots$get.gradient = TRUE
-    
+    if (verbose > 1) {
+      print(dots)
+    } 
     ggrads = do.call(getNeighborhoodInMask, dots)
     
     # ggrads = getNeighborhoodInMask(

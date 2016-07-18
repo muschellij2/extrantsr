@@ -5,7 +5,7 @@
 \title{Get Neighborhood of Voxels from an Image}
 \usage{
 neighborhood(img, mask = NULL, radius = rep(1, 3), get.gradient = TRUE,
-  ...)
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{img}{Object of class \code{\link{nifti}}, character or \code{antsImage}}
@@ -20,6 +20,8 @@ Passed to \code{\link{getNeighborhoodInMask}}.}
 
 \item{get.gradient}{logical indicating if a matrix of gradients (at the center voxel) 
 should be returned in addition to the value matrix}
+
+\item{verbose}{Print diagnostic messages}
 
 \item{...}{arguments other than \code{spatial.info} passed to 
 \code{\link{getNeighborhoodInMask}}}
