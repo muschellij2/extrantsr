@@ -10,6 +10,11 @@ apply_malf_regs(infile, regs, template.structs, keep_images = TRUE,
 \arguments{
 \item{infile}{Input Image file}
 
+\item{regs}{List of registrations from \code{\link{malf}} or 
+\code{\link{malf_registration}}, each element must have 
+\code{fwdtransforms} and \code{interpolator}. Same length as 
+\code{template.structs}}
+
 \item{template.structs}{Template gold standards to apply 
 registration into \code{infile} space}
 

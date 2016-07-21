@@ -4,6 +4,10 @@
 #' and a set of template structures and applies the registrations,
 #' with a different interpolator if necessary
 #' @param infile Input Image file
+#' @param regs List of registrations from \code{\link{malf}} or 
+#' \code{\link{malf_registration}}, each element must have 
+#' \code{fwdtransforms} and \code{interpolator}. Same length as 
+#' \code{template.structs}
 #' @param template.structs Template gold standards to apply 
 #' registration into \code{infile} space
 #' @param keep_images Keep the \code{template.structs} in 

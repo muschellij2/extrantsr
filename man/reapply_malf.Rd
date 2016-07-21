@@ -11,18 +11,38 @@ reapply_malf(infile, regs, template.structs, keep_images = FALSE,
 \arguments{
 \item{infile}{Input Image file}
 
+\item{regs}{List of registrations from \code{\link{malf}} or 
+\code{\link{malf_registration}}, each element must have 
+\code{fwdtransforms} and \code{interpolator}. Same length as 
+\code{template.structs}}
+
 \item{template.structs}{Template gold standards to apply 
 registration into \code{infile} space}
+
+\item{keep_images}{Keep the \code{template.structs} in 
+\code{infile} space}
 
 \item{outfiles}{Output filenames for  \code{template.structs} in 
 \code{infile} space}
 
+\item{outfile}{Fused output filename}
+
+\item{retimg}{Return Image to user using \code{\link{readnii}}}
+
+\item{func}{function to combine labels.  See \code{\link{stat_img}}.}
+
+\item{ties.method}{If \code{func = "mode"}, then this is passed to 
+\code{\link{stat_img}}.}
+
 \item{interpolator}{interpolation done for 
-\code{\link{antsApplyTransforms}}}
+\code{\link{antsApplyTransforms}}, can be different than original MALF}
 
 \item{verbose}{Print diagnostic output}
 
 \item{...}{Arguments to be passed to \code{\link{ants_apply_transforms}}}
+
+\item{interpolator}{interpolation done for 
+\code{\link{antsApplyTransforms}}}
 }
 \value{
 The output filename or the nifti image or list of registrations and
