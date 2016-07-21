@@ -53,13 +53,14 @@ malf_registration <- function(
     pb = txtProgressBar(min = 0, max = nimgs, style = 3)     
   }
   all.regs = NULL
+  if (is.null(outprefix)) {
+    outprefix = tempfile()
+  }  
   for (iimg in seq_along(template.images)) {
     timage = template.images[[iimg]]
     tstruct = template.structs[[iimg]]
     ofile = outfiles[[iimg]]
-    if (is.null(outprefix)) {
-      outprefix = tempfile()
-    }
+    outprefix = paste0(outprefix, "_", iimg)
     reg = registration(filename = timage, 
                        outfile = tempfile(fileext = ".nii.gz"),
                        typeofTransform = typeofTransform,
