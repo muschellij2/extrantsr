@@ -304,6 +304,7 @@ registration <- function(filename,
            fwdtransforms = antsRegOut.nonlin$fwdtransforms,
            invtransforms = antsRegOut.nonlin$invtransforms,
            interpolator = interpolator,
+           typeofTransform = typeofTransform,
            retimg = retimg)
   return(L)
 }
