@@ -40,9 +40,6 @@ registration into \code{infile} space}
 \item{verbose}{Print diagnostic output}
 
 \item{...}{Arguments to be passed to \code{\link{ants_apply_transforms}}}
-
-\item{interpolator}{interpolation done for 
-\code{\link{antsApplyTransforms}}}
 }
 \value{
 The output filename or the nifti image or list of registrations and

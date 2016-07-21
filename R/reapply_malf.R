@@ -21,8 +21,6 @@
 #' \code{\link{stat_img}}.  
 #' @param interpolator interpolation done for 
 #' \code{\link{antsApplyTransforms}}, can be different than original MALF
-#' @param interpolator interpolation done for 
-#' \code{\link{antsApplyTransforms}} 
 #' @param verbose Print diagnostic output
 #' @param ... Arguments to be passed to \code{\link{ants_apply_transforms}}
 #' @export
