@@ -26,7 +26,7 @@
 #' \code{\link{antsApplyTransforms}} 
 #' @param verbose Print diagnostic output
 #' @param ... Arguments to be passed to \code{\link{malf_registration}}, which
-#' really are optios for \code{\link{registration}} 
+#' really are options for \code{\link{registration}} 
 #' @export
 #' @import fslr
 #' @return The output filename or the nifti image or list of registrations and
@@ -70,7 +70,7 @@ malf <- function(
   all.regs = L$regs
   
   if (verbose) {
-    cat("# Reading in Files\n")
+    message("# Reading in Files\n")
   }
   if (func == "mode") {
     outimg = stat_img(imgs = outfiles, func = func, ties.method = ties.method)

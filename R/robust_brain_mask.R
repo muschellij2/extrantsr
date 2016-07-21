@@ -17,7 +17,7 @@
 #' @param ... Arguments passed to \code{\link{ants_regwrite}}
 #' @export
 #' @return Object of class nifti or vector of indices
-robust_brain_mask <- function(file, 
+robust_brain_mask <- function(file,
                         template.file,
                         template.mask = NULL,
                         nvoxels = 7,
@@ -25,43 +25,43 @@ robust_brain_mask <- function(file,
                         typeofTransform = "Rigid",
                         verbose = TRUE,
                         ...){
-  
+
   file = checkimg(file)
   ofile = tempfile(fileext = '.nii.gz')
   if (missing(template.file)){
-    cat("Potential atlases are at\n ")
-    cat(paste0('system.file("scct_unsmooth.nii.gz", package="ichseg")\n'))
-    cat(paste0('file.path( fsldir(), "data/standard", ', 
+    message("Potential atlases are at\n ")
+    message(paste0('system.file("scct_unsmooth.nii.gz", package="ichseg")\n'))
+    message(paste0('file.path( fsldir(), "data/standard", ',
                '"MNI152_T1_1mm_brain.nii.gz")\n'))
     stop("Need template.file specified!")
   }
   template.file = checkimg(template.file)
   if (is.null(template.mask)){
     template.mask = fslbin(file=template.file, retimg=TRUE)
-  } 
+  }
   template.mask = checkimg(template.mask)
   if (verbose){
-    cat("# Putting Template mask in native space\n")
+    message("# Putting Template mask in native space\n")
   }
-  ret = ants_regwrite(filename = template.file, template.file = file, 
-                      typeofTransform=typeofTransform, 
-                      other.files = template.mask, 
+  ret = ants_regwrite(filename = template.file, template.file = file,
+                      typeofTransform=typeofTransform,
+                      other.files = template.mask,
                       outfile = tempfile(fileext = '.nii.gz'),
-                      other.outfiles = ofile, retimg = FALSE, 
+                      other.outfiles = ofile, retimg = FALSE,
                       remove.warp = TRUE,
-                      verbose = verbose, 
+                      verbose = verbose,
                       ...)
-  
+
   if (verbose){
-    cat("# Binarizing Template mask in native space\n")
-  }  
+    message("# Binarizing Template mask in native space\n")
+  }
   endofile = tempfile(fileext = ".nii.gz")
   fslbin(ofile, outfile = endofile)
   if (nvoxels > 0){
     if (verbose){
-      cat("# Inflating Template mask in native space\n")
-    }      
-    fslmaths(file = endofile, outfile = endofile, 
+      message("# Inflating Template mask in native space\n")
+    }
+    fslmaths(file = endofile, outfile = endofile,
            opts = paste0("-kernel boxv ", nvoxels, " -dilM"))
   }
   if (ret_mask){
@@ -69,6 +69,6 @@ robust_brain_mask <- function(file,
   } else {
     newimg = fslmask(file = file, mask = endofile, retimg = TRUE)
   }
-  
+
   return(newimg)
 }
