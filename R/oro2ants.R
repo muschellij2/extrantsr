@@ -27,6 +27,7 @@ ants2oro <- function(img,
       #######
       # Turn into array and then make nifti
       #######
+      img = as.array(img)
       img = as(img, Class = "array")
       img = copyNIfTIHeader(img = reference, arr = img, ...)
       return(img)
