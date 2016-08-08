@@ -16,7 +16,8 @@
 #'
 #' @return List similar to the output of \code{\link{getNeighborhoodInMask}}
 #' @export
-neighborhood = function(img, mask = NULL, 
+neighborhood = function(img, 
+                        mask = NULL, 
                         radius = rep(1, 3), 
                         get.gradient = TRUE,
                         verbose = TRUE,
@@ -72,14 +73,11 @@ neighborhood = function(img, mask = NULL,
   if (verbose) {
     message("Reordering output")
   }   
-  grads$indices = grads$indices + 1
-  inds = grads$indices
-  tmp = array(0, 
-              dim = img.dim)
-  tmp[inds] = 1
-  inds = which(tmp > 0)
-  
-  order_ind = order(inds)
+  L = reorder_neigh_indices(grads$indices, img.dim = dim(img))
+  # inds = L$indices
+  # tmp = L$tmp
+  order_ind = L$order_ind
+
   grads$values = grads$values[, order_ind]
   grads$indices = grads$indices[order_ind,]
   if (get.gradient) {
@@ -93,15 +91,10 @@ neighborhood = function(img, mask = NULL,
     } 
     ggrads = do.call(getNeighborhoodInMask, dots)
     
-    # ggrads = getNeighborhoodInMask(
-    #   image = img, 
-    #   mask = mask, 
-    #   radius = radius,
-    #   spatial.info = FALSE,
-    #   get.gradient = TRUE, ...)
     ggrads$gradients = ggrads$gradients[, order_ind]
     grads$gradients = ggrads$gradients
   }
   
   return(grads)
 }
+ 

@@ -74,17 +74,28 @@ corr_img = function(
   if (verbose) {
     message("Getting Neighborhood for Image 1")
   }  
-  neigh1 = neigh(img = img1, 
-                 mask = mask, 
-                 radius = radius,
-                 method = method)
+  
+  neigh1 = scaled_neighborhood(img = img1, 
+                      mask = mask, 
+                      radius = radius,
+                      method = method,
+                      verbose = verbose)
+  # neigh1 = neigh(img = img1, 
+  #                mask = mask, 
+  #                radius = radius,
+  #                method = method)
   if (verbose) {
     message("Getting Neighborhood for Image 2")
   }    
-  neigh2 = neigh(img = img2,
-                 mask = mask, 
-                 radius = radius,
-                 method = method)
+  neigh2 = scaled_neighborhood(img = img1, 
+                               mask = mask, 
+                               radius = radius,
+                               method = method,
+                               verbose = verbose)  
+  # neigh2 = neigh(img = img2,
+  #                mask = mask, 
+  #                radius = radius,
+  #                method = method)
   
   stopifnot(
     identical(neigh1$indices,
@@ -104,28 +115,18 @@ corr_img = function(
   # divide by n - 1
   # corrs = colMeans(corrs, na.rm = TRUE)
   
-  reorder_neighborhood = function(
-    x, 
-    img.dim){
-    inds = x$indices + 1
-    tmp = array(0, dim = img.dim)
-    tmp[inds] = 1
-    inds = which(tmp > 0)
-    L = list(indices = inds,
-             order_ind = order(inds),
-             array = tmp)
-  }
-  #####################
-  # Must ADD 1 because they are 0-indexed!
-  #####################
-  if (verbose) {
-    message("Reordering indices from ANTsR output")
-  } 
-  out = reorder_neighborhood(neigh1,
-                             img.dim = dim(img1))
-  ord = out$order_ind
-  corrs = corrs[ ord ]
-  
+
+  # #####################
+  # # Must ADD 1 because they are 0-indexed!
+  # #####################
+  # if (verbose) {
+  #   message("Reordering indices from ANTsR output")
+  # } 
+  # out = reorder_neighborhood(neigh1,
+  #                            img.dim = dim(img1))
+  # ord = out$order_ind
+  # corrs = corrs[ ord ]
+  # 
   if (verbose) {
     message("Creating Output Image")
   }   

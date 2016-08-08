@@ -15,7 +15,7 @@
   add.orient = TRUE, mfrow = c(2, 2), ybreaks = NULL, breaks = NULL,
   addlegend = FALSE, leg.x = 32, leg.y = 32, legend, leg.col,
   leg.title = NULL, leg.cex, window = NULL, ycolorbar = FALSE,
-  clabels = TRUE, add = TRUE, pdim = NULL, ...)
+  clabels = TRUE, add = TRUE, pdim = NULL, useRaster = TRUE, ...)
 }
 \arguments{
 \item{x}{is an object of class \code{antsImage} or similar.}
