@@ -19,6 +19,7 @@
 #' @examples \dontrun{
 #' corr_img("T1_Image.nii.gz", "FLAIR_Image.nii.gz", mask = "Mask.nii.gz")
 #' }
+
 corr_img = function(
   img1, 
   img2,
@@ -47,29 +48,29 @@ corr_img = function(
     same_dims(img1, img2, mask)
   )
   
-  col_scale = function(x){
-    cm = colMeans(x, na.rm = TRUE)
-    csd = colSds(x, center = cm,
-                 na.rm = TRUE)
-    x = t( (t(x) - cm) / csd )
-  }
-  neigh = function(img, mask, radius, method){
-    grads = getNeighborhoodInMask(
-      image = img, 
-      mask = mask, 
-      radius = radius,
-      spatial.info = TRUE)
-    # not_zero = grads1$offsets != 0
-    # neighbor = rowSums(not_zero) > 0
-    if (method == "spearman") {
-      grads$values = colRanks(grads$values, 
-                              ties.method = "average",
-                              preserveShape = TRUE)
-    }
-    grads$values = col_scale(
-      grads$values)
-    return(grads)
-  }
+  # col_scale = function(x){
+  #   cm = colMeans(x, na.rm = TRUE)
+  #   csd = colSds(x, center = cm,
+  #                na.rm = TRUE)
+  #   x = t( (t(x) - cm) / csd )
+  # }
+  # neigh = function(img, mask, radius, method){
+  #   grads = getNeighborhoodInMask(
+  #     image = img, 
+  #     mask = mask, 
+  #     radius = radius,
+  #     spatial.info = TRUE)
+  #   # not_zero = grads1$offsets != 0
+  #   # neighbor = rowSums(not_zero) > 0
+  #   if (method == "spearman") {
+  #     grads$values = colRanks(grads$values, 
+  #                             ties.method = "average",
+  #                             preserveShape = TRUE)
+  #   }
+  #   grads$values = col_scale(
+  #     grads$values)
+  #   return(grads)
+  # }
   
   if (verbose) {
     message("Getting Neighborhood for Image 1")
@@ -79,6 +80,8 @@ corr_img = function(
                       mask = mask, 
                       radius = radius,
                       method = method,
+                      center = TRUE,
+                      scale = TRUE,                      
                       verbose = verbose)
   # neigh1 = neigh(img = img1, 
   #                mask = mask, 
@@ -91,6 +94,8 @@ corr_img = function(
                                mask = mask, 
                                radius = radius,
                                method = method,
+                               center = TRUE,
+                               scale = TRUE,                               
                                verbose = verbose)  
   # neigh2 = neigh(img = img2,
   #                mask = mask, 
