@@ -13,8 +13,6 @@
 #' @param center Should the data be centered
 #' @param scale Should the data be scaled
 #' @param verbose print diagnostic messages
-#' #' 
-#' @param verbose Print diagnostic messages
 #'
 #' @return List similar to the output of \code{\link{getNeighborhoodInMask}}
 #' @export

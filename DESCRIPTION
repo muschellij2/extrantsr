@@ -16,7 +16,7 @@ Imports:
     utils,
     oro.nifti,
     ANTsR,
-    fslr (>= 1.6.7.0),
+    fslr (>= 1.6.8.0),
     WhiteStripe,
     matrixStats,
     R.matlab,

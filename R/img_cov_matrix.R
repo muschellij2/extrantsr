@@ -2,8 +2,7 @@
 #' @description Calculates the neighborhood of multiple images, and then
 #' does the covariance of each neighbor with itself in the other imaging modality
 #'
-#' @param img1 image of class \code{nifti}, \code{antsImage}, \code{character}
-#' @param img2 image of class \code{nifti}, \code{antsImage}, \code{character}
+#' @param imgs list of images of class \code{nifti}, \code{antsImage}, \code{character}
 #' @param mask Binary image of class \code{nifti}, 
 #' \code{antsImage}, \code{character}.  Only neighborhoods inside the mask 
 #' will be taken

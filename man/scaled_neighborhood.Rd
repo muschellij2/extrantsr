@@ -26,10 +26,7 @@ the ranks.}
 
 \item{scale}{Should the data be scaled}
 
-\item{verbose}{print diagnostic messages
-#'}
-
-\item{verbose}{Print diagnostic messages}
+\item{verbose}{print diagnostic messages}
 }
 \value{
 List similar to the output of \code{\link{getNeighborhoodInMask}}

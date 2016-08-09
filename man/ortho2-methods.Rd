@@ -103,6 +103,10 @@ in \code{double_ortho}}
 
 \item{pdim}{Pixel dimensions if passing in arrays.}
 
+\item{useRaster}{logical; if TRUE a bitmap raster is used to 
+plot the image instead of polygons.  Passed to 
+\code{\link[graphics]{image}}.}
+
 \item{...}{other arguments to the image function may be provided here.}
 }
 \description{

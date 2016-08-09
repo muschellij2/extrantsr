@@ -51,6 +51,9 @@
 #' @param clabels Label for colorbar (see \code{\link{colorbar}})
 #' @param add Should the y-plot be added or its own plot?  Used
 #' in \code{double_ortho}
+#' @param useRaster logical; if TRUE a bitmap raster is used to 
+#' plot the image instead of polygons.  Passed to 
+#' \code{\link[graphics]{image}}.
 #' @param ... other arguments to the image function may be provided here.
 #' @note This will NOT do \code{\link{ants2oro}} to plot the image.  
 #' If that is desired, users will have to do that before calling 

@@ -9,6 +9,8 @@ img_cov_matrix(imgs, mask = NULL, radius = rep(1, 3),
   verbose = TRUE)
 }
 \arguments{
+\item{imgs}{list of images of class \code{nifti}, \code{antsImage}, \code{character}}
+
 \item{mask}{Binary image of class \code{nifti}, 
 \code{antsImage}, \code{character}.  Only neighborhoods inside the mask 
 will be taken}
@@ -26,10 +28,6 @@ If spearman, the ranks. If you want a covariance, you simply need to do
 \item{scale}{Should the data be scaled}
 
 \item{verbose}{print diagnostic messages}
-
-\item{img1}{image of class \code{nifti}, \code{antsImage}, \code{character}}
-
-\item{img2}{image of class \code{nifti}, \code{antsImage}, \code{character}}
 }
 \value{
 List of matrix of covariances for each voxel and the order the columns
