@@ -60,7 +60,7 @@ malf_registration <- function(
     timage = template.images[[iimg]]
     tstruct = template.structs[[iimg]]
     ofile = outfiles[[iimg]]
-    outprefix = paste0(outprefix, "_", iimg)
+    i_outprefix = paste0(outprefix, "_", iimg)
     reg = registration(filename = timage, 
                        outfile = tempfile(fileext = ".nii.gz"),
                        typeofTransform = typeofTransform,
@@ -69,7 +69,7 @@ malf_registration <- function(
                        template.file = infile,
                        other.files = tstruct,
                        other.outfiles = ofile,
-                       outprefix = outprefix,
+                       outprefix = i_outprefix,
                        remove.warp = FALSE,
                        verbose = verbose,
                        ...)
