@@ -270,7 +270,7 @@ registration <- function(filename,
     message("# Writing out file\n")
   }  
   antsImageWrite(t1.to.template, outfile)
-  
+  rm(list = "t1.to.template"); gc()
   if (have.other) {
     if (verbose){
       message("# Writing out other.files\n")
@@ -306,6 +306,7 @@ registration <- function(filename,
            interpolator = interpolator,
            typeofTransform = typeofTransform,
            retimg = retimg)
+  gc();
   return(L)
 }
 
