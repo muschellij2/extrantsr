@@ -30,6 +30,7 @@ ants2oro <- function(img,
       img = as.array(img)
       img = as(img, Class = "array")
       img = copyNIfTIHeader(img = reference, arr = img, ...)
+      gc();
       return(img)
     }
     ############################
@@ -38,6 +39,7 @@ ants2oro <- function(img,
     ############################    
     fname = tempants(img)
     img = readnii(fname, reorient = reorient)
+    gc();
     return(img)
   }
   if ( is.nifti(img) ) {
