@@ -11,6 +11,7 @@
 #' @param get.gradient logical indicating if a matrix of gradients (at the center voxel) 
 #' should be returned in addition to the value matrix 
 #' @param verbose Print diagnostic messages
+#' @param run_gc Experimental - trying to run with gc(); for memory cleanup.
 #' @param ... arguments other than \code{spatial.info} passed to 
 #' \code{\link{getNeighborhoodInMask}}
 #'
@@ -21,6 +22,7 @@ neighborhood = function(img,
                         radius = rep(1, 3), 
                         get.gradient = TRUE,
                         verbose = TRUE,
+                        run_gc = TRUE,
                         ...){
   
   if (verbose) {
@@ -94,7 +96,10 @@ neighborhood = function(img,
     ggrads$gradients = ggrads$gradients[, order_ind]
     grads$gradients = ggrads$gradients
   }
-  
+  if (run_gc) {
+    rm(list = c("img", "mask")); gc(); gc();
+    rm(list = c("dots")); gc(); gc();
+  }
   return(grads)
 }
  
