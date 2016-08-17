@@ -5,7 +5,7 @@
 \title{Get Neighborhood of Voxels from an Image}
 \usage{
 neighborhood(img, mask = NULL, radius = rep(1, 3), get.gradient = TRUE,
-  verbose = TRUE, ...)
+  verbose = TRUE, run_gc = TRUE, ...)
 }
 \arguments{
 \item{img}{Object of class \code{\link{nifti}}, character or \code{antsImage}}
@@ -22,6 +22,8 @@ Passed to \code{\link{getNeighborhoodInMask}}.}
 should be returned in addition to the value matrix}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{run_gc}{Experimental - trying to run with gc(); for memory cleanup.}
 
 \item{...}{arguments other than \code{spatial.info} passed to 
 \code{\link{getNeighborhoodInMask}}}
