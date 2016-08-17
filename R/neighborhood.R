@@ -97,8 +97,8 @@ neighborhood = function(img,
     grads$gradients = ggrads$gradients
   }
   if (run_gc) {
-    rm(list = c("img", "mask")); gc(); gc();
-    rm(list = c("dots")); gc(); gc();
+    rm(list = c("img", "mask")); gc(); gc(); gc();
+    rm(list = c("dots")); gc(); gc(); gc();
   }
   return(grads)
 }
