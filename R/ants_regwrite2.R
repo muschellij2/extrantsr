@@ -309,7 +309,7 @@ registration <- function(filename,
            interpolator = interpolator,
            typeofTransform = typeofTransform,
            retimg = retimg)
-  rm(list = c("t1", "t1N3", "t1.to.template", "template")); gc(); gc();
+  rm(list = c("t1", "t1N3", "template")); gc(); gc();
   gc();
   return(L)
 }
