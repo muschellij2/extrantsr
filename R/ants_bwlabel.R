@@ -20,11 +20,11 @@ ants_bwlabel = function(img, k = 1, binary = TRUE) {
   levs = levs[ levs > 0 ]
   olabs = ants2oro(labs)
   yhat = niftiarr(olabs, olabs %in% levs)
-  if (!binary){
+  if (!binary) {
     yhat = mask_img(olabs, yhat)
   }
   rm(list = c("labs", "img", "tab", "levs", "olabs"))
-  for (i in 1:10){
+  for (i in 1:10) {
     gc();
   }
   return(yhat)
