@@ -99,6 +99,9 @@ neighborhood = function(img,
   if (run_gc) {
     rm(list = c("img", "mask")); gc(); gc(); gc();
     rm(list = c("dots")); gc(); gc(); gc();
+    for (i in 1:10) {
+      gc()
+    }      
   }
   return(grads)
 }

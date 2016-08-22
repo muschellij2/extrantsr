@@ -68,7 +68,9 @@ malf <- function(
     ...)
   outfiles = L$outfiles
   all.regs = L$regs
-  
+  for (i in 1:10) {
+    gc()
+  }
   if (verbose) {
     message("# Reading in Files\n")
   }

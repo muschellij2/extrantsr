@@ -66,6 +66,8 @@ apply_malf_regs <- function(
       writenii(out, filename = outfiles[[ireg]])
     }
   }
-  
+  for (i in 1:10) {
+    gc()
+  }
   return(all_out)
 }

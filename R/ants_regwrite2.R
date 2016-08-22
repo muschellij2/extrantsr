@@ -310,7 +310,10 @@ registration <- function(filename,
            typeofTransform = typeofTransform,
            retimg = retimg)
   rm(list = c("t1", "t1N3", "template")); gc(); gc();
-  gc();
+  rm(list = "antsRegOut.nonlin")
+  for (i in 1:10) {
+    gc()
+  }  
   return(L)
 }
 

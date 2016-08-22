@@ -17,5 +17,10 @@ c3d <- function(
   ... # arguments to be passed to \code{\link{antsImageRead}}
   ){
   img = antsImageRead(filename = infile, ...)
-  antsImageWrite(img, filename = outfile)
+  res = antsImageWrite(img, filename = outfile)
+  rm(list = "img"); 
+  for (i in 1:10) {
+    gc()
+  }
+  return(res)
 }

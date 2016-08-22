@@ -68,6 +68,9 @@ bias_correct = function(
   } else {
     x = outfile
   }
-  rm(list = c("res", "imgn3", "img", "file")); gc(); gc(); gc();
+  rm(list = c("res", "imgn3", "img", "file")); 
+  for (i in 1:10) {
+    gc()
+  }   
   return(x)
 }

@@ -259,7 +259,7 @@ ants_regwrite <- function(filename, # filename of T1 image
     rm(list = "reg.oimgs"); gc(); gc();
     
   }
-  
+
   if (remove.warp){
     if (verbose){
       message("# Removing Warping images\n")
@@ -269,6 +269,11 @@ ants_regwrite <- function(filename, # filename of T1 image
     files = grep("Warp", files, value=TRUE)
     file.remove(files)
   }
+  rm(list = "antsRegOut.nonlin")
+  for (i in 1:10) {
+    gc()
+  }
+  
   if (retimg){
     if (verbose){
       message("# Reading data back into R\n")

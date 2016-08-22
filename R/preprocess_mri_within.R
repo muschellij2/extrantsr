@@ -31,25 +31,25 @@
 #' @export
 #' @return List of outfiles, maskfile, and output from \code{\link{registration}}.
 preprocess_mri_within <- function(files,
-                              outfiles = NULL,
-                              correct = TRUE,  # do N3 Bias correction
-                              correction = "N3",
-                              shrinkfactor= "4",
-                              retimg = FALSE,
-                              reorient = FALSE,
-                              typeofTransform = "Rigid",
-                              interpolator = "LanczosWindowedSinc",
-                              skull_strip = FALSE,
-                              bet.opts = "-B -f 0.1 -v",
-                              betcmd = "bet",
-                              maskfile = NULL,
-                             verbose = TRUE,
-                  ... # arguments to \code{\link{antsApplyTransforms}}
+                                  outfiles = NULL,
+                                  correct = TRUE,  # do N3 Bias correction
+                                  correction = "N3",
+                                  shrinkfactor= "4",
+                                  retimg = FALSE,
+                                  reorient = FALSE,
+                                  typeofTransform = "Rigid",
+                                  interpolator = "LanczosWindowedSinc",
+                                  skull_strip = FALSE,
+                                  bet.opts = "-B -f 0.1 -v",
+                                  betcmd = "bet",
+                                  maskfile = NULL,
+                                  verbose = TRUE,
+                                  ... # arguments to \code{\link{antsApplyTransforms}}
 ){
-
+  
   # Expanding paths for ANTsR
   files = checkimg(files)
-
+  
   ##################
   # Checking on outfiles or return images
   ##################
@@ -62,16 +62,16 @@ preprocess_mri_within <- function(files,
   } else {
     stopifnot(!is.null(outfiles))
   }
-
+  
   outfiles = path.expand(outfiles)
-
+  
   ##################
   # Must have extension
   ##################
   if (!all(grepl("[.]nii", c(files)))){
     stop("All filenames must be nifti .nii or .nii.gz")
   }
-
+  
   ###################################
   # Skull stripping baseline T1 image
   ###################################
@@ -104,14 +104,14 @@ preprocess_mri_within <- function(files,
   if (correct){
     if (!all(grepl("[.]nii", c(outfiles)))){
       warning(paste0("Extensions not specified for ",
-        "outfiles, adding .nii.gz"))
+                     "outfiles, adding .nii.gz"))
       outfiles[!grepl("[.]nii",outfiles)] = paste0(
         outfiles[!grepl("[.]nii",outfiles)], '.nii.gz')
     }
   }
-
+  
   stopifnot(length(outfiles) == length(files))
-
+  
   stopifnot(all(file.exists(files)))
   #######################################
   # N3 Correction
@@ -122,14 +122,14 @@ preprocess_mri_within <- function(files,
     }
     for (ifile in seq_along(files)){
       bias_correct(file = files[ifile], outfile = outfiles[ifile],
-               retimg=FALSE,
-               correction = correction,
-               shrinkfactor = shrinkfactor, ...)
+                   retimg=FALSE,
+                   correction = correction,
+                   shrinkfactor = shrinkfactor, ...)
     }
     ### use the output files for processing
     files = outfiles
   }
-
+  
   #######################################
   # Registration to first scan
   #######################################
@@ -137,18 +137,19 @@ preprocess_mri_within <- function(files,
   if (length(files) > 1){
     other.files = files[seq(2, length(files), by = 1)]
     other.outfiles = outfiles[seq(2, length(files), by = 1)]
-
-    regs = within_visit_registration(fixed=file1, # filename of T1 image
-                            moving = other.files,
-                            outfiles = other.outfiles,
-                            typeofTransform = typeofTransform,
-                            interpolator = interpolator,
-                            retimg = FALSE,
-                            ...)
+    
+    regs = within_visit_registration(
+      fixed=file1, # filename of T1 image
+      moving = other.files,
+      outfiles = other.outfiles,
+      typeofTransform = typeofTransform,
+      interpolator = interpolator,
+      retimg = FALSE,
+      ...)
   } else {
     regs = NULL
   }
-
+  
   #######################################
   # Masking Brain
   #######################################
@@ -161,12 +162,16 @@ preprocess_mri_within <- function(files,
               retimg=FALSE)
     }
   }
-
+  
   # Returning images
   if (retimg){
     outfiles = lapply(outfiles, readnii, reorient = reorient)
   }
   L = c(outfiles = outfiles, maskfile = maskfile, regs = regs)
+  rm(list = c("outfiles", "regs", "maskfile"))
+  for (i in 1:10) {
+    gc()
+  }
   return(L)
 }
 

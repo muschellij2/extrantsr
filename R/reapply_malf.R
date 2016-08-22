@@ -63,7 +63,9 @@ reapply_malf <- function(
   if (!is.null(outfile)) {
     writenii(outimg, filename = outfile)
   }
-  
+  for (i in 1:10) {
+    gc()
+  }
   if (retimg) {
     return(outimg)
   } else {

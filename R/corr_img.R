@@ -144,5 +144,10 @@ corr_img = function(
                      convert.datatype()$FLOAT32,
                    bitpix = 
                      convert.bitpix()$FLOAT32)
-  ximg   
+  rm(list = c("img1", "img2", "mask", "xmask"))
+  rm(list = c("neigh1", "neigh2"))
+  for (i in 1:10) {
+    gc()
+  }  
+  return(ximg)
 }

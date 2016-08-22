@@ -117,7 +117,10 @@ img_cov_matrix = function(
   if (verbose) {
    close(pb)
   }
-  
+  rm(list = c("imgs", "neighs", "mask", "xmask"))
+  for (i in 1:10) {
+    gc()
+  }  
   L = list(cov = corr_mat,
            ind = ord)
   return(L)
