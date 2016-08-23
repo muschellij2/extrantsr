@@ -10,7 +10,7 @@ group_xyz2(img, k = 1)
 \item{img}{Object of class \code{\link{nifti}} or array}
 
 \item{k}{Minimum number of voxels for a cluster/component.
-See \code{\link{label_mask}}}
+See \code{\link{ants_bwlabel}}}
 }
 \value{
 Matrix of 3 columns of dimension indices.
