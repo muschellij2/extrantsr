@@ -77,12 +77,19 @@ malf_registration <- function(
     if (verbose) {
       setTxtProgressBar(pb, iimg)
     }
+    rm(list = "reg")
+    for (i in 1:10) {
+      gc()
+    }
   } # end loop
   if (verbose) {
-    close(pb)         
+    close(pb)
   }
   L = list(regs = all.regs, 
            outfiles = outfiles)
+  for (i in 1:10) {
+    gc()
+  }  
   return(L)
 
 }

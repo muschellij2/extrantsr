@@ -68,6 +68,7 @@ malf <- function(
     ...)
   outfiles = L$outfiles
   all.regs = L$regs
+  rm(list = "L")
   for (i in 1:10) {
     gc()
   }
@@ -82,10 +83,18 @@ malf <- function(
   #     oimgs = lapply(outfiles, readnii, reorient = FALSE)
   #     mat = sapply(oimgs, c)
   #     outimg = niftiarr(oimgs[[1]], rowMeans(mat))
+  rm(list = "outfiles");
+  for (i in 1:10) {
+    gc()
+  }  
   if (have.outfile) {
     writenii(outimg, filename = outfile)
   }
   if (!keep_regs) {
+    rm(list = "all.regs")
+    for (i in 1:10) {
+      gc()
+    }  
     if (retimg) {
       return(outimg)
     } else {
