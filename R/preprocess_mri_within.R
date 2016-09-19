@@ -53,7 +53,7 @@ preprocess_mri_within <- function(files,
   ##################
   # Checking on outfiles or return images
   ##################
-  if (retimg){
+  if (retimg) {
     if (is.null(outfiles)) {
       outfiles = sapply(seq_along(files), function(x) {
         tempfile(fileext = ".nii.gz")
@@ -68,7 +68,7 @@ preprocess_mri_within <- function(files,
   ##################
   # Must have extension
   ##################
-  if (!all(grepl("[.]nii", c(files)))){
+  if (!all(grepl("[.]nii", c(files)))) {
     stop("All filenames must be nifti .nii or .nii.gz")
   }
   
@@ -76,7 +76,7 @@ preprocess_mri_within <- function(files,
   # Skull stripping baseline T1 image
   ###################################
   if (skull_strip) {
-    if (is.null(maskfile)){
+    if (is.null(maskfile)) {
       brain_mask_stub = tempfile()
       fslext = suppressWarnings(get.imgext())
       maskfile = paste0(brain_mask_stub, fslext)
@@ -84,8 +84,8 @@ preprocess_mri_within <- function(files,
       maskfile = checkimg(maskfile)
       stopifnot(file.exists(maskfile))
     }
-    if (!file.exists(maskfile)){
-      if (verbose){
+    if (!file.exists(maskfile)) {
+      if (verbose) {
         message("Skull stripping files[1] image \n")
       }
       fslbet(infile = files[1],
@@ -94,15 +94,15 @@ preprocess_mri_within <- function(files,
              opts = bet.opts,
              betcmd = betcmd,
              verbose = verbose, reorient = FALSE)
-      fslbin(file=maskfile, outfile = maskfile, retimg=FALSE,
+      fslbin(file = maskfile, outfile = maskfile, retimg = FALSE,
              verbose = verbose)
     }
   }
   #############################
   # Checking if extensions are .nii or .nii.gz
   #############################
-  if (correct){
-    if (!all(grepl("[.]nii", c(outfiles)))){
+  if (correct) {
+    if (!all(grepl("[.]nii", c(outfiles)))) {
       warning(paste0("Extensions not specified for ",
                      "outfiles, adding .nii.gz"))
       outfiles[!grepl("[.]nii",outfiles)] = paste0(
@@ -116,13 +116,13 @@ preprocess_mri_within <- function(files,
   #######################################
   # N3 Correction
   #######################################
-  if (correct){
-    if (verbose){
+  if (correct) {
+    if (verbose) {
       message(paste0("# ", correction, " Correction"))
     }
-    for (ifile in seq_along(files)){
+    for (ifile in seq_along(files)) {
       bias_correct(file = files[ifile], outfile = outfiles[ifile],
-                   retimg=FALSE,
+                   retimg = FALSE,
                    correction = correction,
                    shrinkfactor = shrinkfactor, ...)
     }
@@ -134,12 +134,12 @@ preprocess_mri_within <- function(files,
   # Registration to first scan
   #######################################
   file1 = files[1]
-  if (length(files) > 1){
+  if (length(files) > 1) {
     other.files = files[seq(2, length(files), by = 1)]
     other.outfiles = outfiles[seq(2, length(files), by = 1)]
     
     regs = within_visit_registration(
-      fixed=file1, # filename of T1 image
+      fixed = file1, # filename of T1 image
       moving = other.files,
       outfiles = other.outfiles,
       typeofTransform = typeofTransform,
@@ -153,18 +153,18 @@ preprocess_mri_within <- function(files,
   #######################################
   # Masking Brain
   #######################################
-  if (!is.null(maskfile)){
+  if (!is.null(maskfile)) {
     maskfile = checkimg(maskfile)
-    for (ifile in seq_along(outfiles)){
+    for (ifile in seq_along(outfiles)) {
       f = outfiles[ifile]
       fslmask(file = f, mask = maskfile,
               outfile = f,
-              retimg=FALSE)
+              retimg = FALSE)
     }
   }
   
   # Returning images
-  if (retimg){
+  if (retimg) {
     outfiles = lapply(outfiles, readnii, reorient = reorient)
   }
   L = c(outfiles = outfiles, maskfile = maskfile, regs = regs)

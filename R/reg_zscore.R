@@ -56,7 +56,7 @@ reg_zscore <- function(t1,
   # Checking for T1 and T2 iamges
   #####################
   nullt1 = is.null(t1)
-  if (nullt1){
+  if (nullt1) {
     stop("Need a T1 image")
   }
   
@@ -70,17 +70,17 @@ reg_zscore <- function(t1,
   #####################
   # Creating output mask
   #####################
-  if (!nullmask){
-    if (verbose){
-      cat("# Doing Checks on Mask \n")
+  if (!nullmask) {
+    if (verbose) {
+      message("# Doing Checks on Mask \n")
     }    
     # reading in T1
     mask = checkimg(mask)
-    if (nullmask.outfile){
+    if (nullmask.outfile) {
       mask.outfile = tempfile(fileext = ".nii.gz")
     }
-    mm = antsImageRead(filename = mask, dimension = 3)
-    maskants = antsImageClone(mm)
+    maskants = antsImageRead(filename = mask, dimension = 3)
+    # maskants = antsImageClone(mm)
     ##################
     # Must have extension
     ##################
@@ -92,23 +92,23 @@ reg_zscore <- function(t1,
   #####################
   # Creating output files
   #####################
-  if (!nullt1){
+  if (!nullt1) {
     #############
     # Mask the images
     ###########
-    if (verbose){
-      cat("# Doing Checks on T1 \n")
+    if (verbose) {
+      message("# Doing Checks on T1 \n")
     }        
-    if (!nullmask){
+    if (!nullmask) {
       tfile = tempfile()
       fslmask(file = t1, mask = mask, outfile = tfile, verbose = verbose)
       ext = get.imgext()
       t1 = paste0(tfile, ext)
-      rm(list="tfile")
+      rm(list = "tfile"); gc(); gc();
     }
     # reading in T1
     t1 = checkimg(t1)
-    if (is.null(t1.outfile)){
+    if (is.null(t1.outfile)) {
         t1.outfile = tempfile(fileext = ".nii.gz")
     }
     t1.outfile = path.expand(t1.outfile)
@@ -116,7 +116,7 @@ reg_zscore <- function(t1,
     ##################
     # Must have extension
     ##################
-    if (!all(grepl("[.]nii", c(t1.outfile)))){
+    if (!all(grepl("[.]nii", c(t1.outfile)))) {
       stop("t1 outfile must be nifti .nii or .nii.gz")
     }     
   } 
@@ -134,7 +134,7 @@ reg_zscore <- function(t1,
     # Mask the images
     ###########
     if (verbose){
-      cat("# Doing Checks on Other files \n")
+      message("# Doing Checks on Other files \n")
     }     
     if (!nullmask){
       other.files = sapply(other.files, function(fname){
@@ -178,7 +178,7 @@ reg_zscore <- function(t1,
       # Register
       ###################  
       if (verbose){
-        cat("# Registering to Template \n")
+        message("# Registering to Template \n")
       }        
       outfile = tempfile(fileext = '.nii.gz')
       ants_regwrite(filename = t1, 
@@ -230,7 +230,7 @@ reg_zscore <- function(t1,
   # Apply Z-score
   ##########################  
   if (verbose){
-    cat("# Running Z-scoring Normalization\n")
+    message("# Running Z-scoring Normalization\n")
   }
   if (!nullt1){
     t1 = dtype(zscore_img(t1, mask = 
@@ -257,7 +257,7 @@ reg_zscore <- function(t1,
   ###################    
   if (native){
     if (verbose){
-      cat("# Returning images to Native Space\n")
+      message("# Returning images to Native Space\n")
     }    
     #     if (!register){
     #       warning(paste0("Native is TRUE, but register is FALSE,",
@@ -277,11 +277,13 @@ reg_zscore <- function(t1,
                                     interpolator = interpolator, 
                                     whichtoinvert = 1)
         t1 = ants2oro(fixed)
+        rm(list = "fixed"); gc(); gc();
         ###################
         # Use Native mask Image
         ###################           
         if (!nullmask){
           mask = ants2oro(maskants)
+          rm(list = "maskants"); gc(); gc();
         }    
         ###################
         # Register
@@ -296,6 +298,7 @@ reg_zscore <- function(t1,
                                         interpolator = interpolator, 
                                         whichtoinvert = 1)
             other.files[[ifile]] = ants2oro(fixed)
+            rm(list = "fixed"); gc(); gc();
           }
         }
       } else {
@@ -308,11 +311,11 @@ reg_zscore <- function(t1,
   # Write out images
   ###################   
   if (verbose){
-    cat("# Writing out Z-score Normalized Images\n")
+    message("# Writing out Z-score Normalized Images\n")
   }  
   if (!nullt1){
     if (verbose){
-      cat("# Writing out Z-score Normalized T1\n")
+      message("# Writing out Z-score Normalized T1\n")
     }      
     t1 = cal_img(t1)
     t1 = mask_img(t1, mask)
@@ -320,7 +323,7 @@ reg_zscore <- function(t1,
   }
   if (!nullother){
     if (verbose){
-      cat("# Writing out Z-score Normalized Other Files\n")
+      message("# Writing out Z-score Normalized Other Files\n")
     }      
     print(other.outfiles)
     mapply(function(img, fname){
@@ -331,7 +334,7 @@ reg_zscore <- function(t1,
   }
   if (!nullmask.outfile){
     if (verbose){
-      cat("# Writing out Brain Mask Outfile\n")
+      message("# Writing out Brain Mask Outfile\n")
     }    
     mask = cal_img(mask)
     writeNIfTI(mask, filename = nii.stub(mask.outfile))

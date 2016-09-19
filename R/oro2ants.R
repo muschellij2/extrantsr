@@ -8,12 +8,14 @@
 #' information
 #' @param ... Arguments passed to \code{\link{copyNIfTIHeader}} if 
 #' reference is set and \code{img} is \code{antsImage}
+#' @param cleanup temporary files are deleted after they are read in
 #' @export
 #' @return Object of class \code{nifti}.
 ants2oro <- function(img, 
                      reorient = FALSE,
                      reference = NULL,
-                     ...){
+                     ...,
+                     cleanup = TRUE){
   if ( is.antsImage(img) | is.character(img) ) {
     if (is.antsImage(img) & !is.null(reference)) {
       #######
@@ -37,8 +39,15 @@ ants2oro <- function(img,
     # Otherwise write image to disk
     # And read in nifti
     ############################    
+    if (is.antsImage(img)) {
+      remove = TRUE
+    }
+
     fname = tempants(img)
     img = readnii(fname, reorient = reorient)
+    if (remove & cleanup & file.exists(fname)) {
+      file.remove(fname)
+    }
     gc();
     return(img)
   }

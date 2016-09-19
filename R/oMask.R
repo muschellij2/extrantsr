@@ -9,6 +9,8 @@
 oMask = function(img, ...){
   img = check_ants(img)
   mask = getMask(img = img, ...)
+  rm(list = "img"); gc(); gc();
   mask = ants2oro(mask)
+  gc();
   return(mask)
 }

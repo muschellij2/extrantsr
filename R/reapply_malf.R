@@ -59,6 +59,7 @@ reapply_malf <- function(
   } else {
     outimg = stat_img(imgs = ofiles, func = func)
   }
+  rm(list = "infile"); gc();
   
   if (!is.null(outfile)) {
     writenii(outimg, filename = outfile)

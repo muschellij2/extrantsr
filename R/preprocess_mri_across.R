@@ -186,18 +186,19 @@ process_filenames <- function(files, # input filenames
   
   # Expanding paths for ANTsR - checkimg does expansion  
   files = sapply(files, checkimg)
+  gc();
   
   outfiles = path.expand(outfiles)
   
-  if (!all(grepl("[.]nii", files))){
+  if (!all(grepl("[.]nii", files))) {
     stop("All filenames must be nifti .nii or .nii.gz")
   }
   
   #############################
   # Checking if extensions are .nii or .nii.gz
   #############################
-  if (force_nii){
-    if (!all(grepl("[.]nii", c(outfiles)))){
+  if (force_nii) {
+    if (!all(grepl("[.]nii", c(outfiles)))) {
       warning(paste0("Extensions not specified for outfiles, adding .nii.gz"))
       outfiles[!grepl("[.]nii",outfiles)] = paste0(
         outfiles[!grepl("[.]nii",outfiles)], '.nii.gz')    
@@ -210,13 +211,13 @@ process_filenames <- function(files, # input filenames
   #######################################
   # Working on copy of Baseline 1, will be easier when n3 or ss
   #######################################
-  nii_or_gz = function(x){
+  nii_or_gz = function(x) {
     ifelse(grepl("[.]nii[.]gz$", x), ".nii.gz", ".nii")
   }
   
   vec_extension = function(x, y, copyfiles){
     ext.base = nii_or_gz(x)
-    if (ext.base != nii_or_gz(y)){
+    if (ext.base != nii_or_gz(y)) {
       warning(paste0("Extension of ", basename(x), "is not same as ", 
                      basename(y), ", forcing"))
       y = paste0(nii.stub(y), ext.base)
@@ -237,7 +238,7 @@ process_filenames <- function(files, # input filenames
   #######################################  
   n.in = length(files)
   n.out = length(outfiles)
-  if (n.in != n.out){
+  if (n.in != n.out) {
     stop("Number of input files must be number of outfiles")
   }  
   

@@ -30,6 +30,10 @@ setMethod("ants_apply_transforms",
             res = lapply(moving, ants_apply_transforms, 
                          fixed = fixed, transformlist = transformlist,
                          ... = ...)
+            rm(list = c("fixed", "moving"))
+            for (i in 1:10) {
+              gc();
+            }            
             return(res)
           })
 
@@ -51,6 +55,10 @@ setMethod("ants_apply_transforms",
                                           transformlist = transformlist,
                                           ... = ...)
             }
+            rm(list = c("fixed", "moving"))
+            for (i in 1:10) {
+              gc();
+            }            
             return(res)
           })
 
@@ -65,12 +73,12 @@ setMethod("ants_apply_transforms",
             fixed = check_ants(fixed)
             moving = check_ants(moving)
             tclasses = sapply(transformlist, class)
-            if (!all(tclasses %in% "character")){
+            if (!all(tclasses %in% "character")) {
               transformlist = sapply(transformlist, function(x){
                 if (is.nifti(x) | is.antsImage(x)) {
                   x = check_ants(x)
                 }
-                if (is.matrix(x)){
+                if (is.matrix(x)) {
                   x = write_transformlist(x)
                 }
                 x
@@ -82,10 +90,13 @@ setMethod("ants_apply_transforms",
                                         moving = moving,
                                         transformlist = transformlist,
                                         ...)
-            if (!is.antsImage(moving_to_fixed)){
+            if (!is.antsImage(moving_to_fixed)) {
               warning(moving_to_fixed)
             }
             moving_to_fixed = ants2oro(moving_to_fixed)
-            
+            rm(list = c("fixed", "moving", "transformlist"))
+            for (i in 1:10) {
+              gc();
+            }
             return(moving_to_fixed)            
 })

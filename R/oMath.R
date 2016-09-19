@@ -13,6 +13,7 @@
 oMath <- function(img, ..., retfile = FALSE){
   img = check_ants(img)
   res = iMath(img = img, ...)
+  rm(list = "img"); gc(); gc();
   if (retfile) {
     return(res)
   }

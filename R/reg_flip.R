@@ -74,15 +74,15 @@ reg_flip <- function(t1,
   #####################
   if (!nullmask){
     if (verbose){
-      cat("# Doing Checks on Mask \n")
+      message("# Doing Checks on Mask \n")
     }    
     # reading in T1
     mask = checkimg(mask)
     if (nullmask.outfile){
       mask.outfile = tempfile(fileext = ".nii.gz")
     }
-    mm = antsImageRead(filename = mask, dimension = 3)
-    maskants = antsImageClone(mm)
+    maskants = antsImageRead(filename = mask, dimension = 3)
+    # maskants = antsImageClone(mm)
     ##################
     # Must have extension
     ##################
@@ -99,7 +99,7 @@ reg_flip <- function(t1,
     # Mask the images
     ###########
     if (verbose){
-      cat("# Doing Checks on T1 \n")
+      message("# Doing Checks on T1 \n")
     }        
     if (!nullmask){
       tfile = tempfile()
@@ -136,7 +136,7 @@ reg_flip <- function(t1,
     # Mask the images
     ###########
     if (verbose){
-      cat("# Doing Checks on Other files \n")
+      message("# Doing Checks on Other files \n")
     }     
     if (!nullmask){
       other.files = sapply(other.files, function(fname){
@@ -180,7 +180,7 @@ reg_flip <- function(t1,
       # Register
       ###################  
       if (verbose){
-        cat("# Registering to Template \n")
+        message("# Registering to Template \n")
       }        
       outfile = tempfile(fileext = '.nii.gz')
       ants_regwrite(filename = t1, 
@@ -232,7 +232,7 @@ reg_flip <- function(t1,
   # Apply Z-score
   ##########################  
   if (verbose){
-    cat("# Running Flipping\n")
+    message("# Running Flipping\n")
   }
   if (!nullt1){
     t1 = dtype(fslswapdim(t1, retimg = TRUE, 
@@ -259,7 +259,7 @@ reg_flip <- function(t1,
   ###################    
   if (native){
     if (verbose){
-      cat("# Returning images to Native Space\n")
+      message("# Returning images to Native Space\n")
     }    
     #     if (!register){
     #       warning(paste0("Native is TRUE, but register is FALSE,",
@@ -267,7 +267,7 @@ reg_flip <- function(t1,
     #     }
     if (register){
       inv.trans = paste0(outprefix, "0GenericAffine.mat")
-      template.img = antsImageRead(template.file, dimension = 3)
+      # template.img = antsImageRead(template.file, dimension = 3)
       if (!nullt1){
         ##############################
         # Applying Transformation
@@ -279,11 +279,13 @@ reg_flip <- function(t1,
                                     interpolator = interpolator, 
                                     whichtoinvert = 1)
         t1 = ants2oro(fixed)
+        rm(list = "fixed"); gc(); gc();
         ###################
         # Use Native mask Image
         ###################           
         if (!nullmask){
           mask = ants2oro(maskants)
+          rm(list = "maskants"); gc(); gc();
         }    
         ###################
         # Register
@@ -298,7 +300,9 @@ reg_flip <- function(t1,
                                         interpolator = interpolator, 
                                         whichtoinvert = 1)
             other.files[[ifile]] = ants2oro(fixed)
+            rm(list = "fixed"); gc(); gc();
           }
+          rm(list = "other.ants"); gc(); gc();
         }
       } else {
         stop("Registration must be done with the T1 image")
@@ -310,11 +314,11 @@ reg_flip <- function(t1,
   # Write out images
   ###################   
   if (verbose){
-    cat("# Writing out Flipped Images\n")
+    message("# Writing out Flipped Images\n")
   }  
   if (!nullt1){
     if (verbose){
-      cat("# Writing out Flipped T1\n")
+      message("# Writing out Flipped T1\n")
     }      
     t1 = cal_img(t1)
     if (!nullmask){
@@ -324,7 +328,7 @@ reg_flip <- function(t1,
   }
   if (!nullother){
     if (verbose){
-      cat("# Writing out Flipped Other Files\n")
+      message("# Writing out Flipped Other Files\n")
     }      
     print(other.outfiles)
     mapply(function(img, fname){
@@ -334,13 +338,21 @@ reg_flip <- function(t1,
       }
       writeNIfTI(img, filename = nii.stub(fname))
     }, other.files, other.outfiles)
+    rm(list = c("other.files", "other.outfiles"))
+    for (i in 1:10) {
+      gc()
+    }
   }
   if (!nullmask.outfile){
     if (verbose){
-      cat("# Writing out Brain Mask Outfile\n")
+      message("# Writing out Brain Mask Outfile\n")
     }    
     mask = cal_img(mask)
     writeNIfTI(mask, filename = nii.stub(mask.outfile))
+    rm(list = c("other.files", "other.outfiles"))
+    for (i in 1:10) {
+      gc()
+    }    
   }  
   
   return(list(t1 = t1, 

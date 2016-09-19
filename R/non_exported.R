@@ -14,9 +14,9 @@ my.tab <- function(
   y = as.numeric(y)
   stopifnot(all(unique(c(x,y)) %in% c(0, 1, NA)))
   tt = sum(x * y)
-  t1=sum(x)
-  t2=sum(y)
-  tab = matrix(c(length(x)-t1-t2+tt,  t1-tt, t2-tt, tt), 2, 2)
+  t1 = sum(x)
+  t2 = sum(y)
+  tab = matrix(c(length(x) - t1 - t2 + tt,  t1 - tt, t2 - tt, tt), 2, 2)
   n = list(c("FALSE", "TRUE"), c("FALSE", "TRUE"))
   names(n) = dnames
   dimnames(tab) = n
@@ -43,8 +43,8 @@ sim <-  function(
   N_auto = length(dauto)
   stopifnot( N == N_auto)
   
-  stopifnot( ! any(is.na(dman)) )
-  stopifnot( ! any(is.na(dauto)) )
+  stopifnot( !any(is.na(dman)) )
+  stopifnot( !any(is.na(dauto)) )
   
   # system.time({
   #   tt <- sum( dman &  dauto)
@@ -61,7 +61,7 @@ sim <-  function(
   
   ptab = prop.table(tab)
   rowtab = prop.table(tab, 1)
-  coltab = prop.table(tab, 2)
+  # coltab = prop.table(tab, 2)
   
   accur = sum(diag(ptab))
   sens = rowtab["TRUE", "TRUE"]
@@ -83,10 +83,10 @@ sim <-  function(
   
   
   # tab <- table(cdman, cdauto, dnn=c("dman", "dauto"))
-  res <- list(dice=dice, jaccard=jaccard, 
-              sens=sens, spec = spec, accur=accur, truevol = truevol,
+  res <- list(dice = dice, jaccard = jaccard, 
+              sens = sens, spec = spec, accur = accur, truevol = truevol,
               estvol = estvol)
-  cat("\n")
+  message("\n")
   print(res)
   return(res)
 }
@@ -108,10 +108,10 @@ makepng <- function(
 ){
   pngname = paste0(outfile, "_", addstub, ".png")
   print(pngname)
-  png(pngname, type="cairo", ...)
+  png(pngname, type = "cairo", ...)
   
   myalpha = 0.25
-  if (names(dev.cur())[1] == "X11"){
+  if (names(dev.cur())[1] == "X11") {
     myalpha = 1
   }
   myalpha

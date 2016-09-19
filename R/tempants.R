@@ -17,6 +17,7 @@ tempants <- function(x, # object of class \code{antsImage}
       if (gzipped) ext = ".nii.gz"
       tfile = paste0(tempfile(), ext)
       antsImageWrite(x, tfile)
+      rm( list = "x"); gc(); gc()
       return(tfile)
     }  else {
       stop("x has unknown class - not char or nifti")

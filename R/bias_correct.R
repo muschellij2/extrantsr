@@ -62,15 +62,16 @@ bias_correct = function(
 #   }  
   imgn3 = res
   antsImageWrite( imgn3, filename = outfile)
-  
-  if (retimg){
+  rm(list = c("res", "imgn3", "img", "file")); 
+  for (i in 1:10) {
+    gc()
+  }  
+    
+  if (retimg) {
     x = readnii(outfile, reorient = reorient)
   } else {
     x = outfile
   }
-  rm(list = c("res", "imgn3", "img", "file")); 
-  for (i in 1:10) {
-    gc()
-  }   
+ 
   return(x)
 }

@@ -88,7 +88,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   #####################
   if (!nullmask){
     if (verbose){
-      cat("# Doing Checks on Mask \n")
+      message("# Doing Checks on Mask \n")
     }    
     # reading in T1
     mask = checkimg(mask)
@@ -113,7 +113,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     # Mask the images
     ###########
     if (verbose){
-      cat("# Doing Checks on T1 \n")
+      message("# Doing Checks on T1 \n")
     }        
     if (!nullmask){
       tfile = tempfile()
@@ -146,7 +146,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     # Mask the images
     ###########
     if (verbose){
-      cat("# Doing Checks on T2 \n")
+      message("# Doing Checks on T2 \n")
     }         
     if (!nullmask){
       tfile = tempfile()
@@ -183,7 +183,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
     # Mask the images
     ###########
     if (verbose){
-      cat("# Doing Checks on Other files \n")
+      message("# Doing Checks on Other files \n")
     }     
     if (!nullmask){
       other.files = sapply(other.files, function(fname){
@@ -237,7 +237,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
       # Register
       ###################  
       if (verbose){
-        cat("# Registering to Template \n")
+        message("# Registering to Template \n")
       }        
       outfile = tempfile(fileext = '.nii.gz')
       ants_regwrite(filename = t1, 
@@ -291,7 +291,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   # Different Scenarios
   ###################  
   if (verbose){
-    cat("# Running WhiteStripe Estimation \n")
+    message("# Running WhiteStripe Estimation \n")
   }     
   if (type == "T1"){
     if (!nullt2){
@@ -330,7 +330,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   # Apply WhiteStripe
   ##########################  
   if (verbose){
-    cat("# Running WhiteStripe Normalization\n")
+    message("# Running WhiteStripe Normalization\n")
   }
   if (!nullt1){
     t1 = dtype(whitestripe_norm(t1, indices = indices))
@@ -349,7 +349,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   ###################    
   if (native){
     if (verbose){
-      cat("# Returning images to Native Space\n")
+      message("# Returning images to Native Space\n")
     }    
 #     if (!register){
 #       warning(paste0("Native is TRUE, but register is FALSE,",
@@ -421,11 +421,11 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   # Write out images
   ###################   
   if (verbose){
-    cat("# Writing out Normalized Images\n")
+    message("# Writing out Normalized Images\n")
   }  
   if (!nullt1){
     if (verbose){
-      cat("# Writing out Normalized T1\n")
+      message("# Writing out Normalized T1\n")
     }      
     t1 = cal_img(t1)
     t1 = mask_img(t1, mask)
@@ -433,7 +433,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   }
   if (!nullt2){
     if (verbose){
-      cat("# Writing out Normalized T2\n")
+      message("# Writing out Normalized T2\n")
     }      
     t2 = cal_img(t2)
     t2 = mask_img(t2, mask)
@@ -441,7 +441,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   }
   if (!nullother){
     if (verbose){
-      cat("# Writing out Normalized Other Files\n")
+      message("# Writing out Normalized Other Files\n")
     }      
     print(other.outfiles)
     mapply(function(img, fname){
@@ -452,7 +452,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   }
   if (!nullws){
     if (verbose){
-      cat("# Writing out WhiteStripe Mask\n")
+      message("# Writing out WhiteStripe Mask\n")
     }          
     mask.img = cal_img(mask.img)
     writeNIfTI(mask.img, filename = nii.stub(ws.outfile))
@@ -461,7 +461,7 @@ reg_whitestripe <- function(t1 =NULL, t2 = NULL,
   }
   if (!nullmask.outfile){
     if (verbose){
-      cat("# Writing out Brain Mask Outfile\n")
+      message("# Writing out Brain Mask Outfile\n")
     }    
     mask = cal_img(mask)
     writeNIfTI(mask, filename = nii.stub(mask.outfile))

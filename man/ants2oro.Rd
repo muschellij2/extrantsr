@@ -4,7 +4,7 @@
 \alias{ants2oro}
 \title{Convert Between antsImage and nifti objects}
 \usage{
-ants2oro(img, reorient = FALSE, reference = NULL, ...)
+ants2oro(img, reorient = FALSE, reference = NULL, ..., cleanup = TRUE)
 }
 \arguments{
 \item{img}{Object of class antsImage}
@@ -16,6 +16,8 @@ information}
 
 \item{...}{Arguments passed to \code{\link{copyNIfTIHeader}} if 
 reference is set and \code{img} is \code{antsImage}}
+
+\item{cleanup}{temporary files are deleted after they are read in}
 }
 \value{
 Object of class \code{nifti}.

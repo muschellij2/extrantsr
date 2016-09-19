@@ -6,7 +6,7 @@
 \usage{
 zscore_template(img, template.file, mean.img, sd.img, outfile = NULL,
   typeofTransform = "SyN", interpolator = "Linear", robust = TRUE,
-  native = TRUE, verbose = TRUE)
+  native = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{img}{Image to be z-scored}
@@ -31,6 +31,8 @@ template and vice versa}
 be returned}
 
 \item{verbose}{Print diagnostic output}
+
+\item{...}{Options passed to \code{\link{robust_window}}.}
 }
 \value{
 Object of class \code{nifti}

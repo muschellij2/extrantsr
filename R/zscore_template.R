@@ -14,10 +14,11 @@
 #' @param native Should a native-space image (default) or template-space image
 #' be returned
 #' @param verbose Print diagnostic output
+#' @param ... Options passed to \code{\link{robust_window}}.  
 #'
 #' @return Object of class \code{nifti}
 #' @export
-zscore_template <- function (img,
+zscore_template <- function(img,
                              template.file,
                              mean.img,
                              sd.img,
@@ -26,7 +27,8 @@ zscore_template <- function (img,
                              interpolator = "Linear",
                              robust = TRUE,
                              native = TRUE,
-                             verbose = TRUE
+                             verbose = TRUE,
+                             ...
                              ) {
   
   mean.img = check_nifti(mean.img)
@@ -69,12 +71,13 @@ zscore_template <- function (img,
   zout = antsApplyTransforms(fixed = ants.ss, 
                              moving = ants.z, 
                              transformlist = inv.trans)
-
+  rm(list = c("ants.ss", "ants.z")); gc(); gc();
   
   
   znative = ants2oro(zout)
+  rm(list = c("zout")); gc(); gc();
   if (robust) {
-    znative = robust_window(znative)
+    znative = robust_window(znative, ...)
   }
   
   if (!is.null(outfile)) {
