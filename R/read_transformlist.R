@@ -25,7 +25,7 @@ read_transformlist = function(transformlist,
     }
     if (tt %in% "image") {
       if (useOro) {
-        img = fslr::readnii(xx,
+        img = neurobase::readnii(xx,
                       drop_dim = FALSE)
       } else {
         img = antsImageRead(xx)

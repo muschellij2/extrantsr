@@ -4,13 +4,15 @@
 \alias{oro2ants}
 \title{Convert Between nifti and antsImage}
 \usage{
-oro2ants(img, reference = NULL)
+oro2ants(img, reference = NULL, cleanup = TRUE)
 }
 \arguments{
 \item{img}{Object of class \code{nifti}}
 
 \item{reference}{Object of class \code{antsImage} to 
 copy header information (origin, spacing, direction) (experimental)}
+
+\item{cleanup}{temporary files are deleted after they are read in}
 }
 \value{
 Object of class \code{antsImage}

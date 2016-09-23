@@ -59,6 +59,7 @@
 #' If that is desired, users will have to do that before calling 
 #' \code{ortho2}.
 #' @export
+#' @importFrom neurobase ortho2
 setMethod("ortho2", c(x = "antsImage", 
                                 y = "ANY",
                                 pdim = "ANY"), 
@@ -72,6 +73,6 @@ setMethod("ortho2", c(x = "antsImage",
       y = as.array(y)
     }
   }
-  fslr::ortho2(x = x, y = y, pdim = pdim, ...)
+  neurobase::ortho2(x = x, y = y, pdim = pdim, ...)
 }
 )

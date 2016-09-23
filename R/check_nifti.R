@@ -15,6 +15,7 @@
 #' should there be an error if the object is not character or class
 #' nifti.
 #' @export
+#' @importFrom neurobase check_nifti
 setMethod("check_nifti", "antsImage", function(x, 
                                                reorient=FALSE, 
                                                allow.array=FALSE) { 

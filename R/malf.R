@@ -49,7 +49,7 @@ malf <- function(
   
   
   have.outfile = !is.null(outfile)
-  outfile = fslr::check_outfile(outfile = outfile, retimg = retimg, 
+  outfile = neurobase::check_outfile(outfile = outfile, retimg = retimg, 
                           fileext = "")
   
   ##############################

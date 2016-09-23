@@ -8,6 +8,7 @@
 #' @param file character or \code{nifti} object
 #' @param ... options passed to \code{\link{tempimg}} 
 #' @export
+#' @importFrom neurobase checkimg
 setMethod(f = "checkimg", signature(file = "antsImage"), definition = function(file, ...) { 
   file = tempants(file, ...)
   gc(); gc();

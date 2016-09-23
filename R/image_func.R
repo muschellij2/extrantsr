@@ -122,7 +122,7 @@ stat_img = function(imgs,
     }
     res_img = niftiarr(nim, res_img)
     if (finite) {
-      res_img = fslr::finite_img(res_img, replace = 0)
+      res_img = neurobase::finite_img(res_img, replace = 0)
     }
     L[[ifunc]] = res_img
   }

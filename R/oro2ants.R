@@ -11,6 +11,9 @@
 #' @param cleanup temporary files are deleted after they are read in
 #' @export
 #' @return Object of class \code{nifti}.
+#' @importFrom neurobase copyNIfTIHeader readnii mask_img check_outfile writenii datatyper
+#' @importFrom neurobase zscore_img same_dims robust_window remake_img xyz zero_pad
+#' @importFrom neurobase check_mask_fail niftiarr nii.stub
 ants2oro <- function(img, 
                      reorient = FALSE,
                      reference = NULL,
@@ -65,11 +68,13 @@ ants2oro <- function(img,
 #' @param img Object of class \code{nifti} 
 #' @param reference Object of class \code{antsImage} to 
 #' copy header information (origin, spacing, direction) (experimental)
+#' @param cleanup temporary files are deleted after they are read in
 #' @export
 #' @import fslr
 #' @import ANTsR
 #' @return Object of class \code{antsImage}
-oro2ants <- function(img, reference = NULL){
+oro2ants <- function(img, reference = NULL,
+                     cleanup = TRUE){
   if (!is.null(reference)) {
     if (is.antsImage(reference)) {
       img = as(img, Class = "array")
@@ -81,9 +86,15 @@ oro2ants <- function(img, reference = NULL){
     }
   }
   if (  is.nifti(img) | is.character(img) ) {
+    if (is.nifti(img)){
+      remove = TRUE
+    }
     fname = checkimg(img)
     stopifnot(file.exists(fname))
     img = antsImageRead(fname)
+    if (remove & cleanup) {
+      file.remove(fname)
+    }    
     return(img)
   }
   if ( is.antsImage(img) ) {
