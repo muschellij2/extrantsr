@@ -6,7 +6,8 @@
 \usage{
 fslbet_robust(img, outfile = NULL, retimg = TRUE, correct = TRUE,
   correction = "N4", recog = TRUE, reorient = FALSE, bet.opts = "",
-  nvoxels = 0, swapdim = FALSE, remove.neck = TRUE, robust.mask = FALSE,
+  nvoxels = 0, swapdim = FALSE, remove.neck = TRUE,
+  remover = c("remove_neck", "double_remove_neck"), robust.mask = FALSE,
   rbm.voxels = 7, template.file = file.path(fsldir(), "data/standard",
   "MNI152_T1_1mm_brain.nii.gz"), template.mask = file.path(fsldir(),
   "data/standard", "MNI152_T1_1mm_brain_mask.nii.gz"), verbose = TRUE, ...)
@@ -37,6 +38,9 @@ If \code{nvoxels = 0}, then no smoothing is done.}
 
 \item{remove.neck}{Run \code{\link{remove_neck}} to register the template to a 
 thresholded image to remove neck slices.}
+
+\item{remover}{if \code{remove.neck = TRUE}, then which function
+would you like to use to remove the neck}
 
 \item{robust.mask}{Run \code{\link{robust_brain_mask}} to register the template to a 
 thresholded image and inflate for}

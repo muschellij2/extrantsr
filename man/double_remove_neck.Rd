@@ -6,7 +6,7 @@
 \usage{
 double_remove_neck(file, template.file, template.mask,
   typeofTransform = "Rigid", rep.value = 0, swapdim = TRUE,
-  verbose = TRUE)
+  verbose = TRUE, ret_mask = FALSE)
 }
 \arguments{
 \item{file}{File for neck removal - either filename or class nifti}
@@ -22,7 +22,7 @@ then \code{fslbin(file=template.file)} is performed.}
 
 \item{rep.value}{Value to replace neck slices with}
 
-\item{swapdim}{Should the dimensions be swapped before registration, 
+\item{swapdim}{Should the dimensions be swapped before registration,
 and then reset after}
 
 \item{verbose}{Print out diagnostic messages}

@@ -24,7 +24,7 @@ then \code{fslbin(file=template.file)} is performed.}
 
 \item{rep.value}{Value to replace neck slices with}
 
-\item{swapdim}{Should the dimensions be swapped before registration, 
+\item{swapdim}{Should the dimensions be swapped before registration,
 and then reset after}
 
 \item{verbose}{Print out diagnostic messages}

@@ -16,6 +16,8 @@
 #' @param swapdim Use \code{\link{fslswapdim}} to reorient image
 #' @param remove.neck Run \code{\link{remove_neck}} to register the template to a 
 #' thresholded image to remove neck slices.
+#' @param remover if \code{remove.neck = TRUE}, then which function
+#' would you like to use to remove the neck
 #' @param robust.mask Run \code{\link{robust_brain_mask}} to register the template to a 
 #' thresholded image and inflate for 
 #' @param rbm.voxels Number of voxels to inflate mask for \code{\link{robust_brain_mask}}
@@ -61,6 +63,7 @@ fslbet_robust <- function(
   nvoxels = 0,
   swapdim = FALSE,
   remove.neck = TRUE,
+  remover = c("remove_neck", "double_remove_neck"),
   robust.mask = FALSE,
   rbm.voxels = 7,
   template.file = file.path( fsldir(), "data/standard", 
@@ -81,8 +84,8 @@ fslbet_robust <- function(
   #############################
   img = check_nifti(img, reorient = reorient)
   
-  if (correct){
-    if (verbose){
+  if (correct) {
+    if (verbose) {
       message("# Running Bias-Field Correction\n")
     }
     n4img = bias_correct(img, correction = correction, retimg = TRUE)
@@ -92,35 +95,55 @@ fslbet_robust <- function(
   #############################
   # Removing Neck
   #############################
-  if (remove.neck){ 
-    if (swapdim){
-      if (verbose){
-        message(paste0("# Swapping Dimensions \n"))
-      }
-      forms = getForms(n4img)
-      sorient = forms$ssor       
-#       qorient = forms$sqor
-      n4img = fslswapdim(file=n4img, retimg=TRUE, a="RL", b="PA", c="IS", 
-                         verbose = verbose)
-    } 
-    if (verbose){
-      message(paste0("# Removing Neck with template:", template.file, '\n'))
-    }
-    noneck = remove_neck(n4img, 
-                         template.file = template.file,
-                         template.mask = template.mask,
-                         rep.value=0, 
-                         verbose = verbose,
-                         ...)  
-    if (swapdim){
-      if (verbose) {
-        message(paste0("# Swapping Dimensions Back\n"))
-      }
-      noneck = fslswapdim(file=noneck, retimg=TRUE, a=sorient[1], 
-                          b=sorient[2], c=sorient[3], verbose = verbose)
-      n4img = fslswapdim(file=n4img, retimg=TRUE, a=sorient[1], 
-                          b=sorient[2], c=sorient[3], verbose = verbose)      
-    } 
+  if (remove.neck) { 
+    # if (swapdim){
+    #   if (verbose){
+    #     message(paste0("# Swapping Dimensions \n"))
+    #   }
+    #   forms = getForms(n4img)
+    #   sorient = forms$ssor       
+    #   #       qorient = forms$sqor
+    #   n4img = fslswapdim(file=n4img, retimg=TRUE, a="RL", b="PA", c="IS", 
+    #                      verbose = verbose)
+    # } 
+    # if (verbose){
+    #   message(paste0("# Removing Neck with template:", template.file, '\n'))
+    # }
+    # noneck = remove_neck(
+    #   file = n4img, 
+    #   template.file = template.file,
+    #   template.mask = template.mask,
+    #   rep.value = 0, 
+    #   verbose = verbose,
+    #   swapdim = swapdim,
+    #   ...)
+    L = list(    
+        file = n4img,
+        template.file = template.file,
+        template.mask = template.mask,
+        rep.value = 0,
+        verbose = verbose,
+        swapdim = swapdim,
+        ret_mask = FALSE,
+        ...)
+    remover = match.arg(remover)
+    noneck = do.call(remover, args = L)
+    
+    # noneck = remove_neck(n4img, 
+    #                      template.file = template.file,
+    #                      template.mask = template.mask,
+    #                      rep.value=0, 
+    #                      verbose = verbose,
+    #                      ...)  
+    # if (swapdim){
+    #   if (verbose) {
+    #     message(paste0("# Swapping Dimensions Back\n"))
+    #   }
+    #   noneck = fslswapdim(file=noneck, retimg=TRUE, a=sorient[1], 
+    #                       b=sorient[2], c=sorient[3], verbose = verbose)
+    #   n4img = fslswapdim(file=n4img, retimg=TRUE, a=sorient[1], 
+    #                      b=sorient[2], c=sorient[3], verbose = verbose)      
+    # } 
   } else {
     noneck = n4img
   }
@@ -133,13 +156,13 @@ fslbet_robust <- function(
       message(paste0("# Robust Brain Mask from:", template.file, '\n'))
     }
     noneck = robust_brain_mask(noneck, 
-                         template.file = template.file,
-                         template.mask = template.mask,
-                         nvoxels = rbm.voxels,
-                         verbose = verbose,
-                         ...)  
+                               template.file = template.file,
+                               template.mask = template.mask,
+                               nvoxels = rbm.voxels,
+                               verbose = verbose,
+                               ...)  
   } 
-
+  
   #############################
   # Skull Stripping no-neck image
   #############################
@@ -157,8 +180,8 @@ fslbet_robust <- function(
     brain1 = fslbet(noneck, retimg= TRUE, 
                     opts = opts, verbose = verbose)
     #### adding a 3rd bet
-#     brain1 = fslbet(noneck, retimg= TRUE, verbose = verbose, 
-#                     opts = bet.opts)
+    #     brain1 = fslbet(noneck, retimg= TRUE, verbose = verbose, 
+    #                     opts = bet.opts)
   } 
   ssmask = cal_img(brain1 > 0)
   
@@ -171,11 +194,11 @@ fslbet_robust <- function(
   if (nvoxels > 0){
     kopts = paste0("-kernel boxv ", nvoxels)
     ssmask = fslfill2(ssmask, 
-                   retimg = TRUE, 
-                   kopts = kopts,
-                   remove.ends = FALSE,
-                   refill = FALSE,
-                   verbose = verbose)
+                      retimg = TRUE, 
+                      kopts = kopts,
+                      remove.ends = FALSE,
+                      refill = FALSE,
+                      verbose = verbose)
   }
   
   ss = mask_img(n4img, ssmask)
