@@ -1,7 +1,8 @@
 #' @title Within Visit Registration
 #'
 #' @description This function performs within-visit registration using a 
-#' rigid-body transformation, inhomogeneity correction, and skull stripping.
+#' rigid-body transformation, inhomogeneity correction, skull stripping, 
+#' and potentially re-correcting after skull stripping.
 #' @param files filenames (or nifti objects) of images to be processed.
 #' Will register to the first scan
 #' @param outfiles (character) name of output files, with extension
@@ -22,6 +23,8 @@
 #' @param betcmd Command to pass to \code{\link{fslbet}}
 #' @param maskfile Filename (or nifti object) of mask for image to be
 #' registered to
+#' @param correct_after_mask Should the inhomogeneity correction be run
+#' after masking.  If \code{correct = FALSE}, then 
 #' @param verbose Diagnostic messages
 #' @param ... arguments to \code{\link{bias_correct}} or
 #' \code{\link{within_visit_registration}}
@@ -43,6 +46,7 @@ preprocess_mri_within <- function(files,
                                   bet.opts = "-B -f 0.1 -v",
                                   betcmd = "bet",
                                   maskfile = NULL,
+                                  correct_after_mask = FALSE,
                                   verbose = TRUE,
                                   ... # arguments to \code{\link{antsApplyTransforms}}
 ){
@@ -164,6 +168,33 @@ preprocess_mri_within <- function(files,
               retimg = FALSE)
     }
   }
+
+  #######################################
+  # N3 Correction
+  #######################################
+  if (correct_after_mask) {
+    if (!is.null(maskfile)) {
+      warning(paste0(
+        "correct_after_mask = TRUE, but no maskfile given!",
+        " Not running bias_correct")
+      )
+    } else {
+      if (verbose) {
+        message(paste0("# ", correction, " Correction after Masking"))
+      }
+      for (ifile in seq_along(outfiles)) {
+        bias_correct(
+          file = outfiles[ifile], 
+          outfile = outfiles[ifile],
+          retimg = FALSE,
+          correction = correction,
+          shrinkfactor = shrinkfactor, 
+          mask = maskfile,
+          ...)
+      }
+    }
+  }
+  
   
   # Returning images
   if (retimg) {

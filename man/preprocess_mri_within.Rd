@@ -9,7 +9,7 @@ preprocess_mri_within(files, outfiles = NULL, correct = TRUE,
   reorient = FALSE, typeofTransform = "Rigid",
   interpolator = "LanczosWindowedSinc", skull_strip = FALSE,
   bet.opts = "-B -f 0.1 -v", betcmd = "bet", maskfile = NULL,
-  verbose = TRUE, ...)
+  correct_after_mask = FALSE, verbose = TRUE, ...)
 }
 \arguments{
 \item{files}{filenames (or nifti objects) of images to be processed.
@@ -45,6 +45,9 @@ Passed to \code{\link{readnii}}.}
 \item{maskfile}{Filename (or nifti object) of mask for image to be
 registered to}
 
+\item{correct_after_mask}{Should the inhomogeneity correction be run
+after masking.  If \code{correct = FALSE}, then}
+
 \item{verbose}{Diagnostic messages}
 
 \item{...}{arguments to \code{\link{bias_correct}} or
@@ -55,6 +58,7 @@ List of outfiles, maskfile, and output from \code{\link{registration}}.
 }
 \description{
 This function performs within-visit registration using a 
-rigid-body transformation, inhomogeneity correction, and skull stripping.
+rigid-body transformation, inhomogeneity correction, skull stripping, 
+and potentially re-correcting after skull stripping.
 }
 
