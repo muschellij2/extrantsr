@@ -1,7 +1,7 @@
-#' @title OASIS Processing Pipeline
+#' @title Within Visit Registration
 #'
-#' @description This function performs registration to a T1 template
-#' using ANTsR and SyN transformation
+#' @description This function performs within-visit registration using a 
+#' rigid-body transformation, inhomogeneity correction, and skull stripping.
 #' @param files filenames (or nifti objects) of images to be processed.
 #' Will register to the first scan
 #' @param outfiles (character) name of output files, with extension
@@ -82,7 +82,9 @@ preprocess_mri_within <- function(files,
       maskfile = paste0(brain_mask_stub, fslext)
     } else {
       maskfile = checkimg(maskfile)
-      stopifnot(file.exists(maskfile))
+      # stopifnot(!file.exists(maskfile)) # making sure it doesn't exist
+      # this check stops the option to have a maskfile and bet to be run 
+      #  and make the file
     }
     if (!file.exists(maskfile)) {
       if (verbose) {

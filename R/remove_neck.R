@@ -148,6 +148,7 @@ remove_neck <- function(file,
 #' @param swapdim Should the dimensions be swapped before registration,
 #' and then reset after
 #' @param verbose Print out diagnostic messages
+#' @param ret_mask Should the mask be returned vs. the image?
 #' @export
 #' @return Object of class nifti
 double_remove_neck = function(

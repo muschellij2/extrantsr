@@ -26,6 +26,8 @@ then \code{fslbin(file=template.file)} is performed.}
 and then reset after}
 
 \item{verbose}{Print out diagnostic messages}
+
+\item{ret_mask}{Should the mask be returned vs. the image?}
 }
 \value{
 Object of class nifti

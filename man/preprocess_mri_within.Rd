@@ -2,7 +2,7 @@
 % Please edit documentation in R/preprocess_mri_within.R
 \name{preprocess_mri_within}
 \alias{preprocess_mri_within}
-\title{OASIS Processing Pipeline}
+\title{Within Visit Registration}
 \usage{
 preprocess_mri_within(files, outfiles = NULL, correct = TRUE,
   correction = "N3", shrinkfactor = "4", retimg = FALSE,
@@ -54,7 +54,7 @@ registered to}
 List of outfiles, maskfile, and output from \code{\link{registration}}.
 }
 \description{
-This function performs registration to a T1 template
-using ANTsR and SyN transformation
+This function performs within-visit registration using a 
+rigid-body transformation, inhomogeneity correction, and skull stripping.
 }
 
