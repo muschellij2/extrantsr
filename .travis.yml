@@ -29,6 +29,7 @@ before_install:
   - export PATH=${HOME}/bin/:$PATH    
   # this removes remotes - which is a problem
   - Rscript -e 'de = "DESCRIPTION"; dcf = as.data.frame(read.dcf(de), stringsAsFactors = FALSE); cn = which(colnames(dcf) != "Remotes"); dcf = dcf[,cn, drop =FALSE]; write.dcf(x= dcf, file = de)'
-  - Rscript -e 'devtools::install_github("stnava/ANTsR", upgrade_dependencies = FALSE);'
+  - Rscript -e 'rn = rownames(installed.packages()); if (!"devtools" %in% rn) install.packages("devtools");'
+  - Rscript -e ' devtools::install_github("stnava/ANTsR", upgrade_dependencies = FALSE);'
 
 
