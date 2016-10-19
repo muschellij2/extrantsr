@@ -6,22 +6,29 @@ sudo: required
 cache: packages
 use_bioc: yes
 bioc_required: yes
+upgrade_deps: false
 
-os:
-  - linux
-  - osx
 
 apt_packages:
-  - cmake
-  - pandoc  
+  - pandoc
+  - tcl8.5-dev
+  - tk8.5-dev
+  - libhdf5-7
+  - libhdf5-dev
 
 brew_packages:
-  - cmake
   - pandoc
+  - homebrew/science/hdf5  --enable-cxx
 
 before_install:
   - itkrrel=0.0.1
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget https://github.com/stnava/ITKR/releases/download/latest/ITKR_${itkrrel}_R_x86_64-pc-linux-gnu.tar.gz; R CMD INSTALL ITKR_${itkrrel}_R_x86_64-pc-linux-gnu.tar.gz; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then wget http://github.com/stnava/ITKR/releases/download/latest/ITKR_${itkrrel}.tgz; R CMD INSTALL ITKR_${itkrrel}.tgz; fi
+  # cmake shit
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=${HOME}/bin/:$PATH; fi
+  - export PATH=${HOME}/bin/:$PATH    
+  # this removes remotes - which is a problem
+  - Rscript -e 'de = "DESCRIPTION"; dcf = as.data.frame(read.dcf(de), stringsAsFactors = FALSE); cn = which(colnames(dcf) != "Remotes"); dcf = dcf[,cn, drop =FALSE]; write.dcf(x= dcf, file = de)'
+  - Rscript -e 'devtools::install_github("stnava/ANTsR", upgrade_dependencies = FALSE);'
 
 
