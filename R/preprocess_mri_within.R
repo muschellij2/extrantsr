@@ -175,7 +175,7 @@ preprocess_mri_within <- function(files,
   # N3 Correction
   #######################################
   if (correct_after_mask) {
-    if (!is.null(maskfile)) {
+    if (is.null(maskfile)) {
       warning(paste0(
         "correct_after_mask = TRUE, but no maskfile given!",
         " Not running bias_correct")
