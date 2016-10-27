@@ -1,8 +1,8 @@
 #' @title Within Visit Registration
 #'
-#' @description This function performs within-visit registration using a 
-#' rigid-body transformation, inhomogeneity correction, skull stripping, 
-#' and potentially re-correcting after skull stripping.
+#' @description This function performs skull stripping of the first image, 
+#' within-visit registration using a rigid-body transformation, 
+#' inhomogeneity correction, and potentially re-correcting after skull stripping.
 #' @param files filenames (or nifti objects) of images to be processed.
 #' Will register to the first scan
 #' @param outfiles (character) name of output files, with extension

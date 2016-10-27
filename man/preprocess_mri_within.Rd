@@ -57,8 +57,8 @@ after masking.  If \code{correct = FALSE}, then}
 List of outfiles, maskfile, and output from \code{\link{registration}}.
 }
 \description{
-This function performs within-visit registration using a 
-rigid-body transformation, inhomogeneity correction, skull stripping, 
-and potentially re-correcting after skull stripping.
+This function performs skull stripping of the first image, 
+within-visit registration using a rigid-body transformation, 
+inhomogeneity correction, and potentially re-correcting after skull stripping.
 }
 
