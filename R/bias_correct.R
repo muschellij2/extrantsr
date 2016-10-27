@@ -10,6 +10,7 @@
 #' @param shrinkfactor Shrink factor passed to 
 #' \code{\link{n3BiasFieldCorrection}}
 #' @param mask Mask to pass to \code{\link{n4BiasFieldCorrection}} 
+#' @param verbose print diagnostic output.
 #' @param ... additional arguments passed to 
 #' \code{\link{n3BiasFieldCorrection}} or 
 #'  \code{\link{n4BiasFieldCorrection}} 
@@ -25,6 +26,7 @@ bias_correct = function(
   reorient = FALSE,
   shrinkfactor = "4",
   mask = NULL,
+  verbose = TRUE,
   ...){
   correction = toupper(correction)
   correction = match.arg(correction, c("N3", "N4"))
@@ -54,6 +56,7 @@ bias_correct = function(
     res = n4BiasFieldCorrection(img = img, 
                                 mask = mask, 
                                 shrinkFactor = as.numeric(shrinkfactor), 
+                                verbose = verbose,
                                 ...)
   }
 #   if (correction == "N4_Field"){

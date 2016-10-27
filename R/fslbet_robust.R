@@ -88,7 +88,8 @@ fslbet_robust <- function(
     if (verbose) {
       message("# Running Bias-Field Correction\n")
     }
-    n4img = bias_correct(img, correction = correction, retimg = TRUE)
+    n4img = bias_correct(img, correction = correction, retimg = TRUE,
+                         verbose = verbose)
   } else {
     n4img = img
   }

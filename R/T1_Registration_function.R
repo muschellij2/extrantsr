@@ -124,7 +124,8 @@ ants_regwrite <- function(filename, # filename of T1 image
     }    
     t1N3 = bias_correct(file = t1, 
                         correction = correction, 
-                        retimg = TRUE)
+                        retimg = TRUE,
+                        verbose = verbose)
     t1N3 = oro2ants(t1N3)
     if (have.other) {
       if (verbose){
@@ -133,7 +134,8 @@ ants_regwrite <- function(filename, # filename of T1 image
       for (i in seq(lother)){
         N3.oimgs[[i]] = bias_correct(file = other.imgs[[i]], 
                                      correction = correction, 
-                                     retimg = TRUE)
+                                     retimg = TRUE,
+                                     verbose = verbose)
         N3.oimgs[[i]] = oro2ants(N3.oimgs[[i]])
       }
     }		

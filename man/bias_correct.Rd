@@ -5,7 +5,8 @@
 \title{N3 or N4 Correct}
 \usage{
 bias_correct(file, correction = c("N3", "N4", "n3", "n4"), outfile = NULL,
-  retimg = TRUE, reorient = FALSE, shrinkfactor = "4", mask = NULL, ...)
+  retimg = TRUE, reorient = FALSE, shrinkfactor = "4", mask = NULL,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{file}{(character) image to be manipulated}
@@ -23,6 +24,8 @@ Passed to \code{\link{readnii}}.}
 \code{\link{n3BiasFieldCorrection}}}
 
 \item{mask}{Mask to pass to \code{\link{n4BiasFieldCorrection}}}
+
+\item{verbose}{print diagnostic output.}
 
 \item{...}{additional arguments passed to 
 \code{\link{n3BiasFieldCorrection}} or 

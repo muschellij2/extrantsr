@@ -130,7 +130,9 @@ preprocess_mri_within <- function(files,
       bias_correct(file = files[ifile], outfile = outfiles[ifile],
                    retimg = FALSE,
                    correction = correction,
-                   shrinkfactor = shrinkfactor, ...)
+                   shrinkfactor = shrinkfactor,
+                   verbose = verbose, 
+                   ...)
     }
     ### use the output files for processing
     files = outfiles
@@ -190,6 +192,7 @@ preprocess_mri_within <- function(files,
           correction = correction,
           shrinkfactor = shrinkfactor, 
           mask = maskfile,
+          verbose = verbose,
           ...)
       }
     }

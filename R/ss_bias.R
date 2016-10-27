@@ -61,7 +61,8 @@ ss_bias <- function(filename, # filename to be processed
     bias_correct(filename, outfile = outfile, 
                  retimg = FALSE, 
                  correction = correction,
-                 shrinkfactor = shrinkfactor, ...)
+                 shrinkfactor = shrinkfactor,
+                 verbose = verbose, ...)
   }
   ####### 
   # Returning image
@@ -119,7 +120,8 @@ bias_ss <- function(filename, # filename to be processed
     bias_correct(filename, outfile = outfile, 
                  retimg = FALSE, 
                  correction = correction,
-                 shrinkfactor = shrinkfactor, ...)
+                 shrinkfactor = shrinkfactor,
+                 verbose = verbose, ...)
   }  
   if (correct) {
     filename = outfile
