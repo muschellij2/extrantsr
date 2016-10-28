@@ -5,6 +5,10 @@
 #' \code{nifti}
 #' @param func Function to perform voxel-wise on list of images
 #' @param finite Should non-finite values be removed?
+#' @param masks Character vector, list of characters, or object of class
+#' \code{nifti} same length as images.  
+#' @param na_masks if \code{masks} are given, should values of \code{0} be
+#' turned into \code{NA}?
 #' @param ... Addictional arguments to pass to \code{func}
 #' @import matrixStats
 #' @return Object of class \code{nifti}
@@ -29,6 +33,8 @@ stat_img = function(imgs,
                              "z",
                              "quantile"),
                     finite = TRUE,
+                    masks = NULL,
+                    na_masks = TRUE,
                     ...)
 {
   if (!is.character(func)) {
@@ -81,13 +87,32 @@ stat_img = function(imgs,
   ##########################################
   # Make a large matrix of images
   ##########################################
-  imgs = check_nifti(imgs)
+  imgs = check_nifti(imgs, allow.array = TRUE)
   imgs = img_ts_to_list(imgs, copy_nifti = TRUE, warn = FALSE)
   nim = imgs[[1]]
+  stopifnot(length(imgs) > 1)
   dims = lapply(imgs, dim)
   same_dim = sapply(dims, all.equal, dims[[1]])
   if (!all(same_dim)) {
     stop("Not all image dimensions are identical!")
+  }
+  if (!is.null(masks)) {
+    masks = check_nifti(masks, allow.array = TRUE )
+    masks = img_ts_to_list(masks, copy_nifti = TRUE, warn = FALSE)  
+    stopifnot(length(imgs) == length(masks))
+    lapply(masks, check_mask_fail, 
+                   allow.NA = TRUE, 
+           allow.array = TRUE)
+    if (na_masks) {
+      masks = lapply(masks, 
+                     function(x){
+                       x[ x == 0 ] = NA
+                       return(x)
+                     })
+    }
+    imgs = mapply(function(img, mask){
+      mask_img(img, mask)
+    }, imgs, masks, SIMPLIFY = FALSE)
   }
   mat = lapply(imgs, c)
   mat = do.call("cbind", mat)

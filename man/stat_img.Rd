@@ -5,7 +5,8 @@
 \title{Create Statistics Image}
 \usage{
 stat_img(imgs, func = c("mean", "median", "mode", "peak", "sd", "var", "mad",
-  "sum", "prod", "z", "quantile"), finite = TRUE, ...)
+  "sum", "prod", "z", "quantile"), finite = TRUE, masks = NULL,
+  na_masks = TRUE, ...)
 }
 \arguments{
 \item{imgs}{Character vector, list of characters, or object of class
@@ -14,6 +15,12 @@ stat_img(imgs, func = c("mean", "median", "mode", "peak", "sd", "var", "mad",
 \item{func}{Function to perform voxel-wise on list of images}
 
 \item{finite}{Should non-finite values be removed?}
+
+\item{masks}{Character vector, list of characters, or object of class
+\code{nifti} same length as images.}
+
+\item{na_masks}{if \code{masks} are given, should values of \code{0} be
+turned into \code{NA}?}
 
 \item{...}{Addictional arguments to pass to \code{func}}
 }
