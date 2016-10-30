@@ -90,7 +90,7 @@ corr_img = function(
   if (verbose) {
     message("Getting Neighborhood for Image 2")
   }    
-  neigh2 = scaled_neighborhood(img = img1, 
+  neigh2 = scaled_neighborhood(img = img2, 
                                mask = mask, 
                                radius = radius,
                                method = method,
