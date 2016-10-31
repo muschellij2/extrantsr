@@ -55,6 +55,8 @@
 #' plot the image instead of polygons.  Passed to 
 #' \code{\link[graphics]{image}}.
 #' @param ... other arguments to the image function may be provided here.
+#' @param mask If a mask is passed, \code{drop_empty_dim} is applied 
+#' to both \code{x} and \code{y}
 #' @note This will NOT do \code{\link{ants2oro}} to plot the image.  
 #' If that is desired, users will have to do that before calling 
 #' \code{ortho2}.

@@ -108,6 +108,9 @@ in \code{double_ortho}}
 plot the image instead of polygons.  Passed to 
 \code{\link[graphics]{image}}.}
 
+\item{mask}{If a mask is passed, \code{drop_empty_dim} is applied 
+to both \code{x} and \code{y}}
+
 \item{...}{other arguments to the image function may be provided here.}
 }
 \description{
