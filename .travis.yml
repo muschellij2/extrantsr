@@ -12,7 +12,12 @@ upgrade_deps: false
 r_binary_packages: 
   - abind
   - plyr
-
+  - readr
+  - rgl
+  - stringi
+  - stringr
+  - httpuv
+  
 # apt_packages:
 #   - pandoc
 #   - tcl8.5-dev

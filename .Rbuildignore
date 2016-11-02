@@ -3,3 +3,5 @@
 ^.*\.DS_Store$
 ^\.travis\.yml$
 ^\.DS_Store$
+
+&\.noncustom_travis_yaml\.yml
