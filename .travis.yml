@@ -30,6 +30,8 @@ r_binary_packages:
 #   - homebrew/science/hdf5  --enable-cxx
 
 before_install:
+  # for RGL
+  - echo "options(rgl.useNULL = TRUE)" >> ~/.Rprofile 
   - cwd=`pwd`
   - cd ~/
   - itkrrel=0.0.1
