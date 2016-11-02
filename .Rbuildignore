@@ -4,4 +4,4 @@
 ^\.travis\.yml$
 ^\.DS_Store$
 
-&\.noncustom_travis_yaml\.yml
+^\.noncustom_travis_yaml\.yml
