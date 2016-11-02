@@ -29,11 +29,11 @@ before_install:
   # cmake shit
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=${HOME}/bin/:$PATH; fi
   - export PATH=${HOME}/bin/:$PATH    
+  - cd $cwd
   - Rscript -e 'if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")'
   # this removes remotes - which is a problem
   - Rscript -e 'devtools::source_url("https://gist.githubusercontent.com/muschellij2/69c48f469ab34cc05752361645ffa8e0/raw/57e7d3b22907699d260f863a0d337a12567ffc30/rewrite_dcf.R"); repo = get_remote_info(package = "ANTsR"); devtools::install_github(repo, upgrade_dependencies = FALSE);'
   - Rscript -e 'devtools::source_url("https://gist.githubusercontent.com/muschellij2/69c48f469ab34cc05752361645ffa8e0/raw/57e7d3b22907699d260f863a0d337a12567ffc30/rewrite_dcf.R"); rewrite_dcf(drop_remotes = c("ITKR"));'
   - Rscript -e 'devtools::source_url("https://gist.githubusercontent.com/muschellij2/69c48f469ab34cc05752361645ffa8e0/raw/57e7d3b22907699d260f863a0d337a12567ffc30/rewrite_dcf.R"); rewrite_dcf(drop_remotes = c("ANTsR", "ITKR"));'
-  - cd $cwd
 
 
