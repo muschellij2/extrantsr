@@ -2,23 +2,23 @@
 
 language: r
 warnings_are_errors: true
-sudo: required
+sudo: false
 cache: packages
 use_bioc: yes
 bioc_required: yes
 upgrade_deps: false
 
 
-apt_packages:
-  - pandoc
-  - tcl8.5-dev
-  - tk8.5-dev
-  - libhdf5-7
-  - libhdf5-dev
+# apt_packages:
+#   - pandoc
+#   - tcl8.5-dev
+#   - tk8.5-dev
+#   - libhdf5-7
+#   - libhdf5-dev
 
-brew_packages:
-  - pandoc
-  - homebrew/science/hdf5  --enable-cxx
+# brew_packages:
+#   - pandoc
+#   - homebrew/science/hdf5  --enable-cxx
 
 before_install:
   - cwd=`pwd`
