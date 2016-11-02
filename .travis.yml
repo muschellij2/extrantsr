@@ -9,6 +9,10 @@ bioc_required: yes
 upgrade_deps: false
 
 
+r_binary_packages: 
+  - abind
+  - plyr
+
 # apt_packages:
 #   - pandoc
 #   - tcl8.5-dev
