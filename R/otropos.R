@@ -9,6 +9,7 @@
 #' @param m mrf parameters as a string, usually 
 #' "\code{[smoothingFactor,radius]}".  Reset for 3D images, compared to 
 #' 2D default atropos has. 
+#' @param verbose print diagnostic messages
 #' @param ... Additional arguments to be passed to \code{\link{atropos}}
 #' @param make_mask Logical indicating if mask should be created if
 #' \code{x} is missing.  Mask is made using \code{\link{getMask}} with
@@ -20,6 +21,7 @@
 otropos <- function(a, 
                     x, 
                     m = "[0.2,1x1x1]", 
+                    verbose = TRUE,
                     ..., 
                     make_mask = TRUE,
                     reset_origin = TRUE) {
@@ -48,7 +50,8 @@ otropos <- function(a,
     }
     args = list(x = x, ...)
   }
-  args = c(a = a, args, m = m)
+  verbose = as.numeric(verbose)
+  args = c(a = a, args, m = m, v = verbose)
   res = do.call(atropos, args)
   rm(list = c("a", "args")); gc(); gc();
   if (!all(c("segmentation", "probabilityimages") %in% names(res))) {

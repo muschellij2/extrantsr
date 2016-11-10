@@ -4,7 +4,7 @@
 \alias{otropos}
 \title{Run Atropos for nifti objects}
 \usage{
-otropos(a, x, m = "[0.2,1x1x1]", ..., make_mask = TRUE,
+otropos(a, x, m = "[0.2,1x1x1]", verbose = TRUE, ..., make_mask = TRUE,
   reset_origin = TRUE)
 }
 \arguments{
@@ -17,6 +17,8 @@ then mask is created by first}
 \item{m}{mrf parameters as a string, usually 
 "\code{[smoothingFactor,radius]}".  Reset for 3D images, compared to 
 2D default atropos has.}
+
+\item{verbose}{print diagnostic messages}
 
 \item{...}{Additional arguments to be passed to \code{\link{atropos}}}
 
