@@ -8,6 +8,10 @@ use_bioc: yes
 bioc_required: yes
 upgrade_deps: false
 
+r:
+  - release
+  - devel
+
   
 # apt_packages:
 #   - pandoc
