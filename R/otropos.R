@@ -51,7 +51,10 @@ otropos <- function(a,
     args = list(x = x, ...)
   }
   verbose = as.numeric(verbose)
-  args = c(a = a, args, m = m, v = verbose)
+  args = c(a = a, args, m = m)
+  args$v = NULL
+  args$v = verbose
+  
   res = do.call(atropos, args)
   rm(list = c("a", "args")); gc(); gc();
   if (!all(c("segmentation", "probabilityimages") %in% names(res))) {
