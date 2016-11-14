@@ -5,12 +5,11 @@
 #' @param k Minimum cluster size needed
 #' @param binary (logical) Should the result be binary or numbered with cluster.
 #' @return \code{nifti} object
-#' @importFrom ANTsR labelClusters
 #' @export
 ants_bwlabel = function(img, k = 1, binary = TRUE) {
   
   img = check_ants(img)
-  labs = labelClusters(
+  labs = ANTsR::labelClusters(
     img,
     minClusterSize = 1,
     fullyConnected = TRUE)
