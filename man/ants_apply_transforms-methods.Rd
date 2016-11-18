@@ -14,12 +14,14 @@
 \usage{
 ants_apply_transforms(fixed, moving, transformlist, ...)
 
-\S4method{ants_apply_transforms}{ANY,list}(fixed, moving, transformlist, ...)
+\S4method{ants_apply_transforms}{ANY,list}(fixed, moving, transformlist,
+  ret_ants = FALSE, ...)
 
 \S4method{ants_apply_transforms}{ANY,character}(fixed, moving, transformlist,
-  ...)
+  ret_ants = FALSE, ...)
 
-\S4method{ants_apply_transforms}{ANY,ANY}(fixed, moving, transformlist, ...)
+\S4method{ants_apply_transforms}{ANY,ANY}(fixed, moving, transformlist,
+  ret_ants = FALSE, ...)
 }
 \arguments{
 \item{fixed}{image defining domain into which the moving image is transformed.}
@@ -30,6 +32,9 @@ ants_apply_transforms(fixed, moving, transformlist, ...)
 \code{\link{antsRegistration}}}
 
 \item{...}{Arguments to be passed to \code{\link{antsApplyTransforms}}.}
+
+\item{ret_ants}{if \code{TRUE}, the returned object is an \code{antsImage},
+as opposed to a \code{nifti}}
 }
 \value{
 Either \code{nifti} object or list of nifti objects
