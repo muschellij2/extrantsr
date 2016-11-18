@@ -97,30 +97,34 @@ registration <- function(filename,
   }
   
   if (!remove.warp) {
-    stopifnot(!is.null(outprefix))
+    # stopifnot(!is.null(outprefix))
   } else {
     if (is.null(outprefix))  outprefix = tempfile()
   }
   
-  if (is(filename, "antsImage")) {
-    filename = tempants(filename)
+  if (is.antsImage(filename)) {
+    t1 = antsImageClone(filename)
+  } else {
+    filename = checkimg(filename)
+    # 	filename = path.expand(filename)
+    stopifnot(file.exists(filename))
+    t1 <- antsImageRead(filename, 3)
   }
-  filename = checkimg(filename)
-  # 	filename = path.expand(filename)
-  stopifnot(file.exists(filename))
-  t1 <- antsImageRead(filename, 3)
   
   if (skull_strip) {
     if (verbose) {
       message("# Skull Stripping\n")
     }
+    if (is.antsImage(filename)) {
+      filename = checkimg(filename)
+    }   
     ext = get.imgext()
     bet_file = tempfile()
     x = fslbet(infile = filename, 
                outfile = bet_file, 
                opts = bet.opts, 
                betcmd = betcmd, 
-               retimg= FALSE)
+               retimg = FALSE)
     bet_file = paste0(tempfile(), ext)
     bet_maskfile = paste0(tempfile(), "_Mask", ext)
     # bet = antsImageRead(bet_file, 3)
@@ -174,11 +178,15 @@ registration <- function(filename,
   }
   
   ## 
-  template.file = checkimg(template.file)
-  stopifnot(file.exists(template.file))
-  
-  template.file = path.expand(template.file)
-  template <- antsImageRead(template.file, 3)
+  if (is.antsImage(template.file)) {
+    template = antsImageClone(template.file)
+  } else {
+    template.file = checkimg(template.file)
+    stopifnot(file.exists(template.file))
+    
+    template.file = path.expand(template.file)
+    template <- antsImageRead(template.file)
+  }
   # template.img <- readnii(template.path, reorient = FALSE)
   
   if (verbose) {
@@ -209,10 +217,11 @@ registration <- function(filename,
     #     message("# Moving is \n")
     #     print(t1N3)
   }  
-  t1.to.template <- antsApplyTransforms(fixed=template, 
-                                        moving=t1N3,
-                                        transformlist=antsRegOut.nonlin$fwdtransforms,
-                                        interpolator=interpolator) 
+  t1.to.template <- antsApplyTransforms(
+    fixed = template, 
+    moving = t1N3,
+    transformlist = antsRegOut.nonlin$fwdtransforms,
+    interpolator = interpolator) 
   
   
   # moving = t1N3
