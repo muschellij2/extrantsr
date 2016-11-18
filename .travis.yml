@@ -10,7 +10,6 @@ upgrade_deps: false
 
 r:
   - release
-  - devel
 
   
 # apt_packages:
