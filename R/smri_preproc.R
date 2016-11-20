@@ -47,8 +47,13 @@ smri_preproc <- function(
   } 
   writenii(mask, filename = maskfile)
   
-  
-  outfiles = path.expand(outfiles)
+  if (is.null(outfiles)) {
+    outfiles = sapply(seq_along(files),
+                      tempfile,
+                      fileext = ".nii.gz")
+  } else {
+    outfiles = path.expand(outfiles)
+  }
   
   pre = preprocess_mri_within(
     files = files,
