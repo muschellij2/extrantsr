@@ -36,4 +36,3 @@ Masks the brain from scan using a rigid body transformation
 of the template mask to the native brain space and then inflating the mask
 to adjust for mis-registration.
 }
-

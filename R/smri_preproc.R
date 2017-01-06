@@ -4,6 +4,7 @@
 #' T1, then preprocessing within visit
 #' @param files filenames (or nifti objects) of images to be processed.
 #' Will register to the first scan
+#' @param window Should \code{\link{robust_window}} before running?
 #' @param outfiles (character) name of output files, with extension
 #' @param maskfile Filename (or nifti object) of mask for image to be
 #' registered to
@@ -17,6 +18,7 @@
 #' @return List from \code{\link{preprocess_mri_within}} 
 smri_preproc <- function(
   files,
+  window = FALSE,
   outfiles = NULL,
   maskfile = NULL,
   correct = TRUE,
@@ -25,6 +27,10 @@ smri_preproc <- function(
   verbose = TRUE,
   ... # arguments to \code{\link{antsApplyTransforms}}
 ){
+  if (window) {
+    files = check_nifti(files)
+    files = robust_window(files)
+  }
   
   files = checkimg(files)
 
@@ -49,8 +55,9 @@ smri_preproc <- function(
   
   if (is.null(outfiles)) {
     outfiles = sapply(seq_along(files),
-                      tempfile,
-                      fileext = ".nii.gz")
+                      function(x) {
+                      tempfile(fileext = ".nii.gz")
+                      })
   } else {
     outfiles = path.expand(outfiles)
   }

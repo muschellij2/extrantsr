@@ -38,4 +38,3 @@ Object of class nifti or vector of indices
 Removes the neck from axially acquired scan so
 skull stripping can be done.
 }
-

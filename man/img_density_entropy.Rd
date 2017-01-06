@@ -24,4 +24,3 @@ arr = array(rnorm(100^3), dim = rep(100, 3))
 img = oro.nifti::nifti(arr)
 img_density_entropy(img)
 }
-

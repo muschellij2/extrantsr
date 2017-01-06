@@ -25,4 +25,3 @@ Object of class \code{nifti}.
 Wrapper for the \code{\link{kellyKapowski}} function
 in ANTsR, that computes cortical thickness.
 }
-

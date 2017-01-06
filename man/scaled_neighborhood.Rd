@@ -35,4 +35,3 @@ List similar to the output of \code{\link{getNeighborhoodInMask}}
 This function wraps the \code{\link{neighborhood}} to
 provided scaled neighborhood or its ranks
 }
-

@@ -2,12 +2,12 @@
 % Please edit documentation in R/subset_4d.R
 \docType{methods}
 \name{subset_4d-methods}
-\alias{.subset_4d}
+\alias{subset_4d-methods}
 \alias{subset_4d}
-\alias{subset_4d,antsImage-method}
 \alias{subset_4d,character-method}
 \alias{subset_4d,nifti-method}
-\alias{subset_4d-methods}
+\alias{subset_4d,antsImage-method}
+\alias{.subset_4d}
 \title{Subset a 4D image}
 \usage{
 subset_4d(img, ind, ...)
@@ -48,4 +48,3 @@ subset_4d(x, ind = 1)
 \author{
 John Muschelli \email{muschellij2@gmail.com}
 }
-

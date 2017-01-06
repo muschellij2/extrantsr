@@ -59,4 +59,3 @@ output file
 Takes in an input file and template images with 
 a set of template structures and creates a label fusion
 }
-

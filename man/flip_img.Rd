@@ -23,4 +23,3 @@ Object of class nifti
 \description{
 This image will flip x, y, or z direction
 }
-

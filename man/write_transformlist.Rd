@@ -15,4 +15,3 @@ List of transforms
 \description{
 Transform a transformlist from ANTsR into an object in R
 }
-

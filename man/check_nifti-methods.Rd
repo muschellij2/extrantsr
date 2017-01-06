@@ -30,4 +30,3 @@ class nifti
 \seealso{
 \link{readnii}
 }
-

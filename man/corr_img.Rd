@@ -36,4 +36,3 @@ does the correlation of each neighbor with itself in the other imaging modality
 corr_img("T1_Image.nii.gz", "FLAIR_Image.nii.gz", mask = "Mask.nii.gz")
 }
 }
-

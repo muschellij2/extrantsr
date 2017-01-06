@@ -18,4 +18,3 @@ Object of class \code{nifti}
 Wraps \code{getMask} from \code{ANTsR} for 
 nifti objects
 }
-

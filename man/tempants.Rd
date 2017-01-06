@@ -18,4 +18,3 @@ Character value of filename
 Takes in a object of class \code{antsImage},
 writes it to a temp file, and appends .nii or .nii.gz
 }
-

@@ -19,4 +19,3 @@ Alpha level depending on device
 \description{
 Make my png
 }
-

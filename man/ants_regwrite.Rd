@@ -70,4 +70,3 @@ using ANTsR and SyN transformation, carry out the transformation
 on other images, and can back-transform atlases
 in template space to the native space of the iimage
 }
-

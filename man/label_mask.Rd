@@ -17,4 +17,3 @@ Object of class \code{\link{nifti}}
 \description{
 Label a binary image with connected components
 }
-

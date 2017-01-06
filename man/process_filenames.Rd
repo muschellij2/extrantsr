@@ -23,4 +23,3 @@ of output filenames
 Takes input and output filename, ensures the same
 file extension, copies files, and checks all are character
 }
-

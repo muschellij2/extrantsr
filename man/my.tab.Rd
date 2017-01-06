@@ -19,4 +19,3 @@ table of x vs y
 \description{
 Speeds up on table for logical x and y
 }
-

@@ -77,4 +77,3 @@ on other images, and can back-transform image
 in registered space to the native space of the original image.  Returns the 
 transforms
 }
-

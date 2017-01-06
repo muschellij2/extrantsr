@@ -27,4 +27,3 @@ List of resutls from \code{\link{registration}}
 This function performs registration to a T1 template
 using ANTsR and SyN transformation
 }
-

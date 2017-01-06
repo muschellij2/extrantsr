@@ -39,4 +39,3 @@ determine how to break ties.  The default is \code{"first"} as compared to
 \code{\link{density}} is run on each voxel and the value with the maximum.  If
 the number of unique values is only 1, that value is returned.
 }
-

@@ -39,4 +39,3 @@ Output list of registered images and transformations
 Takes a list of images and registers them to a template, 
 keeping the registration information in a list.
 }
-

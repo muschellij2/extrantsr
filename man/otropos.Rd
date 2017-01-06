@@ -36,4 +36,3 @@ Result of \code{\link{atropos}}, but with nifti objects.
 Runs Atropos (a finite mixture model) but with more 
 robust inputs
 }
-

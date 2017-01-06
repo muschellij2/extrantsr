@@ -18,4 +18,3 @@ Matrix of 3 columns of dimension indices.
 \description{
 Find center of gravity for each compoent of an image
 }
-

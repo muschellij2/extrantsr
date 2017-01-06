@@ -35,4 +35,3 @@ List similar to the output of \code{\link{getNeighborhoodInMask}}
 This function wraps the \code{\link{getNeighborhoodInMask}} to
 be more friendly for R and \code{nifti} objects
 }
-

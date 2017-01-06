@@ -96,11 +96,13 @@ registration <- function(filename,
     }
   }
   
-  if (!remove.warp) {
+  # if (!remove.warp) {
     # stopifnot(!is.null(outprefix))
-  } else {
-    if (is.null(outprefix))  outprefix = tempfile()
-  }
+  # } else {
+    if (is.null(outprefix)) {
+      outprefix = tempfile()
+    }
+  # }
   
   if (is.antsImage(filename)) {
     t1 = antsImageClone(filename)

@@ -37,4 +37,3 @@ Wrapper for running \code{remove_neck} twice, as some images
 require this if large number of slices of the neck or upper shoulders
 were scanned
 }
-

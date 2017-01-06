@@ -39,4 +39,3 @@ Result from system command, depends if intern is TRUE or FALSE.
 This function wraps ANTsR bias field corrections and returns
 nifti objects
 }
-

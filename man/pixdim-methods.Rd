@@ -2,8 +2,8 @@
 % Please edit documentation in R/pixdim.R
 \docType{methods}
 \name{pixdim-methods}
-\alias{pixdim,antsImage-method}
 \alias{pixdim-methods}
+\alias{pixdim,antsImage-method}
 \title{Extract Image pixdim attribute}
 \usage{
 \S4method{pixdim}{antsImage}(object)
@@ -17,4 +17,3 @@ Vector of numeric values
 \description{
 Gets pixdim from an antsImage
 }
-

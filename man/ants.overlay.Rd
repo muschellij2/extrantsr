@@ -23,4 +23,3 @@ ants.overlay(img, oimg, slices = 53, col.x = gray(0:64/64),
 \description{
 Plots series of Images for slices of antsImage
 }
-

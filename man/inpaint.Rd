@@ -25,4 +25,3 @@ statistic filled in (\code{statistic})
 Paints in the image with the mean/median from 
 \code{fill_mask}
 }
-

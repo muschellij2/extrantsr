@@ -61,4 +61,3 @@ This function performs skull stripping of the first image,
 within-visit registration using a rigid-body transformation, 
 inhomogeneity correction, and potentially re-correcting after skull stripping.
 }
-

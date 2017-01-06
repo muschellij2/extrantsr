@@ -19,4 +19,3 @@ Matrix of values
 \description{
 Turns a 4D time series image to a Data.frame
 }
-

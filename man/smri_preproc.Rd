@@ -4,12 +4,15 @@
 \alias{smri_preproc}
 \title{Standard MRI Preprocessing}
 \usage{
-smri_preproc(files, outfiles = NULL, maskfile = NULL, correct = TRUE,
-  correction = "N4", correct_after_mask = TRUE, verbose = TRUE, ...)
+smri_preproc(files, window = FALSE, outfiles = NULL, maskfile = NULL,
+  correct = TRUE, correction = "N4", correct_after_mask = TRUE,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{files}{filenames (or nifti objects) of images to be processed.
 Will register to the first scan}
+
+\item{window}{Should \code{\link{robust_window}} before running?}
 
 \item{outfiles}{(character) name of output files, with extension}
 
@@ -34,4 +37,3 @@ List from \code{\link{preprocess_mri_within}}
 This function performs robust skull stripping on the 
 T1, then preprocessing within visit
 }
-

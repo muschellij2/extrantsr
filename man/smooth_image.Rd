@@ -38,4 +38,3 @@ cal.max = max(x), pixdim = rep(1, 4))
 s.img = smooth_image(img, sigmaInPhysicalCoordinates = TRUE)
 })
 }
-

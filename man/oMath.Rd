@@ -22,4 +22,3 @@ Images are converted \code{nifti} objects
 (from the oro.nifti package), an operation is performed using 
 \code{\link{iMath}}, and the result is a \code{nifti} object.
 }
-

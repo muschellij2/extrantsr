@@ -26,4 +26,3 @@ Turns a a list of 3D images into a 4D time series image
 If the object is not of class \code{\link{list}},
 then the object is returned
 }
-

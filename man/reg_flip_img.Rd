@@ -59,4 +59,3 @@ List of nifti objects or character filenames
 This function performs registration to a template
 using ANTsR and will run \code{\link{fslswapdim}}
 }
-

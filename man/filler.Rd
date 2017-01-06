@@ -20,4 +20,3 @@ Filled object with same class as \code{img}
 Fills in a binary image using \code{\link{iMath}}, 
 using dilation erosion but with zero padding built in.
 }
-

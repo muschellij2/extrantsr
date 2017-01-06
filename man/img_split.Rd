@@ -19,4 +19,3 @@ Names of output files
 \description{
 Split an image on a certain dimension
 }
-

@@ -22,4 +22,3 @@ Simple wrapper for \code{\link{antsImageRead}} and
 For example, NRRD files with nhdr/raw file formats can be converted to
 \code{.nii.gz}.
 }
-

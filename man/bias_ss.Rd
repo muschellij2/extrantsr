@@ -47,4 +47,3 @@ This function wraps \code{fslbet} and
 \seealso{
 \code{\link{ss_bias}}
 }
-

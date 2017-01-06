@@ -2,13 +2,13 @@
 % Please edit documentation in R/apply_multi_reg.R
 \docType{methods}
 \name{apply_multi_reg-methods}
-\alias{apply_multi_reg}
-\alias{apply_multi_reg,antsImage,character-method}
-\alias{apply_multi_reg,character,list-method}
-\alias{apply_multi_reg,list,character-method}
-\alias{apply_multi_reg,list,list-method}
-\alias{apply_multi_reg,nifti,character-method}
 \alias{apply_multi_reg-methods}
+\alias{apply_multi_reg}
+\alias{apply_multi_reg,list,list-method}
+\alias{apply_multi_reg,character,list-method}
+\alias{apply_multi_reg,antsImage,character-method}
+\alias{apply_multi_reg,nifti,character-method}
+\alias{apply_multi_reg,list,character-method}
 \title{Check if antsImage or read in}
 \usage{
 apply_multi_reg(infiles, transformlist, fixed, ...)
@@ -40,10 +40,9 @@ Object of class \code{\link{nifti}}
 Simple check to see if input is character, list, \code{nifti},
 or class \code{antsImage}
 }
-\author{
-John Muschelli \email{muschellij2@gmail.com}
-}
 \seealso{
 \code{\link{antsApplyTransforms}}
 }
-
+\author{
+John Muschelli \email{muschellij2@gmail.com}
+}

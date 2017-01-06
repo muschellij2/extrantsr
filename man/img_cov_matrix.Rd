@@ -42,4 +42,3 @@ does the covariance of each neighbor with itself in the other imaging modality
 \note{
 Divisor is \code{n - 1}.
 }
-

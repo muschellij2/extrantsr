@@ -2,14 +2,14 @@
 % Please edit documentation in R/ants_apply_transforms.R
 \docType{methods}
 \name{ants_apply_transforms-methods}
-\alias{ants_apply_transforms}
-\alias{ants_apply_transforms,ANY,ANY,"ANY"-method}
-\alias{ants_apply_transforms,ANY,ANY-method}
-\alias{ants_apply_transforms,ANY,character,ANY-method}
-\alias{ants_apply_transforms,ANY,character-method}
-\alias{ants_apply_transforms,ANY,list,ANY-method}
-\alias{ants_apply_transforms,ANY,list-method}
 \alias{ants_apply_transforms-methods}
+\alias{ants_apply_transforms}
+\alias{ants_apply_transforms,ANY,list-method}
+\alias{ants_apply_transforms,ANY,list,ANY-method}
+\alias{ants_apply_transforms,ANY,character-method}
+\alias{ants_apply_transforms,ANY,character,ANY-method}
+\alias{ants_apply_transforms,ANY,ANY-method}
+\alias{ants_apply_transforms,ANY,ANY,"ANY"-method}
 \title{Apply ANTs transforms to nifti images}
 \usage{
 ants_apply_transforms(fixed, moving, transformlist, ...)
@@ -43,10 +43,9 @@ Either \code{nifti} object or list of nifti objects
 Wraps \code{\link{antsApplyTransforms}} but allows for 
 \code{\link{nifti}} objects from the \code{oro.nifti} package
 }
-\author{
-John Muschelli \email{muschellij2@gmail.com}
-}
 \seealso{
 \code{\link{antsApplyTransforms}}
 }
-
+\author{
+John Muschelli \email{muschellij2@gmail.com}
+}

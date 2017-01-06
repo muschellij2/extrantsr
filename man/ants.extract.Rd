@@ -18,4 +18,3 @@ Numeric vector
 Just helpful wrapper to convert to array and then take
 values for which mask is 1
 }
-

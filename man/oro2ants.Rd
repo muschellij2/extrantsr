@@ -21,4 +21,3 @@ Object of class \code{antsImage}
 NIfTI data can be converted between \code{nifti} 
 (from the oro.nifti package) and \code{antsImage} objects.
 }
-

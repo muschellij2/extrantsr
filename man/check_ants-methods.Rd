@@ -2,12 +2,12 @@
 % Please edit documentation in R/check_ants.R
 \docType{methods}
 \name{check_ants-methods}
+\alias{check_ants-methods}
 \alias{check_ants}
 \alias{check_ants,antsImage-method}
+\alias{check_ants,nifti-method}
 \alias{check_ants,character-method}
 \alias{check_ants,list-method}
-\alias{check_ants,nifti-method}
-\alias{check_ants-methods}
 \title{Check if antsImage or read in}
 \usage{
 check_ants(x)
@@ -31,10 +31,9 @@ antsImage object
 Simple check to see if input is character, list, \code{nifti},
 or class \code{antsImage}
 }
-\author{
-John Muschelli \email{muschellij2@gmail.com}
-}
 \seealso{
 \code{\link{antsImageRead}}
 }
-
+\author{
+John Muschelli \email{muschellij2@gmail.com}
+}

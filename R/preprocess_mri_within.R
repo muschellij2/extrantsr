@@ -33,22 +33,23 @@
 #' @import oro.nifti
 #' @export
 #' @return List of outfiles, maskfile, and output from \code{\link{registration}}.
-preprocess_mri_within <- function(files,
-                                  outfiles = NULL,
-                                  correct = TRUE,  # do N3 Bias correction
-                                  correction = "N3",
-                                  shrinkfactor= "4",
-                                  retimg = FALSE,
-                                  reorient = FALSE,
-                                  typeofTransform = "Rigid",
-                                  interpolator = "LanczosWindowedSinc",
-                                  skull_strip = FALSE,
-                                  bet.opts = "-B -f 0.1 -v",
-                                  betcmd = "bet",
-                                  maskfile = NULL,
-                                  correct_after_mask = FALSE,
-                                  verbose = TRUE,
-                                  ... # arguments to \code{\link{antsApplyTransforms}}
+preprocess_mri_within <- function(
+  files,
+  outfiles = NULL,
+  correct = TRUE,  # do N3 Bias correction
+  correction = "N3",
+  shrinkfactor= "4",
+  retimg = FALSE,
+  reorient = FALSE,
+  typeofTransform = "Rigid",
+  interpolator = "LanczosWindowedSinc",
+  skull_strip = FALSE,
+  bet.opts = "-B -f 0.1 -v",
+  betcmd = "bet",
+  maskfile = NULL,
+  correct_after_mask = FALSE,
+  verbose = TRUE,
+  ... # arguments to \code{\link{antsApplyTransforms}}
 ){
   
   # Expanding paths for ANTsR
@@ -170,7 +171,7 @@ preprocess_mri_within <- function(files,
               retimg = FALSE)
     }
   }
-
+  
   #######################################
   # N3 Correction
   #######################################
@@ -203,7 +204,11 @@ preprocess_mri_within <- function(files,
   if (retimg) {
     outfiles = lapply(outfiles, readnii, reorient = reorient)
   }
-  L = c(outfiles = outfiles, maskfile = maskfile, regs = regs)
+  if (!is.null(regs)) {
+    L = c(outfiles = outfiles, maskfile = maskfile, regs = regs)
+  } else {
+    L = list(outfiles = outfiles, maskfile = maskfile)
+  }
   rm(list = c("outfiles", "regs", "maskfile"))
   for (i in 1:10) {
     gc()

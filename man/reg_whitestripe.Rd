@@ -63,4 +63,3 @@ List of nifti objects or character filenames
 This function performs registration to a T1 template
 using ANTsR and SyN transformation
 }
-

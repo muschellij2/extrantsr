@@ -58,4 +58,3 @@ list of objects from \code{\link{preprocess_mri_within}} and
 This function performs preprocessing and registration
 across visits and within visits
 }
-

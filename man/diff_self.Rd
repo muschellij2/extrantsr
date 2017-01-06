@@ -21,4 +21,3 @@ Object of class \code{nifti}
 This function flips the image over the left/right axis, then registers 
 the flipped image to the original image and then takes a difference
 }
-

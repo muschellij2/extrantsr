@@ -41,4 +41,3 @@ Object of class \code{nifti}
 Registers an image to a template, subtracts a mean and sd image, and
 will return the image either in template space or native.
 }
-

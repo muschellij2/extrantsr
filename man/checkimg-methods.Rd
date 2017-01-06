@@ -2,8 +2,8 @@
 % Please edit documentation in R/checkimg_antsImage.R
 \docType{methods}
 \name{checkimg-methods}
-\alias{checkimg,antsImage-method}
 \alias{checkimg-methods}
+\alias{checkimg,antsImage-method}
 \title{Force object to filename}
 \usage{
 \S4method{checkimg}{antsImage}(file, ...)
@@ -17,4 +17,3 @@
 Ensures the output to be a character filename (or vector) from an input
 image or \code{nifti}.
 }
-

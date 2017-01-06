@@ -2,8 +2,8 @@
 % Please edit documentation in R/ortho2.R
 \docType{methods}
 \name{ortho2,antsImage-method}
-\alias{ortho2,antsImage,ANY,ANY-method}
 \alias{ortho2,antsImage-method}
+\alias{ortho2,antsImage,ANY,ANY-method}
 \title{Orthographic Display, added options}
 \usage{
 \S4method{ortho2}{antsImage}(x, y = NULL, xyz = NULL, w = 1,
@@ -122,4 +122,3 @@ This will NOT do \code{\link{ants2oro}} to plot the image.
 If that is desired, users will have to do that before calling 
 \code{ortho2}.
 }
-

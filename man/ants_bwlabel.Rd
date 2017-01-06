@@ -19,4 +19,3 @@ ants_bwlabel(img, k = 1, binary = TRUE)
 \description{
 Get Cluster of certain size from \code{\link{labelClusters}}
 }
-

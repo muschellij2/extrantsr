@@ -30,4 +30,3 @@ statistic image.
 The second stage will use the same arguments passed in \code{...}, but
 the \code{template.file} will be the statistic image
 }
-

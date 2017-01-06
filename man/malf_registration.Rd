@@ -45,4 +45,3 @@ output files
 Takes in an input file and template images with 
 a set of template structures and registers them
 }
-

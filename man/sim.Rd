@@ -18,4 +18,3 @@ List of performance measures
 Calculates perofrmance metrics, like dice, Jaccard,
 sensitivity, specificity
 }
-

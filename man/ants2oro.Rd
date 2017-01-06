@@ -26,4 +26,3 @@ Object of class \code{nifti}.
 NIfTI data can be converted between \code{antsImage} 
 (from the ANTsR package) and nifti S4 objects.
 }
-

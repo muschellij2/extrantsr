@@ -40,4 +40,3 @@ Takes in an input file, set of registrations,
 and a set of template structures and applies the registrations,
 with a different interpolator if necessary
 }
-

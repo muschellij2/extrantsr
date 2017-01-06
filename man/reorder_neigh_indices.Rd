@@ -19,4 +19,3 @@ List of new indices, the ordering, and a binary array which has a
 The output from \code{\link{getNeighborhoodInMask}} gets reordered
 to match that which R uses for array to indices.
 }
-

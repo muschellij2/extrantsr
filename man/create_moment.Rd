@@ -31,4 +31,3 @@ a matrix (V by 6), where V is the number of voxels in the mask
 Creates first (mean) through fourth (kurtosis) central moments,
 as well as gradients and mean/sd image.
 }
-

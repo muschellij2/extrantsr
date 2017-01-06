@@ -2,8 +2,8 @@
 % Please edit documentation in R/antsCopy.R
 \name{antsCopy}
 \alias{antsCopy}
-\alias{antsCopyDirection}
 \alias{antsCopyOrigin}
+\alias{antsCopyDirection}
 \alias{antsCopySpacing}
 \title{Copy Information of One Image to Another}
 \usage{
@@ -33,4 +33,3 @@ img <- makeImage(c(10,10),rnorm(100))
 img2 <- makeImage(c(10,10), rnorm(100))
 img2 <- antsCopyOrigin(img, img2)
 }
-
