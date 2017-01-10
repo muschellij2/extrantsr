@@ -6,8 +6,18 @@
 #' @return Matrix of 3 columns of dimension indices.
 #' @export 
 group_xyz2 = function(img, k = 1) {
-  les_xyz = ants_bwlabel(img, k = k, binary = FALSE)
-  les_levs = sort(unique(les_xyz[les_xyz != 0]))
+  img = check_ants(img)
+  labs = ANTsR::labelClusters(
+    img,
+    minClusterSize = 1,
+    fullyConnected = TRUE)
+  les_xyz = ANTsR::as.array(labs)
+  tab = table(c(les_xyz))
+  levs = names(tab[tab >= k])
+  levs = as.numeric(levs)
+  les_levs = levs[ levs > 0 ]  
+
+
   if (length(les_levs) <= 1) {
     return(t(xyz(les_xyz)))
   } else {
