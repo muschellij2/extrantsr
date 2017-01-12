@@ -77,8 +77,7 @@ ants2oro <- function(img,
 #' @import ANTsR
 #' @return Object of class \code{antsImage}
 oro2ants <- function(img, reference = NULL,
-                     cleanup = TRUE,
-                     drop_dim = TRUE){
+                     cleanup = TRUE){
   if (!is.null(reference)) {
     if (is.antsImage(reference)) {
       img = as(img, Class = "array")
