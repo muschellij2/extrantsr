@@ -4,7 +4,7 @@
 \alias{oro2ants}
 \title{Convert Between nifti and antsImage}
 \usage{
-oro2ants(img, reference = NULL, cleanup = TRUE)
+oro2ants(img, reference = NULL, cleanup = TRUE, drop_dim = TRUE)
 }
 \arguments{
 \item{img}{Object of class \code{nifti}}

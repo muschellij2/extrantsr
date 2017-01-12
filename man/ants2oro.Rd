@@ -4,7 +4,8 @@
 \alias{ants2oro}
 \title{Convert Between antsImage and nifti objects}
 \usage{
-ants2oro(img, reorient = FALSE, reference = NULL, ..., cleanup = TRUE)
+ants2oro(img, reorient = FALSE, reference = NULL, ..., cleanup = TRUE,
+  drop_dim = TRUE)
 }
 \arguments{
 \item{img}{Object of class antsImage}
@@ -18,6 +19,9 @@ information}
 reference is set and \code{img} is \code{antsImage}}
 
 \item{cleanup}{temporary files are deleted after they are read in}
+
+\item{drop_dim}{Should \code{\link{drop_img_dim}} be run after reading? 
+Passed to \code{\link{readnii}}}
 }
 \value{
 Object of class \code{nifti}.

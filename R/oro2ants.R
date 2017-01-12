@@ -9,6 +9,8 @@
 #' @param ... Arguments passed to \code{\link{copyNIfTIHeader}} if 
 #' reference is set and \code{img} is \code{antsImage}
 #' @param cleanup temporary files are deleted after they are read in
+#' @param drop_dim Should \code{\link{drop_img_dim}} be run after reading? 
+#' Passed to \code{\link{readnii}}
 #' @export
 #' @return Object of class \code{nifti}.
 #' @importFrom neurobase copyNIfTIHeader readnii mask_img check_outfile writenii datatyper
@@ -18,7 +20,8 @@ ants2oro <- function(img,
                      reorient = FALSE,
                      reference = NULL,
                      ...,
-                     cleanup = TRUE){
+                     cleanup = TRUE,
+                     drop_dim = TRUE){
   if ( is.antsImage(img) | is.character(img) ) {
     if (is.antsImage(img) & !is.null(reference)) {
       #######
@@ -47,7 +50,7 @@ ants2oro <- function(img,
     }
 
     fname = tempants(img)
-    img = readnii(fname, reorient = reorient)
+    img = readnii(fname, reorient = reorient, drop_dim = drop_dim)
     if (remove & cleanup & file.exists(fname)) {
       file.remove(fname)
     }
@@ -74,7 +77,8 @@ ants2oro <- function(img,
 #' @import ANTsR
 #' @return Object of class \code{antsImage}
 oro2ants <- function(img, reference = NULL,
-                     cleanup = TRUE){
+                     cleanup = TRUE,
+                     drop_dim = TRUE){
   if (!is.null(reference)) {
     if (is.antsImage(reference)) {
       img = as(img, Class = "array")
