@@ -4,7 +4,7 @@
 \alias{filler}
 \title{Image Mask Filler}
 \usage{
-filler(img, fill_size = 7, verbose = TRUE)
+filler(img, fill_size = 7, verbose = TRUE, dilate = TRUE, erode = TRUE)
 }
 \arguments{
 \item{img}{Object of class \code{\link{nifti}} or \code{antsImage}}
@@ -12,6 +12,12 @@ filler(img, fill_size = 7, verbose = TRUE)
 \item{fill_size}{Size of fill (in voxels)}
 
 \item{verbose}{Output diagnostic values}
+
+\item{dilate}{should the image be dilated.  This and \code{erode} 
+allows for the function to perform erosion/dilation only with zero-padding.}
+
+\item{erode}{should the image be eroded  This and \code{dilate} 
+allows for the function to perform erosion/dilation only with zero-padding.}
 }
 \value{
 Filled object with same class as \code{img}
