@@ -61,7 +61,7 @@ fslbet_robust <- function(
   reorient = FALSE,  
   bet.opts = "",
   nvoxels = 0,
-  swapdim = FALSE,
+  swapdim = TRUE,
   remove.neck = TRUE,
   remover = c("remove_neck", "double_remove_neck"),
   robust.mask = FALSE,
