@@ -44,14 +44,18 @@ fill_2d_z <- function(
   filled = img %>% 
     ensure_array %>% 
     zero_pad(kdim = kdim)
-  dimg = dim(filled)
-  d3 = dimg[3]
+  # dimg = dim(filled)
+  ind = which(filled > 0, arr.ind = TRUE)
+  d3 = sort(unique(ind[,3]))
+  # d3 = dimg[3]
+  N = length(d3)
   
   idim = 1
   if (verbose) {
-    pb = txtProgressBar(min = 0, max = d3, style = 3)
+    pb = txtProgressBar(min = 0, max = N, style = 3)
   }
-  for (idim in seq(d3)) {
+  for (iid in seq(N)) {
+    idim = d3[iid]
     arr = filled[,,idim, drop = FALSE]
     arr = cnif(arr, img = img, verbose = FALSE)
     if (dilate) {
