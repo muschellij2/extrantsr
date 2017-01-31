@@ -18,6 +18,7 @@ fill_2d_z <- function(
   erode = TRUE){
   # kdim Dimensions to be padded to the image (in voxels)
   kdim = rep(fill_size, 3) * 2 + 1
+  kdim[3] = 1
   
   cnif = function(arr, img, verbose = TRUE) {
     if (verbose) {
