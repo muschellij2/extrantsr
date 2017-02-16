@@ -1,7 +1,7 @@
 Package: extrantsr
 Type: Package
 Title: Extra Functions to Build on the ANTsR Package
-Version: 2.11.2
+Version: 2.12
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Extends the ANTsR package with simple wrappers and complex
@@ -25,7 +25,7 @@ Imports:
     neuroim,
     plyr
 BugReports: https://github.com/muschellij2/extrantsr/issues
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 6.0.1
 Remotes: stnava/ANTsR, muschellij2/neurobase,
     muschellij2/fslr, bjw34032/oro.nifti,
     muschellij2/kirby21.t1
