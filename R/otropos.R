@@ -87,6 +87,7 @@ otropos <- function(a,
 #' the number lessens the smoothing.
 #' @param radius the mrf neighborhood.  Length must equal the number
 #' of dimensions of \code{img}
+#' @param ... arguments to pass to \code{\link{otropos}}
 #' @seealso \code{\link{otropos}}, \code{\link{atropos}}
 #' @export
 otropos2 <- function(

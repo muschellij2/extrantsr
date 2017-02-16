@@ -18,6 +18,8 @@ the number lessens the smoothing.}
 
 \item{radius}{the mrf neighborhood.  Length must equal the number
 of dimensions of \code{img}}
+
+\item{...}{arguments to pass to \code{\link{otropos}}}
 }
 \description{
 Runs \code{\link{otropos}} but has different argument
