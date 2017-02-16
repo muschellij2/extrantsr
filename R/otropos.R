@@ -58,20 +58,70 @@ otropos <- function(a,
   res = do.call(atropos, args)
   rm(list = c("img", "args")); gc(); gc();
   if (!all(c("segmentation", "probabilityimages") %in% names(res))) {
-      warning(paste0("Results have non-standard output, cowardly ",
-                     "returning direct result of res"))
+    warning(paste0("Results have non-standard output, cowardly ",
+                   "returning direct result of res"))
   } else {
-      ants_out_seg = ants2oro(res$segmentation)
-      ants_out_seg = datatyper(ants_out_seg)
-      res$segmentation = ants_out_seg
-      rm(list = "ants_out_seg"); gc();
-      for (i in seq_along( res$probabilityimages)) {
-        tmp = res$probabilityimages[[i]] 
-        tmp = ants2oro(tmp)
-        res$probabilityimages[[i]] = tmp
-        rm(list = "tmp"); gc();
-      } 
-      gc();
+    ants_out_seg = ants2oro(res$segmentation)
+    ants_out_seg = datatyper(ants_out_seg)
+    res$segmentation = ants_out_seg
+    rm(list = "ants_out_seg"); gc();
+    for (i in seq_along( res$probabilityimages)) {
+      tmp = res$probabilityimages[[i]] 
+      tmp = ants2oro(tmp)
+      res$probabilityimages[[i]] = tmp
+      rm(list = "tmp"); gc();
+    } 
+    gc();
   }
   return(res)
 }
+
+#' @title Run Atropos for nifti objects
+#'
+#' @description Runs \code{\link{otropos}} but has different argument
+#' names to be more consistent with \code{extrantsr}
+#' @param img Images to segment.
+#' @param mask Mask of Image
+#' @param smoothing_factor amount of smoothing in Markov random Field. 
+#' Increasing this number causes more smoothing whereas decreasing 
+#' the number lessens the smoothing.
+#' @param radius the mrf neighborhood.  Length must equal the number
+#' of dimensions of \code{img}
+#' @seealso \code{\link{otropos}}, \code{\link{atropos}}
+#' @export
+otropos2 <- function(
+  img, 
+  mask = NULL,
+  smoothing_factor = 0.2,
+  radius = c(1,1,1),
+  ...) {
+  
+  if ( is.list(img) | (is.character(img) & length(img) > 0)  ) {
+    img = lapply(img, check_ants)
+    img = antsImageClone(img[[1]])
+  } else {
+    img = check_ants(img)
+    img = antsImageClone(img)
+  }  
+  dimg = dim(img)
+  ndim = length(dimg)
+  if (length(radius) != ndim) {
+    stop(paste0("Length of radius not the same as number", 
+                " of dimensions of img"))
+  }
+  m = paste0("[", smoothing_factor, ",", 
+             paste(radius, collapse = "x"),
+             "]")
+  L = list(...)
+  nL = names(L)
+  if (c("a", "m", "x") %in% nL) {
+    stop("cannot specify a, m, or x in otropos2")
+  }
+  args = list(a = img, m = m, ...)
+  args$x = mask
+  
+  res = do.call(otropos, args)
+  return(res)
+}
+
+
