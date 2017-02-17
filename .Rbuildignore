@@ -5,3 +5,4 @@
 ^\.DS_Store$
 
 ^\.noncustom_travis_yaml\.yml
+mid_sagittal_align\.R

@@ -16,7 +16,7 @@ Imports:
     oro.nifti,
     ANTsR,
     neurobase,
-    fslr (>= 2.4),
+    fslr (>= 2.9.2),
     WhiteStripe,
     matrixStats,
     R.matlab,
