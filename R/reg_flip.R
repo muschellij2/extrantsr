@@ -24,9 +24,9 @@
 #' @param b Option for y domain in \code{\link{fslswapdim}}
 #' @param c Option for z domain in \code{\link{fslswapdim}}
 #' @param ... arguments to \code{\link{fslswapdim}}
-#' @import fslr
 #' @import ANTsR
 #' @export
+#' @importFrom fslr fsldir fslswapdim fslmask
 #' @return List of nifti objects or character filenames
 reg_flip <- function(t1, 
                      register = TRUE,

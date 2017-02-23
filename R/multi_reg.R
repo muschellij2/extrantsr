@@ -17,7 +17,6 @@
 #' @param verbose Print diagnostic output
 #' @param ... Arguments to be passed to \code{\link{ants_regwrite}}
 #' @export
-#' @import fslr
 #' @return Output list of registered images and transformations
 multi_reg <- function(infiles, 
                       template.file,

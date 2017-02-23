@@ -29,7 +29,6 @@
 #' @param ... additional arguments passed to \code{\link{robust_brain_mask}} or 
 #' \code{\link{remove_neck}}.
 #' @return Skull-stripped \code{nifti} object 
-#' @import fslr
 #' @note This function first thresholds an image, runs a rigid registration
 #' (default in \code{\link{remove_neck}}) to drop any slices below the transformed
 #' skull stripped template to remove neck slices.  The neck-removed image is 
@@ -51,6 +50,7 @@
 #'   }
 #' }
 #' @export
+#' @importFrom fslr fslbet fsldir
 fslbet_robust <- function(
   img, 
   outfile = NULL,

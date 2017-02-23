@@ -16,11 +16,11 @@ flipped = flipped_fname
 
 # mid_sagittal_align = function(img) {
   
-  # interpolator = "Linear"
-  # rp = rpi_orient_file(img)
+  interpolator = "Linear"
+  rp = rpi_orient_file(img)
   # 
-  # img = rp$img
-  # img = check_nifti(img)
+  img = rp$img
+  img = check_nifti(img)
   # dd = dropEmptyImageDimensions(
   #   img > 0,
   #   other.imgs = img)

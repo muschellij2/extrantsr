@@ -29,7 +29,6 @@
 #' @param ... arguments to \code{\link{bias_correct}} or
 #' \code{\link{within_visit_registration}}
 #' @import ANTsR
-#' @import fslr
 #' @import oro.nifti
 #' @export
 #' @return List of outfiles, maskfile, and output from \code{\link{registration}}.

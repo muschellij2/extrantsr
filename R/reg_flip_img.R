@@ -24,10 +24,10 @@
 #' @param flipy Option for flipping y domain in \code{\link{flip_img}}
 #' @param flipz Option for flipping z domain in \code{\link{flip_img}}
 #' @param ... arguments to \code{\link{flip_img}}
-#' @import fslr
 #' @import ANTsR
 #' @export
 #' @return List of nifti objects or character filenames
+#' @importFrom fslr fslbet fsldir fslmask
 reg_flip_img <- function(t1, 
                          register = TRUE,
                          native = TRUE,

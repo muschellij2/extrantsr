@@ -114,7 +114,7 @@ to both \code{x} and \code{y}}
 \item{...}{other arguments to the image function may be provided here.}
 }
 \description{
-Wrapper for of \code{fslr}'s \code{\link{ortho2}} function 
+Wrapper for of \code{neurobase}'s \code{\link{ortho2}} function 
 to work with antsImages
 }
 \note{

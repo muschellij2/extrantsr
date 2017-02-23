@@ -36,8 +36,8 @@
 #' @param verbose Print diagnostic messages
 #' @param ... arguments to \code{\link{antsRegistration}}
 #' @import ANTsR
-#' @import fslr
 #' @import oro.nifti
+#' @importFrom fslr fslbet fsldir
 #' @export
 #' @return List of the output filenames and transformations
 registration <- function(filename, 

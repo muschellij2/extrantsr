@@ -19,7 +19,6 @@
 #' @param verbose Print diagnostic output
 #' @param ... Arguments to be passed to \code{\link{ants_apply_transforms}}
 #' @export
-#' @import fslr
 #' @return The output filename or the nifti image or list of registrations and
 #' output file
 apply_malf_regs <- function(

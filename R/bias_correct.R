@@ -16,7 +16,6 @@
 #'  \code{\link{n4BiasFieldCorrection}} 
 #' @return If \code{retimg} then object of class nifti.  Otherwise,
 #' Result from system command, depends if intern is TRUE or FALSE.
-#' @import fslr
 #' @export
 bias_correct = function(
   file,

@@ -2,7 +2,7 @@
 #' @rdname ortho2-methods
 #' @aliases ortho2,antsImage,ANY,ANY-method
 #' @title Orthographic Display, added options
-#' @description Wrapper for of \code{fslr}'s \code{\link{ortho2}} function 
+#' @description Wrapper for of \code{neurobase}'s \code{\link{ortho2}} function 
 #' to work with antsImages
 #' @return NULL
 #' @param x is an object of class \code{antsImage} or similar.

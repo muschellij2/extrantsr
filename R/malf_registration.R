@@ -20,7 +20,6 @@
 #' @param verbose Print diagnostic output
 #' @param ... Arguments to be passed to \code{\link{registration}}
 #' @export
-#' @import fslr
 #' @return List of registrations and
 #' output files
 #' @import utils

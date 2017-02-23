@@ -73,7 +73,6 @@ ants2oro <- function(img,
 #' copy header information (origin, spacing, direction) (experimental)
 #' @param cleanup temporary files are deleted after they are read in
 #' @export
-#' @import fslr
 #' @import ANTsR
 #' @return Object of class \code{antsImage}
 oro2ants <- function(img, reference = NULL,

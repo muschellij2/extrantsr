@@ -11,12 +11,12 @@
 #' img = oro.nifti::nifti(arr)
 #' img_density_entropy(img)
 #' @export
-#' @import fslr
+#' @importFrom stats density
 img_density_entropy <- function(img, 
                                 mask = NULL, 
                                 base = exp(1), ...) {
   img = check_nifti(img)
-  if (!is.null(mask)){
+  if (!is.null(mask)) {
     mask = check_nifti(mask)
     allowable = c(0, 1)
     mask = as(mask, "array")
@@ -33,6 +33,6 @@ img_density_entropy <- function(img,
   counts = h$y
   counts = counts[ counts != 0 ]
   counts = counts / sum(counts)
-  ent = - sum( counts * log(counts, base = base))
+  ent = -sum( counts * log(counts, base = base))
   return(ent)
 }

@@ -27,11 +27,11 @@
 #' @param betcmd BET command used, passed to \code{\link{fslbet}}
 #' @param ... arguments to \code{\link{whitestripe}}
 #' @import ANTsR
-#' @import fslr
 #' @import oro.nifti
-#' @import WhiteStripe
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image
+#' @importFrom fslr fslbet
+#' @importFrom WhiteStripe whitestripe_norm
 oasis <- function(filename, # filename of T1 image
                    skull_strip = TRUE, # do Skull stripping with FSL BET
                    skull_stripfile = NULL,

@@ -27,11 +27,11 @@
 #' @param verbose Print Diagnostic Messages
 #' @param ... arguments to \code{\link{whitestripe}} or 
 #' \code{\link{whitestripe_hybrid}}
-#' @import WhiteStripe
-#' @import fslr
 #' @import ANTsR
 #' @export
 #' @return List of nifti objects or character filenames
+#' @importFrom fslr fsldir fslmask
+#' @importFrom WhiteStripe whitestripe whitestripe_hybrid whitestripe_norm
 reg_whitestripe <- function(t1 =NULL, t2 = NULL, 
                             register = TRUE,
                             native = TRUE,

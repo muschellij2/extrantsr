@@ -32,7 +32,6 @@
 #' @param verbose Print diagnostic messages
 #' @param ... arguments to \code{\link{antsRegistration}}
 #' @import ANTsR
-#' @import fslr
 #' @import oro.nifti
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image

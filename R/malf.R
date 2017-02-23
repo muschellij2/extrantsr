@@ -28,7 +28,6 @@
 #' @param ... Arguments to be passed to \code{\link{malf_registration}}, which
 #' really are options for \code{\link{registration}} 
 #' @export
-#' @import fslr
 #' @return The output filename or the nifti image or list of registrations and
 #' output file
 malf <- function(

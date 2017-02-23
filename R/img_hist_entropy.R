@@ -13,8 +13,7 @@
 #' img = oro.nifti::nifti(arr)
 #' img_hist_entropy(img)
 #' @export
-#' @import fslr
-#' @import graphics
+#' @importFrom graphics hist
 img_hist_entropy <- function(img, mask = NULL,
                             breaks = 2000,
                             base = exp(1), ...) {
