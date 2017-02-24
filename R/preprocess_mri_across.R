@@ -25,6 +25,7 @@
 #' @export
 #' @return list of objects from \code{\link{preprocess_mri_within}} and
 #' \code{\link{registration}} 
+#' @importFrom fslr get.imgext
 preprocess_mri_across <- function(baseline_files, # filename of baseline images
                   followup_files, # filename of followup images                
                   baseline_outfiles, # output filenames for baseline images

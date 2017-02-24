@@ -17,6 +17,7 @@
 #' @param ... Arguments passed to \code{\link{ants_regwrite}}
 #' @export
 #' @return Object of class nifti or vector of indices
+#' @importFrom fslr fslbin fslmaths
 robust_brain_mask <- function(file,
                         template.file,
                         template.mask = NULL,

@@ -17,6 +17,7 @@
 #' @param ... not used
 #' @export
 #' @return Object of class nifti or vector of indices
+#' @importFrom fslr fslbin rpi_orient reverse_rpi_orient
 remove_neck <- function(file,
                         template.file,
                         template.mask = NULL,

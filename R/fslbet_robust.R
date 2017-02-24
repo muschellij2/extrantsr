@@ -50,7 +50,7 @@
 #'   }
 #' }
 #' @export
-#' @importFrom fslr fslbet fsldir
+#' @importFrom fslr fslbet fsldir fslfill2 fslcog
 fslbet_robust <- function(
   img, 
   outfile = NULL,

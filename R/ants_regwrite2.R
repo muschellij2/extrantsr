@@ -37,7 +37,7 @@
 #' @param ... arguments to \code{\link{antsRegistration}}
 #' @import ANTsR
 #' @import oro.nifti
-#' @importFrom fslr fslbet fsldir
+#' @importFrom fslr fslbet fsldir get.imgext
 #' @export
 #' @return List of the output filenames and transformations
 registration <- function(filename, 

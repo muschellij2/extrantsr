@@ -35,6 +35,7 @@
 #' @import oro.nifti
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image
+#' @importFrom fslr get.imgext
 ants_regwrite <- function(filename, # filename of T1 image
                           skull_strip = FALSE, # do Skull stripping with FSL BET
                           correct = FALSE,  # do N3 Bias correction

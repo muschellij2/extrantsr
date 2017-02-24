@@ -30,7 +30,7 @@
 #' @import oro.nifti
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image
-#' @importFrom fslr fslbet
+#' @importFrom fslr fslbet get.imgext
 #' @importFrom WhiteStripe whitestripe_norm
 oasis <- function(filename, # filename of T1 image
                    skull_strip = TRUE, # do Skull stripping with FSL BET

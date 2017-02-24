@@ -6,6 +6,7 @@
 #' then changed back?
 #' @param verbose Print diagnostic messages
 #' @return Object of class \code{nifti}
+#' @importFrom fslr rpi_orient reverse_rpi_orient
 #' @export
 diff_self <- function(img, 
                       swapdim = TRUE,
