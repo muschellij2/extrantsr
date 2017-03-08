@@ -10,7 +10,6 @@
 #' @param na_masks if \code{masks} are given, should values of \code{0} be
 #' turned into \code{NA}?
 #' @param ... Addictional arguments to pass to \code{func}
-#' @import matrixStats
 #' @return Object of class \code{nifti}
 #' @export
 #' @note When \code{func = "mode"}, the data is tabulated and then
@@ -20,6 +19,8 @@
 #' \code{\link{density}} is run on each voxel and the value with the maximum.  If
 #' the number of unique values is only 1, that value is returned.
 #' @importFrom stats density
+#' @importFrom matrixStats rowMedians rowSds 
+#' @importFrom matrixStats rowVars rowMads rowProds rowQuantiles rowTabulates
 stat_img = function(imgs,
                     func = c("mean",
                              "median",
