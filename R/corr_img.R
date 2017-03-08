@@ -19,7 +19,7 @@
 #' @examples \dontrun{
 #' corr_img("T1_Image.nii.gz", "FLAIR_Image.nii.gz", mask = "Mask.nii.gz")
 #' }
-
+#' @importFrom matrixStats colCounts
 corr_img = function(
   img1, 
   img2,

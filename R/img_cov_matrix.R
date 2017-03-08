@@ -20,6 +20,8 @@
 #' are in.
 #'
 #' #' @export 
+#' @importFrom matrixStats colCounts
+#' 
 img_cov_matrix = function(
   imgs, 
   mask = NULL, 

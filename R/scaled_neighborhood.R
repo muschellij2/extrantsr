@@ -16,6 +16,7 @@
 #'
 #' @return List similar to the output of \code{\link{getNeighborhoodInMask}}
 #' @export
+#' @importFrom matrixStats colSds colRanks
 scaled_neighborhood = function(img, mask = NULL, 
                                radius = rep(1, 3), 
                                method = c("pearson", "spearman"),
