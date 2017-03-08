@@ -32,7 +32,7 @@
 #' output file
 malf <- function(
   infile, template.images, template.structs,
-  keep_images = TRUE, 
+  keep_images = FALSE, 
   outfiles = NULL,
   outfile = NULL, 
   retimg = TRUE,
@@ -51,6 +51,7 @@ malf <- function(
   outfile = neurobase::check_outfile(outfile = outfile, retimg = retimg, 
                           fileext = "")
   
+  infile = checkimg(infile)
   ##############################
   # Run all the registrations
   ##############################
