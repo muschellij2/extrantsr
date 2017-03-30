@@ -50,6 +50,9 @@ filler <- function(img,
     return(x)
   }
   
+  if (is.character(img)) {
+    img = check_nifti(img)
+  }
   filled = img %>% 
     ensure_array %>% 
     zero_pad(kdim = kdim) %>% 

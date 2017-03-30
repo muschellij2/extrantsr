@@ -62,19 +62,88 @@
 #' \code{ortho2}.
 #' @export
 #' @importFrom neurobase ortho2
-setMethod("ortho2", c(x = "antsImage", 
-                                y = "ANY",
-                                pdim = "ANY"), 
-          function(x, y = NULL, pdim = NULL, ...) {
-  if (is.antsImage(x)) {
-    pdim = c(1, antsGetSpacing(x))
-    x = as.array(x)
-  }
-  if (!is.null(y)) {
-    if (is.antsImage(y)) {
-      y = as.array(y)
-    }
-  }
-  neurobase::ortho2(x = x, y = y, pdim = pdim, ...)
-}
+setMethod("ortho2", 
+          c(x = "antsImage", y = "ANY", pdim = "ANY"), 
+          function(
+            x, y = NULL,
+            xyz = NULL, w = 1, col = gray(0:64/64), 
+            col.y = hotmetal(), zlim = NULL, zlim.y = NULL, 
+            NA.x = FALSE,
+            NA.y = TRUE,
+            crosshairs = TRUE, 
+            col.crosshairs = "red", xlab = "", ylab = "", axes = FALSE, 
+            oma = c(0, 0, 0, ifelse(ycolorbar, 5, 0)), 
+            mar = rep(0, 4), bg = "black", text = NULL, 
+            text.color = "white", text.cex = 2, 
+            text.x=32,
+            text.y=32,
+            add.orient=TRUE,
+            mfrow=c(2,2), ybreaks = NULL, breaks=NULL,
+            addlegend = FALSE,
+            leg.x=32,
+            leg.y=32,
+            legend,
+            leg.col,
+            leg.title = NULL,
+            leg.cex,
+            window=NULL,
+            ycolorbar = FALSE,
+            clabels = TRUE,
+            add = TRUE,
+            pdim = NULL,             
+            useRaster = TRUE,
+            mask = NULL, 
+            ...) {
+            
+            if (is.antsImage(x)) {
+              pdim = c(1, antsGetSpacing(x))
+              x = as.array(x)
+            }
+            if (!is.null(y)) {
+              if (is.antsImage(y)) {
+                y = as.array(y)
+              }
+            }
+            neurobase::ortho2(x = x, y = y, 
+                              pdim = pdim, 
+                              xyz = xyz,
+                              w = w,
+                              col = col,
+                              col.y = col.y,
+                              zlim = zlim,
+                              zlim.y = zlim.y,
+                              NA.x = NA.x,
+                              NA.y = NA.y,
+                              crosshairs = crosshairs,
+                              col.crosshairs = col.crosshairs,
+                              xlab = xlab,
+                              ylab = ylab,
+                              axes = axes,
+                              oma = oma,
+                              mar = mar,
+                              bg = bg,
+                              text = text,
+                              text.color = text.color,
+                              text.cex = text.cex,
+                              text.x = text.x,
+                              text.y = text.y,
+                              add.orient = add.orient,
+                              mfrow = mfrow,
+                              ybreaks = ybreaks,
+                              breaks = breaks,
+                              addlegend = addlegend,
+                              leg.x = leg.x,
+                              leg.y = leg.y,
+                              legend = legend,
+                              leg.col = leg.col,
+                              leg.title = leg.title,
+                              leg.cex = leg.cex,
+                              window = window,
+                              ycolorbar = ycolorbar,
+                              clabels = clabels,
+                              add = add,
+                              useRaster = useRaster,
+                              mask = mask,
+                              ... = ...)
+          }
 )
