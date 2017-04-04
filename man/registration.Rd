@@ -15,7 +15,7 @@ registration(filename, skull_strip = FALSE, correct = FALSE,
   copy_origin = TRUE, verbose = TRUE, ...)
 }
 \arguments{
-\item{filename}{filename of image to be registred}
+\item{filename}{filename of image to be registered}
 
 \item{skull_strip}{do skull stripping with FSL BET}
 

@@ -5,7 +5,7 @@
 #' on other images, and can back-transform image
 #' in registered space to the native space of the original image.  Returns the 
 #' transforms
-#' @param filename filename of image to be registred
+#' @param filename filename of image to be registered
 #' @param skull_strip do skull stripping with FSL BET 
 #' @param correct do Bias correction
 #' @param correction N3 or N4 correction, see \code{\link{bias_correct}}
