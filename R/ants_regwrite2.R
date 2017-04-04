@@ -200,6 +200,15 @@ registration <- function(filename,
     typeofTransform = typeofTransform,  
     outprefix = outprefix,
     verbose = verbose, ...)
+  ######################################################
+  # added this to try to wrap up the gc()
+  antsRegOut.nonlin$warpedmovout = NULL
+  antsRegOut.nonlin$warpedfixout = NULL
+  ######################################################
+  for (i in 1:10) {
+    gc()
+  }  
+  
   if (verbose) {
     message("# Applying Registration output is\n")
     print(antsRegOut.nonlin)
@@ -303,7 +312,7 @@ registration <- function(filename,
     }        
     files = unlist(antsRegOut.nonlin[
       c("fwdtransforms", "invtransforms")])
-    files = grep("Warp", files, value=TRUE)
+    files = grep("Warp", files, value = TRUE)
     if (length(files) > 0) {
       file.remove(files)
     }
@@ -312,7 +321,7 @@ registration <- function(filename,
     if (verbose) {
       message("# Reading data back into R\n")
     }          
-    img = readnii(outfile, reorient= FALSE)
+    img = readnii(outfile, reorient = FALSE)
     outfile = img
   }
   
