@@ -16,6 +16,7 @@ filler <- function(img,
                    verbose = TRUE,
                    dilate = TRUE,
                    erode = TRUE){
+  
   # kdim Dimensions to be padded to the image (in voxels)
   kdim = rep(fill_size, 3) * 2 + 1
   
@@ -40,15 +41,21 @@ filler <- function(img,
       #                   reference = img)      
       arr = oro2ants(arr, reference = img)
     }
+    # is_niftiImage = function(x) {
+    #   inherits(x, "niftiImage")
+    # }    
+    # if (is_niftiImage(img)) {
+    #   arr = updateNifti(arr, template = img)
+    # }
     return(arr)
   }
   
-  ensure_array = function(x) {
-    x = x %>% 
-      as.array %>% 
-      as(Class = "array")
-    return(x)
-  }
+  # ensure_array = function(x) {
+  #   x = x %>% 
+  #     as.array %>% 
+  #     as(Class = "array")
+  #   return(x)
+  # }
   
   if (is.character(img)) {
     img = check_nifti(img)
