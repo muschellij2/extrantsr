@@ -7,7 +7,7 @@
 #' transforms
 #' @param filename filename of image to be registered
 #' @param skull_strip do skull stripping with FSL BET 
-#' @param correct do Bias correction
+#' @param correct do bias correction on the filename
 #' @param correction N3 or N4 correction, see \code{\link{bias_correct}}
 #' @param retimg return a nifti object from function
 #' @param outfile output filename should have .nii or .nii.gz 

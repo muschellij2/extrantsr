@@ -21,7 +21,7 @@ within_visit_registration(fixed, moving, outfiles = NULL,
 \item{...}{additional arguments to \code{\link{registration}}}
 }
 \value{
-List of resutls from \code{\link{registration}}
+List of results from \code{\link{registration}}
 }
 \description{
 This function performs registration to a T1 template

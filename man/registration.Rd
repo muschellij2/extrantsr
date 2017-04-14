@@ -19,7 +19,7 @@ registration(filename, skull_strip = FALSE, correct = FALSE,
 
 \item{skull_strip}{do skull stripping with FSL BET}
 
-\item{correct}{do Bias correction}
+\item{correct}{do bias correction on the filename}
 
 \item{correction}{N3 or N4 correction, see \code{\link{bias_correct}}}
 

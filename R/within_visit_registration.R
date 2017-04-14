@@ -9,7 +9,7 @@
 #' @param interpolator Interpolation to be done
 #' @param ... additional arguments to \code{\link{registration}}
 #' @export
-#' @return List of resutls from \code{\link{registration}}
+#' @return List of results from \code{\link{registration}}
 within_visit_registration <- function(fixed, # filename of T1 image
                     moving,
                     outfiles = NULL, 
@@ -38,9 +38,22 @@ within_visit_registration <- function(fixed, # filename of T1 image
     message(outfiles, sep = "\n")
     stop("Check inputs")
   }
-  
+  dotsL = list(...)
+  correct = dotsL$correct
+  correction = dotsL$correction
+  if (!is.null(correct)) {
+    if (is.null(correction)) {
+      stop(paste0("If correct is given to within_visit_registration ",
+                  "then correction must be specified!"))
+    }
+    if (correct) {
+      fixed = bias_correct(file = fixed, correction = correction)
+    }
+  }
   f.img = checkimg(fixed, ...)
   L = vector(mode = "list", length = n.moving)
+  names(L) = names(moving)
+  
   for (iimg in seq(n.moving)) {
     m.img = checkimg(moving[iimg], ...)
     ll = registration(filename = m.img, 
