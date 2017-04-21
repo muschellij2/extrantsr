@@ -8,8 +8,6 @@
 #' @param outfiles (character) name of output files, with extension
 #' @param correct do Bias field correction
 #' @param correction (character) N3 or N4 correction?
-#' @param shrinkfactor Shrink factor passed to
-#' \code{\link{n3BiasFieldCorrection}}
 #' @param retimg (logical) return list of images of class nifti
 #' @param reorient (logical) If retimg, should file be reoriented
 #' when read in?
@@ -36,8 +34,7 @@ preprocess_mri_within <- function(
   files,
   outfiles = NULL,
   correct = TRUE,  # do N3 Bias correction
-  correction = "N3",
-  shrinkfactor= "4",
+  correction = "N4",
   retimg = FALSE,
   reorient = FALSE,
   typeofTransform = "Rigid",
@@ -130,7 +127,6 @@ preprocess_mri_within <- function(
       bias_correct(file = files[ifile], outfile = outfiles[ifile],
                    retimg = FALSE,
                    correction = correction,
-                   shrinkfactor = shrinkfactor,
                    verbose = verbose, 
                    ...)
     }
@@ -190,7 +186,6 @@ preprocess_mri_within <- function(
           outfile = outfiles[ifile],
           retimg = FALSE,
           correction = correction,
-          shrinkfactor = shrinkfactor, 
           mask = maskfile,
           verbose = verbose,
           ...)

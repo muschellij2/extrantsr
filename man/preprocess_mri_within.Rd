@@ -5,11 +5,10 @@
 \title{Within Visit Registration}
 \usage{
 preprocess_mri_within(files, outfiles = NULL, correct = TRUE,
-  correction = "N3", shrinkfactor = "4", retimg = FALSE,
-  reorient = FALSE, typeofTransform = "Rigid",
-  interpolator = "LanczosWindowedSinc", skull_strip = FALSE,
-  bet.opts = "-B -f 0.1 -v", betcmd = "bet", maskfile = NULL,
-  correct_after_mask = FALSE, verbose = TRUE, ...)
+  correction = "N4", retimg = FALSE, reorient = FALSE,
+  typeofTransform = "Rigid", interpolator = "LanczosWindowedSinc",
+  skull_strip = FALSE, bet.opts = "-B -f 0.1 -v", betcmd = "bet",
+  maskfile = NULL, correct_after_mask = FALSE, verbose = TRUE, ...)
 }
 \arguments{
 \item{files}{filenames (or nifti objects) of images to be processed.
@@ -20,9 +19,6 @@ Will register to the first scan}
 \item{correct}{do Bias field correction}
 
 \item{correction}{(character) N3 or N4 correction?}
-
-\item{shrinkfactor}{Shrink factor passed to
-\code{\link{n3BiasFieldCorrection}}}
 
 \item{retimg}{(logical) return list of images of class nifti}
 

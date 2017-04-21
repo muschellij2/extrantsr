@@ -6,7 +6,7 @@
 \usage{
 preprocess_mri_across(baseline_files, followup_files, baseline_outfiles,
   followup_outfiles, retimg = FALSE, maskfile = NULL, correct = TRUE,
-  correction = "N3", skull_strip = TRUE, bet.opts = "-B -f 0.1 -v",
+  correction = "N4", skull_strip = TRUE, bet.opts = "-B -f 0.1 -v",
   betcmd = "bet", within.transform = "Rigid",
   within.interpolator = "LanczosWindowedSinc",
   across.transform = within.transform,

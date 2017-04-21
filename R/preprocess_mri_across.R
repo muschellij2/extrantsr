@@ -33,7 +33,7 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
                   retimg = FALSE,
                   maskfile = NULL,
                   correct = TRUE,
-                  correction = "N3",
+                  correction = "N4",
                   skull_strip = TRUE, # do Skull stripping with FSL BET
                   bet.opts = "-B -f 0.1 -v",
                   betcmd = "bet",
@@ -75,7 +75,7 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
     }
     if (!file.exists(maskfile)){
       if (verbose){
-        cat("Skull stripping baseline[1] image \n")
+        message("Skull stripping baseline[1] image \n")
       }
       fslbet(infile = baseline_outfiles[1], 
              outfile = maskfile, 
@@ -92,7 +92,7 @@ preprocess_mri_across <- function(baseline_files, # filename of baseline images
   # Processing basleine data
   ###################################  
   if (verbose){
-    cat("# Processing baseline data\n")
+    message("# Processing baseline data\n")
   }
   proc_1 = preprocess_mri_within(files = baseline_outfiles, 
                         outfiles = baseline_outfiles, 
