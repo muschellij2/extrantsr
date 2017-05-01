@@ -31,12 +31,13 @@ neighborhood = function(img,
   #####!! need verbose option
   img = check_ants(img)
   img.dim = dim(img)
+  vdim = voxdim(img)
   
   if (is.null(mask)) {
     mask = array(1, 
               dim = img.dim)  
-    mask = as.antsImage(mask)
-    mask = antsCopyImageInfo(
+    mask = ANTsR::as.antsImage(mask)
+    mask = ANTsR::antsCopyImageInfo(
       target = mask, 
       reference = img)    
   }
@@ -62,7 +63,7 @@ neighborhood = function(img,
   if (verbose) {
     message("Running getNeighborhood")
   } 
-  grads = do.call(getNeighborhoodInMask, dots)
+  grads = do.call(ANTsR::getNeighborhoodInMask, dots)
   # grads = getNeighborhoodInMask(
   #   image = img, 
   #   mask = mask, 
@@ -82,6 +83,8 @@ neighborhood = function(img,
 
   grads$values = grads$values[, order_ind]
   grads$indices = grads$indices[order_ind,]
+  grads$mm_offsets = t(t(grads$offsets) * vdim)
+  
   if (get.gradient) {
     if (verbose) {
       message("Getting Gradient")
@@ -91,7 +94,7 @@ neighborhood = function(img,
     if (verbose > 1) {
       print(dots)
     } 
-    ggrads = do.call(getNeighborhoodInMask, dots)
+    ggrads = do.call(ANTsR::getNeighborhoodInMask, dots)
     
     ggrads$gradients = ggrads$gradients[, order_ind]
     grads$gradients = ggrads$gradients

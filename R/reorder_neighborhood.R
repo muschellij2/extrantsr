@@ -11,7 +11,11 @@
 #'
 reorder_neigh_indices = function(indices,
   img.dim){
-  inds = indices + 1
+  if (min(indices) == 0) {
+    inds = indices + 1
+  } else {
+    inds = indices
+  }
   tmp = array(0, dim = img.dim)
   tmp[inds] = 1
   inds = which(tmp > 0)
