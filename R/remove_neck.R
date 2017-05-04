@@ -94,6 +94,8 @@ remove_neck <- function(file,
                 other.outfiles = ofile,
                 retimg = TRUE,
                 remove.warp = TRUE,
+                # added 2017May04
+                interpolator = "nearestNeighbor",
                 verbose = verbose)
 
   if (verbose) {
