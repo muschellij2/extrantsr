@@ -40,9 +40,9 @@ before_install:
   # this removes remotes - which is a problem
   # - Rscript -e 'devtools::source_url("https://gist.githubusercontent.com/muschellij2/69c48f469ab34cc05752361645ffa8e0/raw/57e7d3b22907699d260f863a0d337a12567ffc30/rewrite_dcf.R"); repo = get_remote_info(package = "ANTsR"); devtools::install_github(repo, upgrade_dependencies = FALSE);'
   - git clone https://github.com/muschellij2/ANTsR
-  - cd ANTsR; ./cleanup && cd ../
-  - cd ANTsR; Rscript -e 'd = devtools::dev_package_deps(dependencies = TRUE); d = as.data.frame(d); d = d[d$diff < -1, "package"]; if (length(d) > 0) { install.packages(d) }'
-  - R CMD INSTALL ANTsR
+  - cd ANTsR; ./cleanup && cd ~/
+  - cd ANTsR; Rscript -e 'd = devtools::dev_package_deps(dependencies = TRUE); d = as.data.frame(d); d = d$package[d$diff < -1]; if (length(d) > 0) { install.packages(d) }'
+  - cd ~/; R CMD INSTALL ANTsR/
   # - Rscript -e 'devtools::source_url("https://gist.githubusercontent.com/muschellij2/69c48f469ab34cc05752361645ffa8e0/raw/57e7d3b22907699d260f863a0d337a12567ffc30/rewrite_dcf.R"); rewrite_dcf(drop_remotes = c("ITKR"));'
   - Rscript -e 'devtools::source_url("https://gist.githubusercontent.com/muschellij2/69c48f469ab34cc05752361645ffa8e0/raw/57e7d3b22907699d260f863a0d337a12567ffc30/rewrite_dcf.R"); rewrite_dcf(drop_remotes = c("ANTsR", "ITKR"));'
 
