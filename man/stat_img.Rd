@@ -4,8 +4,8 @@
 \alias{stat_img}
 \title{Create Statistics Image}
 \usage{
-stat_img(imgs, func = c("mean", "median", "mode", "peak", "sd", "var", "mad",
-  "sum", "prod", "z", "quantile"), finite = TRUE, masks = NULL,
+stat_img(imgs, func = c("mean", "median", "mode", "pct", "peak", "sd", "var",
+  "mad", "sum", "prod", "z", "quantile"), finite = TRUE, masks = NULL,
   na_masks = TRUE, ...)
 }
 \arguments{

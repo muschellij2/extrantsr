@@ -21,10 +21,12 @@
 #' @importFrom stats density
 #' @importFrom matrixStats rowMedians rowSds 
 #' @importFrom matrixStats rowVars rowMads rowProds rowQuantiles rowTabulates
+#' @importFrom neurobase datatyper
 stat_img = function(imgs,
                     func = c("mean",
                              "median",
                              "mode",
+                             "pct",
                              "peak",
                              "sd",
                              "var",
@@ -41,11 +43,11 @@ stat_img = function(imgs,
   if (!is.character(func)) {
     stop("func must be of type character")
   }
-
+  
   rowZs = function(x){
     rowMeans(x)/rowSds(x)
   }
-
+  
   rowPeaks = function(x, ...) {
     apply(x, 1, function(r) {
       ur = unique(r)
@@ -58,15 +60,15 @@ stat_img = function(imgs,
       return(res)
     })
   }
-
+  
   rowModes = function(x, ties.method = "first", run_tab = TRUE ){
-
+    
     if (run_tab) {
       is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5){
-      abs(x - round(x)) < tol
+        abs(x - round(x)) < tol
       }
       stopifnot(all(is.wholenumber(x)))
-
+      
       x = array(as.integer(x), dim = dim(x))
       tabs = rowTabulates(x)
       cn = as.integer(colnames(tabs))
@@ -77,14 +79,29 @@ stat_img = function(imgs,
     }
     return(labs)
   }
-
+  
+  rowPcts = function(x){
+    
+    is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5){
+      abs(x - round(x)) < tol
+    }
+    stopifnot(all(is.wholenumber(x)))
+    
+    x = array(as.integer(x), dim = dim(x))
+    tabs = rowTabulates(x)
+    n = rowSums(tabs)
+    labs = tabs / n
+    
+    return(labs)
+  }
+  
   rowNuniques = function(x) {
     apply(x, 1, function(r) length(unique(r)))
   }
-
-
+  
+  
   func = match.arg(func, several.ok = TRUE)
-
+  
   ##########################################
   # Make a large matrix of images
   ##########################################
@@ -102,7 +119,7 @@ stat_img = function(imgs,
     masks = img_ts_to_list(masks, copy_nifti = TRUE, warn = FALSE)  
     stopifnot(length(imgs) == length(masks))
     lapply(masks, check_mask_fail, 
-                   allow.NA = TRUE, 
+           allow.NA = TRUE, 
            allow.array = TRUE)
     if (na_masks) {
       masks = lapply(masks, 
@@ -118,7 +135,7 @@ stat_img = function(imgs,
   mat = lapply(imgs, c)
   mat = do.call("cbind", mat)
   stopifnot(nrow(mat) == prod(dims[[1]]))
-
+  
   ##########################################
   # Run through all functions
   ##########################################
@@ -128,7 +145,8 @@ stat_img = function(imgs,
              length = nfunc)
   names(L) = all.func
   for (ifunc in seq(nfunc)) {
-    func = switch(all.func[ifunc],
+    char_func = all.func[ifunc]
+    func = switch(char_func,
                   mean = rowMeans,
                   median = rowMedians,
                   sd = rowSds,
@@ -137,18 +155,42 @@ stat_img = function(imgs,
                   sum = rowSums,
                   prod = rowProds,
                   z = rowZs,
+                  pct = rowPcts,
                   mode = rowModes,
                   peak = rowPeaks,
                   quantile = rowQuantiles)
     res_img = func(mat, ...)
-    if (length(res_img) != nrow(mat)) {
-      stop(paste0("Function used did not result in a vector-",
-                  "may need to pass more arguments, ",
-                  "such as quantile needs to pass ONE prob"))
-    }
-    res_img = niftiarr(nim, res_img)
-    if (finite) {
-      res_img = neurobase::finite_img(res_img, replace = 0)
+    ##########################
+    # pct and other functions return a 4d Image.
+    ##########################
+    if (!char_func %in% c("pct")) {
+      if (length(res_img) != nrow(mat)) {
+        stop(paste0("Function used did not result in a vector-",
+                    "may need to pass more arguments, ",
+                    "such as quantile needs to pass ONE prob"))
+      }
+      res_img = niftiarr(nim, res_img)
+      if (finite) {
+        res_img = neurobase::finite_img(res_img, replace = 0)
+      }
+      res_img = datatyper(res_img)
+      
+    } else {
+      num_imgs = ncol(res_img)
+      res_list = vector(mode = "list", length = num_imgs) 
+      names(res_list) = colnames(res_list)
+      for (icol in seq(num_imgs)) {
+        x = res_img[, icol]
+        x = niftiarr(nim, x)
+        if (finite) {
+          x = neurobase::finite_img(x, replace = 0)
+        }
+        x = datatyper(x)
+        res_list[[icol]] = x
+        rm(list = "x");
+      }
+      res_img = res_list
+      rm(list = "res_list");
     }
     L[[ifunc]] = res_img
   }
