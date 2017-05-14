@@ -25,6 +25,9 @@ r:
 
 before_install:
   # for RGL
+  - Rscript -e 'x = system("hostname", intern = TRUE); print(x);'
+  - Rscript -e 'x = system("users", intern = TRUE); print(x);'
+  - Rscript -e 'x = Sys.getenv("USER"); print(x);'
   - export RGL_USE_NULL=TRUE;
   - cwd=`pwd`
   - cd ~/
