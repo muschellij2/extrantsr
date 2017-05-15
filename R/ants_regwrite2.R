@@ -1,31 +1,31 @@
 #' @title Registration Wrapper function
 #'
-#' @description This function performs registration 
+#' @description This function performs registration
 #' using ANTsR, carries out the transformation
 #' on other images, and can back-transform image
-#' in registered space to the native space of the original image.  Returns the 
+#' in registered space to the native space of the original image.  Returns the
 #' transforms
 #' @param filename filename of image to be registered
-#' @param skull_strip do skull stripping with FSL BET 
+#' @param skull_strip do skull stripping with FSL BET
 #' @param correct do bias correction on the filename
 #' @param correction N3 or N4 correction, see \code{\link{bias_correct}}
 #' @param retimg return a nifti object from function
-#' @param outfile output filename should have .nii or .nii.gz 
+#' @param outfile output filename should have .nii or .nii.gz
 #' extension
 #' @param template.file Filename of image to warp to
-#' @param interpolator interpolation done for 
+#' @param interpolator interpolation done for
 #' \code{\link{antsApplyTransforms}}
-#' @param other.files Filenames of other iamges to be 
+#' @param other.files Filenames of other iamges to be
 #' transformed with the T1
-#' @param other.outfiles Output filenames of \code{other.files} to 
+#' @param other.outfiles Output filenames of \code{other.files} to
 #' be written
 #' @param other.init Initial transformation lists (same length as \code{other.files})
 #' to use in before the estimated transformation for one interpolation
-#' @param template_to_native Logical indicating if native cerebellum should be 
+#' @param template_to_native Logical indicating if native cerebellum should be
 #' created to \code{invert.native.fname}
 #' @param invert.native.fname filename of native cerebellum file
 #' @param invert.file Filename of image to invert to native space
-#' @param typeofTransform type of transformed used, passed to 
+#' @param typeofTransform type of transformed used, passed to
 #' \code{\link{antsRegistration}}
 #' @param remove.warp (logical) Should warping images be deleted?
 #' @param outprefix Character path of where the warp files should be stored.
@@ -40,17 +40,16 @@
 #' @importFrom fslr fslbet fsldir get.imgext
 #' @export
 #' @return List of the output filenames and transformations
-registration <- function(filename, 
+registration <- function(filename,
                          skull_strip = FALSE,
-                         correct = FALSE,  
+                         correct = FALSE,
                          correction = "N4",
-                         retimg = TRUE, 
-                         outfile = NULL, 
-                         template.file = file.path(
-                           fsldir(), "data", 
-                           "standard", 
-                           "MNI152_T1_1mm_brain.nii.gz"),
-                         interpolator="Linear", 
+                         retimg = TRUE,
+                         outfile = NULL,
+                         template.file = file.path(fsldir(), "data",
+                                                   "standard",
+                                                   "MNI152_T1_1mm_brain.nii.gz"),
+                         interpolator = "Linear",
                          other.files = NULL,
                          other.outfiles = NULL,
                          other.init = NULL,
@@ -58,15 +57,13 @@ registration <- function(filename,
                          invert.native.fname = NULL,
                          invert.file = NULL,
                          typeofTransform = "SyN",
-                         remove.warp = TRUE,
+                         remove.warp = FALSE,
                          outprefix = NULL,
                          bet.opts = "-B -f 0.1 -v",
                          betcmd = "bet",
                          copy_origin = TRUE,
                          verbose = TRUE,
-                         ... 
-){
-  
+                         ...) {
   outfile = check_outfile(outfile = outfile, retimg = retimg)
   
   have.other = FALSE
@@ -84,7 +81,7 @@ registration <- function(filename,
       ltrans = length(other.init)
       if (ltrans != lout) {
         stop("Other initial transformations and infiles must be same length")
-      }    
+      }
     }
   }
   
@@ -97,11 +94,11 @@ registration <- function(filename,
   }
   
   # if (!remove.warp) {
-    # stopifnot(!is.null(outprefix))
+  # stopifnot(!is.null(outprefix))
   # } else {
-    if (is.null(outprefix)) {
-      outprefix = tempfile()
-    }
+  if (is.null(outprefix)) {
+    outprefix = tempfile()
+  }
   # }
   
   if (is.antsImage(filename)) {
@@ -119,14 +116,16 @@ registration <- function(filename,
     }
     if (is.antsImage(filename)) {
       filename = checkimg(filename)
-    }   
+    }
     ext = get.imgext()
     bet_file = tempfile()
-    x = fslbet(infile = filename, 
-               outfile = bet_file, 
-               opts = bet.opts, 
-               betcmd = betcmd, 
-               retimg = FALSE)
+    x = fslbet(
+      infile = filename,
+      outfile = bet_file,
+      opts = bet.opts,
+      betcmd = betcmd,
+      retimg = FALSE
+    )
     bet_file = paste0(tempfile(), ext)
     bet_maskfile = paste0(tempfile(), "_Mask", ext)
     # bet = antsImageRead(bet_file, 3)
@@ -137,37 +136,41 @@ registration <- function(filename,
   
   if (have.other) {
     stopifnot(all(file.exists(other.files)))
-    other.imgs = lapply(other.files, antsImageRead, 
+    other.imgs = lapply(other.files, antsImageRead,
                         dimension = 3)
     if (copy_origin) {
-      other.imgs = lapply(other.imgs, 
+      other.imgs = lapply(other.imgs,
                           antsCopyOrigin,
                           reference = t1N3)
     }
     N3.oimgs = lapply(other.imgs, antsImageClone)
   }
-  ## 
+  ##
   if (correct) {
     if (verbose) {
       message("# Running Bias-Field Correction on file\n")
-    }    
-    t1N3 = bias_correct(file = t1, 
-                        correction = correction, 
-                        retimg = TRUE,
-                        verbose = verbose)
+    }
+    t1N3 = bias_correct(
+      file = t1,
+      correction = correction,
+      retimg = TRUE,
+      verbose = verbose
+    )
     t1N3 = oro2ants(t1N3)
     if (have.other) {
       if (verbose) {
         message("# Running Bias-Field Correction on other.files\n")
-      }        
+      }
       for (i in seq(lother)) {
-        N3.oimgs[[i]] = bias_correct(file = other.imgs[[i]], 
-                                     correction = correction, 
-                                     retimg = TRUE,
-                                     verbose = verbose)
+        N3.oimgs[[i]] = bias_correct(
+          file = other.imgs[[i]],
+          correction = correction,
+          retimg = TRUE,
+          verbose = verbose
+        )
         N3.oimgs[[i]] = oro2ants(N3.oimgs[[i]])
       }
-    }		
+    }
   }
   
   if (skull_strip) {
@@ -176,10 +179,13 @@ registration <- function(filename,
       N3.oimgs = lapply(N3.oimgs, maskImage,
                         img.mask = bet_mask)
     }
-    rm(list = "bet_mask"); gc(); gc();
+    rm(list = "bet_mask")
+    gc()
+    gc()
+    
   }
   
-  ## 
+  ##
   if (is.antsImage(template.file)) {
     template = antsImageClone(template.file)
   } else {
@@ -193,13 +199,15 @@ registration <- function(filename,
   
   if (verbose) {
     message("# Running Registration of file to template\n")
-  }  
+  }
   antsRegOut.nonlin <- antsRegistration(
-    fixed = template, 
-    moving = t1N3, 
-    typeofTransform = typeofTransform,  
+    fixed = template,
+    moving = t1N3,
+    typeofTransform = typeofTransform,
     outprefix = outprefix,
-    verbose = verbose, ...)
+    verbose = verbose,
+    ...
+  )
   ######################################################
   # added this to try to wrap up the gc()
   antsRegOut.nonlin$warpedmovout = NULL
@@ -207,12 +215,12 @@ registration <- function(filename,
   ######################################################
   for (i in 1:10) {
     gc()
-  }  
+  }
   
   if (verbose) {
     message("# Applying Registration output is\n")
     print(antsRegOut.nonlin)
-  }  
+  }
   
   if (!all(file.exists(antsRegOut.nonlin$fwdtransforms))) {
     stop("ANTs Registration did not complete, transforms do not exist!")
@@ -227,12 +235,13 @@ registration <- function(filename,
     #     print(template)
     #     message("# Moving is \n")
     #     print(t1N3)
-  }  
+  }
   t1.to.template <- antsApplyTransforms(
-    fixed = template, 
+    fixed = template,
     moving = t1N3,
     transformlist = antsRegOut.nonlin$fwdtransforms,
-    interpolator = interpolator) 
+    interpolator = interpolator
+  )
   
   
   # moving = t1N3
@@ -246,7 +255,7 @@ registration <- function(filename,
     
     if (verbose) {
       message("# Applying Inverse transforms to invert.file\n")
-    }  	  
+    }
     for (iatlas in seq_along(invert.file)) {
       output = invert.native.fname[iatlas]
       
@@ -256,12 +265,17 @@ registration <- function(filename,
       # 				output = paste0(output, ".nii.gz")
       # 			}
       
-      tmp_img = antsApplyTransforms(fixed = t1N3, 
-                                    moving = atlas,
-                                    transformlist = transformlist,
-                                    interpolator = "NearestNeighbor")
+      tmp_img = antsApplyTransforms(
+        fixed = t1N3,
+        moving = atlas,
+        transformlist = transformlist,
+        interpolator = "NearestNeighbor"
+      )
       antsImageWrite(tmp_img, output)
-      rm(list = c("tmp_img", "atlas")); gc(); gc();
+      rm(list = c("tmp_img", "atlas"))
+      gc()
+      gc()
+      
     }
   }
   
@@ -270,48 +284,55 @@ registration <- function(filename,
   if (have.other) {
     if (verbose) {
       message("# Applying Transforms to other.files\n")
-    }  	 
+    }
     if (is.null(other.init)) {
       reg.oimgs = lapply(N3.oimgs, function(x) {
-        antsApplyTransforms(fixed = template, 
-                            moving = x, 
-                            transformlist = antsRegOut.nonlin$fwdtransforms,
-                            interpolator = interpolator
+        antsApplyTransforms(
+          fixed = template,
+          moving = x,
+          transformlist = antsRegOut.nonlin$fwdtransforms,
+          interpolator = interpolator
         )
       })
     } else {
       reg.oimgs = mapply(function(x, y) {
-        antsApplyTransforms(fixed = template, 
-                            moving = x, 
-                            transformlist = c(y, antsRegOut.nonlin$fwdtransforms),
-                            interpolator = interpolator
+        antsApplyTransforms(
+          fixed = template,
+          moving = x,
+          transformlist = c(y, antsRegOut.nonlin$fwdtransforms),
+          interpolator = interpolator
         )
-      }, N3.oimgs, other.init, SIMPLIFY = FALSE)  
+      }, N3.oimgs, other.init, SIMPLIFY = FALSE)
     }
   }
   
   if (verbose) {
     message("# Writing out file\n")
-  }  
+  }
   antsImageWrite(t1.to.template, outfile)
-  rm(list = "t1.to.template"); gc(); gc();
+  rm(list = "t1.to.template")
+  gc()
+  gc()
+  
   if (have.other) {
     if (verbose) {
       message("# Writing out other.files\n")
-    }      
+    }
     for (i in seq(lother)) {
-      antsImageWrite(reg.oimgs[[i]], 
+      antsImageWrite(reg.oimgs[[i]],
                      other.outfiles[i])
     }
-    rm(list = c("reg.oimgs", "N3.oimgs")); gc(); gc();
+    rm(list = c("reg.oimgs", "N3.oimgs"))
+    gc()
+    gc()
+    
   }
   
   if (remove.warp) {
     if (verbose) {
       message("# Removing Warping images\n")
-    }        
-    files = unlist(antsRegOut.nonlin[
-      c("fwdtransforms", "invtransforms")])
+    }
+    files = unlist(antsRegOut.nonlin[c("fwdtransforms", "invtransforms")])
     files = grep("Warp", files, value = TRUE)
     if (length(files) > 0) {
       file.remove(files)
@@ -320,23 +341,26 @@ registration <- function(filename,
   if (retimg) {
     if (verbose) {
       message("# Reading data back into R\n")
-    }          
-    img = readnii(outfile, reorient = FALSE)
-    outfile = img
+    }
+    outfile = readnii(outfile, reorient = FALSE)
   }
   
-  L = list(outfile = outfile, 
-           fwdtransforms = antsRegOut.nonlin$fwdtransforms,
-           invtransforms = antsRegOut.nonlin$invtransforms,
-           interpolator = interpolator,
-           typeofTransform = typeofTransform,
-           retimg = retimg)
-  rm(list = c("t1", "t1N3", "template")); gc(); gc();
+  L = list(
+    outfile = outfile,
+    fwdtransforms = antsRegOut.nonlin$fwdtransforms,
+    invtransforms = antsRegOut.nonlin$invtransforms,
+    interpolator = interpolator,
+    typeofTransform = typeofTransform,
+    retimg = retimg
+  )
+  L$other.outfiles = other.outfiles
+  rm(list = c("t1", "t1N3", "template"))
+  gc()
+  gc()
+  
   rm(list = "antsRegOut.nonlin")
   for (i in 1:10) {
     gc()
-  }  
+  }
   return(L)
 }
-
-

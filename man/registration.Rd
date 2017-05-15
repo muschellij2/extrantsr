@@ -10,7 +10,7 @@ registration(filename, skull_strip = FALSE, correct = FALSE,
   "MNI152_T1_1mm_brain.nii.gz"), interpolator = "Linear",
   other.files = NULL, other.outfiles = NULL, other.init = NULL,
   template_to_native = FALSE, invert.native.fname = NULL,
-  invert.file = NULL, typeofTransform = "SyN", remove.warp = TRUE,
+  invert.file = NULL, typeofTransform = "SyN", remove.warp = FALSE,
   outprefix = NULL, bet.opts = "-B -f 0.1 -v", betcmd = "bet",
   copy_origin = TRUE, verbose = TRUE, ...)
 }
@@ -25,31 +25,31 @@ registration(filename, skull_strip = FALSE, correct = FALSE,
 
 \item{retimg}{return a nifti object from function}
 
-\item{outfile}{output filename should have .nii or .nii.gz 
+\item{outfile}{output filename should have .nii or .nii.gz
 extension}
 
 \item{template.file}{Filename of image to warp to}
 
-\item{interpolator}{interpolation done for 
+\item{interpolator}{interpolation done for
 \code{\link{antsApplyTransforms}}}
 
-\item{other.files}{Filenames of other iamges to be 
+\item{other.files}{Filenames of other iamges to be
 transformed with the T1}
 
-\item{other.outfiles}{Output filenames of \code{other.files} to 
+\item{other.outfiles}{Output filenames of \code{other.files} to
 be written}
 
 \item{other.init}{Initial transformation lists (same length as \code{other.files})
 to use in before the estimated transformation for one interpolation}
 
-\item{template_to_native}{Logical indicating if native cerebellum should be 
+\item{template_to_native}{Logical indicating if native cerebellum should be
 created to \code{invert.native.fname}}
 
 \item{invert.native.fname}{filename of native cerebellum file}
 
 \item{invert.file}{Filename of image to invert to native space}
 
-\item{typeofTransform}{type of transformed used, passed to 
+\item{typeofTransform}{type of transformed used, passed to
 \code{\link{antsRegistration}}}
 
 \item{remove.warp}{(logical) Should warping images be deleted?}
@@ -71,9 +71,9 @@ Required if \code{remove.warp = FALSE}}
 List of the output filenames and transformations
 }
 \description{
-This function performs registration 
+This function performs registration
 using ANTsR, carries out the transformation
 on other images, and can back-transform image
-in registered space to the native space of the original image.  Returns the 
+in registered space to the native space of the original image.  Returns the
 transforms
 }
