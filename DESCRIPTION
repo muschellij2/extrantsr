@@ -31,5 +31,6 @@ Remotes: stnava/ANTsR, muschellij2/neurobase,
     muschellij2/kirby21.t1
 Suggests: knitr,
     rmarkdown,
-    kirby21.t1
+    kirby21.t1,
+    covr
 VignetteBuilder: knitr
