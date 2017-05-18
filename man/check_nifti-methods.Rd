@@ -3,7 +3,6 @@
 \docType{methods}
 \name{check_nifti,antsImage-method}
 \alias{check_nifti,antsImage-method}
-\alias{check_nifti,character-method}
 \title{Check if nifti image or read in a nifti image}
 \usage{
 \S4method{check_nifti}{antsImage}(x, reorient = FALSE, allow.array = FALSE,

@@ -1,7 +1,7 @@
 Package: extrantsr
 Type: Package
 Title: Extra Functions to Build on the ANTsR Package
-Version: 2.18.1
+Version: 2.18.2
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Extends the ANTsR package with simple wrappers and complex
@@ -15,7 +15,7 @@ Imports:
     utils,
     oro.nifti,
     ANTsR (>= 0.4.0),
-    neurobase (>= 1.19.3),
+    neurobase (>= 1.19.4),
     fslr (>= 2.9.2),
     WhiteStripe,
     matrixStats,

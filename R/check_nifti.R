@@ -1,5 +1,5 @@
 #' @rdname check_nifti-methods
-#' @aliases check_nifti,character-method
+#' @aliases check_nifti,antsImage-method
 #' @docType methods 
 #' @title Check if nifti image or read in a nifti image
 #' @description Simple check to see if input is character or of 
