@@ -6,7 +6,8 @@
 \alias{check_nifti,character-method}
 \title{Check if nifti image or read in a nifti image}
 \usage{
-\S4method{check_nifti}{antsImage}(x, reorient = FALSE, allow.array = FALSE)
+\S4method{check_nifti}{antsImage}(x, reorient = FALSE, allow.array = FALSE,
+  need_header = TRUE)
 }
 \arguments{
 \item{x}{character path of image or 
@@ -19,6 +20,10 @@ is to be re-oriented}
 \item{allow.array}{(logical) Are array types allowed (TRUE) or
 should there be an error if the object is not character or class
 nifti.}
+
+\item{need_header}{if \code{TRUE}, then an image type with header information
+will be returned.  If not, then an array is fine.  Used really only in 
+conjunction with \code{allow.array}}
 }
 \value{
 nifti object or array if allow.array=TRUE and x is an array
