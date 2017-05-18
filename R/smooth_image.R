@@ -8,6 +8,8 @@
 #' @param smooth_mask (logical) Smooth mask?  If TRUE, the masked image 
 #' will be divided by the smoothed mask.
 #' @param verbose (logical) print out command before running
+#' @param retfile logical to indicate if an \code{antsImage} should be returned
+#' (useful for chaining)
 #' @param ... additional arguments passed to \code{\link{smoothImage}}.
 #' @return Object of class \code{nifti}
 #' @examples
@@ -26,6 +28,7 @@ smooth_image <- function(
   mask=NULL, 
   smooth_mask = TRUE,
   verbose = TRUE,
+  retfile = FALSE,
   ...){
   
   file = check_ants(file)
@@ -44,6 +47,9 @@ smooth_image <- function(
     # remask
     sm_file = ANTsR::maskImage(img.in = sm_file, img.mask = mask)
     rm( list = "mask"); gc(); gc();
+  }
+  if (retfile) {
+    return(sm_file)
   }
   sm_file = ants2oro(sm_file)
   return(sm_file)

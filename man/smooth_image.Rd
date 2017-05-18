@@ -5,7 +5,7 @@
 \title{Gaussian smooth image using ANTsR}
 \usage{
 smooth_image(file, sigma = 10, mask = NULL, smooth_mask = TRUE,
-  verbose = TRUE, ...)
+  verbose = TRUE, retfile = FALSE, ...)
 }
 \arguments{
 \item{file}{(character) image to be smoothed}
@@ -18,6 +18,9 @@ smooth_image(file, sigma = 10, mask = NULL, smooth_mask = TRUE,
 will be divided by the smoothed mask.}
 
 \item{verbose}{(logical) print out command before running}
+
+\item{retfile}{logical to indicate if an \code{antsImage} should be returned
+(useful for chaining)}
 
 \item{...}{additional arguments passed to \code{\link{smoothImage}}.}
 }
