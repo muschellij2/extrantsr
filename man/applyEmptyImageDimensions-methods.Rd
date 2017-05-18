@@ -12,6 +12,9 @@
 \arguments{
 \item{img}{image, nifti object, or array}
 
+\item{inds}{indices of subset from \code{\link{getEmptyImageDimensions}} or
+\code{\link{dropEmptyImageDimensions}}.}
+
 \item{...}{not used}
 }
 \value{

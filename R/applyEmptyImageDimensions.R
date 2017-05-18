@@ -8,6 +8,8 @@
 #' dropping empty dimensions.  
 #' 
 #' @param img image, nifti object, or array
+#' @param inds indices of subset from \code{\link{getEmptyImageDimensions}} or
+#' \code{\link{dropEmptyImageDimensions}}. 
 #' @param ... not used
 #' @return Object of class \code{nifti} or \code{array} if \code{nifti}
 #' is not supplied
@@ -16,10 +18,12 @@
 #' @export
 #' @importFrom neurobase applyEmptyImageDimensions
 setMethod("applyEmptyImageDimensions", "antsImage", 
-          function(img, ...) {
+          function(img, 
+                   inds,
+                   ...) {
             arr = as.array(img)
             res = neurobase::applyEmptyImageDimensions(
-              img = arr, ...)
+              img = arr, inds = inds, ...)
             res = ANTsR::as.antsImage(arr, reference = img)
             return(res)
           })
