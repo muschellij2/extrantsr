@@ -15,6 +15,8 @@
 \item{inds}{indices of subset from \code{\link{getEmptyImageDimensions}} or
 \code{\link{dropEmptyImageDimensions}}.}
 
+\item{reorient}{Should image be reoriented if a filename}
+
 \item{...}{not used}
 }
 \value{
