@@ -3,7 +3,7 @@
 #' @description Wrapper for \code{oMath("GetLargestComponent")}
 #' 
 #' @param img Object of class \code{nifti} 
-#' @param ... Additional arguments passed to \code{\link{iMath("GetLargestComponent")}}
+#' @param ... Additional arguments passed to \code{\link{iMath}}
 #' @param retfile logical to indicate if an \code{antsImage} should be returned
 #' (useful for chaining)
 #' @export

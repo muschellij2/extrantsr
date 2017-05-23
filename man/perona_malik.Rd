@@ -14,7 +14,7 @@ perona_malik(img, n_iter, conductance, ..., retfile)
 \item{conductance}{From ITK: The conductance parameter controls the 
 sensitivity of the conductance term in the basic anisotropic diffusion equation}
 
-\item{...}{Additional arguments passed to \code{\link{iMath("PeronaMalik")}}}
+\item{...}{Additional arguments passed to \code{\link{iMath}}}
 
 \item{retfile}{logical to indicate if an \code{antsImage} should be returned
 (useful for chaining)}

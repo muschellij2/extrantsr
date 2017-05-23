@@ -9,7 +9,7 @@ largest_component(img, ..., retfile = FALSE)
 \arguments{
 \item{img}{Object of class \code{nifti}}
 
-\item{...}{Additional arguments passed to \code{\link{iMath("GetLargestComponent")}}}
+\item{...}{Additional arguments passed to \code{\link{iMath}}}
 
 \item{retfile}{logical to indicate if an \code{antsImage} should be returned
 (useful for chaining)}

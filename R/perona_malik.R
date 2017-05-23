@@ -6,7 +6,7 @@
 #' @param n_iter number of iterations
 #' @param conductance From ITK: The conductance parameter controls the 
 #' sensitivity of the conductance term in the basic anisotropic diffusion equation
-#' @param ... Additional arguments passed to \code{\link{iMath("PeronaMalik")}}
+#' @param ... Additional arguments passed to \code{\link{iMath}}
 #' @param retfile logical to indicate if an \code{antsImage} should be returned
 #' (useful for chaining)
 #' @export
