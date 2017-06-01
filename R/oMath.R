@@ -9,6 +9,7 @@
 #' (useful for chaining)
 #' @export
 #' @import ANTsR
+#' @import ANTsRCore
 #' @return Object of class \code{nifti}
 oMath <- function(img, ..., retfile = FALSE){
   img = check_ants(img)
