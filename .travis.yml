@@ -31,6 +31,12 @@ before_install:
   - export RGL_USE_NULL=TRUE;
   - cwd=`pwd`
   - cd ~/
+  # cmake may not be needed
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
+    then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; 
+    sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=${HOME}/bin/:$PATH; fi
+  - export PATH=${HOME}/bin/:$PATH
+  - Rscript -e 'if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")'  
   - itkrrel=0.0.1
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
     then wget -O ITKR.tar.gz https://github.com/stnava/ITKR/releases/download/latest/ITKR_${itkrrel}_R_x86_64-pc-linux-gnu.tar.gz; 
@@ -38,12 +44,6 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; 
     then wget -O ITKR.tgz http://github.com/stnava/ITKR/releases/download/latest/ITKR_${itkrrel}.tgz; 
     R CMD INSTALL ITKR.tgz; fi
-  # cmake shit
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
-    then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; 
-    sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=${HOME}/bin/:$PATH; fi
-  - export PATH=${HOME}/bin/:$PATH
-  - Rscript -e 'if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")'
   # - Rscript -e 'devtools::install_github("stnava/ANTsRCore", upgrade_dependencies = FALSE);'
   # this removes remotes - which is a problem
   # - Rscript -e 'devtools::source_url("https://gist.githubusercontent.com/muschellij2/69c48f469ab34cc05752361645ffa8e0/raw/57e7d3b22907699d260f863a0d337a12567ffc30/rewrite_dcf.R"); repo = get_remote_info(package = "ANTsR"); devtools::install_github(repo, upgrade_dependencies = FALSE);'
