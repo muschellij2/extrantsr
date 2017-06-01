@@ -62,10 +62,10 @@ before_install:
     R CMD INSTALL ANTsRCore.tgz; fi
   - antsrrel=0.5.4
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
-    then wget -O ANTsR.tar.gz https://github.com/stnava/ANTsR/releases/download/beta/ANTsR_${antsrrel}_R_x86_64-pc-linux-gnu.tar.gz; 
+    then wget -O ANTsR.tar.gz https://github.com/stnava/ANTsR/releases/download/latest/ANTsR_${antsrrel}_R_x86_64-pc-linux-gnu.tar.gz; 
     R CMD INSTALL ANTsR.tar.gz; fi
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; 
-    then wget -O ANTsR.tgz https://github.com/stnava/ANTsR/releases/download/beta/ANTsR_${antsrrel}.tgz; 
+    then wget -O ANTsR.tgz https://github.com/stnava/ANTsR/releases/download/latest/ANTsR_${antsrrel}.tgz; 
     R CMD INSTALL ANTsR.tgz; fi
   # - Rscript -e 'devtools::source_url("https://gist.githubusercontent.com/muschellij2/69c48f469ab34cc05752361645ffa8e0/raw/57e7d3b22907699d260f863a0d337a12567ffc30/rewrite_dcf.R"); rewrite_dcf(drop_remotes = c("ITKR"));'
   - cd $cwd
