@@ -60,7 +60,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; 
     then wget -O ANTsRCore.tgz http://github.com/${gh_user}/ANTsRCore/releases/download/${reldir}/ANTsRCore_${ANTsRCorerel}.tgz; 
     R CMD INSTALL ANTsRCore.tgz; fi
-  - corerel=0.5.4
+  - antsrrel=0.5.4
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
     then wget -O ANTsR.tar.gz https://github.com/stnava/ANTsR/releases/download/beta/ANTsR_${antsrrel}_R_x86_64-pc-linux-gnu.tar.gz; 
     R CMD INSTALL ANTsR.tar.gz; fi
