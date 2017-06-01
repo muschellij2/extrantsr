@@ -51,7 +51,7 @@ before_install:
   # - cd ANTsR; ./cleanup && cd ~/
   # - cd ANTsR; Rscript -e 'd = devtools::dev_package_deps(); d = as.data.frame(d); d = d$package[d$diff < -1]; if (length(d) > 0) { install.packages(d) }'
   # - cd ~/; R CMD INSTALL ANTsR/
-  - gh_user=stnava
+  - Rscript -e 'p = c("RcppEigen", "magrittr"); p = setdiff(p, installed.packages()); if (length(p)) install.packages(p);'  - gh_user=stnava
   - ANTsRCorerel=0.2
   - reldir=latest
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
@@ -60,6 +60,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; 
     then wget -O ANTsRCore.tgz http://github.com/${gh_user}/ANTsRCore/releases/download/${reldir}/ANTsRCore_${ANTsRCorerel}.tgz; 
     R CMD INSTALL ANTsRCore.tgz; fi
+  - Rscript -e 'p = c("magic", "psych", xgboost", "rsvd", "magic"); p = setdiff(p, installed.packages()); if (length(p)) install.packages(p);'      
   - antsrrel=0.5.4
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
     then wget -O ANTsR.tar.gz https://github.com/stnava/ANTsR/releases/download/latest/ANTsR_${antsrrel}_R_x86_64-pc-linux-gnu.tar.gz; 
