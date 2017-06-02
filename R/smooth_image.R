@@ -37,10 +37,10 @@ smooth_image <- function(
     file = ANTsR::maskImage(img.in = file, img.mask = mask)
   }
   
-  sm_file = ANTsR::smoothImage(inimg = file, sigma = sigma, ...)
+  sm_file = ANTsRCore::smoothImage(inimg = file, sigma = sigma, ...)
   if (!is.null(mask) & smooth_mask ) {
     # smoothing mask
-    sm_mask = ANTsR::smoothImage(inimg = mask, sigma = sigma, ...)
+    sm_mask = ANTsRCore::smoothImage(inimg = mask, sigma = sigma, ...)
     # dividing smoothed mask
     sm_file = sm_file / sm_mask
     rm( list = "sm_mask"); gc(); gc();

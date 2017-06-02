@@ -6,7 +6,6 @@ sudo: false
 cache: packages
 use_bioc: yes
 bioc_required: yes
-upgrade_deps: false
 
 r:
   - release
