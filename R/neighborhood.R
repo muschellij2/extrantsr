@@ -36,8 +36,8 @@ neighborhood = function(img,
   if (is.null(mask)) {
     mask = array(1, 
               dim = img.dim)  
-    mask = ANTsR::as.antsImage(mask)
-    mask = ANTsR::antsCopyImageInfo(
+    mask = ANTsRCore::as.antsImage(mask)
+    mask = ANTsRCore::antsCopyImageInfo(
       target = mask, 
       reference = img)    
   }
@@ -63,7 +63,7 @@ neighborhood = function(img,
   if (verbose) {
     message("Running getNeighborhood")
   } 
-  grads = do.call(ANTsR::getNeighborhoodInMask, dots)
+  grads = do.call(ANTsRCore::getNeighborhoodInMask, dots)
   # grads = getNeighborhoodInMask(
   #   image = img, 
   #   mask = mask, 
@@ -94,7 +94,7 @@ neighborhood = function(img,
     if (verbose > 1) {
       print(dots)
     } 
-    ggrads = do.call(ANTsR::getNeighborhoodInMask, dots)
+    ggrads = do.call(ANTsRCore::getNeighborhoodInMask, dots)
     
     ggrads$gradients = ggrads$gradients[, order_ind]
     grads$gradients = ggrads$gradients

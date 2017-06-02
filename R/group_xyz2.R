@@ -7,11 +7,11 @@
 #' @export 
 group_xyz2 = function(img, k = 1) {
   img = check_ants(img)
-  labs = ANTsR::labelClusters(
+  labs = ANTsRCore::labelClusters(
     img,
     minClusterSize = 1,
     fullyConnected = TRUE)
-  les_xyz = ANTsR::as.array(labs)
+  les_xyz = as.array(labs)
   tab = table(c(les_xyz))
   levs = names(tab[tab >= k])
   levs = as.numeric(levs)

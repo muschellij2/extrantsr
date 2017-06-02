@@ -9,7 +9,7 @@
 ants_bwlabel = function(img, k = 1, binary = TRUE) {
   
   img = check_ants(img)
-  labs = ANTsR::labelClusters(
+  labs = ANTsRCore::labelClusters(
     img,
     minClusterSize = 1,
     fullyConnected = TRUE)

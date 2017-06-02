@@ -3,5 +3,5 @@
 #' @importFrom neurobase write_nifti
 write_nifti.antsImage = function(nim, 
                                   filename){
-  ANTsR::antsImageWrite(image = nim, filename = filename)
+  ANTsRCore::antsImageWrite(image = nim, filename = filename)
 }

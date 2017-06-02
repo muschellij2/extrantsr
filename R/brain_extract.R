@@ -1,4 +1,4 @@
-#' @title Wrapper for ANTs brain extraction
+r#' @title Wrapper for ANTs brain extraction
 #' @description This function wraps \code{\link{abpN4}} and
 #' \code{\link{abpBrainExtraction}} for \code{nifti} images with additional checks
 #' 
