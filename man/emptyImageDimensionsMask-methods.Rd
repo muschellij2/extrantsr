@@ -3,7 +3,7 @@
 \docType{methods}
 \name{emptyImageDimensionsMask}
 \alias{emptyImageDimensionsMask}
-\alias{emptyImageDimensionsMask,nifti-method}
+\alias{emptyImageDimensionsMask,antsImage-method}
 \title{Make Mask from Empty Image Dimensions}
 \usage{
 \S4method{emptyImageDimensionsMask}{antsImage}(img, ..., reorient = FALSE)

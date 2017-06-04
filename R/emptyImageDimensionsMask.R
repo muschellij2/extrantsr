@@ -1,5 +1,5 @@
 #' @rdname emptyImageDimensionsMask-methods
-#' @aliases emptyImageDimensionsMask,nifti-method
+#' @aliases emptyImageDimensionsMask,antsImage-method
 #' 
 #' @docType methods 
 #' 
