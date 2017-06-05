@@ -16,7 +16,7 @@ Imports:
     oro.nifti,
     ANTsR (>= 0.5.4),
     ANTsRCore (>= 0.2.0),
-    neurobase (>= 1.20.1),
+    neurobase (>= 1.20.2),
     fslr (>= 2.9.2),
     WhiteStripe,
     matrixStats,
