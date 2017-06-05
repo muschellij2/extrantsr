@@ -35,7 +35,7 @@ before_install:
   - export antsrrel=0.5.4
   - wget -O antsr_travis.sh http://bit.ly/antsr_travis_sh
   - chmod +x antsr_travis.sh
-  - ./antsr_travis.sh  
+  - . ./antsr_travis.sh  
   - rm antsr_travis.sh
   # - cwd=`pwd`
   # - cd ~/
