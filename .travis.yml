@@ -27,16 +27,20 @@ before_install:
   - Rscript -e 'x = system("hostname", intern = TRUE); print(x);'
   - Rscript -e 'x = system("users", intern = TRUE); print(x);'
   - Rscript -e 'x = Sys.getenv("USER"); print(x);'
-  - export RGL_USE_NULL=TRUE;
-  - export itkrrel=0.0.1
-  - export gh_user=stnava
-  - export ANTsRCorerel=0.2
-  - export reldir=latest
-  - export antsrrel=0.5.4
-  - wget -O antsr_travis.sh http://bit.ly/antsr_travis_sh
-  - chmod +x antsr_travis.sh
-  - . ./antsr_travis.sh  
-  - rm antsr_travis.sh
+  # - export RGL_USE_NULL=TRUE;
+  # - export itkrrel=0.0.1
+  # - export gh_user=stnava
+  # - export ANTsRCorerel=0.2
+  # - export reldir=latest
+  # - export antsrrel=0.5.4
+  # - wget -O antsr_travis.sh http://bit.ly/antsr_travis_sh
+  # - chmod +x antsr_travis.sh
+  # - . ./antsr_travis.sh  
+  # - rm antsr_travis.sh
+  - wget -O full_antsr_travis.sh http://bit.ly/full_antsr_travis
+  - chmod +x full_antsr_travis.sh
+  - . ./full_antsr_travis.sh  
+  - rm full_antsr_travis.sh  
   # - cwd=`pwd`
   # - cd ~/
   # # cmake may not be needed
