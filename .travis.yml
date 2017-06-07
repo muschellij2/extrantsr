@@ -11,66 +11,15 @@ r:
   - release
 
   
-# apt_packages:
-#   - pandoc
-#   - tcl8.5-dev
-#   - tk8.5-dev
-#   - libhdf5-7
-#   - libhdf5-dev
-
-# brew_packages:
-#   - pandoc
-#   - homebrew/science/hdf5  --enable-cxx
-
 before_install:
   # for RGL
   - Rscript -e 'x = system("hostname", intern = TRUE); print(x);'
   - Rscript -e 'x = system("users", intern = TRUE); print(x);'
   - Rscript -e 'x = Sys.getenv("USER"); print(x);'
-  # - export RGL_USE_NULL=TRUE;
-  # - export itkrrel=0.0.1
-  # - export gh_user=stnava
-  # - export ANTsRCorerel=0.2
-  # - export reldir=latest
-  # - export antsrrel=0.5.4
-  # - wget -O antsr_travis.sh http://bit.ly/antsr_travis_sh
-  # - chmod +x antsr_travis.sh
-  # - . ./antsr_travis.sh  
-  # - rm antsr_travis.sh
   - wget -O full_antsr_travis.sh http://bit.ly/full_antsr_travis
   - chmod +x full_antsr_travis.sh
   - . ./full_antsr_travis.sh  
   - rm full_antsr_travis.sh  
-  # - cwd=`pwd`
-  # - cd ~/
-  # # cmake may not be needed
-  # - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
-  #   then wget --no-check-certificate https://cmake.org/files/v3.4/cmake-3.4.0-rc1-Linux-x86_64.sh; 
-  #   sh cmake-3.4.0-rc1-Linux-x86_64.sh --skip-license --prefix=${HOME}; export PATH=${HOME}/bin/:$PATH; fi
-  # - export PATH=${HOME}/bin/:$PATH
-  # - Rscript -e 'if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")'  
-  # - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
-  #   then wget -O ITKR.tar.gz https://github.com/stnava/ITKR/releases/download/latest/ITKR_${itkrrel}_R_x86_64-pc-linux-gnu.tar.gz; 
-  #   R CMD INSTALL ITKR.tar.gz; fi
-  # - if [ "$TRAVIS_OS_NAME" == "osx" ]; 
-  #   then wget -O ITKR.tgz http://github.com/stnava/ITKR/releases/download/latest/ITKR_${itkrrel}.tgz; 
-  #   R CMD INSTALL ITKR.tgz; fi
-  # - Rscript -e 'p = c("RcppEigen", "magrittr"); p = setdiff(p, installed.packages()); if (length(p)) install.packages(p);'  
-  # - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
-  #   then wget -O ANTsRCore.tar.gz https://github.com/${gh_user}/ANTsRCore/releases/download/${reldir}/ANTsRCore_${ANTsRCorerel}_R_x86_64-pc-linux-gnu.tar.gz; 
-  #   R CMD INSTALL ANTsRCore.tar.gz; fi
-  # - if [ "$TRAVIS_OS_NAME" == "osx" ]; 
-  #   then wget -O ANTsRCore.tgz http://github.com/${gh_user}/ANTsRCore/releases/download/${reldir}/ANTsRCore_${ANTsRCorerel}.tgz; 
-  #   R CMD INSTALL ANTsRCore.tgz; fi
-  # - Rscript -e 'p = c("magic", "psych", "xgboost", "rsvd", "magic"); p = setdiff(p, installed.packages()); if (length(p)) install.packages(p);'      
-  # - if [ "$TRAVIS_OS_NAME" == "linux" ]; 
-  #   then wget -O ANTsR.tar.gz https://github.com/stnava/ANTsR/releases/download/latest/ANTsR_${antsrrel}_R_x86_64-pc-linux-gnu.tar.gz; 
-  #   R CMD INSTALL ANTsR.tar.gz; fi
-  # - if [ "$TRAVIS_OS_NAME" == "osx" ]; 
-  #   then wget -O ANTsR.tgz https://github.com/stnava/ANTsR/releases/download/latest/ANTsR_${antsrrel}.tgz; 
-  #   R CMD INSTALL ANTsR.tgz; fi
-  # - cd $cwd
-  # - Rscript -e 'devtools::source_url("https://gist.githubusercontent.com/muschellij2/69c48f469ab34cc05752361645ffa8e0/raw/57e7d3b22907699d260f863a0d337a12567ffc30/rewrite_dcf.R"); rewrite_dcf(drop_remotes = c("ANTsR", "ANTsRCore", "ITKR"));'
 
 env:
   global:
