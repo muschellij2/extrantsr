@@ -10,7 +10,6 @@ bioc_required: yes
 r:
   - release
 
-
   
 before_install:
   # for RGL
