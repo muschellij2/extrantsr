@@ -10,7 +10,7 @@ before_install:
   - wget -O travis_helpers.sh http://bit.ly/travis_helpers
   - source travis_helpers.sh
   - rm travis_helpers.sh
-  - remote_binary_install
+  - remote_binary_install ITKR ANTsRCore ANTsR
   - install_remotes_no_dep
 
 env:
