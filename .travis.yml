@@ -13,7 +13,6 @@ before_install:
   - remote_binary_install ITKR ANTsRCore ANTsR
   - install_remotes_no_dep
 
-
 env:
   global: RGL_USE_NULL=TRUE
 after_success: Rscript -e 'covr::coveralls()'
