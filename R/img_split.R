@@ -15,8 +15,6 @@ img_split = function(img,
   img = check_ants(img)
   arr = as.array(img)
   
-  # list = img_ts_to_list(arr, copy_nifti = FALSE)
-  
   # direction = match.arg(direction)
   direction = "t"
   levs = c("x", "y", "z", "t")

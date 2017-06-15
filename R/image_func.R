@@ -21,7 +21,7 @@
 #' @importFrom stats density
 #' @importFrom matrixStats rowMedians rowSds 
 #' @importFrom matrixStats rowVars rowMads rowProds rowQuantiles rowTabulates
-#' @importFrom neurobase datatyper
+#' @importFrom neurobase datatyper img_ts_to_list
 stat_img = function(imgs,
                     func = c("mean",
                              "median",
@@ -106,7 +106,7 @@ stat_img = function(imgs,
   # Make a large matrix of images
   ##########################################
   imgs = check_nifti(imgs, allow.array = TRUE)
-  imgs = img_ts_to_list(imgs, copy_nifti = TRUE, warn = FALSE)
+  imgs = neurobase::img_ts_to_list(imgs, copy_nifti = TRUE, warn = FALSE)
   nim = imgs[[1]]
   stopifnot(length(imgs) > 1)
   dims = lapply(imgs, dim)
