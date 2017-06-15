@@ -1,29 +1,30 @@
-# Sample .travis.yml for R projects
-
 language: r
-warnings_are_errors: true
+warnings_are_errors: yes
 sudo: false
 cache: packages
+
 use_bioc: yes
 bioc_required: yes
-
-r:
-  - release
-
-  
+r: release
 before_install:
-  # for RGL
-  - Rscript -e 'x = system("hostname", intern = TRUE); print(x);'
-  - Rscript -e 'x = system("users", intern = TRUE); print(x);'
-  - Rscript -e 'x = Sys.getenv("USER"); print(x);'
-  - wget -O full_antsr_travis.sh http://bit.ly/full_antsr_travis
-  - chmod +x full_antsr_travis.sh
-  - . ./full_antsr_travis.sh  
-  - rm full_antsr_travis.sh  
+  - wget -O travis_helpers.sh http://bit.ly/travis_helpers
+  - source travis_helpers.sh
+  - rm travis_helpers.sh
+  - remote_binary_install
+  - install_remotes_no_dep
 
 env:
-  global:
-    RGL_USE_NULL=TRUE
+  global: RGL_USE_NULL=TRUE
+after_success: Rscript -e 'covr::coveralls()'
 
-after_success:
-  - Rscript -e 'covr::coveralls()'    
+deploy:
+  provider: releases
+  skip_cleanup: yes
+  api_key:
+    secure: CrAg7DdOcmeelrUmDGeWDMVu59LSI4UlPMvhT6LRgaGyULbwsDNI93qan4JfLu3f1E2jFoQGKp+1Ap/CK5Rn7+/WVC0Z++ncNLvvbXI1FGPlYIk0a1JgYOkVPJiQot5wPizpQnBbyUgwJbuJP+67u5FYdrsxAmJeOYB2NOVdLOPk7OaqlXHX0P2iAbsXkJALnTJ9NuFsH4sdVvJzmAAQI43nKuCp7HBw8FhgLLeUFzN7zeATrPqItQ9QP3dJnLD70yd1sexah4FkG7WffwrTnjgQBJvsH5hBCHAoiy+opdwk/vWfd4Uenak0+GgKGurzA30qsn9lCLvf3yfIiEzATMYjkKIVGl4vlLa4lv5FkMMzWg9y9+lgqS8e9Yh4I4LC3QEgDwvNJAao9QAHMzd6uHtW5/St8HCRTpIO+tJPkntpDeOL8Jq6hfgwyG5d99/zpWlKVDGStTxmxauNUlimgi+glWnSDWCj5jbou4g/HvYws41YWTqmjlpvyLIZbYpyaZwwTiEkKc7bx9n3y5ikw1tLkTN9FgfNkiz9fZYfjmPbVtIU/pOpvXVNSgXFQsanm01anjV+v25//AdsKsQyG6arDMTS3pIqUuiOYgJGnTepryBKoaFa2XVnNGzy406qpbE5dArB75fu64o+gytpQ7qcbM9ebg7eNLw5x0pV438=
+  file_glob: yes
+  file: extrantsr*.t*gz
+  'on':
+    tags: yes
+    repo: muschellij2/extrantsr
+
