@@ -11,6 +11,7 @@ before_install:
   - source travis_helpers.sh
   - rm travis_helpers.sh
   - remote_binary_install ITKR ANTsRCore ANTsR
+  - drop_remote ITKR ANTsRCore ANTsR
   - install_remotes_no_dep
 
 env:
