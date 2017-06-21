@@ -1,31 +1,29 @@
 language: r
-warnings_are_errors: yes
+warnings_are_errors: true
 sudo: false
 cache: packages
-
-use_bioc: yes
-bioc_required: yes
+use_bioc: true
+bioc_required: true
 r: release
 before_install:
-  - wget -O antsr_travis.sh http://bit.ly/antsr_travis_sh
-  - cat antsr_travis.sh
-  - source ./antsr_travis.sh
-  - rm antsr_travis.sh
-
+- wget -O antsr_travis.sh http://bit.ly/antsr_travis_sh
+- cat antsr_travis.sh
+- source ./antsr_travis.sh
+- rm antsr_travis.sh
 env:
   global: RGL_USE_NULL=TRUE
-after_success: 
-  - Rscript -e 'covr::coveralls()'
-  - install_build_with_tag  
+after_success:
+- Rscript -e 'covr::coveralls()'
+- install_build_with_tag
+
 
 deploy:
   provider: releases
   skip_cleanup: yes
   api_key:
-    secure: CrAg7DdOcmeelrUmDGeWDMVu59LSI4UlPMvhT6LRgaGyULbwsDNI93qan4JfLu3f1E2jFoQGKp+1Ap/CK5Rn7+/WVC0Z++ncNLvvbXI1FGPlYIk0a1JgYOkVPJiQot5wPizpQnBbyUgwJbuJP+67u5FYdrsxAmJeOYB2NOVdLOPk7OaqlXHX0P2iAbsXkJALnTJ9NuFsH4sdVvJzmAAQI43nKuCp7HBw8FhgLLeUFzN7zeATrPqItQ9QP3dJnLD70yd1sexah4FkG7WffwrTnjgQBJvsH5hBCHAoiy+opdwk/vWfd4Uenak0+GgKGurzA30qsn9lCLvf3yfIiEzATMYjkKIVGl4vlLa4lv5FkMMzWg9y9+lgqS8e9Yh4I4LC3QEgDwvNJAao9QAHMzd6uHtW5/St8HCRTpIO+tJPkntpDeOL8Jq6hfgwyG5d99/zpWlKVDGStTxmxauNUlimgi+glWnSDWCj5jbou4g/HvYws41YWTqmjlpvyLIZbYpyaZwwTiEkKc7bx9n3y5ikw1tLkTN9FgfNkiz9fZYfjmPbVtIU/pOpvXVNSgXFQsanm01anjV+v25//AdsKsQyG6arDMTS3pIqUuiOYgJGnTepryBKoaFa2XVnNGzy406qpbE5dArB75fu64o+gytpQ7qcbM9ebg7eNLw5x0pV438=
+    secure: B8PHICus64jr1SxUo4Ge/bgYucaBkzkbWqz1D524LA8tycKapxRWI5IT7wn0/Vyo/rcwM5BAzXy9y7lLrvRLVnHfqawAJ0PeNmm2iYQt3QFP/2nPqW7+dcgPBnEk/r07e+qqVt9H2k+nNvlJEddjvGPTOcc4VFsUWy4Pfw8czNk=
   file_glob: yes
   file: extrantsr*.t*gz
-  'on':
+  on:
     tags: yes
     repo: muschellij2/extrantsr
-
