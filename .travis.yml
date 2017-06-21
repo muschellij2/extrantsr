@@ -17,11 +17,8 @@ before_install:
 env:
   global: RGL_USE_NULL=TRUE
 after_success: 
-  - packname=`Rscript -e 'cat(read.dcf("DESCRIPTION")[, "Package"])'`
-  - cd ../
-  - travis_wait 100 R CMD INSTALL --build ${packname}
-  - cd ${packname}
   - Rscript -e 'covr::coveralls()'
+  - install_build_with_tag();  
 
 deploy:
   provider: releases
