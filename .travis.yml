@@ -18,7 +18,7 @@ env:
   global: RGL_USE_NULL=TRUE
 after_success: 
   - Rscript -e 'covr::coveralls()'
-  - install_build_with_tag();  
+  - install_build_with_tag  
 
 deploy:
   provider: releases
