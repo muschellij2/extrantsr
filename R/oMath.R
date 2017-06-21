@@ -8,8 +8,8 @@
 #' @param retfile logical to indicate if an \code{antsImage} should be returned
 #' (useful for chaining)
 #' @export
-#' @import ANTsR
 #' @import ANTsRCore
+#' @import ANTsR
 #' @return Object of class \code{nifti}
 oMath <- function(img, ..., retfile = FALSE){
   img = check_ants(img)
