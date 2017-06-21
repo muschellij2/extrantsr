@@ -16,6 +16,9 @@ after_success:
 - Rscript -e 'covr::coveralls()'
 - install_build_with_tag
 
+os:
+  - linux
+  - osx
 
 deploy:
   provider: releases
