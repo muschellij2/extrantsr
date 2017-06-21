@@ -7,12 +7,10 @@ use_bioc: yes
 bioc_required: yes
 r: release
 before_install:
-  - wget -O travis_helpers.sh http://bit.ly/travis_helpers
-  - source travis_helpers.sh
-  - rm travis_helpers.sh
-  - remote_binary_install ITKR ANTsRCore ANTsR
-  - drop_remote ITKR ANTsRCore ANTsR
-  - install_remotes_no_dep
+  - wget -O antsr_travis.sh http://bit.ly/antsr_travis_sh
+  - cat antsr_travis.sh
+  - source ./antsr_travis.sh
+  - rm antsr_travis.sh
 
 env:
   global: RGL_USE_NULL=TRUE
