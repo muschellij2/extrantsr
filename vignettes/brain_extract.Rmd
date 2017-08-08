@@ -41,6 +41,7 @@ We will use the `get_image_filenames_df` function to extract the filenames on ou
 
 ```{r data}
 library(kirby21.t1)
+download_t1_data()
 t1_fname = get_t1_filenames(
   ids = 113, 
   visits = 1)
