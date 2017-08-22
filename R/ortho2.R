@@ -62,6 +62,7 @@
 #' \code{ortho2}.
 #' @export
 #' @importFrom neurobase ortho2
+#' @importFrom oro.nifti hotmetal
 setMethod("ortho2", 
           c(x = "antsImage", y = "ANY", pdim = "ANY"), 
           function(

@@ -16,6 +16,7 @@
 #' @importFrom neurobase copyNIfTIHeader readnii mask_img check_outfile writenii datatyper
 #' @importFrom neurobase zscore_img same_dims robust_window remake_img xyz zero_pad
 #' @importFrom neurobase check_mask_fail niftiarr nii.stub
+#' @importFrom oro.nifti is.nifti
 ants2oro <- function(img, 
                      reorient = FALSE,
                      reference = NULL,

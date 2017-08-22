@@ -4,7 +4,12 @@
 \name{origin}
 \alias{origin}
 \alias{origin,antsImage-method}
+\alias{origin,nifti-method}
+\alias{origin,anlz-method}
+\alias{origin<-}
 \alias{origin<-,antsImage-method}
+\alias{origin<-,nifti-method}
+\alias{origin<-,anlz-method}
 \title{Extract Image Attributes \code{origin} from \code{antsImage} or \code{nifti}
 objects}
 \usage{
@@ -12,7 +17,17 @@ origin(object)
 
 \S4method{origin}{antsImage}(object)
 
+\S4method{origin}{nifti}(object)
+
+\S4method{origin}{anlz}(object)
+
+origin(object) <- value
+
 \S4method{origin}{antsImage}(object) <- value
+
+\S4method{origin}{nifti}(object) <- value
+
+\S4method{origin}{anlz}(object) <- value
 }
 \arguments{
 \item{object}{is an object of class \code{antsImage} or \code{nifti}.}

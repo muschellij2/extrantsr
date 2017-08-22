@@ -7,13 +7,9 @@
 #' @param object is an object of class \code{antsImage} or \code{nifti}.
 #' @param value is the value to assign to the slot.  
 #' 
-#' @importMethodsFrom oro.nifti origin "origin<-"
 #' @importFrom ANTsRCore origin "origin<-"
 #' @export
-origin = oro.nifti::origin
-
-#' @export
-`origin<-` = oro.nifti::`origin<-`
+setGeneric("origin", getGeneric("origin", package = "oro.nifti"))
 
 #' @rdname accessor-methods
 #' @export
@@ -21,6 +17,21 @@ setMethod("origin", "antsImage", function(object) {
   ANTsRCore::origin(object)
 })
 
+#' @rdname accessor-methods
+#' @export
+setMethod("origin", "nifti", function(object) { 
+  oro.nifti::origin(object)
+})
+
+#' @rdname accessor-methods
+#' @export
+setMethod("origin", "anlz", function(object) { 
+  oro.nifti::origin(object)
+})
+
+#' @rdname accessor-methods
+#' @export
+setGeneric("origin<-", getGeneric("origin<-", package = "oro.nifti"))
 
 #' @rdname accessor-methods
 #' @export
@@ -30,3 +41,26 @@ setMethod("origin<-",
             object = ANTsRCore::`origin<-`(object, value)
             return(object)
           })
+
+#' @rdname accessor-methods
+#' @export
+setMethod("origin<-", 
+          signature(object = "nifti"), 
+          function(object, value) { 
+            object = oro.nifti::`origin<-`(object, value)
+            return(object)
+          })
+
+#' @rdname accessor-methods
+#' @export
+setMethod("origin<-", 
+          signature(object = "anlz"), 
+          function(object, value) { 
+            object = oro.nifti::`origin<-`(object, value)
+            return(object)
+          })
+
+
+
+
+

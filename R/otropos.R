@@ -18,6 +18,7 @@
 #' on the mask?
 #' @export
 #' @return Result of \code{\link{atropos}}, but with nifti objects.
+#' @importFrom ANTsRCore atropos
 otropos <- function(a, 
                     x, 
                     m = "[0.2,1x1x1]", 

@@ -18,6 +18,7 @@
 #' @return List similar to the output of \code{\link{getNeighborhoodInMask}}
 #' @export
 #' @importFrom ANTsRCore antsCopyImageInfo getNeighborhoodInMask
+#' @importFrom oro.nifti voxdim
 neighborhood = function(img, 
                         mask = NULL, 
                         radius = rep(1, 3), 

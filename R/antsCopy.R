@@ -16,6 +16,7 @@
 #' img <- makeImage(c(10,10),rnorm(100))
 #' img2 <- makeImage(c(10,10), rnorm(100))
 #' img2 <- antsCopyOrigin(img, img2)
+#' @importFrom ANTsRCore antsSetOrigin
 antsCopyOrigin = function(reference, target){
   t2 = antsImageClone(target)
   antsSetOrigin(t2, as.numeric(antsGetOrigin(reference)))
@@ -25,6 +26,7 @@ antsCopyOrigin = function(reference, target){
 
 #' @rdname antsCopy
 #' @export
+#' @importFrom ANTsRCore antsSetDirection
 antsCopyDirection = function(reference, target){
   t2 = antsImageClone(target)
   antsSetDirection(t2, antsGetDirection(reference))
@@ -33,6 +35,7 @@ antsCopyDirection = function(reference, target){
 
 #' @rdname antsCopy
 #' @export
+#' @importFrom ANTsRCore antsSetSpacing
 antsCopySpacing = function(reference, target){
   t2 = antsImageClone(target)
   antsSetSpacing(t2, antsGetSpacing(reference))

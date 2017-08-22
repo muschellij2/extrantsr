@@ -46,6 +46,7 @@ read_transformlist = function(transformlist,
 #' @return List of transforms
 #' @export
 #' @importFrom R.matlab writeMat
+#' @importFrom oro.nifti pixdim<-
 write_transformlist = function(transformlist){
   classes = sapply(transformlist, class)
   type = rep(NA, length = length(transformlist))
