@@ -20,60 +20,79 @@
 bias_correct = function(
   file,
   correction = c("N3", "N4", "n3", "n4"),
-  outfile=NULL, 
+  outfile = NULL, 
   retimg = TRUE,
   reorient = FALSE,
   shrinkfactor = "4",
   mask = NULL,
   verbose = TRUE,
   ...){
+  
+  outfile = neurobase::check_outfile(
+    outfile = outfile, 
+    retimg = retimg, 
+    fileext = ".nii.gz")
+  
+  res = bias_correct_ants(
+    file = file,
+    correction = correction,
+    shrinkfactor = shrinkfactor,
+    mask = mask,
+    verbose = verbose,
+    ...)
+  
+  ANTsRCore::antsImageWrite(res, filename = outfile)
+  rm(list = c("res")); 
+  for (i in 1:10) {
+    gc()
+  }  
+  
+  if (retimg) {
+    x = neurobase::readnii(outfile, reorient = reorient)
+  } else {
+    x = outfile
+  }
+  
+  return(x)
+}
+
+#' @rdname bias_correct
+#' @export
+bias_correct_ants = function(
+  file,
+  correction = c("N3", "N4", "n3", "n4"),
+  shrinkfactor = "4",
+  mask = NULL,
+  verbose = TRUE,
+  ...){
   correction = toupper(correction)
   correction = match.arg(correction, c("N3", "N4"))
-  func = paste0(gsub("^N", "n", correction), "BiasFieldCorrection")
-  
-  outfile = check_outfile(outfile = outfile, 
-                          retimg = retimg, 
-                          fileext = '.nii.gz')
   
   img = check_ants(file)
-#   imgn3 <- antsImageClone(img)
-  if ( correction %in% c("N3", "n3")){
-#     res = n3BiasFieldCorrection(img@dimension, img, imgn3, "4", ...)
-    res = n3BiasFieldCorrection(img, 
-                                downsampleFactor = shrinkfactor, 
-                                ...)
+  
+  if (correction %in% c("N3", "n3")) {
+    res = ANTsRCore::n3BiasFieldCorrection(
+      img = img, 
+      downsampleFactor = shrinkfactor, 
+      ...)
   }
-  if (correction %in% c("N4", "n4")){
-    if (!is.null(mask)){
+  if (correction %in% c("N4", "n4")) {
+    if (!is.null(mask)) {
       mask = check_ants(x = mask)
     } else {
       mask = NA
     }
-#     print(class(mask))
-#     funclist = list(d=img@dimension, i=img, o=imgn3, s = shrinkfactor, ...)
-#     res = do.call(func, funclist)
-    res = n4BiasFieldCorrection(img = img, 
-                                mask = mask, 
-                                shrinkFactor = as.numeric(shrinkfactor), 
-                                verbose = verbose,
-                                ...)
+    
+    res = ANTsRCore::n4BiasFieldCorrection(
+      img = img, 
+      mask = mask, 
+      shrinkFactor = as.numeric(shrinkfactor), 
+      verbose = verbose,
+      ...)
   }
-#   if (correction == "N4_Field"){
-#     funclist = list(d=img@dimension, i=img, o=imgn3, s = shrinkfactor, ...)
-#     res = n4BiasCorrect_WithField(funclist)
-#   }  
-  imgn3 = res
-  antsImageWrite( imgn3, filename = outfile)
-  rm(list = c("res", "imgn3", "img", "file")); 
+  rm(list = c("img")); 
   for (i in 1:10) {
     gc()
   }  
-    
-  if (retimg) {
-    x = readnii(outfile, reorient = reorient)
-  } else {
-    x = outfile
-  }
- 
-  return(x)
+  return(res)
 }

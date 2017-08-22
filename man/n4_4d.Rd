@@ -4,12 +4,16 @@
 \alias{n4_4d}
 \title{Four-Dimensional Bias-Field Correction}
 \usage{
-n4_4d(img, verbose = TRUE)
+n4_4d(img, verbose = TRUE, correction = "N4", ...)
 }
 \arguments{
 \item{img}{Image for N4 to be run, an antsImage}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{correction}{Correction to do (N4 or N3)}
+
+\item{...}{arguments to pass to \code{\link{bias_correct_ants}}}
 }
 \value{
 An object of class \code{antsImage}
