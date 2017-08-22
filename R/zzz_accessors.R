@@ -23,11 +23,6 @@ setMethod("origin", "nifti", function(object) {
   oro.nifti::origin(object)
 })
 
-#' @rdname accessor-methods
-#' @export
-setMethod("origin", "anlz", function(object) { 
-  oro.nifti::origin(object)
-})
 
 #' @rdname accessor-methods
 #' @export
@@ -42,14 +37,7 @@ setMethod("origin<-",
             return(object)
           })
 
-#' @rdname accessor-methods
-#' @export
-setMethod("origin<-", 
-          signature(object = "nifti"), 
-          function(object, value) { 
-            object = oro.nifti::`origin<-`(object, value)
-            return(object)
-          })
+
 
 #' @rdname accessor-methods
 #' @export
@@ -60,6 +48,22 @@ setMethod("origin<-",
             return(object)
           })
 
+
+# #' @rdname accessor-methods
+# #' @export
+# setMethod("origin", "anlz", function(object) { 
+#   oro.nifti::origin(object)
+# })
+# 
+# 
+# #' @rdname accessor-methods
+# #' @export
+# setMethod("origin<-", 
+#           signature(object = "nifti"), 
+#           function(object, value) { 
+#             object = oro.nifti::`origin<-`(object, value)
+#             return(object)
+#           })
 
 
 
