@@ -24,32 +24,33 @@
 #' @param flipy Option for flipping y domain in \code{\link{flip_img}}
 #' @param flipz Option for flipping z domain in \code{\link{flip_img}}
 #' @param ... arguments to \code{\link{flip_img}}
-#' @import ANTsR
 #' @export
 #' @return List of nifti objects or character filenames
 #' @importFrom fslr fslbet fsldir fslmask
-reg_flip_img <- function(t1, 
-                         register = TRUE,
-                         native = TRUE,
-                         template.file = file.path(fsldir(), 
-                                                   "data", 
-                                                   "standard", 
-                                                   paste0("MNI152_T1_1mm", 
-                                                          ifelse(is.null(mask), "", 
-                                                                 "_brain"), 
-                                                          ".nii.gz")),
-                         typeofTransform = c("Rigid", "Affine"),
-                         interpolator = "LanczosWindowedSinc",
-                         t1.outfile = NULL, 
-                         other.files = NULL,
-                         other.outfiles =  NULL,
-                         mask = NULL,
-                         mask.outfile = NULL,
-                         verbose = TRUE,
-                         flipx = FALSE,
-                         flipy = FALSE,
-                         flipz = FALSE,
-                         ...
+#' @importFrom oro.nifti writeNIfTI
+reg_flip_img <- function(
+  t1, 
+  register = TRUE,
+  native = TRUE,
+  template.file = file.path(fsldir(), 
+                            "data", 
+                            "standard", 
+                            paste0("MNI152_T1_1mm", 
+                                   ifelse(is.null(mask), "", 
+                                          "_brain"), 
+                                   ".nii.gz")),
+  typeofTransform = c("Rigid", "Affine"),
+  interpolator = "LanczosWindowedSinc",
+  t1.outfile = NULL, 
+  other.files = NULL,
+  other.outfiles =  NULL,
+  mask = NULL,
+  mask.outfile = NULL,
+  verbose = TRUE,
+  flipx = FALSE,
+  flipy = FALSE,
+  flipz = FALSE,
+  ...
 ){
   
   #####################
@@ -210,7 +211,7 @@ reg_flip_img <- function(t1,
       stop("Registration must be done with the T1 image")
     }
   }
-
+  
   if (verbose){
     message("# Registration Complete \n")
   }     

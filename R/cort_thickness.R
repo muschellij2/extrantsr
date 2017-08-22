@@ -9,6 +9,7 @@
 #'
 #' @return Object of class \code{nifti}.
 #' @export
+#' @importFrom ANTsR kellyKapowski
 cort_thickness = function(seg, gray, white,
               ...) {
   
@@ -16,7 +17,7 @@ cort_thickness = function(seg, gray, white,
   gray = check_ants(gray)
   white = check_ants(white)
   
-  out = kellyKapowski(s = seg,
+  out = ANTsR::kellyKapowski(s = seg,
                 g = gray,
                 w = white,
                 ...)

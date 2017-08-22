@@ -8,14 +8,16 @@
 #'
 #' @return An object of class \code{antsImage}
 #' @export
+#' @importFrom ANTsRCore antsGetSpacing antsGetDirection antsGetOrigin
+#' @importFrom ANTsRCore pixeltype components
 n4_4d = function(img, verbose = TRUE, correction = "N4", ...) {
   img = check_ants(img)
   
-  spacing = antsGetSpacing(img)
-  direction = antsGetDirection(img)
-  origin = antsGetOrigin(img)
-  pixeltype = img@pixeltype
-  components = (img@components > 1)
+  spacing = ANTsRCore::antsGetSpacing(img)
+  direction = ANTsRCore::antsGetDirection(img)
+  origin = ANTsRCore::antsGetOrigin(img)
+  pixeltype = ANTsRCore::pixeltype(img)
+  components = ANTsRCore::components(img)
   
   dims = dim(img)
   out = array(NA, dim = dims)
@@ -33,7 +35,7 @@ n4_4d = function(img, verbose = TRUE, correction = "N4", ...) {
   }
   for (i_time in seq_len(n_times)) {
     rimg = img[,,,i_time, drop = TRUE]
-    rimg = as.antsImage(
+    rimg = ANTsRCore::as.antsImage(
       object = rimg, 
       spacing = spacing[1:3], 
       direction = direction, 
@@ -53,7 +55,7 @@ n4_4d = function(img, verbose = TRUE, correction = "N4", ...) {
   if (verbose) {
     close(pb)
   }
-  outimg = as.antsImage(
+  outimg = ANTsRCore::as.antsImage(
     object = out, 
     spacing = spacing, 
     direction = direction, 

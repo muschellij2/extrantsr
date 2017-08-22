@@ -58,6 +58,7 @@ bias_correct = function(
 
 #' @rdname bias_correct
 #' @export
+#' @importFrom ANTsRCore n3BiasFieldCorrection n4BiasFieldCorrection
 bias_correct_ants = function(
   file,
   correction = c("N3", "N4", "n3", "n4"),

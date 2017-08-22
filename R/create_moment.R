@@ -15,7 +15,6 @@
 #' a matrix (V by 6), where V is the number of voxels in the mask
 #' @export
 #' @importFrom plyr alply laply
-#' @import oro.nifti
 #' @importFrom matrixStats colCounts
 create_moment = function(img,
                          mask = NULL,

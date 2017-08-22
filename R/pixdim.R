@@ -5,6 +5,8 @@
 #' @name pixdim-methods
 #' @aliases pixdim,antsImage-method
 #' @param object is an antsImage
+#' @importFrom oro.nifti pixdim
+#' @importMethodsFrom oro.nifti pixdim
 #' @return Vector of numeric values
 #' @export
 setMethod("pixdim", "antsImage", function(object){

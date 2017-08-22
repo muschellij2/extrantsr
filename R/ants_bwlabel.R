@@ -6,6 +6,7 @@
 #' @param binary (logical) Should the result be binary or numbered with cluster.
 #' @return \code{nifti} object
 #' @export
+#' @importFrom ANTsRCore labelClusters
 ants_bwlabel = function(img, k = 1, binary = TRUE) {
   
   img = check_ants(img)

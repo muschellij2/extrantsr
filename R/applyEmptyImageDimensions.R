@@ -18,6 +18,7 @@
 #' 
 #' @export
 #' @importFrom neurobase applyEmptyImageDimensions
+#' @importMethodsFrom neurobase applyEmptyImageDimensions
 setMethod("applyEmptyImageDimensions", "antsImage", 
           function(img, 
                    inds,

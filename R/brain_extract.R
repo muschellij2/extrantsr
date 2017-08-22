@@ -14,6 +14,7 @@
 #' @return A list of the brain image, brain mask, k-means segmentation,
 #' and transformations.
 #' @export
+#' @importFrom ANTsR abpBrainExtraction
 brain_extract = function(
   img, template, template.mask,
   typeofTransform = c("SyNabp", "SyN"), correct = TRUE, 

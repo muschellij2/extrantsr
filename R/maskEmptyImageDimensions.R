@@ -21,6 +21,8 @@
 #' \code{\link{dropEmptyImageDimensions}} 
 #' @export
 #' @importFrom neurobase maskEmptyImageDimensions
+#' @importMethodsFrom neurobase maskEmptyImageDimensions
+#' 
 setMethod("maskEmptyImageDimensions", "antsImage", 
           function(img, 
                    inds,

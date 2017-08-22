@@ -17,6 +17,7 @@
 #'
 #' @return List similar to the output of \code{\link{getNeighborhoodInMask}}
 #' @export
+#' @importFrom ANTsRCore antsCopyImageInfo getNeighborhoodInMask
 neighborhood = function(img, 
                         mask = NULL, 
                         radius = rep(1, 3), 

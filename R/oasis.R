@@ -26,32 +26,31 @@
 #' @param bet.opts Options passed to \code{\link{fslbet}}
 #' @param betcmd BET command used, passed to \code{\link{fslbet}}
 #' @param ... arguments to \code{\link{whitestripe}}
-#' @import ANTsR
-#' @import oro.nifti
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image
 #' @importFrom fslr fslbet get.imgext
 #' @importFrom WhiteStripe whitestripe_norm
-oasis <- function(filename, # filename of T1 image
-                   skull_strip = TRUE, # do Skull stripping with FSL BET
-                   skull_stripfile = NULL,
-                   correct = TRUE,  # do N3 Bias correction
-                   normalize = TRUE, # whitestripe normalization
-                   normalize_file = NULL,
-                   retimg = TRUE, # return a nifti object from function
-                   outfile = NULL, # output filename, should have .nii or 
-                  #.nii.gz extension
-                   template.file = file.path(fsldir(), "data", "standard", 
-                                             "MNI152_T1_1mm_brain.nii.gz"),
-                    interpolator = "LanczosWindowedSinc",
-                   other.files = NULL,
-                   other.outfiles= NULL,
-                   typeofTransform = "Rigid",
-                   remove.warp = TRUE,
-                   outprefix = NULL,
-                   bet.opts = "-B -f 0.1 -v",
-                   betcmd = "bet",
-                   ... # arguments to \code{\link{antsApplyTransforms}} 
+oasis <- function(
+  filename, # filename of T1 image
+  skull_strip = TRUE, # do Skull stripping with FSL BET
+  skull_stripfile = NULL,
+  correct = TRUE,  # do N3 Bias correction
+  normalize = TRUE, # whitestripe normalization
+  normalize_file = NULL,
+  retimg = TRUE, # return a nifti object from function
+  outfile = NULL, # output filename, should have .nii or 
+  #.nii.gz extension
+  template.file = file.path(fsldir(), "data", "standard", 
+                            "MNI152_T1_1mm_brain.nii.gz"),
+  interpolator = "LanczosWindowedSinc",
+  other.files = NULL,
+  other.outfiles= NULL,
+  typeofTransform = "Rigid",
+  remove.warp = TRUE,
+  outprefix = NULL,
+  bet.opts = "-B -f 0.1 -v",
+  betcmd = "bet",
+  ... # arguments to \code{\link{antsApplyTransforms}} 
 ){
   #### setup files
   writeFile = FALSE
@@ -90,9 +89,9 @@ oasis <- function(filename, # filename of T1 image
     ext = get.imgext()
     bet_file = tempfile()
     fslbet(infile = filename, 
-               outfile = bet_file, 
-               opts = bet.opts, 
-               betcmd = betcmd, retimg= FALSE)
+           outfile = bet_file, 
+           opts = bet.opts, 
+           betcmd = betcmd, retimg= FALSE)
     bet_maskfile = paste0(bet_file, "_mask", ext)
     bet_file = paste0(bet_file, ext)
     bet = antsImageRead(bet_file, 3)
@@ -151,52 +150,52 @@ oasis <- function(filename, # filename of T1 image
                                         transformlist=antsRegOut.nonlin$fwdtransforms,
                                         interpolator=interpolator) 
   
-    
+  
   output = paste0(tempfile(), ".nii.gz")
   
   if (have.other) {
     reg.oimgs = lapply(N3.oimgs, function(x){
-        tprefix = tempfile()
-        antsRegOut.temp <- antsRegistration(
-          fixed = t1.to.template, 
-          moving = x, 
-          typeofTransform = typeofTransform,  
-          outprefix = tprefix)           
-        xx = antsApplyTransforms(fixed=t1.to.template, 
-                            moving = x, 
-                            transformlist=antsRegOut.temp$fwdtransforms,
-                            interpolator=interpolator)
-        xx
+      tprefix = tempfile()
+      antsRegOut.temp <- antsRegistration(
+        fixed = t1.to.template, 
+        moving = x, 
+        typeofTransform = typeofTransform,  
+        outprefix = tprefix)           
+      xx = antsApplyTransforms(fixed=t1.to.template, 
+                               moving = x, 
+                               transformlist=antsRegOut.temp$fwdtransforms,
+                               interpolator=interpolator)
+      xx
     })
   }
   
   antsImageWrite(t1.to.template, outfile)
   
   #### Run BET
-#   if (skull_strip){
-#     ext = get.imgext()
-#     bet_file = tempfile()
-#     fslbet(infile = outfile, 
-#                outfile = bet_file, 
-#                opts = bet.opts, 
-#                betcmd = betcmd, retimg= FALSE)
-#     bet_maskfile = paste0(bet_file, "_mask", ext)
-#     bet_file = paste0(bet_file, ext)
-#     bet = antsImageRead(bet_file, 3)
-#     bet_mask = antsImageRead(bet_maskfile, 3)
-#     if (!is.null(skull_stripfile)){
-#       file.copy(bet_maskfile, skull_stripfile, overwrite = TRUE)
-#     }
-#     #### Mask the files by brain
-#     t1.to.template = maskImage(t1.to.template, bet_mask)
-#     antsImageWrite(t1.to.template, outfile)
-#     
-#     if (have.other) {
-#       for (i in seq(lother)){
-#         reg.oimgs[[i]] = maskImage(reg.oimgs[[i]], bet_mask)
-#       }
-#     } 
-#   }
+  #   if (skull_strip){
+  #     ext = get.imgext()
+  #     bet_file = tempfile()
+  #     fslbet(infile = outfile, 
+  #                outfile = bet_file, 
+  #                opts = bet.opts, 
+  #                betcmd = betcmd, retimg= FALSE)
+  #     bet_maskfile = paste0(bet_file, "_mask", ext)
+  #     bet_file = paste0(bet_file, ext)
+  #     bet = antsImageRead(bet_file, 3)
+  #     bet_mask = antsImageRead(bet_maskfile, 3)
+  #     if (!is.null(skull_stripfile)){
+  #       file.copy(bet_maskfile, skull_stripfile, overwrite = TRUE)
+  #     }
+  #     #### Mask the files by brain
+  #     t1.to.template = maskImage(t1.to.template, bet_mask)
+  #     antsImageWrite(t1.to.template, outfile)
+  #     
+  #     if (have.other) {
+  #       for (i in seq(lother)){
+  #         reg.oimgs[[i]] = maskImage(reg.oimgs[[i]], bet_mask)
+  #       }
+  #     } 
+  #   }
   
   if (have.other) {
     for (i in seq(lother)){
@@ -212,9 +211,9 @@ oasis <- function(filename, # filename of T1 image
     file.remove(files)
   }
   
-###########################################
-# White Stripe Normalization
-###########################################
+  ###########################################
+  # White Stripe Normalization
+  ###########################################
   img = readnii(outfile, reorient= FALSE)
   if (normalize) {
     ws = whitestripe(img, type = "T1", ...)

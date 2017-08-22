@@ -22,6 +22,8 @@
 #' s.img = smooth_image(img, sigmaInPhysicalCoordinates = TRUE)
 #' })
 #' @export
+#' @importFrom ANTsR maskImage
+#' @importFrom ANTsRCore smoothImage
 smooth_image <- function(
   file,
   sigma=10, 

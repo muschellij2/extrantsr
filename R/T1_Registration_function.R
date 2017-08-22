@@ -31,8 +31,6 @@
 #' @param betcmd BET command used, passed to \code{\link{fslbet}}
 #' @param verbose Print diagnostic messages
 #' @param ... arguments to \code{\link{antsRegistration}}
-#' @import ANTsR
-#' @import oro.nifti
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image
 #' @importFrom fslr get.imgext

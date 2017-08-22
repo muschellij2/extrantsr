@@ -21,10 +21,12 @@
 #' brain mask.  
 #' @param verbose Print Diagnostic Messages
 #' @param ... arguments to \code{\link{zscore_img}}
-#' @import ANTsR
 #' @export
 #' @return List of nifti objects or character filenames
 #' @importFrom fslr fsldir fslmask
+#' @importFrom oro.nifti convert.datatype convert.bitpix drop_img_dim 
+#' @importFrom oro.nifti writeNIfTI
+#' @importFrom neurobase datatyper
 reg_zscore <- function(t1, 
                        register = TRUE,
                        native = TRUE,

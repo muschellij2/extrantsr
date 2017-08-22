@@ -35,35 +35,35 @@
 #' @param copy_origin Copy image origin from t1, using \code{\link{antsCopyOrigin}}
 #' @param verbose Print diagnostic messages
 #' @param ... arguments to \code{\link{antsRegistration}}
-#' @import ANTsR
-#' @import oro.nifti
 #' @importFrom fslr fslbet fsldir get.imgext
 #' @export
 #' @return List of the output filenames and transformations
-registration <- function(filename,
-                         skull_strip = FALSE,
-                         correct = FALSE,
-                         correction = "N4",
-                         retimg = TRUE,
-                         outfile = NULL,
-                         template.file = file.path(fsldir(), "data",
-                                                   "standard",
-                                                   "MNI152_T1_1mm_brain.nii.gz"),
-                         interpolator = "Linear",
-                         other.files = NULL,
-                         other.outfiles = NULL,
-                         other.init = NULL,
-                         template_to_native = FALSE,
-                         invert.native.fname = NULL,
-                         invert.file = NULL,
-                         typeofTransform = "SyN",
-                         remove.warp = FALSE,
-                         outprefix = NULL,
-                         bet.opts = "-B -f 0.1 -v",
-                         betcmd = "bet",
-                         copy_origin = TRUE,
-                         verbose = TRUE,
-                         ...) {
+#' @importFrom ANTsRCore is.antsImage antsRegistration antsApplyTransforms
+registration <- function(
+  filename,
+  skull_strip = FALSE,
+  correct = FALSE,
+  correction = "N4",
+  retimg = TRUE,
+  outfile = NULL,
+  template.file = file.path(fsldir(), "data",
+                            "standard",
+                            "MNI152_T1_1mm_brain.nii.gz"),
+  interpolator = "Linear",
+  other.files = NULL,
+  other.outfiles = NULL,
+  other.init = NULL,
+  template_to_native = FALSE,
+  invert.native.fname = NULL,
+  invert.file = NULL,
+  typeofTransform = "SyN",
+  remove.warp = FALSE,
+  outprefix = NULL,
+  bet.opts = "-B -f 0.1 -v",
+  betcmd = "bet",
+  copy_origin = TRUE,
+  verbose = TRUE,
+  ...) {
   outfile = check_outfile(outfile = outfile, retimg = retimg)
   
   have.other = FALSE
@@ -101,7 +101,7 @@ registration <- function(filename,
   }
   # }
   
-  if (is.antsImage(filename)) {
+  if (ANTsRCore::is.antsImage(filename)) {
     t1 = antsImageClone(filename)
   } else {
     filename = checkimg(filename)
@@ -114,7 +114,7 @@ registration <- function(filename,
     if (verbose) {
       message("# Skull Stripping\n")
     }
-    if (is.antsImage(filename)) {
+    if (ANTsRCore::is.antsImage(filename)) {
       filename = checkimg(filename)
     }
     ext = get.imgext()
@@ -186,7 +186,7 @@ registration <- function(filename,
   }
   
   ##
-  if (is.antsImage(template.file)) {
+  if (ANTsRCore::is.antsImage(template.file)) {
     template = antsImageClone(template.file)
   } else {
     template.file = checkimg(template.file)
@@ -200,7 +200,7 @@ registration <- function(filename,
   if (verbose) {
     message("# Running Registration of file to template\n")
   }
-  antsRegOut.nonlin <- antsRegistration(
+  antsRegOut.nonlin <- ANTsRCore::antsRegistration(
     fixed = template,
     moving = t1N3,
     typeofTransform = typeofTransform,
@@ -236,7 +236,7 @@ registration <- function(filename,
     #     message("# Moving is \n")
     #     print(t1N3)
   }
-  t1.to.template <- antsApplyTransforms(
+  t1.to.template <- ANTsRCore::antsApplyTransforms(
     fixed = template,
     moving = t1N3,
     transformlist = antsRegOut.nonlin$fwdtransforms,
@@ -265,7 +265,7 @@ registration <- function(filename,
       # 				output = paste0(output, ".nii.gz")
       # 			}
       
-      tmp_img = antsApplyTransforms(
+      tmp_img = ANTsRCore::antsApplyTransforms(
         fixed = t1N3,
         moving = atlas,
         transformlist = transformlist,
@@ -287,7 +287,7 @@ registration <- function(filename,
     }
     if (is.null(other.init)) {
       reg.oimgs = lapply(N3.oimgs, function(x) {
-        antsApplyTransforms(
+        ANTsRCore::antsApplyTransforms(
           fixed = template,
           moving = x,
           transformlist = antsRegOut.nonlin$fwdtransforms,
@@ -296,7 +296,7 @@ registration <- function(filename,
       })
     } else {
       reg.oimgs = mapply(function(x, y) {
-        antsApplyTransforms(
+        ANTsRCore::antsApplyTransforms(
           fixed = template,
           moving = x,
           transformlist = c(y, antsRegOut.nonlin$fwdtransforms),

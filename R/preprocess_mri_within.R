@@ -26,8 +26,6 @@
 #' @param verbose Diagnostic messages
 #' @param ... arguments to \code{\link{bias_correct}} or
 #' \code{\link{within_visit_registration}}
-#' @import ANTsR
-#' @import oro.nifti
 #' @export
 #' @return List of outfiles, maskfile, and output from \code{\link{registration}}.
 preprocess_mri_within <- function(
