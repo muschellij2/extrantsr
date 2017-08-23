@@ -4,7 +4,7 @@
 \name{origin}
 \alias{origin}
 \alias{origin,antsImage-method}
-\alias{origin,anlz-method}
+\alias{origin,nifti-method}
 \alias{origin<-}
 \alias{origin<-,antsImage-method}
 \alias{origin<-,anlz-method}
@@ -15,7 +15,7 @@ origin(object)
 
 \S4method{origin}{antsImage}(object)
 
-\S4method{origin}{anlz}(object)
+\S4method{origin}{nifti}(object)
 
 origin(object) <- value
 
@@ -31,19 +31,4 @@ origin(object) <- value
 \description{
 Methods that act on the \code{slots} of the
 \code{antsImage} or \code{nifti} object
-
-#' @rdname accessor-methods
-#' @export
-setMethod("origin", "nifti", function(object) { 
-  oro.nifti::origin(object)
-})
-
-#' @rdname accessor-methods
-#' @export
-setMethod("origin<-", 
-          signature(object = "nifti"), 
-          function(object, value) { 
-            object = oro.nifti::`origin<-`(object, value)
-            return(object)
-          })
 }
