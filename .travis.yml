@@ -9,6 +9,7 @@ r: release
 r_check_args: "--as-cran --install-args=--build"
 
 before_install:
+  - Rscript -e 'source("https://install-github.me/mangothecat/callr")'
   - export ants_user=muschellij2
   - wget -O antsr_travis.sh http://bit.ly/antsr_travis_sh
   - cat antsr_travis.sh

@@ -34,3 +34,20 @@ if (have.fsl()) {
 }
 
 
+## ----t1_ss, cache = FALSE------------------------------------------------
+n4img = bias_correct(t1_fname, 
+                     correction = "N4", retimg = TRUE,
+                     verbose = FALSE)
+if (have.fsl()) {
+  template.file = file.path(fsldir(), "data/standard",
+                            "MNI152_T1_1mm_brain.nii.gz") 
+  template.mask = file.path(fsldir(),
+                            "data/standard", "MNI152_T1_1mm_brain_mask.nii.gz")  
+  removed_neck = extrantsr::double_remove_neck(
+    n4img,
+    template.file = template.file,
+    template.mask = template.mask)
+  ortho2(removed_neck)
+  double_ortho(t1, removed_neck)
+}
+
