@@ -2,9 +2,12 @@
 % Please edit documentation in R/oMask.R
 \name{oMask}
 \alias{oMask}
+\alias{get_mask}
 \title{Get Mask from nifti object}
 \usage{
 oMask(img, ...)
+
+get_mask(img, ...)
 }
 \arguments{
 \item{img}{Object of class nifti or character filename}

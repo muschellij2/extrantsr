@@ -8,10 +8,18 @@
 #' @return Object of class \code{nifti}
 #' @importFrom ANTsRCore getMask
 oMask = function(img, ...){
+  mask = get_mask(img = img, ...)
+  mask = ants2oro(mask)
+  gc();
+  return(mask)
+}
+
+#' @rdname oMask
+#' @export
+get_mask = function(img, ...){
   img = check_ants(img)
   mask = getMask(img = img, ...)
   rm(list = "img"); gc(); gc();
-  mask = ants2oro(mask)
   gc();
   return(mask)
 }
