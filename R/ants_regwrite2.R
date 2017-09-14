@@ -310,6 +310,9 @@ registration <- function(
     message("# Writing out file\n")
   }
   antsImageWrite(t1.to.template, outfile)
+  if (verbose) {
+    print(outfile)
+  }  
   rm(list = "t1.to.template")
   gc()
   gc()
@@ -321,6 +324,9 @@ registration <- function(
     for (i in seq(lother)) {
       antsImageWrite(reg.oimgs[[i]],
                      other.outfiles[i])
+      if (verbose) {
+        print(other.outfiles[i])
+      } 
     }
     rm(list = c("reg.oimgs", "N3.oimgs"))
     gc()
