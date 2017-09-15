@@ -22,23 +22,24 @@
 #' @importFrom matrixStats rowMedians rowSds 
 #' @importFrom matrixStats rowVars rowMads rowProds rowQuantiles rowTabulates
 #' @importFrom neurobase datatyper img_ts_to_list
-stat_img = function(imgs,
-                    func = c("mean",
-                             "median",
-                             "mode",
-                             "pct",
-                             "peak",
-                             "sd",
-                             "var",
-                             "mad",
-                             "sum",
-                             "prod",
-                             "z",
-                             "quantile"),
-                    finite = TRUE,
-                    masks = NULL,
-                    na_masks = TRUE,
-                    ...)
+stat_img = function(
+  imgs,
+  func = c("mean",
+           "median",
+           "mode",
+           "pct",
+           "peak",
+           "sd",
+           "var",
+           "mad",
+           "sum",
+           "prod",
+           "z",
+           "quantile"),
+  finite = TRUE,
+  masks = NULL,
+  na_masks = TRUE,
+  ...)
 {
   if (!is.character(func)) {
     stop("func must be of type character")
@@ -163,7 +164,14 @@ stat_img = function(imgs,
     ##########################
     # pct and other functions return a 4d Image.
     ##########################
-    if (!char_func %in% c("pct")) {
+    force_vector = FALSE
+    # one case - binary mask -just give one image
+    if ( (char_func %in% "pct") && ncol(res_img) == 2) {
+      res_img = res_img[, 2, drop = TRUE]
+      force_vector = TRUE
+    }
+
+    if (!char_func %in% c("pct") || force_vector) {
       if (length(res_img) != nrow(mat)) {
         stop(paste0("Function used did not result in a vector-",
                     "may need to pass more arguments, ",

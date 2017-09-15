@@ -51,7 +51,8 @@ malf_registration <- function(
     cat("# Doing Registrations\n")
     pb = txtProgressBar(min = 0, max = nimgs, style = 3)     
   }
-  all.regs = NULL
+  # all.regs = NULL
+  all.regs = vector(mode = "list", length = length(template.images))
   if (is.null(outprefix)) {
     outprefix = tempfile()
   }  
@@ -72,7 +73,8 @@ malf_registration <- function(
                        remove.warp = FALSE,
                        verbose = verbose,
                        ...)
-    all.regs = c(all.regs, reg)
+    # all.regs = c(all.regs, reg)
+    all.regs[[iimg]] = reg
     if (verbose) {
       setTxtProgressBar(pb, iimg)
     }
