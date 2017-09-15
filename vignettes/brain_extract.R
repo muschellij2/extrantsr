@@ -51,3 +51,25 @@ if (have.fsl()) {
   double_ortho(t1, removed_neck)
 }
 
+## ------------------------------------------------------------------------
+if (have.fsl()) {
+  ss = extrantsr::fslbet_robust(t1_fname, 
+    remover = "double_remove_neck")
+  ortho2(ss)
+}
+
+## ----t1_ss_plot2, cache = FALSE------------------------------------------
+if (have.fsl()) {
+  alpha = function(col, alpha = 1) {
+    cols = t(col2rgb(col, alpha = FALSE)/255)
+    rgb(cols, alpha = alpha)
+  }      
+  ortho2(t1_fname, ss > 0, col.y = alpha("red", 0.5))
+}
+
+## ----t1_ss_red, cache = FALSE--------------------------------------------
+if (have.fsl()) {
+  ss_red = dropEmptyImageDimensions(ss)
+  ortho2(ss_red)
+}
+
