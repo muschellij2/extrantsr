@@ -7,5 +7,4 @@
 ^\.noncustom_travis_yaml\.yml
 mid_sagittal_align\.R
 ^appveyor\.yml$
-
 DESCRIPTION\ copy
