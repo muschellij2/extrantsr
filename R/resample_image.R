@@ -79,14 +79,14 @@ setMethod(
                      "gaussian", "windowedsinc", 
                      "bspline"), ...) { 
     tmp_img = oro2ants(img)
-
+    rm(list = "img"); gc
     res = .resample_image(
       img = tmp_img, 
       parameters = parameters,
       parameter_type = parameter_type,
       interpolator = interpolator,
       ...)
-    newimg = ants2oro(res, reference = img)    
+    newimg = ants2oro(res)
     rm(list = c("tmp_img", "res")); gc(); gc();
     return(newimg)
   })
