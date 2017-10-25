@@ -48,7 +48,7 @@ malf_registration <- function(
   }
   
   if (verbose) {
-    cat("# Doing Registrations\n")
+    message("# Doing Registrations")
     pb = txtProgressBar(min = 0, max = nimgs, style = 3)     
   }
   # all.regs = NULL
@@ -71,7 +71,7 @@ malf_registration <- function(
                        other.outfiles = ofile,
                        outprefix = i_outprefix,
                        remove.warp = FALSE,
-                       verbose = verbose,
+                       verbose = verbose > 1,
                        ...)
     # all.regs = c(all.regs, reg)
     all.regs[[iimg]] = reg
