@@ -43,7 +43,8 @@ remove_neck <- function(file,
     if (verbose) {
       message("# Creating Binary Template mask using fslbin\n")
     }
-    template.mask = fslbin(file = template.file, retimg = TRUE)
+    template.mask = fslbin(file = template.file, retimg = TRUE, 
+                           verbose = verbose)
   }
   template.mask = checkimg(template.mask)
 
@@ -82,7 +83,7 @@ remove_neck <- function(file,
     #                   retimg = TRUE,
     #                   a = "RL", b = "PA", c = "IS",
     #                   verbose = verbose)
-    L = rpi_orient(file)
+    L = rpi_orient(file, verbose = verbose)
     file = L$img
     sorient = L$orientation
     ori = L$convention

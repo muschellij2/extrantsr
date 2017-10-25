@@ -63,7 +63,9 @@ library(oro.nifti)
 library(extrantsr)
 n = 30
 x = nifti(array(rnorm(n^3*10), dim = c(n, n, n)))
-res = resample_image(x, parameters = c(0.5, 0.5, 0.5))
+new_pixdim = c(0.5, 0.5, 0.5)
+res = resample_image(x, parameters = new_pixdim)
 x2 = resample_to_target(x, res)
-pixdim(x2)
+pixdim(x2)[2:4]
+stopifnot(all(pixdim(x2)[2:4] == new_pixdim))
 }
