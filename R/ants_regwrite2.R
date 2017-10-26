@@ -299,7 +299,7 @@ registration <- function(
         ANTsRCore::antsApplyTransforms(
           fixed = template,
           moving = x,
-          transformlist = c(y, antsRegOut.nonlin$fwdtransforms),
+          transformlist = c(antsRegOut.nonlin$fwdtransforms, y),
           interpolator = interpolator
         )
       }, N3.oimgs, other.init, SIMPLIFY = FALSE)
