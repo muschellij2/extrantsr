@@ -51,7 +51,7 @@ apply_malf_regs <- function(
     ############################################
     # Get Transformations 
     ############################################
-    fwdtransforms = regs$fwdtransforms
+    fwdtransforms = reg$fwdtransforms
     struct = template.structs[[ireg]]
     out = ants_apply_transforms(
       fixed = infile, 
