@@ -88,7 +88,21 @@ malf <- function(
     gc()
   }  
   if (have.outfile) {
-    writenii(outimg, filename = outfile)
+    if (is.nifti(outimg)) {
+      writenii(outimg, filename = outfile[1])
+    } 
+    if (is.list(outimg)) {
+      if (length(outimg) != length(outfile)) {
+        warning(paste0("Length of outfiles not ", 
+                       "the same as outimg,", 
+                       " setting retimg = TRUE"))
+        retimg = TRUE
+      } else {
+        mapply(function(img, fname) {
+          writenii(img, filename = fname)
+        }, outimg, outfile)
+      }
+    }
   }
   if (!keep_regs) {
     rm(list = "all.regs")
