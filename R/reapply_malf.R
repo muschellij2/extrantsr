@@ -47,7 +47,7 @@ reapply_malf <- function(
     keep_images = keep_images, 
     outfiles = outfiles,
     interpolator = interpolator,
-    verbose = verbose,
+    verbose = verbose > 1,
     ...)
   
   if (verbose) {
@@ -61,9 +61,25 @@ reapply_malf <- function(
   }
   rm(list = "infile"); gc();
   
+  
   if (!is.null(outfile)) {
-    writenii(outimg, filename = outfile)
+    if (is.nifti(outimg)) {
+      writenii(outimg, filename = outfile[1])
+    } 
+    if (is.list(outimg)) {
+      if (length(outimg) != length(outfile)) {
+        warning(paste0("Length of outfiles not ", 
+                       "the same as outimg,", 
+                       " setting retimg = TRUE"))
+        retimg = TRUE
+      } else {
+        mapply(function(img, fname) {
+          writenii(img, filename = fname)
+        }, outimg, outfile)
+      }
+    }
   }
+  
   for (i in 1:10) {
     gc()
   }
