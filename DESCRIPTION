@@ -1,7 +1,7 @@
 Package: extrantsr
 Type: Package
 Title: Extra Functions to Build on the ANTsR Package
-Version: 3.5.6
+Version: 3.5.7
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Extends the ANTsR package with simple wrappers and complex
@@ -14,7 +14,7 @@ Imports: methods, stats, grDevices, graphics, utils, oro.nifti, ANTsR
 BugReports: https://github.com/muschellij2/extrantsr/issues
 RoxygenNote: 6.0.1.9000
 Remotes: muschellij2/neurobase, muschellij2/fslr, bjw34032/oro.nifti,
-        muschellij2/kirby21.t1, muschellij2/ANTsR, muschellij2/ANTsRCore
+        muschellij2/kirby21.t1, ANTsX/ANTsR, ANTsX/ANTsRCore
 Suggests: knitr, rmarkdown, kirby21.t1, covr
 VignetteBuilder: knitr
 Encoding: UTF-8
