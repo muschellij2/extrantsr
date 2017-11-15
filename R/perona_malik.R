@@ -11,7 +11,7 @@
 #' (useful for chaining)
 #' @export
 #' @return Object of class \code{nifti}
-perona_malik = function(img, n_iter, conductance, ..., retfile) {
+perona_malik = function(img, n_iter, conductance, ..., retfile = FALSE) {
   res = oMath(img = img, operation = "PeronaMalik", n_iter, 
               conductance, ..., retfile = retfile)
   return(res)

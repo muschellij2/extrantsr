@@ -4,7 +4,7 @@
 \alias{perona_malik}
 \title{Perona-Malik Anisotropic Filter}
 \usage{
-perona_malik(img, n_iter, conductance, ..., retfile)
+perona_malik(img, n_iter, conductance, ..., retfile = FALSE)
 }
 \arguments{
 \item{img}{Object of class \code{nifti}}
