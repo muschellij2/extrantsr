@@ -28,6 +28,7 @@
 #' @return List of nifti objects or character filenames
 #' @importFrom fslr fslbet fsldir fslmask
 #' @importFrom oro.nifti writeNIfTI
+#' @importFrom neurobase flip_img
 reg_flip_img <- function(
   t1, 
   register = TRUE,
