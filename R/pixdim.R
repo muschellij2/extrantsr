@@ -9,6 +9,7 @@
 #' @importMethodsFrom oro.nifti pixdim
 #' 
 #' @return Vector of numeric values
+#' @export
 #' @examples 
 #' library(ANTsRCore)
 #' fn <- getANTsRData( "r16" )
