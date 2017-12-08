@@ -1,12 +1,14 @@
-#' @docType methods
 #' @rdname pixdim-methods
 #' @title Extract Image pixdim attribute 
 #' @description Gets pixdim from an antsImage
-#' @name pixdim-methods
+#' 
 #' @aliases pixdim,antsImage-method
 #' @param object is an antsImage
+#' 
 #' @importFrom oro.nifti pixdim
+#' @importFrom RNifti pixdim
 #' @importMethodsFrom oro.nifti pixdim
+#' 
 #' @return Vector of numeric values
 #' @export
 setMethod("pixdim", "antsImage", function(object){

@@ -22,6 +22,7 @@
 #' @importFrom matrixStats rowMedians rowSds 
 #' @importFrom matrixStats rowVars rowMads rowProds rowQuantiles rowTabulates
 #' @importFrom neurobase datatyper img_ts_to_list
+#' @importFrom stapler staple_multi_mat
 stat_img = function(
   imgs,
   func = c("mean",
@@ -35,7 +36,9 @@ stat_img = function(
            "sum",
            "prod",
            "z",
-           "quantile"),
+           "quantile",
+           "staple_prob",
+           "staple_label"),
   finite = TRUE,
   masks = NULL,
   na_masks = TRUE,
@@ -159,19 +162,33 @@ stat_img = function(
                   pct = rowPcts,
                   mode = rowModes,
                   peak = rowPeaks,
-                  quantile = rowQuantiles)
+                  quantile = rowQuantiles,
+                  staple_prob = stapler::staple_multi_mat,
+                  staple_label = stapler::staple_multi_mat)
+    if (grepl("^staple", char_func)) {
+      mat = t(mat) 
+    }
     res_img = func(mat, ...)
+    if (grepl("^staple", char_func)) {
+      mat = t(mat) 
+      if (char_func == "staple_prob") {
+        res_img = res_img$probability
+      }
+      if (char_func == "staple_label") {
+        res_img = res_img$label
+      }      
+    }    
     ##########################
     # pct and other functions return a 4d Image.
     ##########################
     force_vector = FALSE
     # one case - binary mask -just give one image
-    if ( (char_func %in% "pct") && ncol(res_img) == 2) {
+    if ( (char_func %in% c("pct", "staple_prob")) && ncol(res_img) == 2) {
       res_img = res_img[, 2, drop = TRUE]
       force_vector = TRUE
     }
 
-    if (!char_func %in% c("pct") || force_vector) {
+    if (!char_func %in% c("pct", "staple_prob", "staple_label") || force_vector) {
       if (length(res_img) != nrow(mat)) {
         stop(paste0("Function used did not result in a vector-",
                     "may need to pass more arguments, ",
