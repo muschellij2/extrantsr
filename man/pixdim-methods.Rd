@@ -16,3 +16,9 @@ Vector of numeric values
 \description{
 Gets pixdim from an antsImage
 }
+\examples{
+library(ANTsRCore)
+fn <- getANTsRData( "r16" )
+fi <- antsImageRead( fn )
+pixdim(fi)
+}

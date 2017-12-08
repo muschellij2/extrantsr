@@ -6,11 +6,14 @@
 #' @param object is an antsImage
 #' 
 #' @importFrom oro.nifti pixdim
-#' @importFrom RNifti pixdim
 #' @importMethodsFrom oro.nifti pixdim
 #' 
 #' @return Vector of numeric values
-#' @export
+#' @examples 
+#' library(ANTsRCore)
+#' fn <- getANTsRData( "r16" )
+#' fi <- antsImageRead( fn )
+#' pixdim(fi)
 setMethod("pixdim", "antsImage", function(object){
   pdim = c(0, antsGetSpacing(object))
   pdim = c(pdim, rep(1, length = max(0, 8 - length(pdim))))
