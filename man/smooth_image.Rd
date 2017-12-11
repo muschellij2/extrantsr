@@ -5,7 +5,7 @@
 \title{Gaussian smooth image using ANTsR}
 \usage{
 smooth_image(file, sigma = 10, mask = NULL, smooth_mask = TRUE,
-  verbose = TRUE, retfile = FALSE, ...)
+  smoothed_mask = NULL, verbose = TRUE, retfile = FALSE, ...)
 }
 \arguments{
 \item{file}{(character) image to be smoothed}
@@ -16,6 +16,10 @@ smooth_image(file, sigma = 10, mask = NULL, smooth_mask = TRUE,
 
 \item{smooth_mask}{(logical) Smooth mask?  If TRUE, the masked image 
 will be divided by the smoothed mask.}
+
+\item{smoothed_mask}{(character or antsImage) If specified and 
+\code{smooth_mask = TRUE}, then will use this as the smoothed mask for 
+division.}
 
 \item{verbose}{(logical) print out command before running}
 

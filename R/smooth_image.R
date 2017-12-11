@@ -7,6 +7,9 @@
 #' @param mask (character) optional mask given for image
 #' @param smooth_mask (logical) Smooth mask?  If TRUE, the masked image 
 #' will be divided by the smoothed mask.
+#' @param smoothed_mask (character or antsImage) If specified and 
+#' \code{smooth_mask = TRUE}, then will use this as the smoothed mask for 
+#' division. 
 #' @param verbose (logical) print out command before running
 #' @param retfile logical to indicate if an \code{antsImage} should be returned
 #' (useful for chaining)
@@ -29,6 +32,7 @@ smooth_image <- function(
   sigma=10, 
   mask=NULL, 
   smooth_mask = TRUE,
+  smoothed_mask = NULL,
   verbose = TRUE,
   retfile = FALSE,
   ...){
@@ -41,8 +45,13 @@ smooth_image <- function(
   
   sm_file = ANTsRCore::smoothImage(inimg = file, sigma = sigma, ...)
   if (!is.null(mask) & smooth_mask ) {
-    # smoothing mask
-    sm_mask = ANTsRCore::smoothImage(inimg = mask, sigma = sigma, ...)
+    if (is.null(smoothed_mask)) {
+      # smoothing mask
+      sm_mask = ANTsRCore::smoothImage(inimg = mask, sigma = sigma, ...)
+    } else {
+      sm_mask = check_ants(smoothed_mask)
+    }    
+
     # dividing smoothed mask
     sm_file = sm_file / sm_mask
     rm( list = "sm_mask"); gc(); gc();
