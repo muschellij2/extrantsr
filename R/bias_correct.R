@@ -84,12 +84,41 @@ bias_correct_ants = function(
       mask = NA
     }
     
-    res = ANTsRCore::n4BiasFieldCorrection(
-      img = img, 
-      mask = mask, 
-      shrinkFactor = as.numeric(shrinkfactor), 
-      verbose = verbose,
-      ...)
+    args = list(...)
+    # make it so that convergence has the correct list of params
+    convergence = args$convergence
+    if (!is.null(convergence)) {
+      if (!is.list(convergence)) {
+        stop("convergence must be a list")
+      }
+      form_n4 = formals(n4BiasFieldCorrection)
+      check_names = setdiff(names(form_n4$convergence), "")
+      
+      n_conv = names(convergence)
+      names_in = check_names %in% n_conv
+      if (!all(names_in)) {
+        warning(
+          paste0(
+            "Not all parameters in convergence that ", 
+            "are needed, adding defaults"))
+        use_def = check_names[ !names_in ]
+        for (idef in use_def) {
+          convergence[[idef]] = form_n4$convergence[[idef]]
+        }
+      }
+    }
+    args$img = img
+    args$mask = mask
+    args$shrinkFactor = as.numeric(shrinkfactor)
+    args$verbose = verbose
+    args$convergence = convergence
+    
+    res = do.call(ANTsRCore::n4BiasFieldCorrection, args = args)
+    # img = img, 
+    # mask = mask, 
+    # shrinkFactor = as.numeric(shrinkfactor), 
+    # verbose = verbose,
+    # ...)
   }
   rm(list = c("img")); 
   for (i in 1:10) {
