@@ -216,6 +216,15 @@ registration <- function(
   for (i in 1:10) {
     gc()
   }
+  # fixing multi-naming convention problem
+  fwd = antsRegOut.nonlin$fwdtransforms
+  fwd = fwd[grepl("Generic|Warp", fwd)]
+  antsRegOut.nonlin$fwdtransforms = fwd
+  
+  inv = antsRegOut.nonlin$invtransforms
+  inv = inv[grepl("Generic|Warp", inv)]  
+  antsRegOut.nonlin$invtransforms = inv
+  
   
   if (verbose) {
     message("# Applying Registration output is\n")
