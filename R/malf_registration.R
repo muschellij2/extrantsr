@@ -43,7 +43,7 @@ malf_registration <- function(
   }
   if (is.null(outfiles)) {
     outfiles = sapply(seq(nimgs), function(x){
-      tempfile(fileext = ".nii.gz")
+      tempfile(fileext = paste0("_", x, ".nii.gz"))
     })
   }
   
