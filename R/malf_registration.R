@@ -7,6 +7,9 @@
 #' to \code{infile}
 #' @param template.structs Template gold standards to apply 
 #' registration into \code{infile} space
+#' @param inverted Should the MALF be inverted 
+#' (infile to template then use inverse transforms)
+#' 
 #' @param typeofTransform type of transformed used, passed to 
 #' \code{\link{antsRegistration}}  
 #' @param interpolator interpolation done for 
@@ -25,6 +28,7 @@
 #' @import utils
 malf_registration <- function(
   infile, template.images, template.structs,
+  inverted = FALSE,
   typeofTransform = "SyN",  
   interpolator = "NearestNeighbor",
   keep_images = TRUE, 
@@ -61,18 +65,35 @@ malf_registration <- function(
     tstruct = template.structs[[iimg]]
     ofile = outfiles[[iimg]]
     i_outprefix = paste0(outprefix, "_", iimg, "_")
-    reg = registration(filename = timage, 
-                       outfile = tempfile(fileext = ".nii.gz"),
-                       typeofTransform = typeofTransform,
-                       interpolator = interpolator,
-                       retimg = FALSE,
-                       template.file = infile,
-                       other.files = tstruct,
-                       other.outfiles = ofile,
-                       outprefix = i_outprefix,
-                       remove.warp = FALSE,
-                       verbose = verbose > 1,
-                       ...)
+    if (!inverted) {
+      reg = registration(
+        filename = timage, 
+        outfile = tempfile(fileext = ".nii.gz"),
+        typeofTransform = typeofTransform,
+        interpolator = interpolator,
+        retimg = FALSE,
+        template.file = infile,
+        other.files = tstruct,
+        other.outfiles = ofile,
+        outprefix = i_outprefix,
+        remove.warp = FALSE,
+        verbose = verbose > 1,
+        ...)
+    } else {
+      reg = registration(
+        template.file = timage, 
+        outfile = tempfile(fileext = ".nii.gz"),
+        typeofTransform = typeofTransform,
+        interpolator = interpolator,
+        retimg = FALSE,
+        filename = infile,
+        invert.native.fname = ofile,
+        invert.file = tstruct,
+        outprefix = i_outprefix,
+        remove.warp = FALSE,
+        verbose = verbose > 1,
+        ...)      
+    }
     # all.regs = c(all.regs, reg)
     all.regs[[iimg]] = reg
     if (verbose) {
@@ -92,5 +113,5 @@ malf_registration <- function(
     gc()
   }  
   return(L)
-
+  
 }

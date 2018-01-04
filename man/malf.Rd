@@ -4,11 +4,11 @@
 \alias{malf}
 \title{Multi-Atlas Label Fusion}
 \usage{
-malf(infile, template.images, template.structs, keep_images = FALSE,
-  outfiles = NULL, outfile = NULL, retimg = TRUE, func = "mode",
-  ties.method = "first", keep_regs = FALSE, outprefix = NULL,
-  interpolator = "NearestNeighbor", typeofTransform = "SyN",
-  verbose = TRUE, ...)
+malf(infile, template.images, template.structs, inverted = FALSE,
+  keep_images = FALSE, outfiles = NULL, outfile = NULL, retimg = TRUE,
+  func = "mode", ties.method = "first", keep_regs = FALSE,
+  outprefix = NULL, interpolator = "NearestNeighbor",
+  typeofTransform = "SyN", verbose = TRUE, ...)
 }
 \arguments{
 \item{infile}{Input Image file}
@@ -18,6 +18,9 @@ to \code{infile}}
 
 \item{template.structs}{Template gold standards to apply 
 registration into \code{infile} space}
+
+\item{inverted}{Should the MALF be inverted 
+(infile to template then use inverse transforms)}
 
 \item{keep_images}{Keep the \code{template.structs} in 
 \code{infile} space}

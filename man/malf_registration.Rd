@@ -4,7 +4,7 @@
 \alias{malf_registration}
 \title{Multi-Atlas Label Fusion Registration}
 \usage{
-malf_registration(infile, template.images, template.structs,
+malf_registration(infile, template.images, template.structs, inverted = FALSE,
   typeofTransform = "SyN", interpolator = "NearestNeighbor",
   keep_images = TRUE, outfiles = NULL, outprefix = NULL, verbose = TRUE,
   ...)
@@ -17,6 +17,9 @@ to \code{infile}}
 
 \item{template.structs}{Template gold standards to apply 
 registration into \code{infile} space}
+
+\item{inverted}{Should the MALF be inverted 
+(infile to template then use inverse transforms)}
 
 \item{typeofTransform}{type of transformed used, passed to 
 \code{\link{antsRegistration}}}

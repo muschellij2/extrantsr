@@ -278,7 +278,7 @@ registration <- function(
         fixed = t1N3,
         moving = atlas,
         transformlist = transformlist,
-        interpolator = "NearestNeighbor"
+        interpolator = interpolator
       )
       antsImageWrite(tmp_img, output)
       rm(list = c("tmp_img", "atlas"))

@@ -7,6 +7,8 @@
 #' to \code{infile}
 #' @param template.structs Template gold standards to apply 
 #' registration into \code{infile} space
+#' @param inverted Should the MALF be inverted 
+#' (infile to template then use inverse transforms) 
 #' @param keep_images Keep the \code{template.structs} in 
 #' \code{infile} space
 #' @param outfiles Output filenames for  \code{template.structs} in 
@@ -32,6 +34,7 @@
 #' output file
 malf <- function(
   infile, template.images, template.structs,
+  inverted = FALSE,
   keep_images = FALSE, 
   outfiles = NULL,
   outfile = NULL, 
@@ -57,6 +60,7 @@ malf <- function(
   ##############################
   L = malf_registration(
     infile = infile, 
+    inverted = inverted,
     template.images = template.images, 
     template.structs = template.structs,
     typeofTransform = typeofTransform,
