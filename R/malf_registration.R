@@ -68,11 +68,11 @@ malf_registration <- function(
     if (!inverted) {
       reg = registration(
         filename = timage, 
+        template.file = infile,
         outfile = tempfile(fileext = ".nii.gz"),
         typeofTransform = typeofTransform,
         interpolator = interpolator,
         retimg = FALSE,
-        template.file = infile,
         other.files = tstruct,
         other.outfiles = ofile,
         outprefix = i_outprefix,
@@ -81,14 +81,16 @@ malf_registration <- function(
         ...)
     } else {
       reg = registration(
+        # switch template.file and filename
         template.file = timage, 
+        filename = infile,
         outfile = tempfile(fileext = ".nii.gz"),
         typeofTransform = typeofTransform,
         interpolator = interpolator,
         retimg = FALSE,
-        filename = infile,
-        invert.native.fname = ofile,
+        # instead of using other.file and other.files
         invert.file = tstruct,
+        invert.native.fname = ofile,
         outprefix = i_outprefix,
         remove.warp = FALSE,
         verbose = verbose > 1,

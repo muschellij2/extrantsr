@@ -21,9 +21,8 @@
 #' be written
 #' @param other.init Initial transformation lists (same length as \code{other.files})
 #' to use in before the estimated transformation for one interpolation
-#' @param template_to_native Logical indicating if native cerebellum should be
-#' created to \code{invert.native.fname}
-#' @param invert.native.fname filename of native cerebellum file
+#' @param invert.native.fname filename of output native file, must have
+#' same length as \code{invert.file} or be \code{NULL}.
 #' @param invert.file Filename of image to invert to native space
 #' @param typeofTransform type of transformed used, passed to
 #' \code{\link{antsRegistration}}
@@ -53,7 +52,6 @@ registration <- function(
   other.files = NULL,
   other.outfiles = NULL,
   other.init = NULL,
-  template_to_native = FALSE,
   invert.native.fname = NULL,
   invert.file = NULL,
   typeofTransform = "SyN",
@@ -85,9 +83,14 @@ registration <- function(
     }
   }
   
-  if (template_to_native) {
-    stopifnot(!is.null(invert.native.fname))
+  if (!is.null(invert.file)) {
     invert.file = checkimg(invert.file)
+    if (is.null(invert.native.fname)) {
+      invert.native.fname = sapply(seq_along(invert.file), function(x) {
+        tempfile(fileext = ".nii.gz")
+      })
+    }
+    
     if (length(invert.file) != length(invert.native.fname)) {
       stop("Length of invert.file and invert.native.fnames must be equal!")
     }
@@ -259,15 +262,13 @@ registration <- function(
   
   output = paste0(tempfile(), ".nii.gz")
   
-  if (template_to_native) {
-    stopifnot(!is.null(invert.file))
+  if (!is.null(invert.file)) {
     
     if (verbose) {
       message("# Applying Inverse transforms to invert.file\n")
     }
     for (iatlas in seq_along(invert.file)) {
       output = invert.native.fname[iatlas]
-      
       
       atlas = antsImageRead(invert.file[iatlas])
       # 			if (!grepl("[.]nii$|[.]nii[.]gz$", output)) {
@@ -368,6 +369,8 @@ registration <- function(
     typeofTransform = typeofTransform,
     retimg = retimg
   )
+  L$inverted.outfiles = invert.native.fname
+  
   L$other.outfiles = other.outfiles
   rm(list = c("t1", "t1N3", "template"))
   gc()
