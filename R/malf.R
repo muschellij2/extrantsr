@@ -124,7 +124,8 @@ malf <- function(
     } 
     L = list(regs = all.regs, 
              outimg = outimg, 
-             statistic = func)
+             statistic = func,
+             inverted = inverted)
     return(L)
   }
 }

@@ -5,7 +5,8 @@
 \title{Apply MALF Registrations}
 \usage{
 apply_malf_regs(infile, regs, template.structs, keep_images = TRUE,
-  outfiles = NULL, interpolator = NULL, verbose = TRUE, ...)
+  outfiles = NULL, inverted = FALSE, interpolator = NULL,
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{infile}{Input Image file}
@@ -23,6 +24,9 @@ registration into \code{infile} space}
 
 \item{outfiles}{Output filenames for  \code{template.structs} in 
 \code{infile} space}
+
+\item{inverted}{Should the MALF be inverted (inverse transforms are used
+instead of forward)}
 
 \item{interpolator}{interpolation done for 
 \code{\link{antsApplyTransforms}}, can be different than original MALF}

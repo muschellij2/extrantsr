@@ -17,6 +17,8 @@
 #' @param interpolator interpolation done for 
 #' \code{\link{antsApplyTransforms}}, can be different than original MALF
 #' @param verbose Print diagnostic output
+#' @param inverted Should the MALF be inverted (inverse transforms are used
+#' instead of forward)
 #' @param ... Arguments to be passed to \code{\link{ants_apply_transforms}}
 #' @export
 #' @return The output filename or the nifti image or list of registrations and
@@ -27,6 +29,7 @@ apply_malf_regs <- function(
   template.structs,
   keep_images = TRUE, 
   outfiles = NULL,
+  inverted = FALSE,
   interpolator = NULL,
   verbose = TRUE,
   ...){
@@ -51,15 +54,22 @@ apply_malf_regs <- function(
     ############################################
     # Get Transformations 
     ############################################
-    fwdtransforms = reg$fwdtransforms
     struct = template.structs[[ireg]]
+
+    
+    if (!inverted) {
+      transforms = reg$fwdtransforms
+    } else {
+      transforms = reg$invtransforms
+    }
     out = ants_apply_transforms(
       fixed = infile, 
       moving = struct, 
-      transformlist = fwdtransforms,
+      transformlist = transforms,
       interpolator = interp, 
       verbose = verbose,
       ...)
+    
     all_out[[ireg]] = out
     if (!is.null(outfiles)) {
       writenii(out, filename = outfiles[[ireg]])
