@@ -71,7 +71,10 @@ stat_img = function(
       is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5){
         abs(x - round(x)) < tol
       }
-      stopifnot(all(is.wholenumber(x)))
+      if (!all(is.wholenumber(x))) {
+        stop(paste0("Stat_img was called with running a mode, but not all the ",
+             "data are whole numbers/integers"))
+      }
       
       x = array(as.integer(x), dim = dim(x))
       tabs = rowTabulates(x)
