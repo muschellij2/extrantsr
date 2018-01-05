@@ -8,10 +8,12 @@ registration(filename, skull_strip = FALSE, correct = FALSE,
   correction = "N4", retimg = TRUE, outfile = NULL,
   template.file = file.path(fsldir(), "data", "standard",
   "MNI152_T1_1mm_brain.nii.gz"), interpolator = "Linear",
-  other.files = NULL, other.outfiles = NULL, other.init = NULL,
-  invert.native.fname = NULL, invert.file = NULL, typeofTransform = "SyN",
-  remove.warp = FALSE, outprefix = NULL, bet.opts = "-B -f 0.1 -v",
-  betcmd = "bet", copy_origin = TRUE, verbose = TRUE, ...)
+  other_interpolator = interpolator, other.files = NULL,
+  other.outfiles = NULL, other.init = NULL,
+  invert_interpolator = interpolator, invert.native.fname = NULL,
+  invert.file = NULL, typeofTransform = "SyN", remove.warp = FALSE,
+  outprefix = NULL, bet.opts = "-B -f 0.1 -v", betcmd = "bet",
+  copy_origin = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{filename}{filename of image to be registered}
@@ -32,6 +34,9 @@ extension}
 \item{interpolator}{interpolation done for
 \code{\link{antsApplyTransforms}}}
 
+\item{other_interpolator}{interpolation done for
+\code{\link{antsApplyTransforms}} for \code{other.files}}
+
 \item{other.files}{Filenames of other iamges to be
 transformed with the T1}
 
@@ -40,6 +45,9 @@ be written}
 
 \item{other.init}{Initial transformation lists (same length as \code{other.files})
 to use in before the estimated transformation for one interpolation}
+
+\item{invert_interpolator}{interpolation done for
+\code{\link{antsApplyTransforms}} for \code{invert.file}}
 
 \item{invert.native.fname}{filename of output native file, must have
 same length as \code{invert.file} or be \code{NULL}.}

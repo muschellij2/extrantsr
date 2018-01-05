@@ -19,11 +19,15 @@
 #' transformed with the T1
 #' @param other.outfiles Output filenames of \code{other.files} to
 #' be written
+#' @param other_interpolator interpolation done for
+#' \code{\link{antsApplyTransforms}} for \code{other.files}
 #' @param other.init Initial transformation lists (same length as \code{other.files})
 #' to use in before the estimated transformation for one interpolation
 #' @param invert.native.fname filename of output native file, must have
 #' same length as \code{invert.file} or be \code{NULL}.
 #' @param invert.file Filename of image to invert to native space
+#' @param invert_interpolator interpolation done for
+#' \code{\link{antsApplyTransforms}} for \code{invert.file} 
 #' @param typeofTransform type of transformed used, passed to
 #' \code{\link{antsRegistration}}
 #' @param remove.warp (logical) Should warping images be deleted?
@@ -49,9 +53,11 @@ registration <- function(
                             "standard",
                             "MNI152_T1_1mm_brain.nii.gz"),
   interpolator = "Linear",
+  other_interpolator = interpolator,
   other.files = NULL,
   other.outfiles = NULL,
   other.init = NULL,
+  invert_interpolator = interpolator,
   invert.native.fname = NULL,
   invert.file = NULL,
   typeofTransform = "SyN",
@@ -280,7 +286,7 @@ registration <- function(
         fixed = t1N3,
         moving = atlas,
         transformlist = transformlist,
-        interpolator = interpolator,
+        interpolator = invert_interpolator,
         verbose = verbose
       )
       antsImageWrite(tmp_img, output)
@@ -303,7 +309,7 @@ registration <- function(
           fixed = template,
           moving = x,
           transformlist = antsRegOut.nonlin$fwdtransforms,
-          interpolator = interpolator,
+          interpolator = other_interpolator,
           verbose = verbose
         )
       })
@@ -313,7 +319,7 @@ registration <- function(
           fixed = template,
           moving = x,
           transformlist = c(antsRegOut.nonlin$fwdtransforms, y),
-          interpolator = interpolator,
+          interpolator = other_interpolator,
           verbose = verbose
         )
       }, N3.oimgs, other.init, SIMPLIFY = FALSE)
@@ -370,6 +376,8 @@ registration <- function(
     fwdtransforms = antsRegOut.nonlin$fwdtransforms,
     invtransforms = antsRegOut.nonlin$invtransforms,
     interpolator = interpolator,
+    other_interpolator = other_interpolator,
+    invert_interpolator = invert_interpolator,
     typeofTransform = typeofTransform,
     retimg = retimg
   )
