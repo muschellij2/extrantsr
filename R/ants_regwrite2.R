@@ -252,7 +252,8 @@ registration <- function(
     fixed = template,
     moving = t1N3,
     transformlist = antsRegOut.nonlin$fwdtransforms,
-    interpolator = interpolator
+    interpolator = interpolator,
+    verbose = verbose
   )
   
   
@@ -279,7 +280,8 @@ registration <- function(
         fixed = t1N3,
         moving = atlas,
         transformlist = transformlist,
-        interpolator = interpolator
+        interpolator = interpolator,
+        verbose = verbose
       )
       antsImageWrite(tmp_img, output)
       rm(list = c("tmp_img", "atlas"))
@@ -301,7 +303,8 @@ registration <- function(
           fixed = template,
           moving = x,
           transformlist = antsRegOut.nonlin$fwdtransforms,
-          interpolator = interpolator
+          interpolator = interpolator,
+          verbose = verbose
         )
       })
     } else {
@@ -310,7 +313,8 @@ registration <- function(
           fixed = template,
           moving = x,
           transformlist = c(antsRegOut.nonlin$fwdtransforms, y),
-          interpolator = interpolator
+          interpolator = interpolator,
+          verbose = verbose
         )
       }, N3.oimgs, other.init, SIMPLIFY = FALSE)
     }
