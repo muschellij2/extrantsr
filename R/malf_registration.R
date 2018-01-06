@@ -42,13 +42,13 @@ malf_registration <- function(
   
   nimgs = length(template.images)
   stopifnot(nimgs == length(template.structs))
-  if (keep_images) {
-    stopifnot(length(outfiles) == nimgs)
-  }
   if (is.null(outfiles)) {
     outfiles = sapply(seq(nimgs), function(x){
       tempfile(fileext = paste0("_", x, ".nii.gz"))
     })
+  }  
+  if (keep_images) {
+    stopifnot(length(outfiles) == nimgs)
   }
   
   if (verbose) {
