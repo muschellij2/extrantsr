@@ -15,7 +15,7 @@
 #' fn <- getANTsRData( "r16" )
 #' fi <- antsImageRead( fn )
 #' pixdim(fi)
-setMethod("pixdim", "antsImage", function(object){
+setMethod("pixdim", signature(object = "antsImage"), function(object){
   pdim = c(0, antsGetSpacing(object))
   pdim = c(pdim, rep(1, length = max(0, 8 - length(pdim))))
   return(pdim)
