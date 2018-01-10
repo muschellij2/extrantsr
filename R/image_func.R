@@ -112,9 +112,10 @@ stat_img = function(
   ##########################################
   # Make a large matrix of images
   ##########################################
-  imgs = check_nifti(imgs, allow.array = TRUE)
+  imgs = check_nifti(imgs, allow.array = TRUE, need_header = FALSE)
   imgs = neurobase::img_ts_to_list(imgs, copy_nifti = TRUE, warn = FALSE)
-  nim = imgs[[1]]
+  # make first image have the header
+  nim = check_nifti(imgs[[1]], allow.array = TRUE, need_header = TRUE)
   stopifnot(length(imgs) > 1)
   dims = lapply(imgs, dim)
   same_dim = sapply(dims, all.equal, dims[[1]])
