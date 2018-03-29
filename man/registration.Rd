@@ -13,7 +13,7 @@ registration(filename, skull_strip = FALSE, correct = FALSE,
   invert_interpolator = interpolator, invert.native.fname = NULL,
   invert.file = NULL, typeofTransform = "SyN", remove.warp = FALSE,
   outprefix = NULL, bet.opts = "-B -f 0.1 -v", betcmd = "bet",
-  copy_origin = TRUE, verbose = TRUE, ...)
+  copy_origin = TRUE, verbose = TRUE, force_registration = TRUE, ...)
 }
 \arguments{
 \item{filename}{filename of image to be registered}
@@ -69,6 +69,9 @@ Required if \code{remove.warp = FALSE}}
 \item{copy_origin}{Copy image origin from t1, using \code{\link{antsCopyOrigin}}}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{force_registration}{If \code{TRUE}, then registration will 
+be run even if transforms exist.}
 
 \item{...}{arguments to \code{\link{antsRegistration}}}
 }

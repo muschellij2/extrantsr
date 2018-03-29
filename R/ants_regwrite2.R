@@ -37,6 +37,8 @@
 #' @param betcmd BET command used, passed to \code{\link{fslbet}}
 #' @param copy_origin Copy image origin from t1, using \code{\link{antsCopyOrigin}}
 #' @param verbose Print diagnostic messages
+#' @param force_registration If \code{TRUE}, then registration will 
+#' be run even if transforms exist.
 #' @param ... arguments to \code{\link{antsRegistration}}
 #' @importFrom fslr fslbet fsldir get.imgext
 #' @export
@@ -67,6 +69,7 @@ registration <- function(
   betcmd = "bet",
   copy_origin = TRUE,
   verbose = TRUE,
+  force_registration = TRUE,
   ...) {
   outfile = check_outfile(outfile = outfile, retimg = retimg)
   
@@ -209,14 +212,27 @@ registration <- function(
   if (verbose) {
     message("# Running Registration of file to template\n")
   }
+  out_trans = c(Affine = "0GenericAffine.mat", 
+    fwd = "1Warp.nii.gz", inv = "1InverseWarp.nii.gz")
+  n_trans = names(out_trans)
+  out_trans = paste0(
+    outprefix, out_trans)
+  names(out_trans) = n_trans
+  
+  if ( !all(file.exists(out_trans)) || force_registration) {
   antsRegOut.nonlin <- ANTsRCore::antsRegistration(
     fixed = template,
     moving = t1N3,
     typeofTransform = typeofTransform,
     outprefix = outprefix,
     verbose = verbose,
-    ...
-  )
+    ...)
+  } else {
+    antsRegOut.nonlin = list(
+      fwdtransforms = unname(out_trans[c("fwd", "Affine")]),
+      invtransforms = unname(out_trans[c("Affine", "inv")])
+    )
+  }
   ######################################################
   # added this to try to wrap up the gc()
   antsRegOut.nonlin$warpedmovout = NULL
