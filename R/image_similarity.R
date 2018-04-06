@@ -1,11 +1,14 @@
 #' Compute Image Similarity Metrics
 #'
-#' @param image1 Object of class \code{nifti} or character filename
+#' @param image1 Object of class \code{nifti} or character filename.
+#' Passed to the \code{fixed} image in \code{\link{imageSimilarity}}
 #' @param image2 Object of class \code{nifti} or character filename
+#' Passed to the \code{moving} image in \code{\link{imageSimilarity}}
 #' @param image1_mask Mask for first image (optional)
 #' @param image2_mask Mask for second image (optional)
 #' @param ... Additional arguments to pass to
 #' \code{\link{imageSimilarity}}
+#' @note Not all metrics are symmetric.
 #'
 #' @return A numeric value
 #' @export
@@ -22,9 +25,11 @@
 #' image_similarity(x,y, type="Correlation")
 #' image_similarity(y,x, type="Correlation")
 #' 
+#' # NOT SYMMETRIC
 #' image_similarity(x,y, type="MattesMutualInformation")
 #' image_similarity(y,x, type="MattesMutualInformation")
-#' 
+#'
+#' # NOT SYMMETRIC
 #' mutual_information(x, y)
 #' mutual_information(y, x)
 #' 

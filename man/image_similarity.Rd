@@ -8,9 +8,11 @@ image_similarity(image1, image2, image1_mask = NULL, image2_mask = NULL,
   ...)
 }
 \arguments{
-\item{image1}{Object of class \code{nifti} or character filename}
+\item{image1}{Object of class \code{nifti} or character filename.
+Passed to the \code{fixed} image in \code{\link{imageSimilarity}}}
 
-\item{image2}{Object of class \code{nifti} or character filename}
+\item{image2}{Object of class \code{nifti} or character filename
+Passed to the \code{moving} image in \code{\link{imageSimilarity}}}
 
 \item{image1_mask}{Mask for first image (optional)}
 
@@ -25,6 +27,9 @@ A numeric value
 \description{
 Compute Image Similarity Metrics
 }
+\note{
+Not all metrics are symmetric.
+}
 \examples{
 library(ANTsRCore)
 library(extrantsr)
@@ -36,9 +41,11 @@ image_similarity(y,x, type="MeanSquares")
 image_similarity(x,y, type="Correlation")
 image_similarity(y,x, type="Correlation")
 
+# NOT SYMMETRIC
 image_similarity(x,y, type="MattesMutualInformation")
 image_similarity(y,x, type="MattesMutualInformation")
 
+# NOT SYMMETRIC
 mutual_information(x, y)
 mutual_information(y, x)
 
