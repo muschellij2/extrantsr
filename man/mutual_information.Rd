@@ -22,3 +22,9 @@ Images are converted \code{nifti} objects
 (from the oro.nifti package), an operation is performed using 
 \code{\link{antsImageMutualInformation}}
 }
+\examples{
+
+fi = getANTsRData("r16")
+mi = getANTsRData("r64")
+mival = mutual_information(fi, mi)
+}

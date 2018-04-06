@@ -9,6 +9,11 @@
 #' \code{\link{antsImageMutualInformation}}
 #' @export
 #' @importFrom ANTsRCore antsImageMutualInformation
+#' @examples
+#'
+#' fi = getANTsRData("r16")
+#' mi = getANTsRData("r64")
+#' mival = mutual_information(fi, mi)
 #' @return Numeric
 mutual_information <- function(image1, image2, ...){
   image1 = check_ants(image1)

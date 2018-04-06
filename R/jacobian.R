@@ -49,13 +49,15 @@
                       moving = moving, 
                       typeofTransform = typeofTransform, ...)
   fixed = L$fixed
-  transformlist = L$trantransformlist
+  transformlist = L$transformlist
   res = ANTsR::createJacobianDeterminantImage(
     domainImg = fixed,
     tx = transformlist,
     doLog = doLog,
     geom = geom)
-  L = list(image = res)
+  L = list(
+    file = checkimg(res),
+    image = res)
   L$transformlist = transformlist
   L$fixed = fixed
   return(L)
