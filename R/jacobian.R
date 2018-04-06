@@ -20,10 +20,12 @@
   }
   
   if (!is.null(moving)) {
+    outfile = tempfile(fileext = ".nii.gz")
     reg = registration(
       filename = moving,
       template.file = fixed, 
       typeofTransform = typeofTransform,
+      outfile = outfile,
       interpolator = "Linear", retimg = FALSE, correct = FALSE,
       skull_strip = FALSE, remove.warp = FALSE,
       ...)
@@ -77,6 +79,14 @@
 #' transform list, and the fixed image.
 #' @export
 #' @importFrom ANTsR createJacobianDeterminantImage
+#' @examples 
+#' library(extrantsr)
+#' library(ANTsR)
+#' fi<-antsImageRead( getANTsRData("r16") ,2)
+#' mi<-antsImageRead( getANTsRData("r64") ,2)
+#' fi<-resampleImage(fi,c(128,128),1,0)
+#' mi<-resampleImage(mi,c(128,128),1,0)
+#' jac = jacobian_image(fixed = fi, moving = mi, verbose = FALSE)
 jacobian_image = function(
   fixed, 
   transformlist = NULL, 
