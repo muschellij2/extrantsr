@@ -23,7 +23,8 @@ Images are converted \code{nifti} objects
 \code{\link{antsImageMutualInformation}}
 }
 \examples{
-
+library(ANTsR)
+library(extrantsr)
 fi = getANTsRData("r16")
 mi = getANTsRData("r64")
 mival = mutual_information(fi, mi)
