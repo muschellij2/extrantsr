@@ -4,16 +4,17 @@
 \alias{image_similarity}
 \title{Compute Image Similarity Metrics}
 \usage{
-image_similarity(fixed, moving, fixed_mask = NULL, moving_mask = NULL, ...)
+image_similarity(image1, image2, image1_mask = NULL, image2_mask = NULL,
+  ...)
 }
 \arguments{
-\item{fixed}{Fixed image (not moving)}
+\item{image1}{Object of class \code{nifti} or character filename}
 
-\item{moving}{Moving image (moved into fixed space)}
+\item{image2}{Object of class \code{nifti} or character filename}
 
-\item{fixed_mask}{Mask for fixed image (optional)}
+\item{image1_mask}{Mask for first image (optional)}
 
-\item{moving_mask}{Mask for moving image (optional)}
+\item{image2_mask}{Mask for second image (optional)}
 
 \item{...}{Additional arguments to pass to
 \code{\link{imageSimilarity}}}
@@ -37,6 +38,9 @@ image_similarity(y,x, type="Correlation")
 
 image_similarity(x,y, type="MattesMutualInformation")
 image_similarity(y,x, type="MattesMutualInformation")
+
+mutual_information(x, y)
+mutual_information(y, x)
 
 image_similarity(x,y, type="ANTSNeighborhoodCorrelation")
 image_similarity(y,x, type="ANTSNeighborhoodCorrelation")
