@@ -47,7 +47,7 @@ setGeneric("resample_to_target", function(
     "hammingWindowedSinc",
     "lanczosWindowedSinc", 
     "genericLabel"), 
-  copy_origin = TRUE,
+  copy_origin = FALSE,
   ...
 ){
   standardGeneric("resample_to_target")
@@ -74,7 +74,7 @@ setMethod(
       "hammingWindowedSinc",
       "lanczosWindowedSinc", 
       "genericLabel"), 
-    copy_origin = TRUE,
+    copy_origin = FALSE,
     ...) { 
     
     img = antsImageRead(img)
@@ -107,7 +107,7 @@ setMethod(
       "hammingWindowedSinc",
       "lanczosWindowedSinc", 
       "genericLabel"), 
-    copy_origin = TRUE,
+    copy_origin = FALSE,
     ...) { 
     tmp_img = oro2ants(img)
     rm(list = "img"); gc()
@@ -141,7 +141,7 @@ setMethod(
       "hammingWindowedSinc",
       "lanczosWindowedSinc", 
       "genericLabel"), 
-    copy_origin = TRUE,
+    copy_origin = FALSE,
     ...) { 
     
     newimg = .resample_to_target(
@@ -169,7 +169,7 @@ setMethod(
     "hammingWindowedSinc",
     "lanczosWindowedSinc", 
     "genericLabel"), 
-  copy_origin = TRUE,
+  copy_origin = FALSE,
   ...) {
   
   target = check_ants(target)

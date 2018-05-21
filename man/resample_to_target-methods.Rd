@@ -13,27 +13,27 @@
 resample_to_target(img, target, interpolator = c("linear", "nearestNeighbor",
   "multiLabel", "gaussian", "bSpline", "cosineWindowedSinc",
   "welchWindowedSinc", "hammingWindowedSinc", "lanczosWindowedSinc",
-  "genericLabel"), copy_origin = TRUE, ...)
+  "genericLabel"), copy_origin = FALSE, ...)
 
 \S4method{resample_to_target}{character}(img, target,
   interpolator = c("linear", "nearestNeighbor", "multiLabel", "gaussian",
   "bSpline", "cosineWindowedSinc", "welchWindowedSinc", "hammingWindowedSinc",
-  "lanczosWindowedSinc", "genericLabel"), copy_origin = TRUE, ...)
+  "lanczosWindowedSinc", "genericLabel"), copy_origin = FALSE, ...)
 
 \S4method{resample_to_target}{nifti}(img, target, interpolator = c("linear",
   "nearestNeighbor", "multiLabel", "gaussian", "bSpline", "cosineWindowedSinc",
   "welchWindowedSinc", "hammingWindowedSinc", "lanczosWindowedSinc",
-  "genericLabel"), copy_origin = TRUE, ...)
+  "genericLabel"), copy_origin = FALSE, ...)
 
 \S4method{resample_to_target}{antsImage}(img, target,
   interpolator = c("linear", "nearestNeighbor", "multiLabel", "gaussian",
   "bSpline", "cosineWindowedSinc", "welchWindowedSinc", "hammingWindowedSinc",
-  "lanczosWindowedSinc", "genericLabel"), copy_origin = TRUE, ...)
+  "lanczosWindowedSinc", "genericLabel"), copy_origin = FALSE, ...)
 
 .resample_to_target(img, target, interpolator = c("linear", "nearestNeighbor",
   "multiLabel", "gaussian", "bSpline", "cosineWindowedSinc",
   "welchWindowedSinc", "hammingWindowedSinc", "lanczosWindowedSinc",
-  "genericLabel"), copy_origin = TRUE, ...)
+  "genericLabel"), copy_origin = FALSE, ...)
 }
 \arguments{
 \item{img}{character path of image or 
