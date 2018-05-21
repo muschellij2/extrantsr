@@ -13,27 +13,27 @@
 resample_to_target(img, target, interpolator = c("linear", "nearestNeighbor",
   "multiLabel", "gaussian", "bSpline", "cosineWindowedSinc",
   "welchWindowedSinc", "hammingWindowedSinc", "lanczosWindowedSinc",
-  "genericLabel"), ...)
+  "genericLabel"), copy_origin = TRUE, ...)
 
 \S4method{resample_to_target}{character}(img, target,
   interpolator = c("linear", "nearestNeighbor", "multiLabel", "gaussian",
   "bSpline", "cosineWindowedSinc", "welchWindowedSinc", "hammingWindowedSinc",
-  "lanczosWindowedSinc", "genericLabel"), ...)
+  "lanczosWindowedSinc", "genericLabel"), copy_origin = TRUE, ...)
 
 \S4method{resample_to_target}{nifti}(img, target, interpolator = c("linear",
   "nearestNeighbor", "multiLabel", "gaussian", "bSpline", "cosineWindowedSinc",
   "welchWindowedSinc", "hammingWindowedSinc", "lanczosWindowedSinc",
-  "genericLabel"), ...)
+  "genericLabel"), copy_origin = TRUE, ...)
 
 \S4method{resample_to_target}{antsImage}(img, target,
   interpolator = c("linear", "nearestNeighbor", "multiLabel", "gaussian",
   "bSpline", "cosineWindowedSinc", "welchWindowedSinc", "hammingWindowedSinc",
-  "lanczosWindowedSinc", "genericLabel"), ...)
+  "lanczosWindowedSinc", "genericLabel"), copy_origin = TRUE, ...)
 
 .resample_to_target(img, target, interpolator = c("linear", "nearestNeighbor",
   "multiLabel", "gaussian", "bSpline", "cosineWindowedSinc",
   "welchWindowedSinc", "hammingWindowedSinc", "lanczosWindowedSinc",
-  "genericLabel"), ...)
+  "genericLabel"), copy_origin = TRUE, ...)
 }
 \arguments{
 \item{img}{character path of image or 
@@ -45,6 +45,9 @@ Will be coerced using \code{\link{check_ants}}}
 
 \item{interpolator}{what type of interpolation should be
 done}
+
+\item{copy_origin}{Copy image origin from \code{target}, 
+using \code{\link{antsCopyOrigin}}}
 
 \item{...}{additional arguments to pass to 
 \code{\link{resampleImageToTarget}}}

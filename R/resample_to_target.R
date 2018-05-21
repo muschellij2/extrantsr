@@ -16,6 +16,8 @@
 #'  Will be coerced using \code{\link{check_ants}}
 #' @param interpolator what type of interpolation should be
 #' done
+#' @param copy_origin Copy image origin from \code{target}, 
+#' using \code{\link{antsCopyOrigin}}
 #' @param ... additional arguments to pass to 
 #' \code{\link{resampleImageToTarget}}
 #' 
@@ -30,7 +32,7 @@
 #' x2 = resample_to_target(x, res)
 #' pixdim(x2)[2:4]
 #' stopifnot(all(pixdim(x2)[2:4] == new_pixdim))
-#' @importFrom ANTsRCore resampleImage
+#' @importFrom ANTsRCore resampleImage 
 setGeneric("resample_to_target", function(
   img, 
   target, 
@@ -45,6 +47,7 @@ setGeneric("resample_to_target", function(
     "hammingWindowedSinc",
     "lanczosWindowedSinc", 
     "genericLabel"), 
+  copy_origin = TRUE,
   ...
 ){
   standardGeneric("resample_to_target")
@@ -71,6 +74,7 @@ setMethod(
       "hammingWindowedSinc",
       "lanczosWindowedSinc", 
       "genericLabel"), 
+    copy_origin = TRUE,
     ...) { 
     
     img = antsImageRead(img)
@@ -103,6 +107,7 @@ setMethod(
       "hammingWindowedSinc",
       "lanczosWindowedSinc", 
       "genericLabel"), 
+    copy_origin = TRUE,
     ...) { 
     tmp_img = oro2ants(img)
     rm(list = "img"); gc()
@@ -135,7 +140,9 @@ setMethod(
       "welchWindowedSinc",
       "hammingWindowedSinc",
       "lanczosWindowedSinc", 
-      "genericLabel"), ...) { 
+      "genericLabel"), 
+    copy_origin = TRUE,
+    ...) { 
     
     newimg = .resample_to_target(
       img = img, 
@@ -162,9 +169,14 @@ setMethod(
     "hammingWindowedSinc",
     "lanczosWindowedSinc", 
     "genericLabel"), 
+  copy_origin = TRUE,
   ...) {
   
   target = check_ants(target)
+  
+  if (copy_origin) {
+    img = antsCopyOrigin(target = img, reference = target)
+  }
   
   interpolator = match.arg(interpolator)
   interpType = interpolator
