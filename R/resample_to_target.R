@@ -82,6 +82,7 @@ setMethod(
       img = img, 
       target = target,
       interpolator = interpolator,
+      copy_origin = copy_origin,
       ...)
     newimg = ants2oro(res)
     return(newimg)
@@ -115,6 +116,7 @@ setMethod(
       img = tmp_img, 
       target = target,
       interpolator = interpolator,
+      copy_origin = copy_origin,
       ...)
     newimg = ants2oro(res)    
     rm(list = c("tmp_img", "res")); gc(); gc();
@@ -148,6 +150,7 @@ setMethod(
       img = img, 
       target = target,
       interpolator = interpolator,    
+      copy_origin = copy_origin,
       ...)
     return(newimg)
   })
