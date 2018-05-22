@@ -15,7 +15,8 @@
 #' @param ... arguments other than \code{spatial.info} passed to 
 #' \code{\link{getNeighborhoodInMask}}
 #'
-#' @return List similar to the output of \code{\link{getNeighborhoodInMask}}
+#' @return List similar to the output of 
+#' \code{\link{getNeighborhoodInMask}}
 #' @export
 #' @importFrom ANTsRCore antsCopyImageInfo getNeighborhoodInMask
 #' @importFrom oro.nifti voxdim
@@ -101,8 +102,9 @@ neighborhood = function(img,
     ggrads$gradients = ggrads$gradients[, order_ind]
     grads$gradients = ggrads$gradients
   }
+  grads$mask = mask
   if (run_gc) {
-    rm(list = c("img", "mask")); gc(); gc(); gc();
+    rm(list = c("img")); gc(); gc(); gc();
     rm(list = c("dots")); gc(); gc(); gc();
     for (i in 1:10) {
       gc()

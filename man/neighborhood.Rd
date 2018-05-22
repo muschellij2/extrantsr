@@ -29,7 +29,8 @@ should be returned in addition to the value matrix}
 \code{\link{getNeighborhoodInMask}}}
 }
 \value{
-List similar to the output of \code{\link{getNeighborhoodInMask}}
+List similar to the output of 
+\code{\link{getNeighborhoodInMask}}
 }
 \description{
 This function wraps the \code{\link{getNeighborhoodInMask}} to
