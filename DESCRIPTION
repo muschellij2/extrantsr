@@ -8,7 +8,7 @@ Description: Extends the ANTsR package with simple wrappers and complex
         processing streams for neuroimaging data.
 License: GPL-3 | file LICENSE
 Imports: methods, stats, grDevices, graphics, utils, oro.nifti, ANTsR
-        (>= 0.6), ANTsRCore (>= 0.4.8), neurobase (>= 1.26.1), fslr (>=
+        (>= 0.4.1.0), ANTsRCore (>= 0.4.8), neurobase (>= 1.26.1), fslr (>=
         2.17.1), WhiteStripe, matrixStats, R.matlab, abind, R.utils,
         neuroim, plyr, RNifti, stapler
 BugReports: https://github.com/muschellij2/extrantsr/issues
