@@ -26,6 +26,7 @@ This is a thin wrapper for \code{\link{antsApplyTransforms}} but
 is specifically for composing a transform and getting a file out.
 }
 \examples{
+library(ANTsR)
 fixed <- antsImageRead( getANTsRData("r16") ,2)
 moving <- antsImageRead( getANTsRData("r64") ,2)
 fixed <- resampleImage(fixed,c(64,64),1,0)

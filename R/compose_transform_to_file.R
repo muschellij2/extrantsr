@@ -14,6 +14,7 @@
 #' @export
 #'
 #' @examples
+#' library(ANTsR)
 #' fixed <- antsImageRead( getANTsRData("r16") ,2)
 #' moving <- antsImageRead( getANTsRData("r64") ,2)
 #' fixed <- resampleImage(fixed,c(64,64),1,0)
