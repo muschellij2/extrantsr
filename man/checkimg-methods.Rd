@@ -6,7 +6,7 @@
 \alias{checkimg,antsImage-method}
 \title{Force object to filename}
 \usage{
-\S4method{checkimg}{antsImage}(file, ...)
+\S4method{checkimg}{antsImage}(file, allow_array, ...)
 }
 \arguments{
 \item{file}{character or \code{nifti} object}
