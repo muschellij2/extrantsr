@@ -39,6 +39,9 @@ compose_transform_to_file = function(
     output_prefix = tempfile()
   }
   
+  fixed = antsImageClone(fixed)
+  moving = antsImageClone(moving)
+  
   result = antsApplyTransforms(
     fixed = fixed,
     moving = moving,
