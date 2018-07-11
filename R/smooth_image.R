@@ -25,8 +25,7 @@
 #' s.img = smooth_image(img, sigmaInPhysicalCoordinates = TRUE)
 #' })
 #' @export
-#' @importFrom ANTsR maskImage
-#' @importFrom ANTsRCore smoothImage
+#' @importFrom ANTsRCore smoothImage maskImage
 smooth_image <- function(
   file,
   sigma=10, 
@@ -40,7 +39,7 @@ smooth_image <- function(
   file = check_ants(file)
   if (!is.null(mask) ) {
     mask = check_ants(mask)
-    file = ANTsR::maskImage(img.in = file, img.mask = mask)
+    file = maskImage(img.in = file, img.mask = mask)
   }
   
   sm_file = ANTsRCore::smoothImage(inimg = file, sigma = sigma, ...)
@@ -56,7 +55,7 @@ smooth_image <- function(
     sm_file = sm_file / sm_mask
     rm( list = "sm_mask"); gc(); gc();
     # remask
-    sm_file = ANTsR::maskImage(img.in = sm_file, img.mask = mask)
+    sm_file = maskImage(img.in = sm_file, img.mask = mask)
     rm( list = "mask"); gc(); gc();
   }
   if (retfile) {
