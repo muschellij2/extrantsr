@@ -23,6 +23,15 @@
 #' @param a Option for x domain in \code{\link{fslswapdim}}
 #' @param b Option for y domain in \code{\link{fslswapdim}}
 #' @param c Option for z domain in \code{\link{fslswapdim}}
+#' @param reproducible Sets the seed and 
+#' \code{Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = 1)}.
+#'  See
+#' \url{https://github.com/ANTsX/ANTs/wiki/antsRegistration-reproducibility-issues}
+#' for discussion.
+#' @param seed will execute 
+#' \code{Sys.setenv(ANTS_RANDOM_SEED = seed)} before
+#' running to attempt a more reproducible result.   If \code{NULL}, will not set anything, 
+#' but \code{reproducible} must be \code{FALSE}.   
 #' @param ... arguments to \code{\link{fslswapdim}}
 #' @export
 #' @importFrom fslr fsldir fslswapdim fslmask
@@ -45,7 +54,9 @@ reg_flip <- function(t1,
                      mask = NULL,
                      mask.outfile = NULL,
                      verbose = TRUE,
-                     a = "-x", b = "y", c = "z",                   
+                     a = "-x", b = "y", c = "z",
+                     reproducible = TRUE,
+                     seed = 1,                     
                      ...
 ){
   
@@ -192,7 +203,9 @@ reg_flip <- function(t1,
                     remove.warp = TRUE,
                     other.files = other.files,
                     other.outfiles = other.temp,
-                    verbose = verbose)
+                    verbose = verbose,
+                    reproducible = reproducible,
+                    seed = seed)
       t1 = check_nifti(outfile)
       if (!nullmask){
         mask = other.temp[length(other.temp)]

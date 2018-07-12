@@ -29,7 +29,7 @@ and then reset after}
 
 \item{verbose}{Print out diagnostic messages}
 
-\item{...}{not used}
+\item{...}{Additional arguments passed to \code{\link{ants_regwrite}}}
 }
 \value{
 Object of class nifti or vector of indices

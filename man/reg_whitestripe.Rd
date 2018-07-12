@@ -11,7 +11,8 @@ reg_whitestripe(t1 = NULL, t2 = NULL, register = TRUE, native = TRUE,
   interpolator = "LanczosWindowedSinc", type = c("T1", "T2", "hybrid"),
   t1.outfile = NULL, t2.outfile = NULL, other.files = NULL,
   other.outfiles = NULL, ws.outfile = NULL, mask = NULL,
-  mask.outfile = NULL, verbose = TRUE, ...)
+  mask.outfile = NULL, verbose = TRUE, reproducible = TRUE, seed = 1,
+  ...)
 }
 \arguments{
 \item{t1}{filename (or nifti objects) of T1 image}
@@ -52,6 +53,17 @@ whitestripe mask.}
 brain mask.}
 
 \item{verbose}{Print Diagnostic Messages}
+
+\item{reproducible}{Sets the seed and 
+\code{Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = 1)}.
+ See
+\url{https://github.com/ANTsX/ANTs/wiki/antsRegistration-reproducibility-issues}
+for discussion.}
+
+\item{seed}{will execute 
+\code{Sys.setenv(ANTS_RANDOM_SEED = seed)} before
+running to attempt a more reproducible result.   If \code{NULL}, will not set anything, 
+but \code{reproducible} must be \code{FALSE}.}
 
 \item{...}{arguments to \code{\link{whitestripe}} or 
 \code{\link{whitestripe_hybrid}}}

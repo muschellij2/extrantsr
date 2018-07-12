@@ -50,12 +50,12 @@ within_visit_registration <- function(fixed, # filename of T1 image
       fixed = bias_correct(file = fixed, correction = correction)
     }
   }
-  f.img = checkimg(fixed, ...)
+  f.img = checkimg(fixed)
   L = vector(mode = "list", length = n.moving)
   names(L) = names(moving)
   
   for (iimg in seq(n.moving)) {
-    m.img = checkimg(moving[iimg], ...)
+    m.img = checkimg(moving[iimg])
     ll = registration(filename = m.img, 
                   template.file = f.img, 
                   typeofTransform = typeofTransform,

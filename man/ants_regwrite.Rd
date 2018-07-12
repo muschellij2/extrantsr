@@ -11,7 +11,7 @@ ants_regwrite(filename, skull_strip = FALSE, correct = FALSE,
   other.files = NULL, other.outfiles = NULL, native.cereb = FALSE,
   native.fname = NULL, atlas.file = NULL, typeofTransform = "SyN",
   remove.warp = TRUE, outprefix = NULL, bet.opts = "-B -f 0.1 -v",
-  betcmd = "bet", verbose = TRUE, ...)
+  betcmd = "bet", verbose = TRUE, reproducible = TRUE, seed = 1, ...)
 }
 \arguments{
 \item{filename}{filename of T1 image}
@@ -58,6 +58,17 @@ Required if \code{remove.warp = FALSE}}
 \item{betcmd}{BET command used, passed to \code{\link{fslbet}}}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{reproducible}{Sets the seed and 
+\code{Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = 1)}.
+ See
+\url{https://github.com/ANTsX/ANTs/wiki/antsRegistration-reproducibility-issues}
+for discussion.}
+
+\item{seed}{will execute 
+\code{Sys.setenv(ANTS_RANDOM_SEED = seed)} before
+running to attempt a more reproducible result.   If \code{NULL}, will not set anything, 
+but \code{reproducible} must be \code{FALSE}.}
 
 \item{...}{arguments to \code{\link{antsRegistration}}}
 }

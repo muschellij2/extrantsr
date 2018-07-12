@@ -25,6 +25,16 @@
 #' Required if \code{remove.warp = FALSE}
 #' @param bet.opts Options passed to \code{\link{fslbet}}
 #' @param betcmd BET command used, passed to \code{\link{fslbet}}
+#' @param reproducible Sets the seed and 
+#' \code{Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = 1)}.
+#'  See
+#' \url{https://github.com/ANTsX/ANTs/wiki/antsRegistration-reproducibility-issues}
+#' for discussion.
+#' @param seed will execute 
+#' \code{Sys.setenv(ANTS_RANDOM_SEED = seed)} before
+#' running to attempt a more reproducible result.   If \code{NULL}, will not set anything, 
+#' but \code{reproducible} must be \code{FALSE}.    
+#'  
 #' @param ... arguments to \code{\link{whitestripe}}
 #' @export
 #' @return NULL or object of class nifti for transformed T1 image
@@ -50,8 +60,23 @@ oasis <- function(
   outprefix = NULL,
   bet.opts = "-B -f 0.1 -v",
   betcmd = "bet",
+  reproducible = TRUE,
+  seed = 1,      
   ... # arguments to \code{\link{antsApplyTransforms}} 
 ){
+  
+  if (reproducible) {
+    if (is.null(seed)) {
+      stop("For reproducible = TRUE, you must set a seed!")
+    }
+    Sys.setenv(ANTS_RANDOM_SEED = seed)    
+    itk_threads = Sys.getenv("ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS")
+    Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = 1)
+    on.exit({
+      Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = itk_threads)
+    })
+  } 
+  
   #### setup files
   writeFile = FALSE
   if (retimg){

@@ -13,8 +13,10 @@
 #' @param robust Should See \code{\link{robust_window}} be used on the image
 #' @param native Should a native-space image (default) or template-space image
 #' be returned
+#' @param probs quantiles to constrain the image these define the window sent 
+#' to \code{robust_window}
 #' @param verbose Print diagnostic output
-#' @param ... Options passed to \code{\link{robust_window}}.  
+#' @param ... Options passed to \code{\link{ants_regwrite}}.  
 #'
 #' @return Object of class \code{nifti}
 #' @export
@@ -26,6 +28,7 @@ zscore_template <- function(img,
                              typeofTransform = "SyN",
                              interpolator = "Linear",
                              robust = TRUE,
+                            probs = c(0, 0.999),
                              native = TRUE,
                              verbose = TRUE,
                              ...
@@ -45,7 +48,8 @@ zscore_template <- function(img,
                          interpolator = interpolator,
                          remove.warp = FALSE,
                          outprefix = outprefix,
-                         verbose = verbose)
+                         verbose = verbose,
+                         ...)
 
   #############################
   # Image in template space

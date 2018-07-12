@@ -4,7 +4,8 @@
 \alias{diff_self}
 \title{Flipped Difference Image}
 \usage{
-diff_self(img, swapdim = TRUE, verbose = TRUE)
+diff_self(img, swapdim = TRUE, verbose = TRUE, reproducible = TRUE,
+  seed = 1)
 }
 \arguments{
 \item{img}{Object of class \code{nifti}, \code{ANTsR}, or \code{character}}
@@ -13,6 +14,17 @@ diff_self(img, swapdim = TRUE, verbose = TRUE)
 then changed back?}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{reproducible}{Sets the seed and 
+\code{Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = 1)}.
+ See
+\url{https://github.com/ANTsX/ANTs/wiki/antsRegistration-reproducibility-issues}
+for discussion.}
+
+\item{seed}{will execute 
+\code{Sys.setenv(ANTS_RANDOM_SEED = seed)} before
+running to attempt a more reproducible result.   If \code{NULL}, will not set anything, 
+but \code{reproducible} must be \code{FALSE}.}
 }
 \value{
 Object of class \code{nifti}

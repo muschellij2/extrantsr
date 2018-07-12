@@ -6,7 +6,7 @@
 \usage{
 zscore_template(img, template.file, mean.img, sd.img, outfile = NULL,
   typeofTransform = "SyN", interpolator = "Linear", robust = TRUE,
-  native = TRUE, verbose = TRUE, ...)
+  probs = c(0, 0.999), native = TRUE, verbose = TRUE, ...)
 }
 \arguments{
 \item{img}{Image to be z-scored}
@@ -27,12 +27,15 @@ template and vice versa}
 
 \item{robust}{Should See \code{\link{robust_window}} be used on the image}
 
+\item{probs}{quantiles to constrain the image these define the window sent 
+to \code{robust_window}}
+
 \item{native}{Should a native-space image (default) or template-space image
 be returned}
 
 \item{verbose}{Print diagnostic output}
 
-\item{...}{Options passed to \code{\link{robust_window}}.}
+\item{...}{Options passed to \code{\link{ants_regwrite}}.}
 }
 \value{
 Object of class \code{nifti}

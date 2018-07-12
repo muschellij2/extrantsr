@@ -11,7 +11,7 @@ reg_flip_img(t1, register = TRUE, native = TRUE,
   interpolator = "LanczosWindowedSinc", t1.outfile = NULL,
   other.files = NULL, other.outfiles = NULL, mask = NULL,
   mask.outfile = NULL, verbose = TRUE, flipx = FALSE, flipy = FALSE,
-  flipz = FALSE, ...)
+  flipz = FALSE, reproducible = TRUE, seed = 1, ...)
 }
 \arguments{
 \item{t1}{filename (or nifti objects) of T1 image}
@@ -49,6 +49,17 @@ brain mask.}
 \item{flipy}{Option for flipping y domain in \code{\link{flip_img}}}
 
 \item{flipz}{Option for flipping z domain in \code{\link{flip_img}}}
+
+\item{reproducible}{Sets the seed and 
+\code{Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = 1)}.
+ See
+\url{https://github.com/ANTsX/ANTs/wiki/antsRegistration-reproducibility-issues}
+for discussion.}
+
+\item{seed}{will execute 
+\code{Sys.setenv(ANTS_RANDOM_SEED = seed)} before
+running to attempt a more reproducible result.   If \code{NULL}, will not set anything, 
+but \code{reproducible} must be \code{FALSE}.}
 
 \item{...}{arguments to \code{\link{flip_img}}}
 }

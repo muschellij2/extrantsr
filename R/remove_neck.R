@@ -14,7 +14,7 @@
 #' @param swapdim Should the dimensions be swapped before registration,
 #' and then reset after
 #' @param verbose Print out diagnostic messages
-#' @param ... not used
+#' @param ... Additional arguments passed to \code{\link{ants_regwrite}}
 #' @export
 #' @return Object of class nifti or vector of indices
 #' @importFrom fslr fslbin rpi_orient reverse_rpi_orient
@@ -97,7 +97,8 @@ remove_neck <- function(file,
                 remove.warp = TRUE,
                 # added 2017May04
                 interpolator = "nearestNeighbor",
-                verbose = verbose)
+                verbose = verbose,
+                ...)
 
   if (verbose) {
     message("# Reading in Transformed data\n")
@@ -153,6 +154,7 @@ remove_neck <- function(file,
 #' and then reset after
 #' @param verbose Print out diagnostic messages
 #' @param ret_mask Should the mask be returned vs. the image?
+#' @param ... Additional arguments passed to \code{\link{remove_neck}}
 #' @export
 #' @return Object of class nifti
 double_remove_neck = function(
@@ -163,7 +165,8 @@ double_remove_neck = function(
   rep.value = 0,
   swapdim = TRUE,
   verbose = TRUE,
-  ret_mask = FALSE) {
+  ret_mask = FALSE,
+  ...) {
 
   ########################
   # removing neck once
@@ -176,7 +179,8 @@ double_remove_neck = function(
     rep.value = rep.value,
     swapdim = swapdim,
     verbose = verbose,
-    ret_mask = ret_mask)
+    ret_mask = ret_mask, 
+    ...)
 
   if (ret_mask) {
     file = check_nifti(file)
@@ -193,6 +197,7 @@ double_remove_neck = function(
     rep.value = rep.value,
     swapdim = swapdim,
     verbose = verbose,
-    ret_mask = ret_mask)
+    ret_mask = ret_mask,
+    ...)
   return(noneck2)
 }

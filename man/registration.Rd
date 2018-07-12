@@ -13,7 +13,8 @@ registration(filename, skull_strip = FALSE, correct = FALSE,
   invert_interpolator = interpolator, invert.native.fname = NULL,
   invert.file = NULL, typeofTransform = "SyN", remove.warp = FALSE,
   outprefix = NULL, bet.opts = "-B -f 0.1 -v", betcmd = "bet",
-  copy_origin = TRUE, verbose = TRUE, force_registration = TRUE, ...)
+  copy_origin = TRUE, verbose = TRUE, reproducible = TRUE, seed = 1,
+  force_registration = TRUE, ...)
 }
 \arguments{
 \item{filename}{filename of image to be registered}
@@ -69,6 +70,17 @@ Required if \code{remove.warp = FALSE}}
 \item{copy_origin}{Copy image origin from t1, using \code{\link{antsCopyOrigin}}}
 
 \item{verbose}{Print diagnostic messages}
+
+\item{reproducible}{Sets the seed and 
+\code{Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = 1)}.
+ See
+\url{https://github.com/ANTsX/ANTs/wiki/antsRegistration-reproducibility-issues}
+for discussion.}
+
+\item{seed}{will execute 
+\code{Sys.setenv(ANTS_RANDOM_SEED = seed)} before
+running to attempt a more reproducible result.   If \code{NULL}, will not set anything, 
+but \code{reproducible} must be \code{FALSE}.}
 
 \item{force_registration}{If \code{TRUE}, then registration will 
 be run even if transforms exist.}

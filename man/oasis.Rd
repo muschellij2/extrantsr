@@ -10,7 +10,8 @@ oasis(filename, skull_strip = TRUE, skull_stripfile = NULL,
   "data", "standard", "MNI152_T1_1mm_brain.nii.gz"),
   interpolator = "LanczosWindowedSinc", other.files = NULL,
   other.outfiles = NULL, typeofTransform = "Rigid", remove.warp = TRUE,
-  outprefix = NULL, bet.opts = "-B -f 0.1 -v", betcmd = "bet", ...)
+  outprefix = NULL, bet.opts = "-B -f 0.1 -v", betcmd = "bet",
+  reproducible = TRUE, seed = 1, ...)
 }
 \arguments{
 \item{filename}{filename of T1 image}
@@ -52,6 +53,17 @@ Required if \code{remove.warp = FALSE}}
 \item{bet.opts}{Options passed to \code{\link{fslbet}}}
 
 \item{betcmd}{BET command used, passed to \code{\link{fslbet}}}
+
+\item{reproducible}{Sets the seed and 
+\code{Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = 1)}.
+ See
+\url{https://github.com/ANTsX/ANTs/wiki/antsRegistration-reproducibility-issues}
+for discussion.}
+
+\item{seed}{will execute 
+\code{Sys.setenv(ANTS_RANDOM_SEED = seed)} before
+running to attempt a more reproducible result.   If \code{NULL}, will not set anything, 
+but \code{reproducible} must be \code{FALSE}.}
 
 \item{...}{arguments to \code{\link{whitestripe}}}
 }

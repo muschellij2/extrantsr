@@ -10,7 +10,8 @@ reg_zscore(t1, register = TRUE, native = TRUE,
   typeofTransform = c("Rigid", "Affine"),
   interpolator = "LanczosWindowedSinc", t1.outfile = NULL,
   other.files = NULL, other.outfiles = NULL, mask = NULL,
-  mask.outfile = NULL, verbose = TRUE, ...)
+  mask.outfile = NULL, verbose = TRUE, reproducible = TRUE, seed = 1,
+  ...)
 }
 \arguments{
 \item{t1}{filename (or nifti objects) of T1 image}
@@ -42,6 +43,17 @@ normalized files.}
 brain mask.}
 
 \item{verbose}{Print Diagnostic Messages}
+
+\item{reproducible}{Sets the seed and 
+\code{Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = 1)}.
+ See
+\url{https://github.com/ANTsX/ANTs/wiki/antsRegistration-reproducibility-issues}
+for discussion.}
+
+\item{seed}{will execute 
+\code{Sys.setenv(ANTS_RANDOM_SEED = seed)} before
+running to attempt a more reproducible result.   If \code{NULL}, will not set anything, 
+but \code{reproducible} must be \code{FALSE}.}
 
 \item{...}{arguments to \code{\link{zscore_img}}}
 }
