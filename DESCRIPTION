@@ -1,11 +1,11 @@
 Package: extrantsr
 Type: Package
-Title: Extra Functions to Build on the ANTsR Package
+Title: Extra Functions to Build on the 'ANTsR' Package
 Version: 3.9.0.9000
 Author: John Muschelli
 Maintainer: John Muschelli <muschellij2@gmail.com>
-Description: Extends the ANTsR package with simple wrappers and complex
-        processing streams for neuroimaging data.
+Description: Extends the 'ANTsR' package with simple wrappers and complex
+        processing streams for 'neuroimaging' data.
 License: GPL-3 | file LICENSE
 Imports: methods, stats, grDevices, graphics, utils, oro.nifti, ANTsR
         (>= 0.4.1.0), ANTsRCore (>= 0.4.8), neurobase (>= 1.26.1), fslr (>=
