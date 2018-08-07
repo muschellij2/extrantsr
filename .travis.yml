@@ -30,7 +30,7 @@ before_install:
   - install_missing_remote_deps stnava/ITKR
   - install_missing_remote_deps ${ants_user}/ANTsRCore ${ants_user}/ANTsR
   - echo "Done Installing Missing Deps"
-  - gh_binary_install ${ants_user}/ITKR
+  - gh_binary_install stnava/ITKR
   - gh_binary_install ${ants_user}/ANTsRCore
   - gh_binary_install ${ants_user}/ANTsR  
   - cat DESCRIPTION
