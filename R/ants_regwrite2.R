@@ -136,6 +136,8 @@ registration <- function(
   if (is.null(outprefix)) {
     outprefix = tempfile()
   }
+  dir.create(dirname(outprefix), showWarnings = FALSE,
+             recursive = TRUE)
   # }
   
   if (ANTsRCore::is.antsImage(filename)) {

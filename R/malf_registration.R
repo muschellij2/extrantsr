@@ -60,6 +60,8 @@ malf_registration <- function(
   if (is.null(outprefix)) {
     outprefix = tempfile()
   }  
+  dir.create(dirname(outprefix), showWarnings = FALSE,
+             recursive = TRUE)
   for (iimg in seq_along(template.images)) {
     timage = template.images[[iimg]]
     tstruct = template.structs[[iimg]]
