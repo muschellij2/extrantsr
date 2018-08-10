@@ -6,7 +6,8 @@
 \alias{emptyImageDimensionsMask,antsImage-method}
 \title{Make Mask from Empty Image Dimensions}
 \usage{
-\S4method{emptyImageDimensionsMask}{antsImage}(img, ..., reorient = FALSE)
+\S4method{emptyImageDimensionsMask}{antsImage}(img, ...,
+  reorient = FALSE)
 }
 \arguments{
 \item{img}{nifti object}

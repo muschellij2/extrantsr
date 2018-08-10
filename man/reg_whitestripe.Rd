@@ -4,15 +4,15 @@
 \alias{reg_whitestripe}
 \title{WhiteStripe Normalization}
 \usage{
-reg_whitestripe(t1 = NULL, t2 = NULL, register = TRUE, native = TRUE,
-  template.file = file.path(fsldir(), "data", "standard",
-  paste0("MNI152_T1_1mm", ifelse(is.null(mask), "", "_brain"), ".nii.gz")),
-  typeofTransform = c("Rigid", "Affine"),
+reg_whitestripe(t1 = NULL, t2 = NULL, register = TRUE,
+  native = TRUE, template.file = file.path(fsldir(), "data",
+  "standard", paste0("MNI152_T1_1mm", ifelse(is.null(mask), "", "_brain"),
+  ".nii.gz")), typeofTransform = c("Rigid", "Affine"),
   interpolator = "LanczosWindowedSinc", type = c("T1", "T2", "hybrid"),
   t1.outfile = NULL, t2.outfile = NULL, other.files = NULL,
   other.outfiles = NULL, ws.outfile = NULL, mask = NULL,
-  mask.outfile = NULL, verbose = TRUE, reproducible = TRUE, seed = 1,
-  ...)
+  mask.outfile = NULL, verbose = TRUE, reproducible = TRUE,
+  seed = 1, ...)
 }
 \arguments{
 \item{t1}{filename (or nifti objects) of T1 image}

@@ -5,10 +5,11 @@
 \title{Multi-Atlas Label Fusion}
 \usage{
 malf(infile, template.images, template.structs, inverted = FALSE,
-  keep_images = FALSE, outfiles = NULL, outfile = NULL, retimg = TRUE,
-  func = "mode", ties.method = "first", keep_regs = FALSE,
-  outprefix = NULL, interpolator = "NearestNeighbor",
-  typeofTransform = "SyN", verbose = TRUE, ...)
+  keep_images = FALSE, outfiles = NULL, outfile = NULL,
+  retimg = TRUE, func = "mode", ties.method = "first",
+  keep_regs = FALSE, outprefix = NULL,
+  interpolator = "NearestNeighbor", typeofTransform = "SyN",
+  verbose = TRUE, ...)
 }
 \arguments{
 \item{infile}{Input Image file}

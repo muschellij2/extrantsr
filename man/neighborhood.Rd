@@ -4,8 +4,8 @@
 \alias{neighborhood}
 \title{Get Neighborhood of Voxels from an Image}
 \usage{
-neighborhood(img, mask = NULL, radius = rep(1, 3), get.gradient = TRUE,
-  verbose = TRUE, run_gc = TRUE, ...)
+neighborhood(img, mask = NULL, radius = rep(1, 3),
+  get.gradient = TRUE, verbose = TRUE, run_gc = TRUE, ...)
 }
 \arguments{
 \item{img}{Object of class \code{\link{nifti}}, character or \code{antsImage}}

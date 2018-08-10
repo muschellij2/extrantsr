@@ -15,12 +15,14 @@ apply_multi_reg(infiles, transformlist, fixed, ...)
 
 \S4method{apply_multi_reg}{list,list}(infiles, transformlist, fixed, ...)
 
-\S4method{apply_multi_reg}{character,list}(infiles, transformlist, fixed, ...)
-
-\S4method{apply_multi_reg}{antsImage,character}(infiles, transformlist, fixed,
+\S4method{apply_multi_reg}{character,list}(infiles, transformlist, fixed,
   ...)
 
-\S4method{apply_multi_reg}{nifti,character}(infiles, transformlist, fixed, ...)
+\S4method{apply_multi_reg}{antsImage,character}(infiles, transformlist,
+  fixed, ...)
+
+\S4method{apply_multi_reg}{nifti,character}(infiles, transformlist, fixed,
+  ...)
 }
 \arguments{
 \item{infiles}{Input image files}

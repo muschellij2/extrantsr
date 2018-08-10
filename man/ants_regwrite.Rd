@@ -11,7 +11,8 @@ ants_regwrite(filename, skull_strip = FALSE, correct = FALSE,
   other.files = NULL, other.outfiles = NULL, native.cereb = FALSE,
   native.fname = NULL, atlas.file = NULL, typeofTransform = "SyN",
   remove.warp = TRUE, outprefix = NULL, bet.opts = "-B -f 0.1 -v",
-  betcmd = "bet", verbose = TRUE, reproducible = TRUE, seed = 1, ...)
+  betcmd = "bet", verbose = TRUE, reproducible = TRUE, seed = 1,
+  ...)
 }
 \arguments{
 \item{filename}{filename of T1 image}

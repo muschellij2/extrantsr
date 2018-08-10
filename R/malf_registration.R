@@ -22,6 +22,8 @@
 #' \code{keep_regs = TRUE}
 #' @param verbose Print diagnostic output
 #' @param ... Arguments to be passed to \code{\link{registration}}
+#' @param rerun_registration Should \code{\link{malf}} be run again
+#' if transforms already exist?
 #' @export
 #' @return List of registrations and
 #' output files
@@ -35,8 +37,10 @@ malf_registration <- function(
   outfiles = NULL,
   outprefix = NULL,
   verbose = TRUE,
+  rerun_registration = TRUE,
   ...){
   
+  dot_args = list(...)
   template.images = checkimg(template.images)
   template.structs = checkimg(template.structs)
   
@@ -67,36 +71,65 @@ malf_registration <- function(
     tstruct = template.structs[[iimg]]
     ofile = outfiles[[iimg]]
     i_outprefix = paste0(outprefix, "_", iimg, "_")
-    if (!inverted) {
-      reg = registration(
-        filename = timage, 
-        template.file = infile,
-        outfile = tempfile(fileext = ".nii.gz"),
+    
+    #########################################
+    # Workup for Rerun
+    #########################################    
+    reg = transformlist_from_outprefix(outprefix = i_outprefix)
+    if (all(file.exists(reg$fwdtransforms)) && !rerun_registration) {
+      args = list(
         typeofTransform = typeofTransform,
         interpolator = interpolator,
-        retimg = FALSE,
-        other.files = tstruct,
-        other.outfiles = ofile,
-        outprefix = i_outprefix,
-        remove.warp = FALSE,
-        verbose = verbose > 1,
-        ...)
+        transformlist = reg$fwdtransforms,
+        ret_ants = TRUE)
+      if (!inverted) {
+        args$moving = tstruct
+        args$fixed = infile
+      } else {
+        args$fixed = tstruct
+        args$moving = infile
+      }
+      img = do.call(ants_apply_transforms, args = args)
+      antsImageWrite(img, filename = ofile)
+      reg$outfile = ofile
+      reg$interpolator = args$interpolator
+      reg$typeofTransform = args$typeofTransform
+      reg$retimg = FALSE
+      reg$other_interpolator = dot_args$other_interpolator
+      reg$invert_interpolator = dot_args$invert_interpolator
+      
     } else {
-      reg = registration(
-        # switch template.file and filename
-        template.file = timage, 
-        filename = infile,
-        outfile = tempfile(fileext = ".nii.gz"),
-        typeofTransform = typeofTransform,
-        interpolator = interpolator,
-        retimg = FALSE,
-        # instead of using other.file and other.files
-        invert.file = tstruct,
-        invert.native.fname = ofile,
-        outprefix = i_outprefix,
-        remove.warp = FALSE,
-        verbose = verbose > 1,
-        ...)      
+      if (!inverted) {
+        reg = registration(
+          filename = timage, 
+          template.file = infile,
+          outfile = tempfile(fileext = ".nii.gz"),
+          typeofTransform = typeofTransform,
+          interpolator = interpolator,
+          retimg = FALSE,
+          other.files = tstruct,
+          other.outfiles = ofile,
+          outprefix = i_outprefix,
+          remove.warp = FALSE,
+          verbose = verbose > 1,
+          ...)
+      } else {
+        reg = registration(
+          # switch template.file and filename
+          template.file = timage, 
+          filename = infile,
+          outfile = tempfile(fileext = ".nii.gz"),
+          typeofTransform = typeofTransform,
+          interpolator = interpolator,
+          retimg = FALSE,
+          # instead of using other.file and other.files
+          invert.file = tstruct,
+          invert.native.fname = ofile,
+          outprefix = i_outprefix,
+          remove.warp = FALSE,
+          verbose = verbose > 1,
+          ...)      
+      }
     }
     # all.regs = c(all.regs, reg)
     all.regs[[iimg]] = reg

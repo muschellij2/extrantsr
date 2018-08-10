@@ -17,8 +17,8 @@ ants_apply_transforms(fixed, moving, transformlist, ...)
 \S4method{ants_apply_transforms}{ANY,list}(fixed, moving, transformlist,
   ret_ants = FALSE, ...)
 
-\S4method{ants_apply_transforms}{ANY,character}(fixed, moving, transformlist,
-  ret_ants = FALSE, ...)
+\S4method{ants_apply_transforms}{ANY,character}(fixed, moving,
+  transformlist, ret_ants = FALSE, ...)
 
 \S4method{ants_apply_transforms}{ANY,ANY}(fixed, moving, transformlist,
   ret_ants = FALSE, ...)

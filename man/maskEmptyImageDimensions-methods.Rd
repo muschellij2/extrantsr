@@ -6,8 +6,8 @@
 \alias{maskEmptyImageDimensions,nifti-method}
 \title{Apply Masking from Empty Image Dimensions}
 \usage{
-\S4method{maskEmptyImageDimensions}{antsImage}(img, inds, reorient = FALSE,
-  mask.value = 0, ...)
+\S4method{maskEmptyImageDimensions}{antsImage}(img, inds,
+  reorient = FALSE, mask.value = 0, ...)
 }
 \arguments{
 \item{img}{image, nifti object, or array}

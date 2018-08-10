@@ -4,10 +4,11 @@
 \alias{malf_registration}
 \title{Multi-Atlas Label Fusion Registration}
 \usage{
-malf_registration(infile, template.images, template.structs, inverted = FALSE,
-  typeofTransform = "SyN", interpolator = "NearestNeighbor",
-  keep_images = TRUE, outfiles = NULL, outprefix = NULL, verbose = TRUE,
-  ...)
+malf_registration(infile, template.images, template.structs,
+  inverted = FALSE, typeofTransform = "SyN",
+  interpolator = "NearestNeighbor", keep_images = TRUE,
+  outfiles = NULL, outprefix = NULL, verbose = TRUE,
+  rerun_registration = TRUE, ...)
 }
 \arguments{
 \item{infile}{Input Image file}
@@ -37,6 +38,9 @@ registration into \code{infile} space}
 \code{keep_regs = TRUE}}
 
 \item{verbose}{Print diagnostic output}
+
+\item{rerun_registration}{Should \code{\link{malf}} be run again
+if transforms already exist?}
 
 \item{...}{Arguments to be passed to \code{\link{registration}}}
 }

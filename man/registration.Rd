@@ -13,8 +13,8 @@ registration(filename, skull_strip = FALSE, correct = FALSE,
   invert_interpolator = interpolator, invert.native.fname = NULL,
   invert.file = NULL, typeofTransform = "SyN", remove.warp = FALSE,
   outprefix = NULL, bet.opts = "-B -f 0.1 -v", betcmd = "bet",
-  copy_origin = TRUE, verbose = TRUE, reproducible = TRUE, seed = 1,
-  force_registration = TRUE, ...)
+  copy_origin = TRUE, verbose = TRUE, reproducible = TRUE,
+  seed = 1, force_registration = TRUE, ...)
 }
 \arguments{
 \item{filename}{filename of image to be registered}

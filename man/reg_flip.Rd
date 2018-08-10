@@ -10,8 +10,8 @@ reg_flip(t1, register = TRUE, native = TRUE,
   typeofTransform = c("Rigid", "Affine"),
   interpolator = "LanczosWindowedSinc", t1.outfile = NULL,
   other.files = NULL, other.outfiles = NULL, mask = NULL,
-  mask.outfile = NULL, verbose = TRUE, a = "-x", b = "y", c = "z",
-  reproducible = TRUE, seed = 1, ...)
+  mask.outfile = NULL, verbose = TRUE, a = "-x", b = "y",
+  c = "z", reproducible = TRUE, seed = 1, ...)
 }
 \arguments{
 \item{t1}{filename (or nifti objects) of T1 image}

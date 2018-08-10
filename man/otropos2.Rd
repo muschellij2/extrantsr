@@ -4,8 +4,8 @@
 \alias{otropos2}
 \title{Run Atropos for nifti objects}
 \usage{
-otropos2(img, mask = NULL, smoothing_factor = 0.2, radius = c(1, 1, 1),
-  ...)
+otropos2(img, mask = NULL, smoothing_factor = 0.2, radius = c(1, 1,
+  1), ...)
 }
 \arguments{
 \item{img}{Images to segment.}
