@@ -90,7 +90,7 @@ malf_registration <- function(
         args$moving = infile
       }
       img = do.call(ants_apply_transforms, args = args)
-      antsImageWrite(img, filename = ofile)
+      write_nifti(img, filename = ofile)
       reg$outfile = ofile
       reg$interpolator = args$interpolator
       reg$typeofTransform = args$typeofTransform
