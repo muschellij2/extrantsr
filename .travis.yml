@@ -6,6 +6,13 @@ use_bioc: true
 bioc_required: true
 r: release
 
+os:
+  - linux
+  - osx
+
+env:
+  global: RGL_USE_NULL=TRUE
+
 r_check_args: "--as-cran --install-args=--build"
 
 before_install:
@@ -37,15 +44,8 @@ before_install:
   - cat DESCRIPTION
   - export PACKAGE_NAME=`package_name`
 
-env:
-  global: RGL_USE_NULL=TRUE
-
 after_success:
   - Rscript -e 'covr::coveralls(type = "all")'
-
-os:
-  - linux
-  - osx
 
 deploy:
   provider: releases
