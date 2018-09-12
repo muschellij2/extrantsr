@@ -11,6 +11,8 @@
 #'
 reorder_neigh_indices = function(indices,
   img.dim){
+  # Due to change in output
+  # https://github.com/ANTsX/ANTsR/commit/706148aa994d414c9efd76e9292ae99351e2c4be
   if (min(indices) == 0) {
     inds = indices + 1
   } else {

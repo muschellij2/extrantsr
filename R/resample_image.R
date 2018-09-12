@@ -121,7 +121,7 @@ setMethod(
   interpolator = c("nearestneighbor", "linear", 
                    "gaussian", "windowedsinc", 
                    "bspline")) {
-
+  interpolator = tolower(interpolator)
   parameter_type = match.arg(parameter_type)
   useVoxels = parameter_type == "voxels"
   
