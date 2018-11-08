@@ -34,8 +34,9 @@ remove_neck <- function(file,
   if (missing(template.file)) {
     message("Potential atlases are at\n ")
     message(paste0('system.file("scct_unsmooth.nii.gz", package="ichseg")\n'))
-    message(paste0('file.path( fsldir(), "data/standard", ',
+    message(paste0('file.path( fsldir(), "data", "standard", ',
                    '"MNI152_T1_1mm_brain.nii.gz")\n'))
+    message('MNITemplate::getMNIPath("Brain")\n')
     stop("Need template.file specified!")
   }
   template.file = checkimg(template.file)
