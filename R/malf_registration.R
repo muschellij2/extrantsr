@@ -75,7 +75,9 @@ malf_registration <- function(
     #########################################
     # Workup for Rerun
     #########################################    
-    reg = transformlist_from_outprefix(outprefix = i_outprefix)
+    reg = transformlist_from_outprefix(
+      outprefix = i_outprefix,
+      typeofTransform = typeofTransform)
     if (all(file.exists(reg$fwdtransforms)) && !rerun_registration) {
       args = list(
         typeofTransform = typeofTransform,
