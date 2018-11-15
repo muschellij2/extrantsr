@@ -7,6 +7,10 @@
 \usage{
 \S4method{check_ants}{nifti}(x)
 }
+\arguments{
+\item{x}{character path of image or 
+an object of class antsImage}
+}
 \value{
 antsImage object
 }

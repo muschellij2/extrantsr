@@ -2,7 +2,8 @@
 #' @description Simple check to see if input is character, list, \code{nifti},
 #' or class \code{antsImage}
 #' @return antsImage object
-#' 
+#' @param x character path of image or 
+#' an object of class antsImage
 #' @rdname check_ants-methods
 #' @aliases check_ants,nifti-method
 #' @importFrom ANTsRCore check_ants
