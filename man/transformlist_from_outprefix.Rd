@@ -4,11 +4,14 @@
 \alias{transformlist_from_outprefix}
 \title{Get list of transforms that would likely be made with a specific `outprefix`}
 \usage{
-transformlist_from_outprefix(outprefix, only_exists = FALSE)
+transformlist_from_outprefix(outprefix, typeofTransform = "SyN",
+  only_exists = FALSE)
 }
 \arguments{
 \item{outprefix}{If you used this in \code{\link{antsRegistration}}, then
 what would be the filenames of the transforms}
+
+\item{typeofTransform}{transformation to be used in registration}
 
 \item{only_exists}{if \code{TRUE}, only those that exists will be returned.}
 }
@@ -21,4 +24,8 @@ Get list of transforms that would likely be made with a specific `outprefix`
 \examples{
 outprefix = tempfile()
 transformlist_from_outprefix(outprefix)
+transformlist_from_outprefix(outprefix, typeofTransform = "Rigid")
+res = transformlist_from_outprefix(outprefix, typeofTransform = "Rigid",
+only_exists = TRUE)
+stopifnot(is.null(res))
 }
