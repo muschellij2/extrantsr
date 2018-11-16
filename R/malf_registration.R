@@ -13,7 +13,10 @@
 #' @param typeofTransform type of transformed used, passed to 
 #' \code{\link{antsRegistration}}  
 #' @param interpolator interpolation done for 
-#' \code{\link{antsApplyTransforms}}
+#' \code{\link{antsApplyTransforms}} for the structures
+#' @param image_interpolator interpolation done for 
+#' \code{\link{antsApplyTransforms}} for the images,
+#' rarely used
 #' @param keep_images Keep the \code{template.structs} in 
 #' \code{infile} space
 #' @param outfiles Output filenames for  \code{template.structs} in 
@@ -38,6 +41,7 @@ malf_registration <- function(
   outprefix = NULL,
   verbose = TRUE,
   rerun_registration = TRUE,
+  image_interpolator = "Linear",
   ...){
   
   dot_args = list(...)
@@ -81,6 +85,8 @@ malf_registration <- function(
     if (all(file.exists(reg$fwdtransforms)) && !rerun_registration) {
       args = list(
         typeofTransform = typeofTransform,
+        # interpolator is not used
+        # interpolator is only for the 
         interpolator = interpolator,
         transformlist = reg$fwdtransforms,
         ret_ants = TRUE)
@@ -97,8 +103,8 @@ malf_registration <- function(
       reg$interpolator = args$interpolator
       reg$typeofTransform = args$typeofTransform
       reg$retimg = FALSE
-      reg$other_interpolator = dot_args$other_interpolator
-      reg$invert_interpolator = dot_args$invert_interpolator
+      reg$other_interpolator = interpolator
+      reg$invert_interpolator = interpolator
       
     } else {
       if (!inverted) {
@@ -107,14 +113,18 @@ malf_registration <- function(
           template.file = infile,
           outfile = tempfile(fileext = ".nii.gz"),
           typeofTransform = typeofTransform,
-          interpolator = interpolator,
+          interpolator = image_interpolator,
           retimg = FALSE,
           other.files = tstruct,
           other.outfiles = ofile,
           outprefix = i_outprefix,
           remove.warp = FALSE,
           verbose = verbose > 1,
+          other_interpolator = interpolator,
+          invert_interpolator = interpolator,
           ...)
+        reg$interpolator = interpolator
+        reg$image_interpolator = image_interpolator
       } else {
         reg = registration(
           # switch template.file and filename
@@ -122,7 +132,7 @@ malf_registration <- function(
           filename = infile,
           outfile = tempfile(fileext = ".nii.gz"),
           typeofTransform = typeofTransform,
-          interpolator = interpolator,
+          interpolator = image_interpolator,
           retimg = FALSE,
           # instead of using other.file and other.files
           invert.file = tstruct,
@@ -130,7 +140,11 @@ malf_registration <- function(
           outprefix = i_outprefix,
           remove.warp = FALSE,
           verbose = verbose > 1,
-          ...)      
+          other_interpolator = interpolator,
+          invert_interpolator = interpolator,
+          ...)  
+        reg$interpolator = interpolator
+        reg$image_interpolator = image_interpolator        
       }
     }
     # all.regs = c(all.regs, reg)

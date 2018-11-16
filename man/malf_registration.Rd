@@ -8,7 +8,7 @@ malf_registration(infile, template.images, template.structs,
   inverted = FALSE, typeofTransform = "SyN",
   interpolator = "NearestNeighbor", keep_images = TRUE,
   outfiles = NULL, outprefix = NULL, verbose = TRUE,
-  rerun_registration = TRUE, ...)
+  rerun_registration = TRUE, image_interpolator = "Linear", ...)
 }
 \arguments{
 \item{infile}{Input Image file}
@@ -26,7 +26,7 @@ registration into \code{infile} space}
 \code{\link{antsRegistration}}}
 
 \item{interpolator}{interpolation done for 
-\code{\link{antsApplyTransforms}}}
+\code{\link{antsApplyTransforms}} for the structures}
 
 \item{keep_images}{Keep the \code{template.structs} in 
 \code{infile} space}
@@ -41,6 +41,10 @@ registration into \code{infile} space}
 
 \item{rerun_registration}{Should \code{\link{malf}} be run again
 if transforms already exist?}
+
+\item{image_interpolator}{interpolation done for 
+\code{\link{antsApplyTransforms}} for the images,
+rarely used}
 
 \item{...}{Arguments to be passed to \code{\link{registration}}}
 }
