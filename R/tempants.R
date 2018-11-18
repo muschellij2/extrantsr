@@ -6,6 +6,7 @@
 #' @param gzipped logical if the tempfile should be gzipped or not
 #' @export
 #' @return Character value of filename
+#' @importFrom neurobase tempimg
 tempants <- function(x, # object of class \code{antsImage}
                      gzipped = TRUE # logical if the tempfile should be gzipped or not
 ){
@@ -19,7 +20,9 @@ tempants <- function(x, # object of class \code{antsImage}
       antsImageWrite(x, tfile)
       rm( list = "x"); gc(); gc()
       return(tfile)
-    }  else {
+    } else if (inherits(x, "nifti")) {
+      tfile = tempimg(x, gzipped = gzipped)
+    } else {
       stop("x has unknown class - not char or nifti")
     }
   }
