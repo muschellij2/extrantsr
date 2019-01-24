@@ -93,7 +93,7 @@ registration <- function(
     itk_threads = Sys.getenv("ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS")
     Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = 1)
     on.exit({
-        Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = itk_threads)
+      Sys.setenv(ITK_GLOBAL_DEFAULT_NUMBER_OF_THREADS = itk_threads)
     })
   }
   outfile = check_outfile(outfile = outfile, retimg = retimg)
@@ -240,20 +240,20 @@ registration <- function(
     message("# Running Registration of file to template\n")
   }
   out_trans = c(Affine = "0GenericAffine.mat", 
-    fwd = "1Warp.nii.gz", inv = "1InverseWarp.nii.gz")
+                fwd = "1Warp.nii.gz", inv = "1InverseWarp.nii.gz")
   n_trans = names(out_trans)
   out_trans = paste0(
     outprefix, out_trans)
   names(out_trans) = n_trans
   
   if ( !all(file.exists(out_trans)) || force_registration) {
-  antsRegOut.nonlin <- ANTsRCore::antsRegistration(
-    fixed = template,
-    moving = t1N3,
-    typeofTransform = typeofTransform,
-    outprefix = outprefix,
-    verbose = verbose,
-    ...)
+    antsRegOut.nonlin <- ANTsRCore::antsRegistration(
+      fixed = template,
+      moving = t1N3,
+      typeofTransform = typeofTransform,
+      outprefix = outprefix,
+      verbose = verbose,
+      ...)
   } else {
     antsRegOut.nonlin = list(
       fwdtransforms = unname(out_trans[c("fwd", "Affine")]),
