@@ -20,7 +20,9 @@
 #' fixed <- resampleImage(fixed,c(64,64),1,0)
 #' moving <- resampleImage(moving,c(64,64),1,0)
 #' mytx <- antsRegistration(fixed=fixed , moving=moving ,
-#'                          typeofTransform = c("SyN") )
+#'                          typeofTransform = c("SyN"), 
+#'                          verbose = TRUE
+#'                           )
 #' composed <- compose_transform_to_file( 
 #' fixed=fixed, moving=moving, transformlist=mytx$fwdtransforms)
 compose_transform_to_file = function(

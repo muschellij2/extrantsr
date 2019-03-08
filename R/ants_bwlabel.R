@@ -14,6 +14,8 @@ ants_bwlabel = function(img, k = 1, binary = TRUE) {
     img,
     minClusterSize = 1,
     fullyConnected = TRUE)
+  # CHANGE WHEN 0 isnt' background anymore!!!
+  labs = labs - min(labs)
   tab = table(c(as.array(labs)))
   levs = names(tab[tab >= k])
   levs = as.numeric(levs)
