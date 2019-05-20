@@ -4,7 +4,6 @@
 \name{origin}
 \alias{origin}
 \alias{origin,antsImage-method}
-\alias{origin,nifti-method}
 \alias{origin<-}
 \alias{origin<-,antsImage-method}
 \alias{origin<-,anlz-method}
@@ -14,8 +13,6 @@ objects}
 origin(object)
 
 \S4method{origin}{antsImage}(object)
-
-\S4method{origin}{nifti}(object)
 
 origin(object) <- value
 

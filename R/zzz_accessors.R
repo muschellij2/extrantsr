@@ -17,12 +17,6 @@ setMethod("origin", "antsImage", function(object) {
   ANTsRCore::origin(object)
 })
 
-#' @rdname accessor-methods
-#' @export
-setMethod("origin", "nifti", function(object) { 
-  oro.nifti::origin(object)
-})
-
 
 #' @rdname accessor-methods
 #' @export
