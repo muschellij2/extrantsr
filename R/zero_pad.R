@@ -1,9 +1,9 @@
 #' @title Zero pads an image
 #' 
 #' @param img Array, class \code{\link{nifti}}, or 
-#' \code{\link{antsImage}}
+#' \code{antsImage}
 #' @param ... Options to \code{\link[neurobase]{zero_pad}}
-#' @return Object of class nifti, array, or \code{\link{antsImage}}
+#' @return Object of class nifti, array, or \code{antsImage}
 #' @export
 zero_pad = function(img, 
                     ...){

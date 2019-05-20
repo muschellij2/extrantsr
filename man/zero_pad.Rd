@@ -8,12 +8,12 @@ zero_pad(img, ...)
 }
 \arguments{
 \item{img}{Array, class \code{\link{nifti}}, or 
-\code{\link{antsImage}}}
+\code{antsImage}}
 
 \item{...}{Options to \code{\link[neurobase]{zero_pad}}}
 }
 \value{
-Object of class nifti, array, or \code{\link{antsImage}}
+Object of class nifti, array, or \code{antsImage}
 }
 \description{
 Zero pads an image
