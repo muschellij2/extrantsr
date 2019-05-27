@@ -209,6 +209,7 @@ stat_img = function(
       if (is.null(num_imgs)) {
         num_imgs = 1
       }
+      res_img = as.matrix(res_img)
       res_list = vector(mode = "list", length = num_imgs) 
       names(res_list) = colnames(res_img)
       for (icol in seq(num_imgs)) {
