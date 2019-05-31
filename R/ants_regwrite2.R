@@ -102,7 +102,13 @@ registration <- function(
   if (!is.null(other.files)) {
     have.other = TRUE
     other.files = checkimg(other.files)
-    other.outfiles = checkimg(other.outfiles)
+    if (!is.null(other.outfiles)) {
+      other.outfiles = checkimg(other.outfiles)
+    } else {
+      other.outfiles = sapply(other.outfiles, function(x) {
+        tempfile(fileext = ".nii.gz")
+      })
+    }
     
     lother = length(other.files)
     lout = length(other.outfiles)

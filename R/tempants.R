@@ -22,11 +22,12 @@ tempants <- function(x, # object of class \code{antsImage}
       return(tfile)
     } else if (inherits(x, "nifti")) {
       tfile = tempimg(x, gzipped = gzipped)
+      return(tfile)
     } else {
       stop("x has unknown class - not char or nifti")
     }
   }
-  return(FALSE)
+  return(tfile)
 }
 
 
