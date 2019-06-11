@@ -4,6 +4,8 @@
 \name{ortho2,antsImage-method}
 \alias{ortho2,antsImage-method}
 \alias{ortho2,antsImage,ANY,ANY-method}
+\alias{ortho2,niftiImage-method}
+\alias{ortho2,niftiImage,ANY,ANY-method}
 \title{Orthographic Display, added options}
 \usage{
 \S4method{ortho2}{antsImage}(x, y = NULL, xyz = NULL, w = 1,
@@ -17,6 +19,8 @@
   leg.y = 32, legend, leg.col, leg.title = NULL, leg.cex,
   window = NULL, ycolorbar = FALSE, clabels = TRUE, add = TRUE,
   pdim = NULL, useRaster = TRUE, mask = NULL, ...)
+
+\S4method{ortho2}{niftiImage}(x, y = NULL, ...., pdim = NULL, ...)
 }
 \arguments{
 \item{x}{is an object of class \code{antsImage} or similar.}
