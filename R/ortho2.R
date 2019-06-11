@@ -168,7 +168,7 @@ setMethod(
         pdim = c(pdim, rep(1, 4 - length(pdim)))
       }
     }
-    ortho2(x = x, y = y, 
+    neurobase::ortho2(x = x, y = y, 
            pdim = pdim, 
            ... = ...)
   }
