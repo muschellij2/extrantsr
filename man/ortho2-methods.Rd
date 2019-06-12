@@ -20,7 +20,17 @@
   window = NULL, ycolorbar = FALSE, clabels = TRUE, add = TRUE,
   pdim = NULL, useRaster = TRUE, mask = NULL, ...)
 
-\S4method{ortho2}{niftiImage}(x, y = NULL, ...., pdim = NULL, ...)
+\S4method{ortho2}{niftiImage}(x, y = NULL, xyz = NULL, w = 1,
+  col = gray(0:64/64), col.y = oro.nifti::hotmetal(), zlim = NULL,
+  zlim.y = NULL, NA.x = FALSE, NA.y = TRUE, crosshairs = TRUE,
+  col.crosshairs = "red", xlab = "", ylab = "", axes = FALSE,
+  oma = c(0, 0, 0, ifelse(ycolorbar, 5, 0)), mar = rep(0, 4),
+  bg = "black", text = NULL, text.color = "white", text.cex = 2,
+  text.x = 32, text.y = 32, add.orient = TRUE, mfrow = c(2, 2),
+  ybreaks = NULL, breaks = NULL, addlegend = FALSE, leg.x = 32,
+  leg.y = 32, legend, leg.col, leg.title = NULL, leg.cex,
+  window = NULL, ycolorbar = FALSE, clabels = TRUE, add = TRUE,
+  pdim = NULL, useRaster = is.null(y), mask = NULL, ...)
 }
 \arguments{
 \item{x}{is an object of class \code{antsImage} or similar.}

@@ -158,8 +158,7 @@ setMethod(
   c(x = "niftiImage", y = "ANY", pdim = "ANY"),
   function(
     x, y = NULL,
-    ....,
-    pdim = NULL,             
+    pdim = NULL,
     ...) {
     
     if (is.null(pdim)) {
