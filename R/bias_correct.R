@@ -81,7 +81,9 @@ bias_correct_ants = function(
     if (!is.null(mask)) {
       mask = check_ants(x = mask)
     } else {
-      mask = NA
+      # NULL/NA problem
+      xxx = formals(ANTsRCore::n4BiasFieldCorrection)
+      mask = xxx$mask
     }
     
     args = list(...)
