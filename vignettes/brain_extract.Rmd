@@ -41,10 +41,19 @@ We will use the `get_image_filenames_df` function to extract the filenames on ou
 
 ```{r data}
 library(kirby21.t1)
-download_t1_data()
 t1_fname = get_t1_filenames(
   ids = 113, 
   visits = 1)
+if (is.null(t1_fname)) {
+  dl = TRUE
+} else {
+  dl = !file.exists(t1_fname)
+}
+if (dl) {
+  url = paste0("https://raw.githubusercontent.com/muschellij2/kirby21.t1", "/master/inst/visit_1/113/113-01-T1.nii.gz")
+  t1_fname = tempfile(fileext = ".nii.gz")
+  download.file(url, t1_fname)
+}
 ```
 
 # T1 image
@@ -84,14 +93,15 @@ Here we will use FSL's Brain Extraction Tool (BET) to extract the brain tissue f
 We will do the bias correction explicitly here:
 
 ```{r t1_ss, cache = FALSE}
-n4img = bias_correct(t1_fname, 
-                     correction = "N4", retimg = TRUE,
-                     verbose = FALSE)
+n4img = bias_correct(
+  t1_fname, 
+  correction = "N4", 
+  retimg = FALSE,
+  outfile = tempfile(fileext = ".nii.gz"),
+  verbose = FALSE)
 if (have.fsl()) {
-  template.file = file.path(fsldir(), "data/standard",
-                            "MNI152_T1_1mm_brain.nii.gz") 
-  template.mask = file.path(fsldir(),
-                            "data/standard", "MNI152_T1_1mm_brain_mask.nii.gz")  
+  template.file = fslr::mni_fname(brain = TRUE)
+  template.mask = fslr::mni_fname(brain = TRUE, mask = TRUE)
   removed_neck = extrantsr::double_remove_neck(
     n4img,
     template.file = template.file,
@@ -103,10 +113,17 @@ if (have.fsl()) {
 
 Let's look at the skull-stripped image after doing all these steps.
 
-```{r}
+```{r, echo = TRUE, eval = FALSE}
 if (have.fsl()) {
   ss = extrantsr::fslbet_robust(t1_fname, 
-    remover = "double_remove_neck")
+    remover = "double_remove_neck", recog = FALSE)
+  ortho2(ss)
+}
+```
+
+```{r, echo = FALSE, eval = TRUE}
+if (have.fsl()) {
+  ss = fslbet(removed_neck, retimg = TRUE, verbose = FALSE)
   ortho2(ss)
 }
 ```
@@ -119,7 +136,7 @@ if (have.fsl()) {
     cols = t(col2rgb(col, alpha = FALSE)/255)
     rgb(cols, alpha = alpha)
   }      
-  ortho2(t1_fname, ss > 0, col.y = alpha("red", 0.5))
+  ortho2(t1, ss > 0, col.y = alpha("red", 0.5))
 }
 ```
 
