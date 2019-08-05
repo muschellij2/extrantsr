@@ -9,7 +9,6 @@ os:
   - linux
   - osx
 
-r_binary_packages: rgl
 
 env:
   global: RGL_USE_NULL=TRUE
@@ -20,8 +19,8 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; 
       then 
         sudo apt-get update -qq ;
-        sudo apt-get install libmng2 ; 
-        sudo apt-get install libmng1 ; 
+        sudo apt-get install -y libmng2 ; 
+        sudo apt-get install -y libmng1 ; 
         sudo updatedb;
     fi
   - wget https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py || echo "couldn't download";  
@@ -29,6 +28,10 @@ before_install:
   - if [[ -f fslinstaller.py ]]; 
     then
       travis_wait 100 sudo python fslinstaller.py -d /usr/local/fsl --quiet || echo "couldn't install";    
+    fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; 
+      then 
+        sudo apt-get install -y r-cran-rgl || echo "No install RGL" ; 
     fi
   - export PROJ_DIR=`basename $PWD`    
   - fname=travis_helpers.sh
