@@ -38,3 +38,26 @@ Object of class nifti or vector of indices
 Removes the neck from axially acquired scan so
 skull stripping can be done.
 }
+\examples{
+if (fslr::have.fsl()){
+  print(fslr::fsl_version())
+  in_ci <- function() {
+    nzchar(Sys.getenv("CI"))
+  }
+  if (in_ci()) {
+    destfile = tempfile(fileext = ".nii.gz")
+    dl = download.file(paste0(
+      "https://github.com/muschellij2/",
+      "Neurohacking/files/3454385/113-01-MPRAGE2.nii.gz"),
+      destfile = destfile)
+    tfile = fslr::mni_fname(brain = TRUE)
+    if (file.exists(tfile)) {
+      res = remove_neck(
+        destfile, 
+        template.file = tfile,
+        template.mask = fslr::mni_fname(brain = TRUE, mask = TRUE)
+      )
+    }
+  }
+}
+}

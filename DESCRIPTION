@@ -1,9 +1,12 @@
 Package: extrantsr
 Type: Package
 Title: Extra Functions to Build on the 'ANTsR' Package
-Version: 3.9.9
-Author: John Muschelli
-Maintainer: John Muschelli <muschellij2@gmail.com>
+Version: 3.9.10
+Authors@R: c(person(given = "John",
+           family = "Muschelli",
+           email = "muschellij2@gmail.com",
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-6469-1750")))
 Description: Extends the 'ANTsR' package with simple wrappers and complex
         processing streams for 'neuroimaging' data.
 License: GPL-3 | file LICENSE
