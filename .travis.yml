@@ -9,6 +9,8 @@ os:
   - linux
   - osx
 
+r_binary_packages: rgl
+
 env:
   global: RGL_USE_NULL=TRUE
 
