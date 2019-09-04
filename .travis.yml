@@ -16,6 +16,7 @@ env:
 r_check_args: "--as-cran --install-args=--build"
 
 before_install:
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install libcgal-dev libglu1-mesa-dev mesa-common-dev; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; 
       then 
         sudo apt-get update -qq ;
@@ -28,10 +29,6 @@ before_install:
   - if [[ -f fslinstaller.py ]]; 
     then
       travis_wait 100 sudo python fslinstaller.py -d /usr/local/fsl --quiet || echo "couldn't install";    
-    fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; 
-      then 
-        sudo apt-get install -y r-cran-rgl || echo "No install RGL" ; 
     fi
   - export PROJ_DIR=`basename $PWD`    
   - fname=travis_helpers.sh
