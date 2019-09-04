@@ -21,7 +21,7 @@ Alternatively, use \code{\link{mni_fname}}.}
 \item{face_mask}{Mask of image, in same space as \code{template}.
 Set to \code{NULL} (recommended) if want to use from 
 \url{https://github.com/poldracklab/pydeface}. 
-Alternatively, use \code{\link{mni_face_fname}}.}
+Alternatively, use \code{mni_face_fname} from \code{fsl}.}
 
 \item{outfile}{Output file name}
 
