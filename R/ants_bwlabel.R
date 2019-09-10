@@ -9,11 +9,11 @@
 #' @importFrom ANTsRCore labelClusters
 ants_bwlabel = function(img, k = 1, binary = TRUE) {
   
-  img = check_ants(img)
-  labs = ANTsRCore::labelClusters(
-    img,
+  labs = label_clusters(
+    img,     
     minClusterSize = 1,
-    fullyConnected = TRUE)
+    fullyConnected = TRUE, 
+    retfile = TRUE)
   # CHANGE WHEN 0 isnt' background anymore!!!
   labs = labs - min(labs)
   tab = table(c(as.array(labs)))
@@ -32,3 +32,25 @@ ants_bwlabel = function(img, k = 1, binary = TRUE) {
   return(yhat)
   
 }
+
+#' Label Clusters
+#' 
+#' @param img input image
+#' @param retfile logical to indicate if an \code{antsImage} should be returned
+#' \code{TRUE} (useful for chaining) or a \code{nifti} image
+#' @param ... additional arguments passed to \code{\link{labelClusters}}
+#' 
+#' @return A \code{antsImage} or a \code{nifti} image, depending on
+#' \code{retfile}
+#' @export
+label_clusters = function(img, ..., retfile = FALSE) {
+  img = check_ants(img)
+  labs = ANTsRCore::labelClusters(
+    imagein = img,
+    ...)
+  if (!retfile) {
+    labs = ants2oro(labs)
+  }
+  return(labs)
+}
+

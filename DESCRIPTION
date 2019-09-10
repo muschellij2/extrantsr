@@ -13,12 +13,12 @@ License: GPL-3 | file LICENSE
 Imports: methods, stats, grDevices, graphics, utils, oro.nifti, ANTsR
         (>= 0.4.1.0), ANTsRCore (>= 0.6.1), neurobase (>= 1.26.1), fslr (>=
         2.17.1), WhiteStripe, matrixStats, R.matlab, abind, R.utils,
-        neuroim, plyr, RNifti, stapler
+        plyr, RNifti, stapler
 BugReports: https://github.com/muschellij2/extrantsr/issues
 RoxygenNote: 6.1.1
 Remotes: muschellij2/neurobase, muschellij2/fslr, bjw34032/oro.nifti,
         muschellij2/kirby21.t1, ANTsX/ANTsR, ANTsX/ANTsRCore,
         muschellij2/stapler
-Suggests: knitr, rmarkdown, kirby21.t1, covr
+Suggests: knitr, rmarkdown, kirby21.t1, covr, neuroim
 VignetteBuilder: knitr
 Encoding: UTF-8
