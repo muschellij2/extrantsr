@@ -17,17 +17,19 @@
 #' @param need_header if \code{TRUE}, then an image type with header information
 #' will be returned.  If not, then an array is fine.  Used really only in 
 #' conjunction with \code{allow.array} 
+#' @param ... additional options to pass to \code{\link{ants2oro}}
 #' @export
 #' @importFrom neurobase check_nifti
 setMethod("check_nifti", "antsImage", 
           function(x, 
                    reorient=FALSE, 
                    allow.array=FALSE,
-                   need_header = TRUE) { 
+                   need_header = TRUE,
+                   ...) { 
             if (allow.array & !need_header) {
               x = as.array(x)
             } else {
-              x = ants2oro(x, reorient = reorient)
+              x = ants2oro(x, reorient = reorient, ...)
             }
             x
           })
