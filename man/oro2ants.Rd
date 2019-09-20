@@ -4,7 +4,7 @@
 \alias{oro2ants}
 \title{Convert Between nifti and antsImage}
 \usage{
-oro2ants(img, reference = NULL, cleanup = TRUE)
+oro2ants(img, reference = NULL, cleanup = TRUE, ...)
 }
 \arguments{
 \item{img}{Object of class \code{nifti}}
@@ -13,6 +13,8 @@ oro2ants(img, reference = NULL, cleanup = TRUE)
 copy header information (origin, spacing, direction) (experimental)}
 
 \item{cleanup}{temporary files are deleted after they are read in}
+
+\item{...}{arguments passed to \code{\link{checkimg}}}
 }
 \value{
 Object of class \code{antsImage}

@@ -5,11 +5,13 @@
 \alias{check_ants,nifti-method}
 \title{Check if antsImage or read in}
 \usage{
-\S4method{check_ants}{nifti}(x)
+\S4method{check_ants}{nifti}(x, ...)
 }
 \arguments{
 \item{x}{character path of image or 
 an object of class antsImage}
+
+\item{...}{arguments passed to \code{\link{oro2ants}}}
 }
 \value{
 antsImage object

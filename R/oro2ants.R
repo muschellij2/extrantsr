@@ -73,11 +73,13 @@ ants2oro <- function(img,
 #' @param reference Object of class \code{antsImage} to 
 #' copy header information (origin, spacing, direction) (experimental)
 #' @param cleanup temporary files are deleted after they are read in
+#' @param ... arguments passed to \code{\link{checkimg}}
 #' @export
 #' @importFrom ANTsRCore antsCopyImageInfo as.antsImage antsImageRead
 #' @return Object of class \code{antsImage}
 oro2ants <- function(img, reference = NULL,
-                     cleanup = TRUE){
+                     cleanup = TRUE,
+                     ...){
   if (!is.null(reference)) {
     if (is.antsImage(reference)) {
       img = as(img, Class = "array")
@@ -92,7 +94,7 @@ oro2ants <- function(img, reference = NULL,
     if (is.nifti(img)){
       remove = TRUE
     }
-    fname = checkimg(img)
+    fname = checkimg(img, ...)
     stopifnot(file.exists(fname))
     img = antsImageRead(fname)
     if (remove & cleanup) {

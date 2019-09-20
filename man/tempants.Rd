@@ -4,12 +4,15 @@
 \alias{tempants}
 \title{Create temporary nii.gz file from antsImage}
 \usage{
-tempants(x, gzipped = TRUE)
+tempants(x, gzipped = TRUE, ...)
 }
 \arguments{
 \item{x}{object of class \code{antsImage}}
 
 \item{gzipped}{logical if the tempfile should be gzipped or not}
+
+\item{...}{additional arguments to pass to \code{\link{tempimg}}
+if \code{nifti} object}
 }
 \value{
 Character value of filename
