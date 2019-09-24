@@ -1,7 +1,7 @@
 Package: extrantsr
 Type: Package
 Title: Extra Functions to Build on the 'ANTsR' Package
-Version: 3.9.11.1
+Version: 3.9.11.2
 Authors@R: c(person(given = "John",
            family = "Muschelli",
            email = "muschellij2@gmail.com",
@@ -11,7 +11,7 @@ Description: Extends the 'ANTsR' package with simple wrappers and complex
         processing streams for 'neuroimaging' data.
 License: GPL-3 | file LICENSE
 Imports: methods, stats, grDevices, graphics, utils, oro.nifti, ANTsR
-        (>= 0.4.1.0), ANTsRCore (>= 0.6.1), neurobase (>= 1.27.11.1), fslr (>=
+        (>= 0.4.1.0), ANTsRCore (>= 0.7.1), neurobase (>= 1.27.11.1), fslr (>=
         2.17.1), WhiteStripe, matrixStats, R.matlab, abind, R.utils,
         plyr, RNifti, stapler
 BugReports: https://github.com/muschellij2/extrantsr/issues
