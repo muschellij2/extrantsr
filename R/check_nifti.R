@@ -14,6 +14,7 @@
 #' @param allow.array (logical) Are array types allowed (TRUE) or
 #' should there be an error if the object is not character or class
 #' nifti.
+#' @param fast not used for \code{antsImage} classes
 #' @param need_header if \code{TRUE}, then an image type with header information
 #' will be returned.  If not, then an array is fine.  Used really only in 
 #' conjunction with \code{allow.array} 
@@ -24,6 +25,7 @@ setMethod("check_nifti", "antsImage",
           function(x, 
                    reorient=FALSE, 
                    allow.array=FALSE,
+                   fast = FALSE,
                    need_header = TRUE,
                    ...) { 
             if (allow.array & !need_header) {

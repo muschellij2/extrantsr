@@ -20,6 +20,8 @@ is to be re-oriented}
 should there be an error if the object is not character or class
 nifti.}
 
+\item{fast}{not used for \code{antsImage} classes}
+
 \item{need_header}{if \code{TRUE}, then an image type with header information
 will be returned.  If not, then an array is fine.  Used really only in 
 conjunction with \code{allow.array}}
