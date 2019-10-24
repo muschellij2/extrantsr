@@ -59,8 +59,8 @@ before_install:
   - cat DESCRIPTION
   - export PACKAGE_NAME=`package_name`
 
-after_deploy:
-  - Rscript -e 'covr::coveralls(type = "all")'
+after_deployd:
+  - travis_wait 100 Rscript -e 'covr::coveralls(type = "all")'
 
 deploy:
   provider: releases
