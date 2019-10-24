@@ -29,6 +29,7 @@ before_install:
   - if [[ -f fslinstaller.py ]]; 
     then
       travis_wait 100 sudo python fslinstaller.py -d /usr/local/fsl --quiet || echo "couldn't install";    
+      rm -f fslinstaller.py ;
     fi
   - export PROJ_DIR=`basename $PWD`    
   - fname=travis_helpers.sh
@@ -58,7 +59,7 @@ before_install:
   - cat DESCRIPTION
   - export PACKAGE_NAME=`package_name`
 
-after_success:
+after_deploy:
   - Rscript -e 'covr::coveralls(type = "all")'
 
 deploy:
