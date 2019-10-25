@@ -4,6 +4,7 @@ cache: packages
 use_bioc: true
 bioc_required: true
 r: release
+dist: xenial
 
 os:
   - linux
