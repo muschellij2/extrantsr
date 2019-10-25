@@ -29,7 +29,7 @@ before_install:
   - python --version
   - if [[ -f fslinstaller.py ]]; 
     then
-      travis_wait 100 sudo python fslinstaller.py -d /usr/local/fsl --quiet || echo "couldn't install";    
+      travis_wait 200 sudo python fslinstaller.py -d /usr/local/fsl --quiet || echo "couldn't install";    
       rm -f fslinstaller.py ;
     fi
   - export PROJ_DIR=`basename $PWD`    
