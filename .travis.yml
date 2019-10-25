@@ -5,6 +5,8 @@ use_bioc: true
 bioc_required: true
 r: release
 dist: xenial
+compiler: clang
+osx_image: xcode9
 
 os:
   - linux
@@ -17,6 +19,7 @@ env:
 r_check_args: "--as-cran --install-args=--build"
 
 before_install:
+  - export LD_LIBRARY_PATH=/usr/local/clang/lib:${LD_LIBRARY_PATH}
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install libcgal-dev libglu1-mesa-dev mesa-common-dev; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; 
       then 
@@ -44,7 +47,11 @@ before_install:
   - echo "CC=${CC}, CXX=${CXX}, CXX1X=${CXX1X}"
   - echo "CXX1XSTD=${CXX1XSTD}, CXX11=${CXX11}"  
   - clang_cxx  
-  - export cmake_version="3.11"
+  - if [ "$TRAVIS_OS_NAME" = "osx" ];
+    then
+      no_open_mp ;
+    fi    
+  - export cmake_version="3.14"
   - cmake --version
   - x=`cmake_setup`; echo "${x}"; eval ${x};
   - cmake --version
