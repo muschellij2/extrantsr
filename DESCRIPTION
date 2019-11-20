@@ -22,3 +22,4 @@ Remotes: muschellij2/neurobase, muschellij2/fslr, bjw34032/oro.nifti,
 Suggests: knitr, rmarkdown, kirby21.t1, covr, neuroim
 VignetteBuilder: knitr
 Encoding: UTF-8
+
