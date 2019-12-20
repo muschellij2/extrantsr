@@ -107,7 +107,7 @@ oro2ants <- function(img, reference = NULL,
     fname = checkimg(img, ...)
     stopifnot(file.exists(fname))
     img = antsImageRead(fname)
-    if (remove & cleanup) {
+    if (cleanup) {
       file.remove(fname)
     }    
     return(img)
