@@ -4,8 +4,7 @@
 \alias{local_quantile_img}
 \title{Quantile Transform Voxel based on Neighborhood Distribution}
 \usage{
-local_quantile_img(img, mask = NULL, radius = rep(1, 3),
-  verbose = TRUE)
+local_quantile_img(img, mask = NULL, radius = rep(1, 3), verbose = TRUE)
 }
 \arguments{
 \item{img}{Object of class \code{\link{nifti}}, character or \code{antsImage}}

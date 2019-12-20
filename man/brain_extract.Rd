@@ -4,8 +4,16 @@
 \alias{brain_extract}
 \title{Wrapper for ANTs brain extraction}
 \usage{
-brain_extract(img, template, template.mask, typeofTransform = c("SyNabp",
-  "SyN"), correct = TRUE, reproducible = TRUE, seed = 1, ...)
+brain_extract(
+  img,
+  template,
+  template.mask,
+  typeofTransform = c("SyNabp", "SyN"),
+  correct = TRUE,
+  reproducible = TRUE,
+  seed = 1,
+  ...
+)
 }
 \arguments{
 \item{img}{Image for brain extraction, nifti, character or antsImage}

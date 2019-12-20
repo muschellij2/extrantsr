@@ -4,9 +4,20 @@
 \alias{zscore_template}
 \title{Create Z-score-to-Template Image}
 \usage{
-zscore_template(img, template.file, mean.img, sd.img, outfile = NULL,
-  typeofTransform = "SyN", interpolator = "Linear", robust = TRUE,
-  probs = c(0, 0.999), native = TRUE, verbose = TRUE, ...)
+zscore_template(
+  img,
+  template.file,
+  mean.img,
+  sd.img,
+  outfile = NULL,
+  typeofTransform = "SyN",
+  interpolator = "Linear",
+  robust = TRUE,
+  probs = c(0, 0.999),
+  native = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{img}{Image to be z-scored}

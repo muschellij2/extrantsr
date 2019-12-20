@@ -4,13 +4,25 @@
 \alias{preprocess_mri_across}
 \title{Preprocess MRI acros visits}
 \usage{
-preprocess_mri_across(baseline_files, followup_files, baseline_outfiles,
-  followup_outfiles, retimg = FALSE, maskfile = NULL, correct = TRUE,
-  correction = "N4", skull_strip = TRUE, bet.opts = "-B -f 0.1 -v",
-  betcmd = "bet", within.transform = "Rigid",
+preprocess_mri_across(
+  baseline_files,
+  followup_files,
+  baseline_outfiles,
+  followup_outfiles,
+  retimg = FALSE,
+  maskfile = NULL,
+  correct = TRUE,
+  correction = "N4",
+  skull_strip = TRUE,
+  bet.opts = "-B -f 0.1 -v",
+  betcmd = "bet",
+  within.transform = "Rigid",
   within.interpolator = "LanczosWindowedSinc",
   across.transform = within.transform,
-  across.interpolator = within.interpolator, verbose = TRUE, ...)
+  across.interpolator = within.interpolator,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{baseline_files}{filename of baseline images}

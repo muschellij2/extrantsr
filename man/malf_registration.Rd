@@ -4,11 +4,21 @@
 \alias{malf_registration}
 \title{Multi-Atlas Label Fusion Registration}
 \usage{
-malf_registration(infile, template.images, template.structs,
-  inverted = FALSE, typeofTransform = "SyN",
-  interpolator = "NearestNeighbor", keep_images = TRUE,
-  outfiles = NULL, outprefix = NULL, verbose = TRUE,
-  rerun_registration = TRUE, image_interpolator = "Linear", ...)
+malf_registration(
+  infile,
+  template.images,
+  template.structs,
+  inverted = FALSE,
+  typeofTransform = "SyN",
+  interpolator = "NearestNeighbor",
+  keep_images = TRUE,
+  outfiles = NULL,
+  outprefix = NULL,
+  verbose = TRUE,
+  rerun_registration = TRUE,
+  image_interpolator = "Linear",
+  ...
+)
 }
 \arguments{
 \item{infile}{Input Image file}

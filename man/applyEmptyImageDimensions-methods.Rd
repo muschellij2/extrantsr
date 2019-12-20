@@ -6,8 +6,7 @@
 \alias{applyEmptyImageDimensions,nifti-method}
 \title{Apply Subsetting from Empty Image Dimensions}
 \usage{
-\S4method{applyEmptyImageDimensions}{antsImage}(img, inds,
-  reorient = FALSE, ...)
+\S4method{applyEmptyImageDimensions}{antsImage}(img, inds, reorient = FALSE, ...)
 }
 \arguments{
 \item{img}{image, nifti object, or array}

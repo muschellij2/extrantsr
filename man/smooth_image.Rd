@@ -4,8 +4,16 @@
 \alias{smooth_image}
 \title{Gaussian smooth image using ANTsR}
 \usage{
-smooth_image(file, sigma = 10, mask = NULL, smooth_mask = TRUE,
-  smoothed_mask = NULL, verbose = TRUE, retfile = FALSE, ...)
+smooth_image(
+  file,
+  sigma = 10,
+  mask = NULL,
+  smooth_mask = TRUE,
+  smoothed_mask = NULL,
+  verbose = TRUE,
+  retfile = FALSE,
+  ...
+)
 }
 \arguments{
 \item{file}{(character) image to be smoothed}

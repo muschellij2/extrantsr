@@ -5,8 +5,14 @@
 \alias{check_nifti,antsImage-method}
 \title{Check if nifti image or read in a nifti image}
 \usage{
-\S4method{check_nifti}{antsImage}(x, reorient = FALSE,
-  allow.array = FALSE, fast = FALSE, need_header = TRUE, ...)
+\S4method{check_nifti}{antsImage}(
+  x,
+  reorient = FALSE,
+  allow.array = FALSE,
+  fast = FALSE,
+  need_header = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{character path of image or 

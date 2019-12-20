@@ -4,8 +4,7 @@
 \alias{diff_self}
 \title{Flipped Difference Image}
 \usage{
-diff_self(img, swapdim = TRUE, verbose = TRUE, reproducible = TRUE,
-  seed = 1)
+diff_self(img, swapdim = TRUE, verbose = TRUE, reproducible = TRUE, seed = 1)
 }
 \arguments{
 \item{img}{Object of class \code{nifti}, \code{ANTsR}, or \code{character}}

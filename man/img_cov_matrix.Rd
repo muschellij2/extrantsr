@@ -4,9 +4,15 @@
 \alias{img_cov_matrix}
 \title{Neighborhood Covariance Matrix}
 \usage{
-img_cov_matrix(imgs, mask = NULL, radius = rep(1, 3),
-  method = c("pearson", "spearman"), center = TRUE, scale = FALSE,
-  verbose = TRUE)
+img_cov_matrix(
+  imgs,
+  mask = NULL,
+  radius = rep(1, 3),
+  method = c("pearson", "spearman"),
+  center = TRUE,
+  scale = FALSE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{imgs}{list of images of class \code{nifti}, \code{antsImage}, \code{character}}

@@ -5,12 +5,26 @@
 \alias{bias_correct_ants}
 \title{N3 or N4 Correct}
 \usage{
-bias_correct(file, correction = c("N3", "N4", "n3", "n4"),
-  outfile = NULL, retimg = TRUE, reorient = FALSE,
-  shrinkfactor = "4", mask = NULL, verbose = TRUE, ...)
+bias_correct(
+  file,
+  correction = c("N3", "N4", "n3", "n4"),
+  outfile = NULL,
+  retimg = TRUE,
+  reorient = FALSE,
+  shrinkfactor = "4",
+  mask = NULL,
+  verbose = TRUE,
+  ...
+)
 
-bias_correct_ants(file, correction = c("N3", "N4", "n3", "n4"),
-  shrinkfactor = "4", mask = NULL, verbose = TRUE, ...)
+bias_correct_ants(
+  file,
+  correction = c("N3", "N4", "n3", "n4"),
+  shrinkfactor = "4",
+  mask = NULL,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{file}{(character) image to be manipulated}

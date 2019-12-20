@@ -4,8 +4,12 @@
 \alias{compose_transform_to_file}
 \title{Compose Transforms from ANTsR to a composite file}
 \usage{
-compose_transform_to_file(fixed, moving, transformlist = NULL,
-  output_prefix = NULL)
+compose_transform_to_file(
+  fixed,
+  moving,
+  transformlist = NULL,
+  output_prefix = NULL
+)
 }
 \arguments{
 \item{fixed}{fixed image defining domain into which the moving image is transformed.}

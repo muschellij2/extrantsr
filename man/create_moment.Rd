@@ -4,8 +4,14 @@
 \alias{create_moment}
 \title{Create Neighborhood Momemts of an Image}
 \usage{
-create_moment(img, mask = NULL, radius = rep(1, 3), retimg = TRUE,
-  verbose = TRUE, ...)
+create_moment(
+  img,
+  mask = NULL,
+  radius = rep(1, 3),
+  retimg = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{img}{Object of class \code{nifti}, \code{character} or \code{antsImage}}

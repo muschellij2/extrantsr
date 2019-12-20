@@ -4,8 +4,15 @@
 \alias{otropos}
 \title{Run Atropos for nifti objects}
 \usage{
-otropos(a, x, m = "[0.2,1x1x1]", verbose = TRUE, ...,
-  make_mask = TRUE, reset_origin = TRUE)
+otropos(
+  a,
+  x,
+  m = "[0.2,1x1x1]",
+  verbose = TRUE,
+  ...,
+  make_mask = TRUE,
+  reset_origin = TRUE
+)
 }
 \arguments{
 \item{a}{Images to segment.  Can be a \code{nifti} object, 

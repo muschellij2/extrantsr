@@ -4,9 +4,17 @@
 \alias{double_remove_neck}
 \title{Remove Neck Twice from a Scan}
 \usage{
-double_remove_neck(file, template.file, template.mask,
-  typeofTransform = "Rigid", rep.value = 0, swapdim = TRUE,
-  verbose = TRUE, ret_mask = FALSE, ...)
+double_remove_neck(
+  file,
+  template.file,
+  template.mask,
+  typeofTransform = "Rigid",
+  rep.value = 0,
+  swapdim = TRUE,
+  verbose = TRUE,
+  ret_mask = FALSE,
+  ...
+)
 }
 \arguments{
 \item{file}{File for neck removal - either filename or class nifti}

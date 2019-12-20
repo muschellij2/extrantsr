@@ -4,8 +4,7 @@
 \alias{fill_2d_z}
 \title{Image Mask Filler over each slice in Z-direction}
 \usage{
-fill_2d_z(img, fill_size = 7, verbose = TRUE, dilate = TRUE,
-  erode = TRUE)
+fill_2d_z(img, fill_size = 7, verbose = TRUE, dilate = TRUE, erode = TRUE)
 }
 \arguments{
 \item{img}{Object of class \code{\link{nifti}} or \code{antsImage}}

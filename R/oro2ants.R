@@ -102,6 +102,16 @@ oro2ants <- function(img, reference = NULL,
     }    
     return(img)
   }
+  
+  if (inherits(img, "niftiImage")) {
+    fname = checkimg(img, ...)
+    stopifnot(file.exists(fname))
+    img = antsImageRead(fname)
+    if (remove & cleanup) {
+      file.remove(fname)
+    }    
+    return(img)
+  }
   if ( is.antsImage(img) ) {
     return(img)    
   }   

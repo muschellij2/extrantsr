@@ -4,9 +4,20 @@
 \alias{reapply_malf}
 \title{Reapply MALF Operation}
 \usage{
-reapply_malf(infile, regs, template.structs, keep_images = FALSE,
-  outfiles = NULL, outfile = NULL, retimg = TRUE, func = "mode",
-  ties.method = "first", interpolator = NULL, verbose = TRUE, ...)
+reapply_malf(
+  infile,
+  regs,
+  template.structs,
+  keep_images = FALSE,
+  outfiles = NULL,
+  outfile = NULL,
+  retimg = TRUE,
+  func = "mode",
+  ties.method = "first",
+  interpolator = NULL,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{infile}{Input Image file}

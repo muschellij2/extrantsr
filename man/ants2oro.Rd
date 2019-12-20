@@ -4,8 +4,14 @@
 \alias{ants2oro}
 \title{Convert Between antsImage and nifti objects}
 \usage{
-ants2oro(img, reorient = FALSE, reference = NULL, ...,
-  cleanup = TRUE, drop_dim = TRUE)
+ants2oro(
+  img,
+  reorient = FALSE,
+  reference = NULL,
+  ...,
+  cleanup = TRUE,
+  drop_dim = TRUE
+)
 }
 \arguments{
 \item{img}{Object of class antsImage}

@@ -4,17 +4,34 @@
 \alias{registration}
 \title{Registration Wrapper function}
 \usage{
-registration(filename, skull_strip = FALSE, correct = FALSE,
-  correction = "N4", retimg = TRUE, outfile = NULL,
-  template.file = file.path(fsldir(), "data", "standard",
-  "MNI152_T1_1mm_brain.nii.gz"), interpolator = "Linear",
-  other_interpolator = interpolator, other.files = NULL,
-  other.outfiles = NULL, other.init = NULL,
-  invert_interpolator = interpolator, invert.native.fname = NULL,
-  invert.file = NULL, typeofTransform = "SyN", remove.warp = FALSE,
-  outprefix = NULL, bet.opts = "-B -f 0.1 -v", betcmd = "bet",
-  copy_origin = TRUE, verbose = TRUE, reproducible = TRUE,
-  seed = 1, force_registration = TRUE, ...)
+registration(
+  filename,
+  skull_strip = FALSE,
+  correct = FALSE,
+  correction = "N4",
+  retimg = TRUE,
+  outfile = NULL,
+  template.file = file.path(fsldir(), "data", "standard", "MNI152_T1_1mm_brain.nii.gz"),
+  interpolator = "Linear",
+  other_interpolator = interpolator,
+  other.files = NULL,
+  other.outfiles = NULL,
+  other.init = NULL,
+  invert_interpolator = interpolator,
+  invert.native.fname = NULL,
+  invert.file = NULL,
+  typeofTransform = "SyN",
+  remove.warp = FALSE,
+  outprefix = NULL,
+  bet.opts = "-B -f 0.1 -v",
+  betcmd = "bet",
+  copy_origin = TRUE,
+  verbose = TRUE,
+  reproducible = TRUE,
+  seed = 1,
+  force_registration = TRUE,
+  ...
+)
 }
 \arguments{
 \item{filename}{filename of image to be registered}

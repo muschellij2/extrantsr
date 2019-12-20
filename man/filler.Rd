@@ -4,8 +4,7 @@
 \alias{filler}
 \title{Image Mask Filler}
 \usage{
-filler(img, fill_size = 7, verbose = TRUE, dilate = TRUE,
-  erode = TRUE)
+filler(img, fill_size = 7, verbose = TRUE, dilate = TRUE, erode = TRUE)
 }
 \arguments{
 \item{img}{Object of class \code{\link{nifti}} or \code{antsImage}}

@@ -4,8 +4,14 @@
 \alias{within_visit_registration}
 \title{Within Visit Registration}
 \usage{
-within_visit_registration(fixed, moving, outfiles = NULL,
-  typeofTransform = "Rigid", interpolator = "Linear", ...)
+within_visit_registration(
+  fixed,
+  moving,
+  outfiles = NULL,
+  typeofTransform = "Rigid",
+  interpolator = "Linear",
+  ...
+)
 }
 \arguments{
 \item{fixed}{filename of fixed image to be registered to.}

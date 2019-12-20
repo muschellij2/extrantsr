@@ -7,17 +7,37 @@
 \alias{log_geom_jacobian_image}
 \title{Image of the Determinant of the Jacobian}
 \usage{
-jacobian_image(fixed, transformlist = NULL, moving = NULL,
-  typeofTransform = "SyN", ...)
+jacobian_image(
+  fixed,
+  transformlist = NULL,
+  moving = NULL,
+  typeofTransform = "SyN",
+  ...
+)
 
-log_jacobian_image(fixed, transformlist = NULL, moving = NULL,
-  typeofTransform = "SyN", ...)
+log_jacobian_image(
+  fixed,
+  transformlist = NULL,
+  moving = NULL,
+  typeofTransform = "SyN",
+  ...
+)
 
-geom_jacobian_image(fixed, transformlist = NULL, moving = NULL,
-  typeofTransform = "SyN", ...)
+geom_jacobian_image(
+  fixed,
+  transformlist = NULL,
+  moving = NULL,
+  typeofTransform = "SyN",
+  ...
+)
 
-log_geom_jacobian_image(fixed, transformlist = NULL, moving = NULL,
-  typeofTransform = "SyN", ...)
+log_geom_jacobian_image(
+  fixed,
+  transformlist = NULL,
+  moving = NULL,
+  typeofTransform = "SyN",
+  ...
+)
 }
 \arguments{
 \item{fixed}{Fixed image in a registration}

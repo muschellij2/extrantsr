@@ -5,8 +5,14 @@
 \alias{deface_image_ants}
 \title{Face Removal Mask using ANTs Registration}
 \usage{
-face_removal_mask_ants(file, template = NULL, face_mask = NULL,
-  outfile = NULL, ..., retimg = FALSE)
+face_removal_mask_ants(
+  file,
+  template = NULL,
+  face_mask = NULL,
+  outfile = NULL,
+  ...,
+  retimg = FALSE
+)
 
 deface_image_ants(file, ...)
 }

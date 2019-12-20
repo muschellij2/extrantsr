@@ -4,11 +4,23 @@
 \alias{preprocess_mri_within}
 \title{Within Visit Registration}
 \usage{
-preprocess_mri_within(files, outfiles = NULL, correct = TRUE,
-  correction = "N4", retimg = FALSE, reorient = FALSE,
-  typeofTransform = "Rigid", interpolator = "LanczosWindowedSinc",
-  skull_strip = FALSE, bet.opts = "-B -f 0.1 -v", betcmd = "bet",
-  maskfile = NULL, correct_after_mask = FALSE, verbose = TRUE, ...)
+preprocess_mri_within(
+  files,
+  outfiles = NULL,
+  correct = TRUE,
+  correction = "N4",
+  retimg = FALSE,
+  reorient = FALSE,
+  typeofTransform = "Rigid",
+  interpolator = "LanczosWindowedSinc",
+  skull_strip = FALSE,
+  bet.opts = "-B -f 0.1 -v",
+  betcmd = "bet",
+  maskfile = NULL,
+  correct_after_mask = FALSE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{files}{filenames (or nifti objects) of images to be processed.

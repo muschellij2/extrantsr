@@ -4,8 +4,11 @@
 \alias{transformlist_from_outprefix}
 \title{Get list of transforms that would likely be made with a specific `outprefix`}
 \usage{
-transformlist_from_outprefix(outprefix, typeofTransform = "SyN",
-  only_exists = FALSE)
+transformlist_from_outprefix(
+  outprefix,
+  typeofTransform = "SyN",
+  only_exists = FALSE
+)
 }
 \arguments{
 \item{outprefix}{If you used this in \code{\link{antsRegistration}}, then

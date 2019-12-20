@@ -4,8 +4,7 @@
 \alias{image_similarity}
 \title{Compute Image Similarity Metrics}
 \usage{
-image_similarity(image1, image2, image1_mask = NULL,
-  image2_mask = NULL, ...)
+image_similarity(image1, image2, image1_mask = NULL, image2_mask = NULL, ...)
 }
 \arguments{
 \item{image1}{Object of class \code{nifti} or character filename.

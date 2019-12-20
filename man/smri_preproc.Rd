@@ -4,9 +4,17 @@
 \alias{smri_preproc}
 \title{Standard MRI Preprocessing}
 \usage{
-smri_preproc(files, window = FALSE, outfiles = NULL, maskfile = NULL,
-  correct = TRUE, correction = "N4", correct_after_mask = TRUE,
-  verbose = TRUE, ...)
+smri_preproc(
+  files,
+  window = FALSE,
+  outfiles = NULL,
+  maskfile = NULL,
+  correct = TRUE,
+  correction = "N4",
+  correct_after_mask = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{files}{filenames (or nifti objects) of images to be processed.

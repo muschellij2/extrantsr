@@ -4,8 +4,14 @@
 \alias{ants.overlay}
 \title{Plot Lightbox for antsImage}
 \usage{
-ants.overlay(img, oimg, slices = 53, col.x = gray(0:64/64),
-  col.y = "#FF0000FF", ...)
+ants.overlay(
+  img,
+  oimg,
+  slices = 53,
+  col.x = gray(0:64/64),
+  col.y = "#FF0000FF",
+  ...
+)
 }
 \arguments{
 \item{img}{Image to be plotted}

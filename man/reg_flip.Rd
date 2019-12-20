@@ -4,14 +4,27 @@
 \alias{reg_flip}
 \title{Flip Image with Registration}
 \usage{
-reg_flip(t1, register = TRUE, native = TRUE,
-  template.file = file.path(fsldir(), "data", "standard",
-  paste0("MNI152_T1_1mm", ifelse(is.null(mask), "", "_brain"), ".nii.gz")),
+reg_flip(
+  t1,
+  register = TRUE,
+  native = TRUE,
+  template.file = file.path(fsldir(), "data", "standard", paste0("MNI152_T1_1mm",
+    ifelse(is.null(mask), "", "_brain"), ".nii.gz")),
   typeofTransform = c("Rigid", "Affine"),
-  interpolator = "LanczosWindowedSinc", t1.outfile = NULL,
-  other.files = NULL, other.outfiles = NULL, mask = NULL,
-  mask.outfile = NULL, verbose = TRUE, a = "-x", b = "y",
-  c = "z", reproducible = TRUE, seed = 1, ...)
+  interpolator = "LanczosWindowedSinc",
+  t1.outfile = NULL,
+  other.files = NULL,
+  other.outfiles = NULL,
+  mask = NULL,
+  mask.outfile = NULL,
+  verbose = TRUE,
+  a = "-x",
+  b = "y",
+  c = "z",
+  reproducible = TRUE,
+  seed = 1,
+  ...
+)
 }
 \arguments{
 \item{t1}{filename (or nifti objects) of T1 image}

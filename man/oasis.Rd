@@ -4,14 +4,28 @@
 \alias{oasis}
 \title{OASIS Processing Pipeline}
 \usage{
-oasis(filename, skull_strip = TRUE, skull_stripfile = NULL,
-  correct = TRUE, normalize = TRUE, normalize_file = NULL,
-  retimg = TRUE, outfile = NULL, template.file = file.path(fsldir(),
-  "data", "standard", "MNI152_T1_1mm_brain.nii.gz"),
-  interpolator = "LanczosWindowedSinc", other.files = NULL,
-  other.outfiles = NULL, typeofTransform = "Rigid",
-  remove.warp = TRUE, outprefix = NULL, bet.opts = "-B -f 0.1 -v",
-  betcmd = "bet", reproducible = TRUE, seed = 1, ...)
+oasis(
+  filename,
+  skull_strip = TRUE,
+  skull_stripfile = NULL,
+  correct = TRUE,
+  normalize = TRUE,
+  normalize_file = NULL,
+  retimg = TRUE,
+  outfile = NULL,
+  template.file = file.path(fsldir(), "data", "standard", "MNI152_T1_1mm_brain.nii.gz"),
+  interpolator = "LanczosWindowedSinc",
+  other.files = NULL,
+  other.outfiles = NULL,
+  typeofTransform = "Rigid",
+  remove.warp = TRUE,
+  outprefix = NULL,
+  bet.opts = "-B -f 0.1 -v",
+  betcmd = "bet",
+  reproducible = TRUE,
+  seed = 1,
+  ...
+)
 }
 \arguments{
 \item{filename}{filename of T1 image}

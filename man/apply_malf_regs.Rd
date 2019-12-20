@@ -4,9 +4,17 @@
 \alias{apply_malf_regs}
 \title{Apply MALF Registrations}
 \usage{
-apply_malf_regs(infile, regs, template.structs, keep_images = TRUE,
-  outfiles = NULL, inverted = FALSE, interpolator = NULL,
-  verbose = TRUE, ...)
+apply_malf_regs(
+  infile,
+  regs,
+  template.structs,
+  keep_images = TRUE,
+  outfiles = NULL,
+  inverted = FALSE,
+  interpolator = NULL,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{infile}{Input Image file}

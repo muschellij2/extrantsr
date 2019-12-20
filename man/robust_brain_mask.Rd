@@ -4,9 +4,16 @@
 \alias{robust_brain_mask}
 \title{Robust Brain Mask from Template}
 \usage{
-robust_brain_mask(file, template.file, template.mask = NULL,
-  nvoxels = 7, ret_mask = FALSE, typeofTransform = "Rigid",
-  verbose = TRUE, ...)
+robust_brain_mask(
+  file,
+  template.file,
+  template.mask = NULL,
+  nvoxels = 7,
+  ret_mask = FALSE,
+  typeofTransform = "Rigid",
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{file}{File for masking - either filename or class nifti}

@@ -4,15 +4,30 @@
 \alias{ants_regwrite}
 \title{Registration to a Template}
 \usage{
-ants_regwrite(filename, skull_strip = FALSE, correct = FALSE,
-  correction = "N3", retimg = TRUE, outfile = NULL,
-  template.file = file.path(fsldir(), "data", "standard",
-  "MNI152_T1_1mm_brain.nii.gz"), interpolator = "Linear",
-  other.files = NULL, other.outfiles = NULL, native.cereb = FALSE,
-  native.fname = NULL, atlas.file = NULL, typeofTransform = "SyN",
-  remove.warp = TRUE, outprefix = NULL, bet.opts = "-B -f 0.1 -v",
-  betcmd = "bet", verbose = TRUE, reproducible = TRUE, seed = 1,
-  ...)
+ants_regwrite(
+  filename,
+  skull_strip = FALSE,
+  correct = FALSE,
+  correction = "N3",
+  retimg = TRUE,
+  outfile = NULL,
+  template.file = file.path(fsldir(), "data", "standard", "MNI152_T1_1mm_brain.nii.gz"),
+  interpolator = "Linear",
+  other.files = NULL,
+  other.outfiles = NULL,
+  native.cereb = FALSE,
+  native.fname = NULL,
+  atlas.file = NULL,
+  typeofTransform = "SyN",
+  remove.warp = TRUE,
+  outprefix = NULL,
+  bet.opts = "-B -f 0.1 -v",
+  betcmd = "bet",
+  verbose = TRUE,
+  reproducible = TRUE,
+  seed = 1,
+  ...
+)
 }
 \arguments{
 \item{filename}{filename of T1 image}

@@ -4,8 +4,14 @@
 \alias{corr_img}
 \title{Neighborhood Correlation Image}
 \usage{
-corr_img(img1, img2, mask = NULL, radius = rep(1, 3),
-  method = c("pearson", "spearman"), verbose = TRUE)
+corr_img(
+  img1,
+  img2,
+  mask = NULL,
+  radius = rep(1, 3),
+  method = c("pearson", "spearman"),
+  verbose = TRUE
+)
 }
 \arguments{
 \item{img1}{image of class \code{nifti}, \code{antsImage}, \code{character}}

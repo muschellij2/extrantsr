@@ -4,15 +4,27 @@
 \alias{fslbet_robust}
 \title{Robust Skull Stripping with COG estimation and Bias Correction}
 \usage{
-fslbet_robust(img, outfile = NULL, retimg = TRUE, correct = TRUE,
-  correction = "N4", recog = TRUE, reorient = FALSE, bet.opts = "",
-  nvoxels = 0, swapdim = TRUE, remove.neck = TRUE,
+fslbet_robust(
+  img,
+  outfile = NULL,
+  retimg = TRUE,
+  correct = TRUE,
+  correction = "N4",
+  recog = TRUE,
+  reorient = FALSE,
+  bet.opts = "",
+  nvoxels = 0,
+  swapdim = TRUE,
+  remove.neck = TRUE,
   remover = c("remove_neck", "double_remove_neck"),
-  robust.mask = FALSE, rbm.voxels = 7,
-  template.file = file.path(fsldir(), "data/standard",
-  "MNI152_T1_1mm_brain.nii.gz"), template.mask = file.path(fsldir(),
-  "data/standard", "MNI152_T1_1mm_brain_mask.nii.gz"), verbose = TRUE,
-  ...)
+  robust.mask = FALSE,
+  rbm.voxels = 7,
+  template.file = file.path(fsldir(), "data/standard", "MNI152_T1_1mm_brain.nii.gz"),
+  template.mask = file.path(fsldir(), "data/standard",
+    "MNI152_T1_1mm_brain_mask.nii.gz"),
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{img}{(character) File to be skull stripped or object of class

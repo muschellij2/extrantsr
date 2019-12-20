@@ -10,28 +10,44 @@
 \alias{.resample_image}
 \title{Resample an image}
 \usage{
-resample_image(img, parameters, parameter_type = c("mm", "voxels"),
-  interpolator = c("nearestneighbor", "linear", "gaussian",
-  "windowedsinc", "bspline"), ...)
-
-\S4method{resample_image}{character}(img, parameters,
+resample_image(
+  img,
+  parameters,
   parameter_type = c("mm", "voxels"),
-  interpolator = c("nearestneighbor", "linear", "gaussian",
-  "windowedsinc", "bspline"), ...)
+  interpolator = c("nearestneighbor", "linear", "gaussian", "windowedsinc", "bspline"),
+  ...
+)
 
-\S4method{resample_image}{nifti}(img, parameters,
+\S4method{resample_image}{character}(
+  img,
+  parameters,
   parameter_type = c("mm", "voxels"),
-  interpolator = c("nearestneighbor", "linear", "gaussian",
-  "windowedsinc", "bspline"), ...)
+  interpolator = c("nearestneighbor", "linear", "gaussian", "windowedsinc", "bspline"),
+  ...
+)
 
-\S4method{resample_image}{antsImage}(img, parameters,
+\S4method{resample_image}{nifti}(
+  img,
+  parameters,
   parameter_type = c("mm", "voxels"),
-  interpolator = c("nearestneighbor", "linear", "gaussian",
-  "windowedsinc", "bspline"), ...)
+  interpolator = c("nearestneighbor", "linear", "gaussian", "windowedsinc", "bspline"),
+  ...
+)
 
-.resample_image(img, parameters, parameter_type = c("mm", "voxels"),
-  interpolator = c("nearestneighbor", "linear", "gaussian",
-  "windowedsinc", "bspline"))
+\S4method{resample_image}{antsImage}(
+  img,
+  parameters,
+  parameter_type = c("mm", "voxels"),
+  interpolator = c("nearestneighbor", "linear", "gaussian", "windowedsinc", "bspline"),
+  ...
+)
+
+.resample_image(
+  img,
+  parameters,
+  parameter_type = c("mm", "voxels"),
+  interpolator = c("nearestneighbor", "linear", "gaussian", "windowedsinc", "bspline")
+)
 }
 \arguments{
 \item{img}{character path of image or 

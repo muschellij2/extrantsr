@@ -4,9 +4,17 @@
 \alias{multi_reg}
 \title{Multi-Registration}
 \usage{
-multi_reg(infiles, template.file, outfiles = NULL,
-  typeofTransform = "SyN", interpolator = "Linear", outprefix = NULL,
-  retimg = TRUE, verbose = TRUE, ...)
+multi_reg(
+  infiles,
+  template.file,
+  outfiles = NULL,
+  typeofTransform = "SyN",
+  interpolator = "Linear",
+  outprefix = NULL,
+  retimg = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{infiles}{Input image files}

@@ -4,9 +4,15 @@
 \alias{scaled_neighborhood}
 \title{Get Scaled Neighborhood of Voxels from an Image}
 \usage{
-scaled_neighborhood(img, mask = NULL, radius = rep(1, 3),
-  method = c("pearson", "spearman"), center = TRUE, scale = TRUE,
-  verbose = TRUE)
+scaled_neighborhood(
+  img,
+  mask = NULL,
+  radius = rep(1, 3),
+  method = c("pearson", "spearman"),
+  center = TRUE,
+  scale = TRUE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{img}{Object of class \code{\link{nifti}}, character or \code{antsImage}}

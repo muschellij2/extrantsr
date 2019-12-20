@@ -151,7 +151,6 @@ setMethod("ortho2",
 
 #' @export
 #' @rdname ortho2-methods
-#' @rdname ortho2
 #' @aliases ortho2,niftiImage,ANY,ANY-method
 setMethod(
   "ortho2", 

@@ -4,10 +4,21 @@
 \alias{bias_ss}
 \title{Bias Field Correct then Skull Strip}
 \usage{
-bias_ss(filename, maskfile = NULL, outfile = tempfile(fileext =
-  ".nii.gz"), skull_strip = TRUE, bet.opts = "", betcmd = "bet",
-  correct = TRUE, correction = "N3", shrinkfactor = "4",
-  retimg = TRUE, reorient = FALSE, verbose = TRUE, ...)
+bias_ss(
+  filename,
+  maskfile = NULL,
+  outfile = tempfile(fileext = ".nii.gz"),
+  skull_strip = TRUE,
+  bet.opts = "",
+  betcmd = "bet",
+  correct = TRUE,
+  correction = "N3",
+  shrinkfactor = "4",
+  retimg = TRUE,
+  reorient = FALSE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{filename}{filename to be processed}

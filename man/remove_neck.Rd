@@ -4,9 +4,17 @@
 \alias{remove_neck}
 \title{Remove Neck from Image}
 \usage{
-remove_neck(file, template.file, template.mask = NULL,
-  ret_mask = FALSE, typeofTransform = "Rigid", rep.value = 0,
-  swapdim = TRUE, verbose = TRUE, ...)
+remove_neck(
+  file,
+  template.file,
+  template.mask = NULL,
+  ret_mask = FALSE,
+  typeofTransform = "Rigid",
+  rep.value = 0,
+  swapdim = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{file}{File for neck removal - either filename or class nifti}
