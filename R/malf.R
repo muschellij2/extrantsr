@@ -91,6 +91,9 @@ malf <- function(
   for (i in 1:10) {
     gc()
   }  
+  if (is.list(outimg) && length(outimg) == 1) {
+    outimg = outimg[[1]]
+  }
   if (have.outfile) {
     if (is.nifti(outimg)) {
       writenii(outimg, filename = outfile[1])
