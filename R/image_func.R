@@ -222,6 +222,9 @@ stat_img = function(
         res_list[[icol]] = x
         rm(list = "x");
       }
+      if (num_imgs == 1 && length(res_list) == 1) {
+        res_list = res_list[[1]]
+      }      
       res_img = res_list
       rm(list = "res_list");
     }
