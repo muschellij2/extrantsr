@@ -19,7 +19,7 @@
 #'
 #' @examples
 #' \donttest{
-#' if (have_fsl()) {
+#' if (fslr::have_fsl()) {
 #'    file = "~/Downloads/sample_T1_input.nii.gz"
 #'    if (file.exists(file)) {
 #'        mask = face_removal_mask_ants(file = file,
