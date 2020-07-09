@@ -48,9 +48,9 @@ setMethod("ants_apply_transforms",
             fixed = check_ants(fixed)
             moving = check_ants(moving)
             if (length(moving) > 1) {
-            res = lapply(moving, ants_apply_transforms, 
-                         fixed = fixed, transformlist = transformlist,
-                         ... = ...)
+              res = lapply(moving, ants_apply_transforms, 
+                           fixed = fixed, transformlist = transformlist,
+                           ... = ...)
             } else {
               res = ants_apply_transforms(fixed = fixed, 
                                           moving = moving, 
@@ -88,10 +88,21 @@ setMethod("ants_apply_transforms",
             }
             tclasses = sapply(transformlist, class)
             stopifnot(all(tclasses %in% "character"))
-            moving_to_fixed = antsApplyTransforms(fixed = fixed, 
-                                        moving = moving,
-                                        transformlist = transformlist,
-                                        ...)
+            ptype = ANTsRCore::pixeltype(moving)
+            if (ptype %in% "unsigned char") {
+              warning(paste0(
+                "Moving had pixeltype unsigned char, cloning", 
+                ", see https://github.com/ANTsX/ANTsRCore/issues/120")
+              )
+              moving = ANTsRCore::antsImageClone(
+                moving, 
+                out_pixeltype = "float")
+            }
+            moving_to_fixed = antsApplyTransforms(
+              fixed = fixed, 
+              moving = moving,
+              transformlist = transformlist,
+              ...)
             if (!is.antsImage(moving_to_fixed)) {
               warning("Output is not an antsImage object, results may be wrong")
             }
@@ -103,4 +114,4 @@ setMethod("ants_apply_transforms",
               gc();
             }
             return(moving_to_fixed)            
-})
+          })
