@@ -97,7 +97,9 @@ setMethod("ortho2",
             ...) {
             
             if (is.antsImage(x)) {
-              pdim = c(1, antsGetSpacing(x))
+              if (is.null(pdim)) {
+                pdim = c(1, antsGetSpacing(x))
+              }
               x = as.array(x)
             }
             if (!is.null(y)) {
@@ -167,7 +169,7 @@ setMethod(
       }
     }
     neurobase::ortho2(x = x, y = y, 
-           pdim = pdim, 
-           ... = ...)
+                      pdim = pdim, 
+                      ... = ...)
   }
 )
