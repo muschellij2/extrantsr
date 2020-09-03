@@ -11,7 +11,8 @@ ants2oro(
   ...,
   cleanup = TRUE,
   drop_dim = TRUE,
-  dtype = TRUE
+  dtype = TRUE,
+  reset_slope = FALSE
 )
 }
 \arguments{
@@ -31,6 +32,9 @@ reference is set and \code{img} is \code{antsImage}}
 Passed to \code{\link{readnii}}}
 
 \item{dtype}{Should \code{\link{datatyper}} be run after reading?
+Passed to \code{\link{readnii}}}
+
+\item{reset_slope}{Reset slope/intercept of image
 Passed to \code{\link{readnii}}}
 }
 \value{
