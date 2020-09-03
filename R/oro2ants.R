@@ -11,6 +11,10 @@
 #' @param cleanup temporary files are deleted after they are read in
 #' @param drop_dim Should \code{\link{drop_img_dim}} be run after reading? 
 #' Passed to \code{\link{readnii}}
+#' @param dtype Should \code{\link{datatyper}} be run after reading?
+#' Passed to \code{\link{readnii}}
+#' @param reset_slope Reset slope/intercept of image
+#' Passed to \code{\link{readnii}}
 #' @export
 #' @return Object of class \code{nifti}.
 #' @importFrom neurobase copyNIfTIHeader readnii mask_img check_outfile writenii datatyper
@@ -22,7 +26,9 @@ ants2oro <- function(img,
                      reference = NULL,
                      ...,
                      cleanup = TRUE,
-                     drop_dim = TRUE){
+                     drop_dim = TRUE,
+                     dtype = TRUE,
+                     reset_slope = FALSE){
   if ( is.antsImage(img) | is.character(img) ) {
     if (is.antsImage(img) & !is.null(reference)) {
       #######
@@ -51,7 +57,8 @@ ants2oro <- function(img,
     }
 
     fname = tempants(img)
-    img = readnii(fname, reorient = reorient, drop_dim = drop_dim)
+    img = readnii(fname, reorient = reorient, drop_dim = drop_dim, 
+                  dtype = dtype, reset_slope = reset_slope)
     if (remove & cleanup & file.exists(fname)) {
       file.remove(fname)
     }

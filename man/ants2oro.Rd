@@ -10,7 +10,8 @@ ants2oro(
   reference = NULL,
   ...,
   cleanup = TRUE,
-  drop_dim = TRUE
+  drop_dim = TRUE,
+  dtype = TRUE
 )
 }
 \arguments{
@@ -27,6 +28,9 @@ reference is set and \code{img} is \code{antsImage}}
 \item{cleanup}{temporary files are deleted after they are read in}
 
 \item{drop_dim}{Should \code{\link{drop_img_dim}} be run after reading? 
+Passed to \code{\link{readnii}}}
+
+\item{dtype}{Should \code{\link{datatyper}} be run after reading?
 Passed to \code{\link{readnii}}}
 }
 \value{
