@@ -22,7 +22,8 @@ local_quantile_img = function(
     mask = mask, 
     radius = radius,
     verbose = verbose,
-    get.gradient = FALSE)
+    get.gradient = FALSE,
+    run_gc = FALSE)
   mask = ants2oro(grads$mask)
   
   index = which(rowAlls(grads$offsets == 0))
