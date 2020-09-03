@@ -226,7 +226,6 @@ registration <- function(
     }
     rm(list = "bet_mask")
     gc()
-    gc()
     
   }
   
@@ -271,7 +270,7 @@ registration <- function(
   antsRegOut.nonlin$warpedmovout = NULL
   antsRegOut.nonlin$warpedfixout = NULL
   ######################################################
-  for (i in 1:10) {
+  for (i in 1:5) {
     gc()
   }
   # fixing multi-naming convention problem
@@ -341,8 +340,7 @@ registration <- function(
       antsImageWrite(tmp_img, output)
       rm(list = c("tmp_img", "atlas"))
       gc()
-      gc()
-      
+
     }
   }
   
@@ -384,8 +382,7 @@ registration <- function(
   }  
   rm(list = "t1.to.template")
   gc()
-  gc()
-  
+
   if (have.other) {
     if (verbose) {
       message("# Writing out other.files\n")
@@ -399,8 +396,7 @@ registration <- function(
     }
     rm(list = c("reg.oimgs", "N3.oimgs"))
     gc()
-    gc()
-    
+
   }
   
   if (remove.warp) {
@@ -435,10 +431,9 @@ registration <- function(
   L$other.outfiles = other.outfiles
   rm(list = c("t1", "t1N3", "template"))
   gc()
-  gc()
   
   rm(list = "antsRegOut.nonlin")
-  for (i in 1:10) {
+  for (i in 1:5) {
     gc()
   }
   return(L)

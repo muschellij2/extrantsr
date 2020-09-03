@@ -2,7 +2,9 @@
   fixed, 
   transformlist = NULL, 
   moving = NULL, 
-  typeofTransform = "SyN", ...) {
+  typeofTransform = "SyN", 
+  interpolator = "Linear",
+  ...) {
   fixed = check_ants(fixed)
   if (is.null(transformlist) && is.null(moving)) {
     stop("transformlist or moving must be specified")
@@ -26,7 +28,7 @@
       template.file = fixed, 
       typeofTransform = typeofTransform,
       outfile = outfile,
-      interpolator = "Linear", retimg = FALSE, correct = FALSE,
+      interpolator = interpolator, retimg = FALSE, correct = FALSE,
       skull_strip = FALSE, remove.warp = FALSE,
       ...)
     transformlist = reg$fwdtransforms[1]
@@ -43,7 +45,9 @@
   moving = NULL, 
   typeofTransform = "SyN", 
   doLog = FALSE, 
-  geom = FALSE, ...) {
+  geom = FALSE, 
+  interpolator = "Linear",
+  ...) {
   L = .get_transforms(fixed = fixed, 
                       transformlist = transformlist, 
                       moving = moving, 
@@ -89,9 +93,11 @@
 #' mi<-antsImageRead( getANTsRData("r64") ,2)
 #' fi<-resampleImage(fi,c(128,128),1,0)
 #' mi<-resampleImage(mi,c(128,128),1,0)
+#' jac = jacobian_image(fixed = fi, moving = mi, verbose = FALSE)
+#' \dontrun{
 #' mytx<-antsRegistration(fixed=fi , moving=mi, typeofTransform = c("SyN") )
 #' jac<-createJacobianDeterminantImage(fi,mytx$fwdtransforms[[1]],1)
-#' jac = jacobian_image(fixed = fi, moving = mi, verbose = FALSE)
+#' }
 jacobian_image = function(
   fixed, 
   transformlist = NULL, 
