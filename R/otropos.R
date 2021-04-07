@@ -116,7 +116,7 @@ otropos2 <- function(
              "]")
   L = list(...)
   nL = names(L)
-  if (c("a", "m", "x") %in% nL) {
+  if (any(c("a", "m", "x") %in% nL)) {
     stop("cannot specify a, m, or x in otropos2")
   }
   args = list(a = img, m = m, ...)
