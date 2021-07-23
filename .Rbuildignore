@@ -9,3 +9,5 @@ mid_sagittal_align\.R
 ^appveyor\.yml$
 DESCRIPTION\ copy
 ^docs$
+^\.github$
+^README\.Rmd$
