@@ -6,10 +6,6 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/muschellij2/extrantsr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/muschellij2/extrantsr/actions/workflows/R-CMD-check.yaml)
-[![Travis-CI Build
-Status](https://travis-ci.org/muschellij2/extrantsr.svg?branch=master)](https://travis-ci.org/muschellij2/extrantsr)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/extrantsr?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/extrantsr)
 [![codecov](https://codecov.io/gh/muschellij2/extrantsr/graph/badge.svg?token=8Ty7yqeE4V)](https://codecov.io/gh/muschellij2/extrantsr)
 <!-- badges: end -->
 
