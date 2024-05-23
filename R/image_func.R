@@ -194,7 +194,8 @@ stat_img = function(
 
     if (!char_func %in% c("pct", "staple_prob", "staple_label") || force_vector) {
       if (length(res_img) != nrow(mat)) {
-        stop(paste0("Function used did not result in a vector-",
+        stop(paste0("Function: ", char_func, 
+                    " used did not result in a vector-",
                     "may need to pass more arguments, ",
                     "such as quantile needs to pass ONE prob"))
       }
@@ -202,7 +203,7 @@ stat_img = function(
       if (finite) {
         res_img = neurobase::finite_img(res_img, replace = 0)
       }
-      res_img = datatyper(res_img)
+      res_img = datatyper(res_img, warn = FALSE)
       
     } else {
       num_imgs = ncol(res_img)
@@ -218,7 +219,7 @@ stat_img = function(
         if (finite) {
           x = neurobase::finite_img(x, replace = 0)
         }
-        x = datatyper(x)
+        x = datatyper(x, warn = FALSE)
         res_list[[icol]] = x
         rm(list = "x");
       }

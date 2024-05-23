@@ -17,6 +17,12 @@
 #' Passed to \code{\link{readnii}}
 #' @export
 #' @return Object of class \code{nifti}.
+#' @examples
+#' library(ANTsR)
+#' arr = array(rnorm(20^3), dim = rep(20, 3))
+#' aimg = as.antsImage(arr)
+#' ants2oro(aimg)
+#' 
 ants2oro <- function(img, 
                      reorient = FALSE,
                      reference = NULL,
@@ -79,6 +85,10 @@ ants2oro <- function(img,
 #' @param ... arguments passed to \code{\link{checkimg}}
 #' @export
 #' @return Object of class \code{antsImage}
+#' @examples
+#' arr = array(rnorm(20^3), dim = rep(20, 3))
+#' img = oro.nifti::nifti(arr)
+#' oro2ants(img)
 oro2ants <- function(img, reference = NULL,
                      cleanup = TRUE,
                      ...){

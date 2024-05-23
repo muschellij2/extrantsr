@@ -34,7 +34,14 @@ Remotes: muschellij2/neurobase, muschellij2/fslr, bjw34032/oro.nifti,
         muschellij2/kirby21.t1, ANTsX/ANTsR, 
         muschellij2/stapler
 SystemRequirements: FSL
-Suggests: knitr, rmarkdown, kirby21.t1, covr, neuroim
+Suggests: 
+    knitr,
+    rmarkdown,
+    kirby21.t1,
+    covr,
+    neuroim,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Encoding: UTF-8
 FSL: true
+Config/testthat/edition: 3

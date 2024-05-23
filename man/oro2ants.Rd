@@ -23,3 +23,8 @@ Object of class \code{antsImage}
 NIfTI data can be converted between \code{nifti} 
 (from the oro.nifti package) and \code{antsImage} objects.
 }
+\examples{
+arr = array(rnorm(20^3), dim = rep(20, 3))
+img = oro.nifti::nifti(arr)
+oro2ants(img)
+}

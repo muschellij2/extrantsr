@@ -44,3 +44,10 @@ Object of class \code{nifti}.
 NIfTI data can be converted between \code{antsImage} 
 (from the ANTsR package) and nifti S4 objects.
 }
+\examples{
+library(ANTsR)
+arr = array(rnorm(20^3), dim = rep(20, 3))
+aimg = as.antsImage(arr)
+ants2oro(aimg)
+
+}
