@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/muschellij2/extrantsr/workflows/R-CMD-check/badge.svg)](https://github.com/muschellij2/extrantsr/actions)
+[![R-CMD-check](https://github.com/muschellij2/extrantsr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/muschellij2/extrantsr/actions/workflows/R-CMD-check.yaml)
 [![Travis-CI Build
 Status](https://travis-ci.org/muschellij2/extrantsr.svg?branch=master)](https://travis-ci.org/muschellij2/extrantsr)
 [![AppVeyor Build
