@@ -10,8 +10,7 @@
 Status](https://travis-ci.org/muschellij2/extrantsr.svg?branch=master)](https://travis-ci.org/muschellij2/extrantsr)
 [![AppVeyor Build
 Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/extrantsr?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/extrantsr)
-[![Coverage
-Status](https://img.shields.io/coveralls/muschellij2/extrantsr.svg)](https://coveralls.io/r/muschellij2/extrantsr?branch=master)
+[![codecov](https://codecov.io/gh/muschellij2/extrantsr/graph/badge.svg?token=8Ty7yqeE4V)](https://codecov.io/gh/muschellij2/extrantsr)
 <!-- badges: end -->
 
 The goal of extrantsr is to build on the `ANTsRCore` Package.
