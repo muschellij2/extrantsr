@@ -7,14 +7,13 @@
 #' @param object is an object of class \code{antsImage} or \code{nifti}.
 #' @param value is the value to assign to the slot.  
 #' 
-#' @importFrom ANTsRCore origin "origin<-"
 #' @export
 setGeneric("origin", getGeneric("origin", package = "oro.nifti"))
 
 #' @rdname accessor-methods
 #' @export
 setMethod("origin", "antsImage", function(object) { 
-  ANTsRCore::origin(object)
+  ANTsR::origin(object)
 })
 
 
@@ -27,7 +26,7 @@ setGeneric("origin<-", getGeneric("origin<-", package = "oro.nifti"))
 setMethod("origin<-", 
           signature(object = "antsImage"), 
           function(object, value) { 
-            object = ANTsRCore::`origin<-`(object, value)
+            object = ANTsR::`origin<-`(object, value)
             return(object)
           })
 

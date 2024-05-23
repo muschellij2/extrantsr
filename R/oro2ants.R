@@ -17,10 +17,6 @@
 #' Passed to \code{\link{readnii}}
 #' @export
 #' @return Object of class \code{nifti}.
-#' @importFrom neurobase copyNIfTIHeader readnii mask_img check_outfile writenii datatyper
-#' @importFrom neurobase zscore_img same_dims robust_window remake_img xyz zero_pad
-#' @importFrom neurobase check_mask_fail niftiarr nii.stub
-#' @importFrom oro.nifti is.nifti
 ants2oro <- function(img, 
                      reorient = FALSE,
                      reference = NULL,
@@ -82,7 +78,6 @@ ants2oro <- function(img,
 #' @param cleanup temporary files are deleted after they are read in
 #' @param ... arguments passed to \code{\link{checkimg}}
 #' @export
-#' @importFrom ANTsRCore antsCopyImageInfo as.antsImage antsImageRead
 #' @return Object of class \code{antsImage}
 oro2ants <- function(img, reference = NULL,
                      cleanup = TRUE,

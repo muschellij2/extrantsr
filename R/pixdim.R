@@ -11,7 +11,7 @@
 #' @return Vector of numeric values
 #' @export
 #' @examples 
-#' library(ANTsRCore)
+#' library(ANTsR)
 #' fn <- getANTsRData( "r16" )
 #' fi <- antsImageRead( fn )
 #' pixdim(fi)

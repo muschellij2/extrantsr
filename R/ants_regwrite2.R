@@ -51,10 +51,8 @@
 #' but \code{reproducible} must be \code{FALSE}.  
 #' @param ... arguments to \code{\link{antsRegistration}}
 #'
-#' @importFrom fslr fslbet fsldir get.imgext
 #' @export
 #' @return List of the output filenames and transformations
-#' @importFrom ANTsRCore is.antsImage antsRegistration antsApplyTransforms
 registration <- function(
   filename,
   skull_strip = FALSE,
@@ -146,7 +144,7 @@ registration <- function(
              recursive = TRUE)
   # }
   
-  if (ANTsRCore::is.antsImage(filename)) {
+  if (is.antsImage(filename)) {
     t1 = antsImageClone(filename)
   } else {
     filename = checkimg(filename)
@@ -159,7 +157,7 @@ registration <- function(
     if (verbose) {
       message("# Skull Stripping\n")
     }
-    if (ANTsRCore::is.antsImage(filename)) {
+    if (is.antsImage(filename)) {
       filename = checkimg(filename)
     }
     ext = get.imgext()
@@ -230,7 +228,7 @@ registration <- function(
   }
   
   ##
-  if (ANTsRCore::is.antsImage(template.file)) {
+  if (is.antsImage(template.file)) {
     template = antsImageClone(template.file)
   } else {
     template.file = checkimg(template.file)
@@ -252,7 +250,7 @@ registration <- function(
   names(out_trans) = n_trans
   
   if ( !all(file.exists(out_trans)) || force_registration) {
-    antsRegOut.nonlin <- ANTsRCore::antsRegistration(
+    antsRegOut.nonlin <- antsRegistration(
       fixed = template,
       moving = t1N3,
       typeofTransform = typeofTransform,
@@ -302,7 +300,7 @@ registration <- function(
     #     message("# Moving is \n")
     #     print(t1N3)
   }
-  t1.to.template <- ANTsRCore::antsApplyTransforms(
+  t1.to.template <- antsApplyTransforms(
     fixed = template,
     moving = t1N3,
     transformlist = antsRegOut.nonlin$fwdtransforms,
@@ -330,7 +328,7 @@ registration <- function(
       # 				output = paste0(output, ".nii.gz")
       # 			}
       
-      tmp_img = ANTsRCore::antsApplyTransforms(
+      tmp_img = antsApplyTransforms(
         fixed = t1N3,
         moving = atlas,
         transformlist = transformlist,
@@ -352,7 +350,7 @@ registration <- function(
     }
     if (is.null(other.init)) {
       reg.oimgs = lapply(N3.oimgs, function(x) {
-        ANTsRCore::antsApplyTransforms(
+        antsApplyTransforms(
           fixed = template,
           moving = x,
           transformlist = antsRegOut.nonlin$fwdtransforms,
@@ -362,7 +360,7 @@ registration <- function(
       })
     } else {
       reg.oimgs = mapply(function(x, y) {
-        ANTsRCore::antsApplyTransforms(
+        antsApplyTransforms(
           fixed = template,
           moving = x,
           transformlist = c(antsRegOut.nonlin$fwdtransforms, y),

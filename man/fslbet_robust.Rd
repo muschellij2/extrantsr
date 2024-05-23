@@ -20,8 +20,7 @@ fslbet_robust(
   robust.mask = FALSE,
   rbm.voxels = 7,
   template.file = file.path(fsldir(), "data/standard", "MNI152_T1_1mm_brain.nii.gz"),
-  template.mask = file.path(fsldir(), "data/standard",
-    "MNI152_T1_1mm_brain_mask.nii.gz"),
+  template.mask = file.path(fsldir(), "data/standard", "MNI152_T1_1mm_brain_mask.nii.gz"),
   verbose = TRUE,
   ...
 )

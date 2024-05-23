@@ -27,7 +27,7 @@ setMethod("applyEmptyImageDimensions", "antsImage",
             arr = as.array(img)
             res = neurobase::applyEmptyImageDimensions(
               img = arr, inds = inds, ...)
-            res = ANTsRCore::as.antsImage(res)
-            res = ANTsRCore::antsCopyImageInfo(reference = img, target = res)
+            res = as.antsImage(res)
+            res = antsCopyImageInfo(reference = img, target = res)
             return(res)
           })

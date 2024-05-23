@@ -9,7 +9,6 @@
 #' @param outfile output filename with extension
 #' @param ... arguments to be passed to \code{\link{antsImageRead}}
 #' @export
-#' @importFrom ANTsRCore antsImageRead antsImageWrite
 #' @return Output from \code{\link{antsImageWrite}} 
 c3d <- function(
   infile, # input filename

@@ -6,7 +6,6 @@
 #' @param ... arguments to \code{\link{getMask}} 
 #' @export
 #' @return Object of class \code{nifti}
-#' @importFrom ANTsRCore getMask
 oMask = function(img, ...){
   mask = get_mask(img = img, ...)
   mask = ants2oro(mask)

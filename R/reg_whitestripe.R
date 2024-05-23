@@ -38,10 +38,6 @@
 #' \code{\link{whitestripe_hybrid}}
 #' @export
 #' @return List of nifti objects or character filenames
-#' @importFrom fslr fsldir fslmask
-#' @importFrom WhiteStripe whitestripe whitestripe_hybrid whitestripe_norm
-#' @importFrom ANTsRCore antsImageRead antsImageClone
-#' @importFrom oro.nifti cal_img writeNIfTI
 reg_whitestripe <- function(
   t1 =NULL, t2 = NULL, 
   register = TRUE,
@@ -108,8 +104,8 @@ reg_whitestripe <- function(
     if (nullmask.outfile){
       mask.outfile = tempfile(fileext = ".nii.gz")
     }
-    mm = ANTsRCore::antsImageRead(filename = mask, dimension = 3)
-    maskants = ANTsRCore::antsImageClone(mm)
+    mm = antsImageRead(filename = mask, dimension = 3)
+    maskants = antsImageClone(mm)
     ##################
     # Must have extension
     ##################
@@ -146,7 +142,7 @@ reg_whitestripe <- function(
       }
     }
     t1.outfile = path.expand(t1.outfile)
-    t1ants = ANTsRCore::antsImageRead(filename = t1, dimension = 3)
+    t1ants = antsImageRead(filename = t1, dimension = 3)
     ##################
     # Must have extension
     ##################
@@ -176,7 +172,7 @@ reg_whitestripe <- function(
       stop("T2 outfile needs te specified if T2 specified")
     }
     t2.outfile = path.expand(t2.outfile)
-    t2ants = ANTsRCore::antsImageRead(filename = t2, dimension = 3)    
+    t2ants = antsImageRead(filename = t2, dimension = 3)    
     ##################
     # Must have extension
     ##################
@@ -211,7 +207,7 @@ reg_whitestripe <- function(
     }    
     other.files = sapply(other.files, checkimg)    
     other.ants = lapply(other.files, function(x){
-      ANTsRCore::antsImageRead(filename = x, dimension = 3)
+      antsImageRead(filename = x, dimension = 3)
     }) 
   }
   

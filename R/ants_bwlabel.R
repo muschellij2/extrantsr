@@ -6,7 +6,6 @@
 #' @param binary (logical) Should the result be binary or numbered with cluster.
 #' @return \code{nifti} object
 #' @export
-#' @importFrom ANTsRCore labelClusters
 ants_bwlabel = function(img, k = 1, binary = TRUE) {
   
   labs = label_clusters(
@@ -45,7 +44,7 @@ ants_bwlabel = function(img, k = 1, binary = TRUE) {
 #' @export
 label_clusters = function(img, ..., retfile = FALSE) {
   img = check_ants(img)
-  labs = ANTsRCore::labelClusters(
+  labs = labelClusters(
     imagein = img,
     ...)
   if (!retfile) {

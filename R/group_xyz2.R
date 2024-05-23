@@ -5,10 +5,9 @@
 #' See \code{\link{ants_bwlabel}}
 #' @return Matrix of 3 columns of dimension indices.
 #' @export 
-#' @importFrom ANTsRCore labelClusters
 group_xyz2 = function(img, k = 1) {
   img = check_ants(img)
-  labs = ANTsRCore::labelClusters(
+  labs = labelClusters(
     img,
     minClusterSize = 1,
     fullyConnected = TRUE)

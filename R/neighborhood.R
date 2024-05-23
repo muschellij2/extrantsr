@@ -18,8 +18,6 @@
 #' @return List similar to the output of 
 #' \code{\link{getNeighborhoodInMask}}
 #' @export
-#' @importFrom ANTsRCore antsCopyImageInfo getNeighborhoodInMask
-#' @importFrom oro.nifti voxdim
 neighborhood = function(img, 
                         mask = NULL, 
                         radius = rep(1, 3), 
@@ -39,8 +37,8 @@ neighborhood = function(img,
   if (is.null(mask)) {
     mask = array(1, 
               dim = img.dim)  
-    mask = ANTsRCore::as.antsImage(mask)
-    mask = ANTsRCore::antsCopyImageInfo(
+    mask = ANTsR::as.antsImage(mask)
+    mask = ANTsR::antsCopyImageInfo(
       target = mask, 
       reference = img)    
   }
@@ -66,7 +64,7 @@ neighborhood = function(img,
   if (verbose) {
     message("Running getNeighborhood")
   } 
-  grads = do.call(ANTsRCore::getNeighborhoodInMask, dots)
+  grads = do.call(ANTsR::getNeighborhoodInMask, dots)
   # grads = getNeighborhoodInMask(
   #   image = img, 
   #   mask = mask, 
@@ -97,7 +95,7 @@ neighborhood = function(img,
     if (verbose > 1) {
       print(dots)
     } 
-    ggrads = do.call(ANTsRCore::getNeighborhoodInMask, dots)
+    ggrads = do.call(ANTsR::getNeighborhoodInMask, dots)
     
     ggrads$gradients = ggrads$gradients[, order_ind]
     grads$gradients = ggrads$gradients

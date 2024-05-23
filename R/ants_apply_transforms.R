@@ -88,13 +88,13 @@ setMethod("ants_apply_transforms",
             }
             tclasses = sapply(transformlist, class)
             stopifnot(all(tclasses %in% "character"))
-            ptype = ANTsRCore::pixeltype(moving)
+            ptype = pixeltype(moving)
             if (ptype %in% "unsigned char") {
               warning(paste0(
                 "Moving had pixeltype unsigned char, cloning", 
                 ", see https://github.com/ANTsX/ANTsRCore/issues/120")
               )
-              moving = ANTsRCore::antsImageClone(
+              moving = antsImageClone(
                 moving, 
                 out_pixeltype = "float")
             }

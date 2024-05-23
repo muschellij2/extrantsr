@@ -8,7 +8,6 @@
 #' @param ... Additional arguments passed to 
 #' \code{\link{antsImageMutualInformation}}
 #' @export
-#' @importFrom ANTsRCore antsImageMutualInformation
 #' @examples
 #' library(ANTsR)
 #' library(extrantsr)
@@ -19,5 +18,5 @@
 mutual_information <- function(image1, image2, ...){
   image1 = check_ants(image1)
   image2 = check_ants(image2)
-  ANTsRCore::antsImageMutualInformation(image1, image2, ...)
+  ANTsR::antsImageMutualInformation(image1, image2, ...)
 }

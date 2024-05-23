@@ -20,7 +20,7 @@ neighborhood_index = function(
   arr = array(seq(nvoxels), dim = dimg)
   rm(list = c("nvoxels"));
   
-  run_img = ANTsRCore::as.antsImage(arr, reference = img)
+  run_img = as.antsImage(arr, reference = img)
   rm(list = "arr"); gc();
   
   res = neighborhood(

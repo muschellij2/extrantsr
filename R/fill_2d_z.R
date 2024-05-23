@@ -10,7 +10,6 @@
 #' allows for the function to perform erosion/dilation only with zero-padding.
 #' @return Filled object with same class as \code{img}
 #' @export
-#' @importFrom ANTsRCore "%>%"
 fill_2d_z <- function(
   img, 
   fill_size = 7,

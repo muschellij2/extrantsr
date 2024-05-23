@@ -32,7 +32,6 @@
 #' x2 = resample_to_target(x, res)
 #' pixdim(x2)[2:4]
 #' stopifnot(all(pixdim(x2)[2:4] == new_pixdim))
-#' @importFrom ANTsRCore resampleImage 
 setGeneric("resample_to_target", function(
   img, 
   target, 
@@ -183,7 +182,7 @@ setMethod(
   
   interpolator = match.arg(interpolator)
   interpType = interpolator
-  res_img = ANTsRCore::resampleImageToTarget(
+  res_img = resampleImageToTarget(
     image = img, 
     target = target,
     interpType = interpType,

@@ -28,7 +28,6 @@
 #' x = nifti(array(rnorm(n^3*10), dim = c(n, n, n)))
 #' res = resample_image(x, parameters = c(0.5, 0.5, 0.5))
 #' res
-#' @importFrom ANTsRCore resampleImage
 setGeneric("resample_image", function(
   img, parameters, 
   parameter_type = c("mm", "voxels"), 
@@ -132,7 +131,7 @@ setMethod(
                "gaussian", "windowedsinc", 
                "bspline"))
   interpType = as.integer(interpolator) - 1
-  res_img = ANTsRCore::resampleImage(
+  res_img = resampleImage(
     image = img, 
     resampleParams = parameters,
     useVoxels = useVoxels,

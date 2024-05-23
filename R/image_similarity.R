@@ -12,10 +12,9 @@
 #'
 #' @return A numeric value
 #' @export
-#' @importFrom ANTsRCore imageSimilarity
 #'
 #' @examples
-#' library(ANTsRCore)
+#' library(ANTsR)
 #' library(extrantsr)
 #' x =  getANTsRData( 'r16' )
 #' y =  getANTsRData( 'r30' )
@@ -58,7 +57,7 @@ image_similarity = function(
     moving.mask = NA
   }
 
-  res = ANTsRCore::imageSimilarity(
+  res = imageSimilarity(
     fixed = fixed, moving = moving,
     fixed.mask = fixed.mask, moving.mask = moving.mask,
     ...)

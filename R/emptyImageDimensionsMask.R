@@ -14,7 +14,7 @@
 #' @return Object of class \code{nifti}, with binary values
 #' 
 #' @note \code{empty_dim_mask} is a shorthand for \code{emptyImageDimensionsMask}
-#' with all the same arguments.qQac vgfrew
+#' with all the same arguments.
 #' 
 #' @seealso \code{\link{getEmptyImageDimensions}}  
 #' @export
@@ -29,7 +29,7 @@ setMethod("emptyImageDimensionsMask", "antsImage",
               ..., 
               reorient = reorient
               )
-            res = ANTsRCore::as.antsImage(res)
-            res = ANTsRCore::antsCopyImageInfo(reference = img, target = res)
+            res = as.antsImage(res)
+            res = antsCopyImageInfo(reference = img, target = res)
             return(res)
           })

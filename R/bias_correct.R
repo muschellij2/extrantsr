@@ -41,7 +41,7 @@ bias_correct = function(
     verbose = verbose,
     ...)
   
-  ANTsRCore::antsImageWrite(res, filename = outfile)
+  antsImageWrite(res, filename = outfile)
   rm(list = c("res")); 
   for (i in 1:10) {
     gc()
@@ -58,7 +58,6 @@ bias_correct = function(
 
 #' @rdname bias_correct
 #' @export
-#' @importFrom ANTsRCore n3BiasFieldCorrection n4BiasFieldCorrection
 bias_correct_ants = function(
   file,
   correction = c("N3", "N4", "n3", "n4"),
@@ -72,7 +71,7 @@ bias_correct_ants = function(
   img = check_ants(file)
   
   if (correction %in% c("N3", "n3")) {
-    res = ANTsRCore::n3BiasFieldCorrection(
+    res = n3BiasFieldCorrection(
       img = img, 
       downsampleFactor = shrinkfactor, 
       ...)
@@ -82,7 +81,7 @@ bias_correct_ants = function(
       mask = check_ants(x = mask)
     } else {
       # NULL/NA problem
-      xxx = formals(ANTsRCore::n4BiasFieldCorrection)
+      xxx = formals(n4BiasFieldCorrection)
       if (!is.name(xxx$mask)) {
         mask = xxx$mask
       }
@@ -117,7 +116,7 @@ bias_correct_ants = function(
     args$verbose = verbose
     args$convergence = convergence
     
-    res = do.call(ANTsRCore::n4BiasFieldCorrection, args = args)
+    res = do.call(n4BiasFieldCorrection, args = args)
     # img = img, 
     # mask = mask, 
     # shrinkFactor = as.numeric(shrinkfactor), 

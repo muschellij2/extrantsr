@@ -10,7 +10,7 @@ zero_pad = function(img,
   if (is.antsImage(img)) {
     arr = as.array(img)
     res = neurobase::zero_pad(arr, ...)
-    res = ANTsRCore::as.antsImage(object = res, reference = img)
+    res = as.antsImage(object = res, reference = img)
   } else {
     res = neurobase::zero_pad(img, ...)
   }

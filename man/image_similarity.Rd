@@ -30,7 +30,7 @@ Compute Image Similarity Metrics
 Not all metrics are symmetric.
 }
 \examples{
-library(ANTsRCore)
+library(ANTsR)
 library(extrantsr)
 x =  getANTsRData( 'r16' )
 y =  getANTsRData( 'r30' )

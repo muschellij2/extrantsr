@@ -24,7 +24,7 @@ values
 }
 \note{
 \code{empty_dim_mask} is a shorthand for \code{emptyImageDimensionsMask}
-with all the same arguments.qQac vgfrew
+with all the same arguments.
 }
 \seealso{
 \code{\link{getEmptyImageDimensions}}
